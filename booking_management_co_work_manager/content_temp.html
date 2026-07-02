@@ -1,0 +1,283 @@
+﻿<div class="flex flex-col xl:flex-row gap-lg">
+    <!-- Left Column: Calendar View -->
+    <div class="flex-1 flex flex-col gap-lg min-w-0">
+        <!-- Header & Controls -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-2">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Room Bookings</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Manage and monitor meeting space utilization.</p>
+            </div>
+            <div class="flex items-center gap-sm bg-surface-container-low p-1 rounded-lg border border-outline-variant self-start sm:self-auto">
+                <button class="px-4 py-1.5 rounded-md font-label-md text-label-md bg-surface text-primary shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)]">Daily</button>
+                <button class="px-4 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors">Weekly</button>
+                <button class="px-4 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-primary hover:bg-surface-variant/50 transition-colors">Monthly</button>
+            </div>
+        </div>
+
+        <!-- Calendar Container -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col flex-1 overflow-hidden">
+            <!-- Toolbar -->
+            <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
+                <div class="flex items-center gap-md justify-between sm:justify-start">
+                    <button class="text-on-surface-variant hover:text-primary p-1 rounded hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold w-48 text-center">October 24, 2023</h3>
+                    <button class="text-on-surface-variant hover:text-primary p-1 rounded hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+                    <button class="font-label-sm text-label-sm border border-outline-variant px-3 py-1 rounded hover:bg-surface-container-low transition-colors ml-2 hidden sm:block">Today</button>
+                </div>
+                <div class="flex items-center gap-sm w-full md:w-auto">
+                    <div class="relative flex-1 md:flex-initial">
+                        <span class="material-symbols-outlined absolute left-2 top-1.5 text-outline text-[18px]">search</span>
+                        <input class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search rooms..." type="text"/>
+                    </div>
+                    <button class="text-on-surface-variant hover:text-primary p-1.5 rounded border border-outline-variant hover:bg-surface-container-low transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="flex overflow-x-auto relative min-h-[500px]">
+                <!-- Rooms Column (Y-Axis) -->
+                <div class="w-32 sm:w-48 border-r border-outline-variant bg-surface-bright flex flex-col z-10 shadow-[2px_0_4px_-1px_rgba(0,0,0,0.05)] sticky left-0">
+                    <div class="h-12 border-b border-outline-variant flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider bg-surface-container-lowest">
+                        Rooms
+                    </div>
+                    <div class="flex-1">
+                        <div class="h-20 border-b border-outline-variant px-sm py-2 flex flex-col justify-center bg-surface-container-lowest">
+                            <span class="font-label-md text-label-md text-on-surface truncate">Boardroom A</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 12 â€¢ Screen</span>
+                        </div>
+                        <div class="h-20 border-b border-outline-variant px-sm py-2 flex flex-col justify-center bg-surface-container-lowest">
+                            <span class="font-label-md text-label-md text-on-surface truncate">Huddle 1</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 4 â€¢ Whiteboard</span>
+                        </div>
+                        <div class="h-20 border-b border-outline-variant px-sm py-2 flex flex-col justify-center bg-surface-container-lowest">
+                            <span class="font-label-md text-label-md text-on-surface truncate">Workshop C</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 25 â€¢ A/V</span>
+                        </div>
+                        <div class="h-20 border-b border-outline-variant px-sm py-2 flex flex-col justify-center bg-surface-container-lowest">
+                            <span class="font-label-md text-label-md text-on-surface truncate">Focus Pod</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 1 â€¢ None</span>
+                        </div>
+                        <div class="h-20 border-b border-outline-variant px-sm py-2 flex flex-col justify-center bg-surface-container-lowest">
+                            <span class="font-label-md text-label-md text-on-surface truncate">Studio B</span>
+                            <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 8 â€¢ Mic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Grid (X-Axis & Plot Area) -->
+                <div class="flex-1 relative bg-surface-bright min-w-[800px]">
+                    <!-- Time Headers -->
+                    <div class="flex border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-10 w-full">
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">9:00 AM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">10:00 AM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">11:00 AM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">12:00 PM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">1:00 PM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">2:00 PM</div>
+                        <div class="w-32 h-12 flex-shrink-0 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">3:00 PM</div>
+                    </div>
+
+                    <!-- Grid Lines & Blocks -->
+                    <div class="relative w-full h-[400px]">
+                        <!-- Background Grid -->
+                        <div class="absolute inset-0 flex flex-col pointer-events-none">
+                            <div class="h-20 border-b border-outline-variant/30 flex w-full">
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                            </div>
+                            <div class="h-20 border-b border-outline-variant/30 flex w-full">
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                            </div>
+                            <div class="h-20 border-b border-outline-variant/30 flex w-full bg-surface-container-low/30">
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                            </div>
+                            <div class="h-20 border-b border-outline-variant/30 flex w-full">
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                            </div>
+                            <div class="h-20 border-b border-outline-variant/30 flex w-full">
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Blocks -->
+                        <!-- Boardroom A: 9:30 - 11:30 (starts at 64px from left, width 256px) -->
+                        <div class="absolute top-2 left-[64px] w-[256px] h-16 bg-primary/10 border border-primary/30 rounded-md p-2 flex flex-col justify-center cursor-pointer hover:shadow-md transition-all group">
+                            <div class="flex justify-between items-start">
+                                <span class="font-label-sm text-label-sm text-primary font-bold truncate">Acme Corp Pitch</span>
+                                <div class="w-5 h-5 rounded-full border border-surface bg-surface-container-low flex items-center justify-center text-[10px] text-on-surface-variant font-bold shrink-0">JD</div>
+                            </div>
+                            <span class="font-body-sm text-[11px] text-on-surface-variant mt-1 group-hover:text-primary transition-colors">9:30 AM - 11:30 AM</span>
+                        </div>
+
+                        <!-- Huddle 1: 1:00 - 2:00 (starts at 512px from left, width 128px) -->
+                        <div class="absolute top-[88px] left-[512px] w-[128px] h-16 bg-secondary/10 border border-secondary/30 rounded-md p-2 flex flex-col justify-center cursor-pointer hover:shadow-md transition-all group">
+                            <span class="font-label-sm text-label-sm text-secondary font-bold truncate">Sync up</span>
+                            <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">1:00 PM - 2:00 PM</span>
+                        </div>
+
+                        <!-- Workshop C: 10:00 - 3:00 (starts at 128px from left, w-640px) -->
+                        <div class="absolute top-[168px] left-[128px] w-[640px] h-16 bg-tertiary/10 border border-tertiary/30 rounded-md p-2 flex flex-col justify-center cursor-pointer hover:shadow-md transition-all group">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+                                <span class="font-label-sm text-label-sm text-tertiary font-bold truncate">Design Sprint (Internal)</span>
+                            </div>
+                            <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">10:00 AM - 3:00 PM</span>
+                        </div>
+
+                        <!-- Current Time Indicator Line -->
+                        <div class="absolute top-0 bottom-0 left-[224px] w-px bg-error z-20 pointer-events-none">
+                            <div class="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full bg-error"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Pending Approvals & Actions -->
+    <div class="w-full xl:w-[320px] flex flex-col gap-lg shrink-0 mt-6 xl:mt-0">
+        <!-- Quick Actions Bento -->
+        <div class="grid grid-cols-2 gap-sm">
+            <button class="bg-primary text-on-primary rounded-xl p-md flex flex-col items-start gap-sm hover:bg-primary/90 transition-colors shadow-sm w-full min-h-[110px]" onclick="alert('Launch booking modal...')">
+                <span class="material-symbols-outlined bg-white/20 p-2 rounded-lg text-[24px]">add_circle</span>
+                <span class="font-label-md text-label-md text-left mt-2">New Booking</span>
+            </button>
+            <button class="bg-surface-container-lowest border border-outline-variant text-on-surface rounded-xl p-md flex flex-col items-start gap-sm hover:bg-surface-container-low hover:border-primary transition-all shadow-sm w-full min-h-[110px]">
+                <span class="material-symbols-outlined bg-surface-container p-2 rounded-lg text-primary text-[24px]">block</span>
+                <span class="font-label-md text-label-md text-left mt-2">Cancellations</span>
+            </button>
+        </div>
+
+        <!-- Pending Approvals List -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+            <div class="p-md border-b border-outline-variant bg-surface-bright flex justify-between items-center sticky top-0 z-10">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+                    Pending Approvals
+                    <span class="bg-error-container text-on-error-container font-label-sm text-[10px] px-2 py-0.5 rounded-full">3</span>
+                </h3>
+                <button class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors" aria-label="Options">
+                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto divide-y divide-outline-variant/50 p-2 max-h-[350px]">
+                <!-- Pending Item 1 -->
+                <div class="p-sm rounded-lg hover:bg-surface-container-low transition-colors group">
+                    <div class="flex justify-between items-start mb-1 gap-2">
+                        <span class="font-label-md text-label-md text-on-surface font-semibold truncate pr-2">External Workshop</span>
+                        <span class="font-label-sm text-[10px] text-error border border-error/30 bg-error/5 px-1.5 py-0.5 rounded uppercase tracking-wide shrink-0">Review</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[14px]">meeting_room</span>
+                        <span class="font-body-sm text-body-sm text-[12px]">Workshop C</span>
+                    </div>
+                    <div class="bg-surface-bright border border-outline-variant/50 rounded-md p-2 mb-3">
+                        <div class="flex items-center gap-2 text-on-surface-variant mb-1">
+                            <span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                            <span class="font-body-sm text-[12px]">Tomorrow, 1:00 PM</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[14px]">person</span>
+                            <span class="font-body-sm text-[12px]">Sarah Jenkins</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-primary/10 text-primary hover:bg-primary hover:text-on-primary border border-primary/20 py-1.5 rounded-md font-label-sm text-label-sm transition-colors flex justify-center items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">check</span> Approve
+                        </button>
+                        <button class="flex-1 bg-surface border border-outline-variant text-on-surface-variant hover:text-error hover:border-error hover:bg-error/5 py-1.5 rounded-md font-label-sm text-label-sm transition-colors flex justify-center items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">close</span> Deny
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pending Item 2 -->
+                <div class="p-sm rounded-lg hover:bg-surface-container-low transition-colors group mt-2">
+                    <div class="flex justify-between items-start mb-1 gap-2">
+                        <span class="font-label-md text-label-md text-on-surface font-semibold truncate pr-2">Board Meeting (Recurring)</span>
+                    </div>
+                    <div class="flex items-center gap-2 mb-3 text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[14px]">meeting_room</span>
+                        <span class="font-body-sm text-body-sm text-[12px]">Boardroom A</span>
+                    </div>
+                    <div class="bg-surface-bright border border-outline-variant/50 rounded-md p-2 mb-3">
+                        <div class="flex items-center gap-2 text-on-surface-variant mb-1">
+                            <span class="material-symbols-outlined text-[14px]">autorenew</span>
+                            <span class="font-body-sm text-[12px]">Fridays, 9:00 AM (x4)</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-on-surface-variant">
+                            <span class="material-symbols-outlined text-[14px]">person</span>
+                            <span class="font-body-sm text-[12px]">Mike Ross</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 bg-primary/10 text-primary hover:bg-primary hover:text-on-primary border border-primary/20 py-1.5 rounded-md font-label-sm text-label-sm transition-colors flex justify-center items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">check</span> Approve
+                        </button>
+                        <button class="flex-1 bg-surface border border-outline-variant text-on-surface-variant hover:text-error hover:border-error hover:bg-error/5 py-1.5 rounded-md font-label-sm text-label-sm transition-colors flex justify-center items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">close</span> Deny
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 border-t border-outline-variant bg-surface-bright text-center">
+                <button class="font-label-sm text-label-sm text-primary hover:underline">View All Requests</button>
+            </div>
+        </div>
+
+        <!-- Mini Utilization Chart Widget -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md shadow-sm">
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4">Today's Utilization</h4>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between font-label-sm text-[12px] mb-1">
+                        <span>Boardrooms</span>
+                        <span class="text-primary font-bold">85%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                        <div class="h-full bg-primary rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between font-label-sm text-[12px] mb-1">
+                        <span>Huddle Rooms</span>
+                        <span class="text-secondary font-bold">40%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+                        <div class="h-full bg-secondary rounded-full" style="width: 40%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

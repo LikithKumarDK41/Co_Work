@@ -1,0 +1,577 @@
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+    <div>
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-background">Reception Dashboard</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage today's visitors and arrivals efficiently.</p>
+    </div>
+    <div class="flex items-center gap-2 text-primary font-label-md text-label-md bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant self-start sm:self-auto">
+        <span class="material-symbols-outlined text-[18px]">today</span>
+        <span id="reception-current-date">Today</span>
+    </div>
+</div>
+
+<!-- Quick Actions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg mb-6 sm:mb-lg">
+    <!-- Check-In Button -->
+    <button class="group relative overflow-hidden rounded-xl p-6 bg-primary text-on-primary shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary-container flex flex-col items-center justify-center min-h-[160px]" onclick="openQuickWalkIn()">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <span class="material-symbols-outlined text-[48px] mb-4" style="font-variation-settings: 'FILL' 1;">login</span>
+        <span class="font-headline-sm text-headline-sm">Quick Check-In</span>
+        <span class="font-body-sm text-body-sm text-primary-fixed-dim mt-2 opacity-80 group-hover:opacity-100">Register new visitor</span>
+    </button>
+    <!-- Check-Out Button -->
+    <button class="group relative overflow-hidden rounded-xl p-6 bg-surface-container-lowest text-primary border border-outline-variant shadow-sm hover:shadow-md hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center min-h-[160px]" onclick="openQuickScanOut()">
+        <div class="absolute inset-0 bg-surface-container-low opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <span class="material-symbols-outlined text-[48px] mb-4 relative z-10" style="font-variation-settings: 'FILL' 1;">logout</span>
+        <span class="font-headline-sm text-headline-sm relative z-10">Quick Check-Out</span>
+        <span class="font-body-sm text-body-sm text-on-surface-variant mt-2 relative z-10 opacity-80 group-hover:opacity-100">Record departure</span>
+    </button>
+</div>
+
+<!-- Main Content Layout -->
+<div class="flex flex-col gap-lg w-full">
+    <!-- Today's Visitors List -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-6 flex flex-col shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
+            <h3 class="font-headline-sm text-headline-sm text-on-background flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">groups</span>
+                Today's Visitors
+            </h3>
+            <div class="flex flex-wrap gap-2">
+                <button id="reception-tab-all" onclick="filterReceptionVisitors('all')" class="reception-tab font-label-sm text-label-sm px-3 py-1 bg-primary/10 text-primary rounded-full border border-primary/20 transition-colors">All (6)</button>
+                <button id="reception-tab-expected" onclick="filterReceptionVisitors('expected')" class="reception-tab font-label-sm text-label-sm px-3 py-1 bg-surface-container-lowest text-on-surface-variant rounded-full border border-outline-variant hover:bg-surface-variant transition-colors">Expected (3)</button>
+                <button id="reception-tab-checked-in" onclick="filterReceptionVisitors('checked-in')" class="reception-tab font-label-sm text-label-sm px-3 py-1 bg-surface-container-lowest text-on-surface-variant rounded-full border border-outline-variant hover:bg-surface-variant transition-colors">Checked In (2)</button>
+                <button id="reception-tab-checked-out" onclick="filterReceptionVisitors('checked-out')" class="reception-tab font-label-sm text-label-sm px-3 py-1 bg-surface-container-lowest text-on-surface-variant rounded-full border border-outline-variant hover:bg-surface-variant transition-colors">Checked Out (1)</button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-outline-variant bg-surface-container-low/50 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+                        <th class="py-4 px-4 font-semibold">Visitor Name</th>
+                        <th class="py-4 px-4 font-semibold">Host</th>
+                        <th class="py-4 px-4 font-semibold">Time</th>
+                        <th class="py-4 px-4 font-semibold">Status</th>
+                        <th class="py-4 px-4 text-right font-semibold">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-md text-body-md divide-y divide-outline-variant/50">
+                    <!-- Row 1: Expected -->
+                    <tr class="reception-visitor-row hover:bg-surface-container-low transition-colors group" data-id="1" data-status="expected">
+                        <td class="py-4 px-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary font-semibold text-sm">JS</div>
+                                <div>
+                                    <div class="font-medium text-on-background">Jane Smith</div>
+                                    <div class="text-xs text-on-surface-variant">Tech Solutions Inc.</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-2 text-on-surface-variant">Mark Davis</td>
+                        <td class="py-4 px-2 text-on-surface-variant">10:00 AM</td>
+                        <td class="py-4 px-2 status-container">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-highest text-on-surface-variant border border-outline-variant/30">
+                                Expected
+                            </span>
+                        </td>
+                        <td class="py-4 px-2 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <button onclick="openCheckInModal(1, 'Jane Smith', 'Tech Solutions Inc.', 'Mark Davis', 'expected')" class="action-btn w-8 h-8 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 transition-colors" title="Check In">
+                                    <span class="material-symbols-outlined text-[18px]">login</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 2: Checked In -->
+                    <tr class="reception-visitor-row hover:bg-surface-container-low transition-colors group" data-id="2" data-status="checked-in">
+                        <td class="py-4 px-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+                                    <img alt="Visitor" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe_4ea4EXiLoFyM1d5aAtELOfM5JmEzFESR24lEEc4iDGE0F7w_6D8B9JQKV4bdhUaXbOwEoBxeadXVbegZIVNVDqAy2yR7aDoBvBcLHlN2p84UvK1uh7wSR6nKFpU4fFhyJnQWkgaCYDft3rOBO4bv4tor8l0aU-TKIAbWprAygOvp33rT56-6xY1E_MmdBJq3s3HyPyBu_EHo7HSCbkXlVnAuP6D7Si2F5tGZfN1D3WgssVPyHinOFzpOWXy8X2fNRdxaSYwNJM">
+                                </div>
+                                <div>
+                                    <div class="font-medium text-on-background">Robert Chen</div>
+                                    <div class="text-xs text-on-surface-variant">Freelancer</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-2 text-on-surface-variant">Sarah Jenkins</td>
+                        <td class="py-4 px-2 text-on-surface-variant">09:15 AM</td>
+                        <td class="py-4 px-2 status-container">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5"></span>
+                                Checked In
+                            </span>
+                        </td>
+                        <td class="py-4 px-2 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <button onclick="openCheckInModal(2, 'Robert Chen', 'Freelancer', 'Sarah Jenkins', 'checked-in')" class="action-btn w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error/10 transition-colors" title="Check Out">
+                                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 3: VIP (Expected) -->
+                    <tr class="reception-visitor-row hover:bg-surface-container-low transition-colors group" data-id="5" data-status="expected">
+                        <td class="py-4 px-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-tertiary-container/50 flex items-center justify-center text-tertiary font-semibold text-sm">
+                                    <span class="material-symbols-outlined text-[16px]">star</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-on-background flex items-center gap-1">Olivia Sterling <span class="text-[10px] bg-tertiary text-on-tertiary px-1 rounded uppercase font-bold">VIP</span></div>
+                                    <div class="text-xs text-on-surface-variant">Global Execs</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-2 text-on-surface-variant">Elena (CEO)</td>
+                        <td class="py-4 px-2 text-on-surface-variant">11:30 AM</td>
+                        <td class="py-4 px-2 status-container">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-highest text-on-surface-variant border border-outline-variant/30">
+                                Expected
+                            </span>
+                        </td>
+                        <td class="py-4 px-2 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <button onclick="openCheckInModal(5, 'Olivia Sterling', 'Global Execs', 'Elena (CEO)', 'expected')" class="action-btn w-8 h-8 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 transition-colors" title="Check In">
+                                    <span class="material-symbols-outlined text-[18px]">login</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Row 4: Walk-in (Checked In) -->
+                    <tr class="reception-visitor-row hover:bg-surface-container-low transition-colors group" data-id="6" data-status="checked-in">
+                        <td class="py-4 px-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-primary-container/30 flex items-center justify-center text-primary font-semibold text-sm">LW</div>
+                                <div>
+                                    <div class="font-medium text-on-background flex items-center gap-1">Liam Walker <span class="text-[10px] bg-surface-variant text-on-surface-variant px-1 rounded uppercase">Walk-in</span></div>
+                                    <div class="text-xs text-on-surface-variant">Personal Visit</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-2 text-on-surface-variant">Front Desk</td>
+                        <td class="py-4 px-2 text-on-surface-variant">10:45 AM</td>
+                        <td class="py-4 px-2 status-container">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5"></span>
+                                Checked In
+                            </span>
+                        </td>
+                        <td class="py-4 px-2 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <button onclick="openCheckInModal(6, 'Liam Walker', 'Personal Visit', 'Front Desk', 'checked-in')" class="action-btn w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error/10 transition-colors" title="Check Out">
+                                    <span class="material-symbols-outlined text-[18px]">logout</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Row 6: Checked Out -->
+                    <tr class="reception-visitor-row hover:bg-surface-container-low transition-colors group opacity-70" data-id="10" data-status="checked-out">
+                        <td class="py-4 px-2">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-semibold text-sm">MR</div>
+                                <div>
+                                    <div class="font-medium text-on-surface-variant">Michael Ross</div>
+                                    <div class="text-xs text-on-surface-variant">Legal Corp</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-2 text-on-surface-variant">David Kim</td>
+                        <td class="py-4 px-2 text-on-surface-variant line-through">08:00 AM</td>
+                        <td class="py-4 px-2 status-container">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant/50">
+                                Checked Out
+                            </span>
+                        </td>
+                        <td class="py-4 px-2 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <span class="material-symbols-outlined text-outline text-[18px]">history</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- Pagination -->
+        <div class="mt-4 pt-4 border-t border-outline-variant flex items-center justify-between text-on-surface-variant flex-col sm:flex-row gap-4">
+            <span class="font-body-sm text-body-sm text-sm">Showing 1 to 9 of 24 entries</span>
+            <div class="flex items-center gap-1">
+                <button class="p-1 rounded hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled>
+                    <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                </button>
+                <button class="w-8 h-8 rounded bg-primary text-on-primary font-label-sm text-label-sm flex items-center justify-center">1</button>
+                <button class="w-8 h-8 rounded hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-center transition-colors">2</button>
+                <button class="w-8 h-8 rounded hover:bg-surface-container-low font-label-sm text-label-sm flex items-center justify-center transition-colors">3</button>
+                <button class="p-1 rounded hover:bg-surface-container-low transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const receptionDateElement = document.getElementById('reception-current-date');
+    if (receptionDateElement) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        receptionDateElement.textContent = new Date().toLocaleDateString('en-US', options);
+    }
+</script>
+
+<!-- Check-In/Out Modal (QR Code) -->
+<div id="checkInModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="checkInModal" class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-level-5 flex flex-col overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
+        <div class="p-lg text-center flex flex-col items-center">
+            <h3 id="checkInTitle" class="font-headline-sm font-bold text-on-surface mb-1">Check In Visitor</h3>
+            <p id="checkInSubtitle" class="font-body-sm text-on-surface-variant mb-6">Scan QR Code or manually confirm.</p>
+            
+            <!-- QR Scanner Mockup -->
+            <div class="w-48 h-48 border-4 border-dashed border-primary/50 rounded-xl relative flex items-center justify-center bg-surface-container-low mb-6 overflow-hidden">
+                <span class="material-symbols-outlined text-[64px] text-primary/30">qr_code_scanner</span>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 animate-scan"></div>
+            </div>
+            
+            <div class="bg-surface-container p-4 rounded-xl w-full text-left mb-6">
+                <p class="font-label-sm text-on-surface-variant mb-1">Visitor Details:</p>
+                <p id="ci_name" class="font-body-md font-bold text-on-surface">Elena Smith</p>
+                <p id="ci_company" class="font-body-sm text-on-surface-variant">TechFlow Inc.</p>
+                <p id="ci_host" class="font-body-sm text-primary mt-2">Host: Marcus Johnson</p>
+            </div>
+            
+            <div class="flex gap-3 w-full">
+                <button onclick="closeCheckInModal()" class="flex-1 px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors">Cancel</button>
+                <button id="ci_confirm_btn" onclick="confirmCheckInStatus()" class="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors">Confirm Check-In</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+    }
+    .animate-scan {
+        animation: scan 2s linear infinite;
+    }
+</style>
+
+<script>
+    let currentActionRowId = null;
+    let currentActionStatus = null;
+
+    function openCheckInModal(id, name, company, host, currentStatus) {
+        currentActionRowId = id;
+        currentActionStatus = currentStatus;
+        
+        // Direct checkout without opening QR scanner modal
+        if (currentStatus === 'checked-in') {
+            if (confirm("Are you sure you want to check out this visitor?")) {
+                confirmCheckInStatus();
+            }
+            return;
+        }
+
+        // Open QR scanner modal for Check-In
+        document.getElementById('ci_name').innerText = name;
+        document.getElementById('ci_company').innerText = company;
+        document.getElementById('ci_host').innerText = "Host: " + host;
+        
+        const title = document.getElementById('checkInTitle');
+        const btn = document.getElementById('ci_confirm_btn');
+        
+        title.innerText = 'Check In Visitor';
+        btn.innerText = 'Confirm Check-In';
+        
+        const overlay = document.getElementById('checkInModalOverlay');
+        const modal = document.getElementById('checkInModal');
+        
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95', 'opacity-0');
+            modal.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeCheckInModal() {
+        const overlay = document.getElementById('checkInModalOverlay');
+        const modal = document.getElementById('checkInModal');
+        
+        overlay.classList.remove('opacity-100');
+        modal.classList.remove('scale-100', 'opacity-100');
+        modal.classList.add('scale-95', 'opacity-0');
+        
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+    }
+
+    function confirmCheckInStatus() {
+        const row = document.querySelector(`.reception-visitor-row[data-id="${currentActionRowId}"]`);
+        if(!row) return;
+        
+        const badgeContainer = row.querySelector('.status-container');
+        const actionBtn = row.querySelector('.action-btn');
+        
+        if (currentActionStatus === 'expected') {
+            row.dataset.status = 'checked-in';
+            badgeContainer.innerHTML = `
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5"></span>
+                    Checked In
+                </span>
+            `;
+            actionBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">logout</span>';
+            actionBtn.title = 'Check Out';
+            actionBtn.className = 'action-btn w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-error/10 transition-colors';
+            actionBtn.setAttribute('onclick', actionBtn.getAttribute('onclick').replace("'expected'", "'checked-in'"));
+            alert("Checked in successfully via QR code.");
+        } else if (currentActionStatus === 'checked-in') {
+            row.dataset.status = 'checked-out';
+            badgeContainer.innerHTML = `
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant/50">
+                    Checked Out
+                </span>
+            `;
+            row.classList.add('opacity-70');
+            actionBtn.parentElement.innerHTML = '<span class="material-symbols-outlined text-outline text-[18px]">history</span>';
+            alert("Checked out successfully.");
+        }
+        
+        closeCheckInModal();
+        
+        // Re-apply the current filter so the row disappears if we are on a specific tab
+        const activeTabBtn = document.querySelector('.reception-tab.text-primary');
+        if (activeTabBtn) {
+            const status = activeTabBtn.id.replace('reception-tab-', '');
+            filterReceptionVisitors(status);
+        }
+    }
+
+    // Quick Walk-In Registration
+    function openQuickWalkIn() {
+        if(typeof toggleWalkInView === 'function') toggleWalkInView('selection');
+        const overlay = document.getElementById('quickWalkInModalOverlay');
+        const modal = document.getElementById('quickWalkInModal');
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95', 'opacity-0');
+            modal.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeQuickWalkIn() {
+        const overlay = document.getElementById('quickWalkInModalOverlay');
+        const modal = document.getElementById('quickWalkInModal');
+        overlay.classList.remove('opacity-100');
+        modal.classList.remove('scale-100', 'opacity-100');
+        modal.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+    }
+
+    function submitQuickWalkIn() {
+        alert("Scan successful! Visitor checked in.");
+        closeQuickWalkIn();
+    }
+
+    // Quick Scan Out
+    function openQuickScanOut() {
+        const overlay = document.getElementById('quickScanOutModalOverlay');
+        const modal = document.getElementById('quickScanOutModal');
+        overlay.classList.remove('hidden');
+        setTimeout(() => {
+            overlay.classList.remove('opacity-0');
+            modal.classList.remove('scale-95', 'opacity-0');
+            modal.classList.add('scale-100', 'opacity-100');
+        }, 10);
+    }
+
+    function closeQuickScanOut() {
+        const overlay = document.getElementById('quickScanOutModalOverlay');
+        const modal = document.getElementById('quickScanOutModal');
+        overlay.classList.remove('opacity-100');
+        modal.classList.remove('scale-100', 'opacity-100');
+        modal.classList.add('scale-95', 'opacity-0');
+        setTimeout(() => {
+            overlay.classList.add('hidden');
+        }, 300);
+    }
+
+    function submitQuickScanOut() {
+        alert("Visitor successfully checked out!");
+        closeQuickScanOut();
+    }
+
+    // Tab Filtering Logic
+    function filterReceptionVisitors(status) {
+        // Reset all tabs to inactive styles
+        document.querySelectorAll('.reception-tab').forEach(tab => {
+            tab.classList.remove('bg-primary/10', 'text-primary', 'border-primary/20');
+            tab.classList.add('bg-surface-container-lowest', 'text-on-surface-variant', 'border-outline-variant', 'hover:bg-surface-variant');
+        });
+
+        // Set active style for clicked tab
+        const activeTab = document.getElementById(`reception-tab-${status}`);
+        if(activeTab) {
+            activeTab.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant', 'border-outline-variant', 'hover:bg-surface-variant');
+            activeTab.classList.add('bg-primary/10', 'text-primary', 'border-primary/20');
+        }
+
+        // Filter rows based on data-status attribute
+        const rows = document.querySelectorAll('.reception-visitor-row');
+        let visibleCount = 0;
+        
+        rows.forEach(row => {
+            if (status === 'all' || row.dataset.status === status) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        
+        // Update pagination numbers
+        const paginationText = document.querySelector('.table-responsive + div .text-on-surface-variant');
+        if(paginationText) {
+            paginationText.innerHTML = `Showing 1 to ${visibleCount} of ${visibleCount} entries`;
+        }
+    }
+
+    function toggleWalkInView(view) {
+        const selectionView = document.getElementById('selectionView');
+        const scanView = document.getElementById('qrScanView');
+        const manualView = document.getElementById('manualFormView');
+        
+        selectionView.classList.add('hidden');
+        scanView.classList.add('hidden');
+        scanView.classList.remove('flex');
+        manualView.classList.add('hidden');
+        manualView.classList.remove('flex');
+        selectionView.classList.remove('flex');
+
+        if (view === 'manual') {
+            manualView.classList.remove('hidden');
+            manualView.classList.add('flex');
+            document.getElementById('quickWalkInTitle').innerText = 'Manual Registration';
+            document.getElementById('quickWalkInSubtitle').innerText = 'Enter visitor details to check in.';
+        } else if (view === 'scan') {
+            scanView.classList.remove('hidden');
+            scanView.classList.add('flex');
+            document.getElementById('quickWalkInTitle').innerText = 'Scan QR Code';
+            document.getElementById('quickWalkInSubtitle').innerText = 'Hold the visitor QR code to the scanner.';
+        } else {
+            // selection view
+            selectionView.classList.remove('hidden');
+            selectionView.classList.add('flex');
+            document.getElementById('quickWalkInTitle').innerText = 'Quick Check-In';
+            document.getElementById('quickWalkInSubtitle').innerText = 'Choose how you want to check in the visitor.';
+        }
+    }
+</script>
+
+<!-- Quick Walk-In Modal (Scanner & Manual) -->
+<div id="quickWalkInModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="quickWalkInModal" class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-level-5 flex flex-col overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
+        <div class="p-lg text-center flex flex-col items-center w-full">
+            <h3 id="quickWalkInTitle" class="font-headline-sm font-bold text-on-surface mb-1">Quick Check-In</h3>
+            <p id="quickWalkInSubtitle" class="font-body-sm text-on-surface-variant mb-6">Choose how you want to check in the visitor.</p>
+            
+            <!-- View 0: Selection View -->
+            <div id="selectionView" class="w-full flex flex-col gap-4 mb-4">
+                <button onclick="toggleWalkInView('scan')" class="w-full p-4 border border-outline-variant rounded-xl flex items-center gap-4 hover:bg-surface-container-low transition-colors group">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                        <span class="material-symbols-outlined text-[24px]">qr_code_scanner</span>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-label-lg font-bold text-on-surface">Scan QR Code</div>
+                        <div class="font-body-sm text-on-surface-variant">Fast check-in via visitor pass</div>
+                    </div>
+                </button>
+                <button onclick="toggleWalkInView('manual')" class="w-full p-4 border border-outline-variant rounded-xl flex items-center gap-4 hover:bg-surface-container-low transition-colors group">
+                    <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                        <span class="material-symbols-outlined text-[24px]">edit_document</span>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-label-lg font-bold text-on-surface">Manual Register</div>
+                        <div class="font-body-sm text-on-surface-variant">Register a new walk-in visitor</div>
+                    </div>
+                </button>
+                <button onclick="closeQuickWalkIn()" class="mt-2 w-full px-4 py-2 text-on-surface-variant font-label-md hover:text-on-surface transition-colors">Cancel</button>
+            </div>
+            
+            <!-- View 1: QR Scanner Mockup -->
+            <div id="qrScanView" class="w-full hidden flex-col items-center">
+                <div class="w-48 h-48 border-4 border-dashed border-primary/50 rounded-xl relative flex items-center justify-center bg-surface-container-low mb-6 overflow-hidden">
+                    <span class="material-symbols-outlined text-[64px] text-primary/30">qr_code_scanner</span>
+                    <div class="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 animate-scan"></div>
+                </div>
+                
+                <div class="flex gap-3 w-full">
+                    <button onclick="toggleWalkInView('selection')" class="flex-1 px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors">Back</button>
+                </div>
+            </div>
+
+            <!-- View 2: Manual Registration Form -->
+            <div id="manualFormView" class="w-full hidden flex-col items-center text-left h-[400px]">
+                <div class="w-full flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                    <form id="manualWalkInForm" class="flex flex-col gap-4 mb-4">
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant">Visitor Name *</label>
+                            <input type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary outline-none" placeholder="e.g. John Doe">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant">Company / Agency *</label>
+                            <input type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary outline-none" placeholder="e.g. Acme Corp">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant">Host Name *</label>
+                            <input type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary outline-none" placeholder="e.g. Jane Smith">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant">Expected Arrival Time *</label>
+                            <input type="time" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary outline-none">
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant">Purpose of Visit</label>
+                            <textarea rows="2" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary outline-none" placeholder="e.g. Meeting"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="flex gap-3 w-full mt-4 shrink-0 pt-4 border-t border-outline-variant">
+                    <button onclick="toggleWalkInView('selection')" class="flex-1 px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors shadow-sm">Back</button>
+                    <button onclick="submitQuickWalkIn()" class="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Scan Out Modal -->
+<div id="quickScanOutModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="quickScanOutModal" class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-level-5 flex flex-col overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
+        <div class="p-lg text-center flex flex-col items-center w-full">
+            <h3 class="font-headline-sm font-bold text-on-surface mb-1">Manual Check-Out</h3>
+            <p class="font-body-sm text-on-surface-variant mb-6">Select a checked-in visitor to check out.</p>
+            
+            <div class="w-full text-left mb-6">
+                <label for="checkout-visitor-select" class="block font-label-sm text-on-surface-variant mb-2">Select Visitor</label>
+                <div class="relative">
+                    <select id="checkout-visitor-select" class="w-full bg-surface-container border border-outline-variant rounded-lg py-3 px-4 text-on-surface font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-pointer hover:bg-surface-container-high">
+                        <option value="" disabled selected>Choose a visitor...</option>
+                        <option value="2">Robert Chen (Freelancer)</option>
+                        <option value="6">Liam Walker (Personal Visit)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="flex gap-3 w-full">
+                <button onclick="closeQuickScanOut()" class="flex-1 px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors">Cancel</button>
+                <button onclick="submitQuickScanOut()" class="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors">Check Out Visitor</button>
+            </div>
+        </div>
+    </div>
+</div>

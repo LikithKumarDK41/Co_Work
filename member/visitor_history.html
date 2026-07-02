@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Visitor History - SB Telecom</title>
+    <link href="layout.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+    <script src="layout.js" defer></script>
+</head>
+
+<body class="flex flex-col md:flex-row min-h-screen bg-slate-50 text-slate-900 font-sans antialiased">
+    <main class="page-layout flex-1 min-h-screen pb-24 pt-6 md:pt-10 px-4 md:px-8 w-full max-w-[1440px] mx-auto">
+        <!-- Header -->
+        <header class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 w-full">
+            <div>
+                <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">Visitor History</h2>
+                <p class="text-base text-slate-500 mt-2 max-w-2xl">A complete record of your past guests and scheduled appointments.</p>
+            </div>
+            <div class="hidden sm:flex gap-4">
+                <button class="flex items-center gap-2 px-5 py-2.5 bg-white text-slate-700 border border-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-50 hover:border-slate-300 transition-colors duration-200">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    Export CSV
+                </button>
+                <button onclick="openPreRegisterModal()" class="flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-sm">
+                    <span class="material-symbols-outlined text-[18px]">person_add</span>
+                    Register Visitor
+                </button>
+            </div>
+        </header>
+
+        <!-- Filters & Search -->
+        <section class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+            <div class="lg:col-span-2 bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
+                <span class="material-symbols-outlined text-slate-400 pl-3 pr-2">search</span>
+                <input class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-900 placeholder-slate-400 py-2" placeholder="Search visitors by name or company..." type="text">
+            </div>
+            <div class="bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm relative hover:border-slate-300 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-slate-400 pl-3 pr-2 absolute pointer-events-none">calendar_today</span>
+                <select class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-700 py-2 pl-10 pr-10 cursor-pointer appearance-none">
+                    <option>Last 30 Days</option>
+                    <option>Last 90 Days</option>
+                    <option>This Year</option>
+                    <option>All Time</option>
+                </select>
+                <span class="material-symbols-outlined text-slate-400 absolute right-3 pointer-events-none">expand_more</span>
+            </div>
+            <div class="bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm relative hover:border-slate-300 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-slate-400 pl-3 pr-2 absolute pointer-events-none">filter_list</span>
+                <select class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-700 py-2 pl-10 pr-10 cursor-pointer appearance-none">
+                    <option>All Statuses</option>
+                    <option>Completed</option>
+                    <option>No-show</option>
+                </select>
+                <span class="material-symbols-outlined text-slate-400 absolute right-3 pointer-events-none">expand_more</span>
+            </div>
+        </section>
+
+        <!-- Data Table -->
+        <section class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl border border-slate-100 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="border-b border-slate-100 bg-slate-50/50">
+                            <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold w-48">Date & Time</th>
+                            <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold">Visitor Name</th>
+                            <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold">Visit Purpose</th>
+                            <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold">Status</th>
+                            <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        <!-- Row 1: Registered -->
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">Oct 28, 2023</div>
+                                <div class="text-slate-500 text-xs mt-0.5">10:00 AM</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-sm shrink-0">ER</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Elena Rodriguez</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">Acme Corp</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">Quarterly Strategy Review</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider border border-blue-100">
+                                    Registered
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button onclick="openPreRegisterModal('Elena Rodriguez', 'Acme Corp', '10:00', 'Quarterly Strategy Review')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </button>
+                                    <button onclick="deleteVisitor(this)" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 2: Confirmed -->
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">Oct 27, 2023</div>
+                                <div class="text-slate-500 text-xs mt-0.5">02:30 PM</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm shrink-0">MC</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Marcus Chen</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">Independent Contractor</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">Portfolio Pitch</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-indigo-50 text-indigo-700 text-[11px] font-bold uppercase tracking-wider border border-indigo-100">
+                                    Confirmed
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button onclick="openPreRegisterModal('Marcus Chen', 'Independent Contractor', '14:30', 'Portfolio Pitch')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </button>
+                                    <button onclick="deleteVisitor(this)" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 3: Checked-In -->
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">Oct 26, 2023</div>
+                                <div class="text-slate-500 text-xs mt-0.5">11:15 AM</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 font-bold text-sm shrink-0">SJ</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Sarah Jenkins</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">Venture Partners</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">Investment Discussion</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 text-[11px] font-bold uppercase tracking-wider border border-amber-100">
+                                    Checked-In
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 4: Completed -->
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">Oct 24, 2023</div>
+                                <div class="text-slate-500 text-xs mt-0.5">09:00 AM</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-sm shrink-0">AL</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">Amanda Lee</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">TechFlow Inc.</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">Technical Interview</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
+                                    Completed
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 5: No-show -->
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">Oct 22, 2023</div>
+                                <div class="text-slate-500 text-xs mt-0.5">04:00 PM</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">DT</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">David Thompson</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">Design Studio X</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">Project Kickoff</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-slate-100 text-slate-600 text-[11px] font-bold uppercase tracking-wider border border-slate-200">
+                                    No-show
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
+                                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination Footer -->
+            <div class="py-4 px-6 border-t border-slate-100 flex items-center justify-between bg-white">
+                <span class="text-sm font-medium text-slate-500">Showing 1 to 5 of 32 visitors</span>
+                <div class="flex gap-2">
+                    <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors disabled:opacity-50" disabled>
+                        <span class="material-symbols-outlined text-sm">chevron_left</span>
+                    </button>
+                    <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors">
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Register Visitor Modal -->
+        <div id="preRegisterModalOverlay" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[9998] hidden opacity-0 transition-opacity duration-300"></div>
+        <div id="preRegisterModal" class="fixed inset-y-0 right-0 w-full sm:w-[450px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full sm:rounded-l-3xl">
+            <div class="flex items-center justify-between p-6 border-b border-slate-100 shrink-0">
+                <div>
+                    <h3 id="pr_modal_title" class="text-xl font-bold text-slate-900">Register Visitor</h3>
+                    <p class="text-sm text-slate-500 mt-1">Register an expected visitor.</p>
+                </div>
+                <button onclick="closePreRegisterModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-50 text-slate-500 hover:text-slate-700 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-1">
+                <form id="preRegisterForm" class="flex flex-col gap-5">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700">Visitor Name *</label>
+                        <input id="pr_name" type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="e.g. John Doe">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700">Company / Agency *</label>
+                        <input id="pr_company" type="text" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="e.g. Acme Corp">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700">Expected Arrival Time *</label>
+                        <input id="pr_time" type="time" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-sm font-semibold text-slate-700">Purpose of Visit</label>
+                        <textarea id="pr_purpose" rows="3" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all" placeholder="e.g. Meeting"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="p-6 border-t border-slate-100 bg-white flex gap-3 mt-auto justify-end sm:rounded-bl-3xl shrink-0">
+                <button type="button" class="px-6 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm" onclick="closePreRegisterModal()">Cancel</button>
+                <button id="pr_submit_btn" type="button" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm" onclick="submitPreRegister()">Register</button>
+            </div>
+        </div>
+
+        <script>
+            function openPreRegisterModal(name = '', company = '', time = '', purpose = '') {
+                const modal = document.getElementById('preRegisterModal');
+                const overlay = document.getElementById('preRegisterModalOverlay');
+                const title = document.getElementById('pr_modal_title');
+                const submitBtn = document.getElementById('pr_submit_btn');
+                
+                document.getElementById('pr_name').value = name;
+                document.getElementById('pr_company').value = company;
+                document.getElementById('pr_time').value = time;
+                document.getElementById('pr_purpose').value = purpose;
+                
+                if (name) {
+                    title.innerText = 'Edit Visitor';
+                    submitBtn.innerText = 'Update Visitor';
+                } else {
+                    title.innerText = 'Register Visitor';
+                    submitBtn.innerText = 'Register';
+                    document.getElementById('preRegisterForm').reset();
+                }
+
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.classList.remove('translate-x-full');
+                    overlay.classList.remove('opacity-0');
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closePreRegisterModal() {
+                const modal = document.getElementById('preRegisterModal');
+                const overlay = document.getElementById('preRegisterModalOverlay');
+                modal.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    overlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+            
+            function submitPreRegister() {
+                const submitBtn = document.getElementById('pr_submit_btn');
+                if (submitBtn.innerText === 'Update Visitor') {
+                    alert("Visitor updated successfully!");
+                } else {
+                    alert("Visitor Registered successfully!");
+                }
+                closePreRegisterModal();
+            }
+
+            function deleteVisitor(btn) {
+                if (confirm("Are you sure you want to delete this visitor?")) {
+                    const row = btn.closest('tr');
+                    if (row) {
+                        row.remove();
+                        alert("Visitor deleted successfully.");
+                    }
+                }
+            }
+        </script>
+    </main>
+
+</body>
+
+</html>

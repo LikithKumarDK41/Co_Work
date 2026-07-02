@@ -1,0 +1,603 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CoWork Admin - Reports Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-background": "#0b1c30",
+                "secondary-fixed-dim": "#4fdbc8",
+                "surface-container-high": "#dce9ff",
+                "on-tertiary": "#ffffff",
+                "surface-bright": "#f8f9ff",
+                "secondary-container": "#6df5e1",
+                "on-error": "#ffffff",
+                "on-error-container": "#93000a",
+                "background": "#f8f9ff",
+                "on-surface": "#0b1c30",
+                "inverse-primary": "#b4c5ff",
+                "error-container": "#ffdad6",
+                "tertiary-fixed-dim": "#c0c1ff",
+                "on-primary-container": "#eeefff",
+                "on-secondary-container": "#006f64",
+                "on-tertiary-fixed-variant": "#2f2ebe",
+                "primary-fixed-dim": "#b4c5ff",
+                "error": "#ba1a1a",
+                "surface": "#f8f9ff",
+                "outline-variant": "#c3c6d7",
+                "secondary-fixed": "#71f8e4",
+                "inverse-on-surface": "#eaf1ff",
+                "surface-container-lowest": "#ffffff",
+                "primary-container": "#2563eb",
+                "on-primary": "#ffffff",
+                "outline": "#737686",
+                "on-secondary": "#ffffff",
+                "surface-tint": "#0053db",
+                "on-tertiary-fixed": "#07006c",
+                "surface-variant": "#d3e4fe",
+                "surface-container-low": "#eff4ff",
+                "surface-dim": "#cbdbf5",
+                "tertiary-fixed": "#e1e0ff",
+                "tertiary-container": "#585be6",
+                "on-primary-fixed-variant": "#003ea8",
+                "inverse-surface": "#213145",
+                "primary-fixed": "#dbe1ff",
+                "on-tertiary-container": "#f1eeff",
+                "on-primary-fixed": "#00174b",
+                "primary": "#004ac6",
+                "surface-container-highest": "#d3e4fe",
+                "surface-container": "#e5eeff",
+                "on-secondary-fixed": "#00201c",
+                "on-surface-variant": "#434655",
+                "secondary": "#006b5f",
+                "tertiary": "#3e3fcc",
+                "on-secondary-fixed-variant": "#005048"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "gutter": "24px",
+                "unit": "4px",
+                "sm": "8px",
+                "sidebar-width": "260px",
+                "container-max": "1440px",
+                "xs": "4px",
+                "md": "16px",
+                "xxl": "48px",
+                "lg": "24px",
+                "xl": "32px"
+        },
+        "fontFamily": {
+                "label-md": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-sm": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-sm": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+    body {
+        background-color: theme('colors.background');
+        color: theme('colors.on-background');
+    }
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .elevation-1 {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="font-body-md antialiased overflow-x-hidden min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col py-6 h-full bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm w-[260px] h-screen fixed left-0 top-0 z-50">
+<div class="px-lg mb-8">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">CW</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">CoWork Manager</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operational Excellence</p>
+</div>
+</div>
+</div>
+<div class="px-md mb-6">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors scale-95 active:scale-90 duration-150">
+<span class="material-symbols-outlined text-[20px]">add</span>
+            Quick Add
+        </button>
+</div>
+<div class="flex-1 overflow-y-auto px-md">
+<ul class="space-y-unit">
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+                    Users
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">meeting_room</span>
+                    Rooms
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+                    Visitors
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+                    Bookings
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+                    Tickets
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+                    Announcements
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-3 rounded text-primary dark:text-secondary-fixed-dim font-bold border-l-4 border-primary dark:border-secondary-fixed-dim bg-surface-container-high dark:bg-on-surface-variant/20 hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">assessment</span>
+                    Reports
+                </a>
+</li>
+</ul>
+</div>
+<div class="px-md mt-auto pt-4 border-t border-outline-variant/30">
+<ul class="space-y-unit">
+<li>
+<a class="flex items-center gap-md px-md py-2 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                    Settings
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-2 rounded text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                    Support
+                </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-[260px] flex flex-col min-h-screen bg-background">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-lg w-full h-16 fixed top-0 right-0 md:left-[260px] z-40 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline transition-all duration-200">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-64 hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-full font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" placeholder="Search..." type="text">
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary md:hidden">CoWork Admin</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-low hidden sm:block">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="text-primary font-label-md text-label-md hover:underline hidden sm:block">Support</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors hidden sm:block">Add New</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest flex-shrink-0 cursor-pointer">
+<img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu47Ww-ZPfQLLuMHZpWupq_DD32OTXDJ62W4cIzxSFlDNHHu7btdpOE2ZkHX2FIOd1noOnahmNE7tL1v6roWKbWhj6mCEMfDPrGl48tAw489icbGZuf7NX6Ksm7PdPWGiyZoZR2mBR4aMc9owEm6cFgf23JBYMdZWS3WvWHGvX1w2O69sy0FzacZCdqbdM0m_hWvLGmze16zbXmhga5uSMbjpa7o4EtWHiIxtfydzb3GLBBhjlQlro47862ZONeivkFv0tU9M-FTc">
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-16 p-lg sm:p-xl overflow-y-auto">
+<!-- Page Header & Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-xl">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Reports Dashboard</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Analyze space utilization and member metrics.</p>
+</div>
+<div class="flex items-center gap-sm">
+<!-- Date Picker Mock -->
+<div class="flex items-center bg-surface border border-outline-variant rounded px-3 py-2 text-on-surface-variant font-label-md text-label-md elevation-1">
+<span class="material-symbols-outlined text-[18px] mr-2">calendar_month</span>
+                    Last 30 Days
+                    <span class="material-symbols-outlined text-[18px] ml-2">expand_more</span>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center gap-1 bg-surface border border-outline-variant text-on-surface px-3 py-2 rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors elevation-1">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        PDF
+                    </button>
+<button class="flex items-center justify-center gap-1 bg-surface border border-outline-variant text-on-surface px-3 py-2 rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors elevation-1">
+<span class="material-symbols-outlined text-[18px]">table_chart</span>
+                        CSV
+                    </button>
+</div>
+</div>
+</div>
+<!-- Metric Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-xl">
+<!-- Card 1 -->
+<div class="bg-surface rounded-lg p-md elevation-1 border border-outline-variant/50 relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Bookings</span>
+<span class="material-symbols-outlined text-primary text-[20px]">event_available</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1">1,248</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>12% vs last month</span>
+</div>
+<!-- Sparkline mock -->
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-primary/30 to-transparent"></div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface rounded-lg p-md elevation-1 border border-outline-variant/50 relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg Resolution Time</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">timer</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1">2.4h</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-0.5h vs last month</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-tertiary/30 to-transparent"></div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface rounded-lg p-md elevation-1 border border-outline-variant/50 relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Unique Visitors</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">group</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1">8,405</div>
+<div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>8% vs last month</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-secondary/30 to-transparent"></div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface rounded-lg p-md elevation-1 border border-outline-variant/50 relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Occupancy Rate</span>
+<span class="material-symbols-outlined text-primary text-[20px]">meeting_room</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mb-1">76%</div>
+<div class="flex items-center gap-1 text-error font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-2% vs last month</span>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-error/30 to-transparent"></div>
+</div>
+</div>
+<!-- Charts Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Booking Analytics (Line Chart) -->
+<div class="bg-surface rounded-lg elevation-1 border border-outline-variant/50 p-lg lg:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Booking Volume Trends</h3>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="w-full h-[300px] relative">
+<canvas id="bookingLineChart"></canvas>
+</div>
+</div>
+<!-- Support Resolution (Pie Chart) -->
+<div class="bg-surface rounded-lg elevation-1 border border-outline-variant/50 p-lg">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Tickets by Priority</h3>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="w-full h-[240px] relative flex justify-center items-center">
+<canvas id="supportPieChart"></canvas>
+</div>
+<div class="mt-4 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-error"></span> High</div>
+<span class="text-on-surface-variant">15%</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-tertiary"></span> Medium</div>
+<span class="text-on-surface-variant">45%</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span> Low</div>
+<span class="text-on-surface-variant">40%</span>
+</div>
+</div>
+</div>
+<!-- Visitor Analytics (Bar Chart) -->
+<div class="bg-surface rounded-lg elevation-1 border border-outline-variant/50 p-lg lg:col-span-3">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Visitor Traffic: Peak Hours</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">Today</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container-low">Week</button>
+</div>
+</div>
+<div class="w-full h-[300px] relative">
+<canvas id="visitorBarChart"></canvas>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Common Chart.js Configuration for styling
+        Chart.defaults.font.family = 'Inter, sans-serif';
+        Chart.defaults.color = '#737686'; // outline color
+        const gridColor = '#e2e8f0'; // light border
+
+        // 1. Line Chart: Booking Analytics
+        const ctxLine = document.getElementById('bookingLineChart').getContext('2d');
+        new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [
+                    {
+                        label: 'Desks',
+                        data: [65, 78, 90, 81, 56, 30, 20],
+                        borderColor: '#004ac6', // primary
+                        backgroundColor: 'rgba(0, 74, 198, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#004ac6',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Meeting Rooms',
+                        data: [28, 48, 40, 39, 46, 15, 10],
+                        borderColor: '#006b5f', // secondary
+                        borderWidth: 2,
+                        tension: 0.4,
+                        borderDash: [5, 5],
+                        pointBackgroundColor: '#006b5f',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { usePointStyle: true, boxWidth: 8 }
+                    },
+                    tooltip: {
+                        backgroundColor: '#213145',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 12,
+                        cornerRadius: 4,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: gridColor, drawBorder: false },
+                        border: { display: false }
+                    },
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // 2. Pie Chart: Support Tickets
+        const ctxPie = document.getElementById('supportPieChart').getContext('2d');
+        new Chart(ctxPie, {
+            type: 'doughnut',
+            data: {
+                labels: ['High', 'Medium', 'Low'],
+                datasets: [{
+                    data: [15, 45, 40],
+                    backgroundColor: [
+                        '#ba1a1a', // error
+                        '#3e3fcc', // tertiary
+                        '#b4c5ff'  // primary-fixed-dim
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#213145',
+                        padding: 12,
+                        cornerRadius: 4
+                    }
+                }
+            }
+        });
+
+        // 3. Bar Chart: Visitor Peak Times
+        const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'],
+                datasets: [{
+                    label: 'Visitors',
+                    data: [12, 45, 85, 110, 95, 120, 80, 65, 40, 20, 5],
+                    backgroundColor: '#dce9ff', // surface-container-high
+                    hoverBackgroundColor: '#004ac6', // primary
+                    borderRadius: 4,
+                    barThickness: 'flex',
+                    maxBarThickness: 32
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#213145',
+                        padding: 12,
+                        cornerRadius: 4,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: gridColor, drawBorder: false },
+                        border: { display: false }
+                    },
+                    x: {
+                        grid: { display: false, drawBorder: false },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body></html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SB Telecom</title>
+    <link href="layout.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "heading": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .login-card {
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08),
+                0 8px 22px rgba(0, 0, 0, 0.06);
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 234, 210, 0.75);
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md antialiased">
+
+    <main class="h-dvh flex items-center justify-center px-4 py-3 overflow-hidden">
+
+        <section class="login-card w-full max-w-[390px] bg-white rounded-[22px] border border-outline-variant px-7 py-5">
+
+            <div class="text-center mb-4">
+                <div
+                    class="mx-auto mb-2 h-14 w-14 rounded-lg bg-[#004ac6] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-[32px]">domain</span>
+                </div>
+
+                <h1 class="font-heading text-[22px] leading-7 font-bold text-primary tracking-tight">
+                    SB Telecom
+                </h1>
+
+                <p class="mt-0.5 text-[11px] font-semibold tracking-wide uppercase text-on-surface-variant">
+                    Member Portal
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h2 class="text-[20px] leading-6 font-bold text-on-surface">
+                    Login
+                </h2>
+                <p class="mt-1 text-[11px] text-on-surface-variant">
+                    Please enter your credentials to log in.
+                </p>
+            </div>
+
+            <!-- Login button redirects to dashboard.html -->
+            <form id="loginForm" action="dashboard.html" method="get" class="space-y-3.5">
+
+                <div>
+                    <label for="username" class="block text-[13px] font-bold text-on-surface mb-1.5">
+                        User ID
+                    </label>
+
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">
+                            person
+                        </span>
+
+                        <input id="username" name="username" type="text" placeholder="e.g., plaza-user01"
+                            class="w-full h-10 rounded-xl border border-outline-variant bg-white pl-11 pr-4 text-[13px] text-on-surface placeholder:text-gray-400 transition focus:border-primary" />
+                    </div>
+                    <p id="username-error" class="hidden text-[#ba1a1a] text-[11px] mt-1 font-medium">Please enter your User ID.</p>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-[13px] font-bold text-on-surface mb-1.5">
+                        Password
+                    </label>
+
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">
+                            lock
+                        </span>
+
+                        <input id="password" name="password" type="password" placeholder="••••••••"
+                            class="w-full h-10 rounded-xl border border-outline-variant bg-white pl-11 pr-11 text-[13px] text-on-surface placeholder:text-gray-400 transition focus:border-primary" />
+
+                        <button id="togglePassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition"
+                            type="button" aria-label="Toggle password visibility">
+                            <span class="material-symbols-outlined text-[19px]">visibility</span>
+                        </button>
+                    </div>
+                    <p id="password-error" class="hidden text-[#ba1a1a] text-[11px] mt-1 font-medium">Please enter your Password.</p>
+                </div>
+
+                <div class="flex items-center justify-between gap-3">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="remember"
+                            class="h-4 w-4 rounded border-[#c3c6d7] text-[#004ac6] focus:ring-[#004ac6]" />
+                        <span class="text-[11px] text-on-surface-variant">
+                            Remember me
+                        </span>
+                    </label>
+
+                    <a href="#" class="text-[11px] font-bold text-primary hover:underline whitespace-nowrap">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button type="submit"
+                    class="w-full h-12 rounded-lg bg-[#004ac6] text-white font-semibold text-sm hover:bg-[#003ea8] active:scale-[0.98] transition-colors duration-200 flex items-center justify-center gap-2 shadow-sm">
+                    <span>Sign In</span>
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                </button>
+            </form>
+
+
+
+            <footer class="mt-4 text-center">
+                <div class="flex items-center justify-center gap-2.5 text-[10.5px] text-on-surface-variant flex-wrap">
+                    <a href="#help-center" class="hover:text-primary">Help Center</a>
+                    <span class="h-1 w-1 rounded-full bg-gray-300"></span>
+                    <a href="#privacy-policy" class="hover:text-primary">Privacy Policy</a>
+                    <span class="h-1 w-1 rounded-full bg-gray-300"></span>
+                    <a href="#terms" class="hover:text-primary">Terms of Use</a>
+                </div>
+
+                <p class="mt-2 text-[8.5px] uppercase tracking-widest text-gray-400">
+                    © 2024 SB Telecom. All Rights Reserved.
+                </p>
+            </footer>
+
+        </section>
+
+    </main>
+
+    <script>
+        const togglePass = document.querySelector('#togglePassword');
+        const passInput = document.querySelector('#password');
+
+        togglePass?.addEventListener('click', () => {
+            const isPassword = passInput.type === 'password';
+
+            passInput.type = isPassword ? 'text' : 'password';
+
+            togglePass.querySelector('span').textContent = isPassword
+                ? 'visibility_off'
+                : 'visibility';
+        });
+
+        const loginForm = document.querySelector('#loginForm');
+        const usernameInput = document.querySelector('#username');
+        const usernameError = document.querySelector('#username-error');
+        const passwordError = document.querySelector('#password-error');
+
+        usernameInput?.addEventListener('input', () => {
+            if (usernameInput.value.trim()) {
+                usernameError.classList.add('hidden');
+                usernameInput.classList.remove('border-[#ba1a1a]');
+            }
+        });
+
+        passInput?.addEventListener('input', () => {
+            if (passInput.value.trim()) {
+                passwordError.classList.add('hidden');
+                passInput.classList.remove('border-[#ba1a1a]');
+            }
+        });
+
+        loginForm?.addEventListener('submit', (e) => {
+            let isValid = true;
+
+            if (!usernameInput.value.trim()) {
+                usernameError.classList.remove('hidden');
+                usernameInput.classList.add('border-[#ba1a1a]');
+                isValid = false;
+            } else {
+                usernameError.classList.add('hidden');
+                usernameInput.classList.remove('border-[#ba1a1a]');
+            }
+
+            if (!passInput.value.trim()) {
+                passwordError.classList.remove('hidden');
+                passInput.classList.add('border-[#ba1a1a]');
+                isValid = false;
+            } else {
+                passwordError.classList.add('hidden');
+                passInput.classList.remove('border-[#ba1a1a]');
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<aside id="sidebar" class="bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm flex flex-col py-4 sm:py-6">
+    <div class="px-4 sm:px-lg mb-6 sm:mb-8 flex flex-col gap-1">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary flex items-center gap-2">
+            <span class="material-symbols-outlined icon-fill text-primary">domain</span>
+            <span class="truncate">CoWork Manager</span>
+        </h1>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">Operational Excellence</p>
+    </div>
+
+    <nav id="mainNav" class="flex-1 overflow-y-auto px-2 sm:px-sm flex flex-col gap-1 pb-6" aria-label="Main navigation">
+        <!-- Navigation items injected by app.js -->
+    </nav>
+    <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-4 pb-2 flex items-center gap-2 sidebar-footer mb-2">
+        <a class="nav-item flex-1 justify-center text-on-surface-variant hover:text-primary transition-all duration-200 border border-outline-variant/30 rounded-xl" href="#" data-page="settings" title="Settings">
+            <span class="material-symbols-outlined text-[20px]">settings</span>
+            <span class="text-xs font-semibold">Settings</span>
+        </a>
+        <a class="nav-item flex-1 justify-center text-on-surface-variant hover:text-error hover:bg-error/10 hover:border-error/20 transition-all duration-200 border border-outline-variant/30 rounded-xl" href="#" onclick="logout(); return false;" title="Logout">
+            <span class="material-symbols-outlined text-[20px]">logout</span>
+            <span class="text-xs font-semibold">Logout</span>
+        </a>
+    </div>
+</aside>

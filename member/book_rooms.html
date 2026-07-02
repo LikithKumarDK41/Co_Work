@@ -1,0 +1,266 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Book Workspace - SB Telecom</title>
+<link href="layout.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbf9f9; color: #1b1c1c; }
+        /* Tonal Layering Utilities */
+        .elevation-0 { background-color: #fbf9f9; }
+        .elevation-1 { background-color: #ffffff; box-shadow: 0px 4px 20px rgba(0,0,0,0.04); }
+        .elevation-2 { background-color: #ffffff; box-shadow: 0px 8px 30px rgba(0,0,0,0.08); }
+        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        
+        /* Specific Button Transitions */
+        .btn-transition { transition: all 200ms ease-in-out; }
+        .date-btn.selected { background-color: #000000; color: #ffffff; font-weight: 600; }
+        .time-slot.selected { background-color: #000000; color: #ffffff; border-color: #000000; }
+        
+        /* Hide scrollbar for cleaner look in calendars/lists if needed */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script src="layout.js" defer></script>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row">
+<!-- Nav Shell Intent: Transactional/Focused Task (Booking) -> Suppress Navs as per semantic shell mandate -->
+<!-- Main Canvas -->
+<main class="page-layout flex-1 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col gap-stack-lg lg:flex-row lg:gap-section-gap">
+<!-- Left Column: Room Details -->
+<div class="flex-1 flex flex-col gap-stack-lg max-w-[800px]">
+<!-- Navigation Context -->
+<a class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors w-fit" href="meeting_rooms.html">
+<span class="material-symbols-outlined text-[20px]" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-md text-label-md">Back to Workspaces</span>
+</a>
+<!-- Header Info -->
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+<span class="font-label-md text-label-md">Floor 4, North Wing</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">The Boardroom</h1>
+</div>
+<!-- Hero Image Bento Style -->
+<div class="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[16/9] rounded-xl overflow-hidden elevation-1">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A pristine, modern minimalist boardroom with a large sleek charcoal conference table. Natural light pours in through floor-to-ceiling windows revealing a subtle cityscape. High-end ergonomic black leather chairs surround the table. A large 85-inch display is flush mounted on a clean white wall. The room features subtle wood accents and a sense of quiet luxury and focused productivity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsVmX3ucVoXMYplEKEfl-jrDgGGHXYdxJvHwrzNlFzRsJkBHDBMtRZJoUX0t9uTrFoepX8tD2dGXx1fDVWTiuxgREdG_x-VU8B2nQt1sSzOjN1rfLj_lOLT4khYo8O-nuzRgXjNJlHTuX4AqnEWqi5jxYG8s7i3HA3GyPqC9YG1dOuXSrZUcpTvg2Wu_Z--TGNnuHcEreAk0DWvkatb2h0prkfdvjsXYsD4LFYl4bbNo6dHzihVr-QTi3VeNuPcOk5x8C_iIqhgPw4">
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-stack-md pt-4">
+<h2 class="font-headline-md text-headline-md text-primary">About the Space</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[600px] leading-relaxed">
+                    An executive suite designed for critical decisions and high-stakes presentations. The Boardroom offers acoustic privacy, sweeping architectural views, and state-of-the-art presentation technology, all wrapped in a serene, minimalist aesthetic.
+                </p>
+</div>
+<!-- Amenities Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-surface-variant">
+<div class="flex flex-col gap-2">
+<span class="material-symbols-outlined text-[24px] text-primary" data-icon="group">group</span>
+<span class="font-label-md text-label-md text-on-surface">Capacity (12)</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="material-symbols-outlined text-[24px] text-primary" data-icon="tv">tv</span>
+<span class="font-label-md text-label-md text-on-surface">85" Display</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="material-symbols-outlined text-[24px] text-primary" data-icon="videocam">videocam</span>
+<span class="font-label-md text-label-md text-on-surface">4K Video Conf</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="material-symbols-outlined text-[24px] text-primary" data-icon="local_cafe">local_cafe</span>
+<span class="font-label-md text-label-md text-on-surface">Refreshments</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Booking Widget -->
+<aside class="w-full lg:w-[420px] shrink-0">
+<!-- Sticky container for desktop -->
+<div class="sticky top-gutter flex flex-col gap-stack-md elevation-1 rounded-xl p-6 border border-surface-container-highest">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Select Date &amp; Time</h3>
+<!-- Calendar Section -->
+<div class="flex flex-col gap-4 mb-6">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">October 2023</span>
+<div class="flex gap-2">
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-1 rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+<!-- Days Header -->
+<div class="grid grid-cols-7 gap-1 text-center font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">
+<div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+</div>
+<!-- Calendar Grid (Simplified for visual) -->
+<div class="grid grid-cols-7 gap-1 text-center font-body-md text-body-md">
+<div class="py-2 text-surface-tint">1</div>
+<div class="py-2 text-surface-tint">2</div>
+<div class="py-2 text-surface-tint">3</div>
+<div class="py-2 text-surface-tint">4</div>
+<div class="py-2 text-surface-tint">5</div>
+<div class="py-2 text-surface-tint">6</div>
+<div class="py-2 text-surface-tint">7</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">8</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">9</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">10</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">11</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">12</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">13</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">14</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">15</div>
+<div class="py-2 date-btn selected rounded cursor-pointer btn-transition">16</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">17</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">18</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">19</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">20</div>
+<div class="py-2 hover:bg-surface-container-high rounded cursor-pointer btn-transition">21</div>
+</div>
+</div>
+<div class="w-full h-px bg-surface-container-highest my-2"></div>
+<!-- Time Slots Grid -->
+<div class="flex flex-col gap-4 mb-6">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Available Times</span>
+<div class="grid grid-cols-2 gap-3">
+<button class="time-slot py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface text-center hover:border-primary btn-transition">09:00 AM</button>
+<button class="time-slot py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface text-center hover:border-primary btn-transition">09:30 AM</button>
+<button class="time-slot py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface text-center hover:border-primary btn-transition">10:00 AM</button>
+<button class="time-slot py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface text-center hover:border-primary btn-transition">11:00 AM</button>
+<button class="time-slot selected py-3 px-4 border border-primary rounded-lg font-label-md text-label-md text-center btn-transition">01:00 PM</button>
+<button class="time-slot py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface text-center hover:border-primary btn-transition">02:30 PM</button>
+</div>
+</div>
+<!-- Summary & CTA -->
+<div class="flex flex-col gap-4 mt-auto p-4 bg-surface-container-low rounded-lg">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface-variant">Date</span>
+<span class="text-on-surface font-medium">Oct 16, 2023</span>
+</div>
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface-variant">Time</span>
+<span class="text-on-surface font-medium">01:00 PM - 02:00 PM</span>
+</div>
+<div class="w-full h-px bg-surface-variant my-1"></div>
+
+</div>
+<button class="w-full py-4 mt-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md font-semibold hover:bg-surface-tint btn-transition">
+                    Confirm Booking
+                </button>
+</div>
+</aside>
+</main>
+<script>
+        // Simple interaction for demo purposes
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', function() {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected', 'border-primary', 'bg-primary', 'text-on-primary'));
+                this.classList.add('selected');
+                // Minimal styling reset handled by CSS classes
+            });
+        });
+    </script>
+
+
+</body></html>

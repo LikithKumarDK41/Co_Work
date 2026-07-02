@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Co-Work Manager - Login</title>
+</head>
+<body>
+    <script>
+        // Check if user is already logged in (simple check - in production use proper session management)
+        const isLoggedIn = localStorage.getItem('coworkUserLoggedIn');
+        if (isLoggedIn) {
+            window.location.href = 'assets/template.html?page=dashboard';
+        } else {
+            window.location.href = 'login_co_work_manager_1/code.html';
+        }
+    </script>
+    <p>Redirecting...</p>
+</body>
+</html>

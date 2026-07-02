@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Help Center - SB Telecom</title>
+<link href="layout.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<script src="layout.js" defer></script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex antialiased">
+<!-- Main Content -->
+<main class="page-layout flex-1 min-h-screen w-full pb-24">
+<!-- Hero Section without background image, utilizing full width -->
+<div class="relative w-full overflow-hidden bg-gradient-to-br from-blue-50 via-white to-slate-50 border-b border-slate-100">
+<div class="relative max-w-[1440px] mx-auto px-6 md:px-12 py-12 md:py-16 flex flex-col items-center text-center">
+<h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">How can we help?</h2>
+<p class="font-body-lg text-body-lg text-black max-w-2xl mb-8">Search our knowledge base or browse categories below to find answers regarding your workspace, billing, and amenities.</p>
+<!-- Prominent Search Bar -->
+<div class="w-full max-w-3xl relative shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-full bg-surface">
+<span class="material-symbols-outlined absolute left-6 top-1/2 transform -translate-y-1/2 text-outline text-[28px]">search</span>
+<input class="w-full bg-transparent border-none py-5 pl-16 pr-6 rounded-full font-body-lg text-body-lg text-on-surface focus:ring-2 focus:ring-secondary placeholder-on-surface-variant/60 transition-all duration-200 outline-none" placeholder="Search for articles, guides, or keywords..." type="text"/>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-6 md:px-12 py-12 md:py-16">
+<!-- Grid of FAQ Categories -->
+<div class="mb-8 flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-slate-900">Browse Categories</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Category 1 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">wifi</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">WiFi &amp; Tech</h4>
+<p class="font-body-md text-body-md text-black">Network access, printing setup, meeting room AV, and general troubleshooting.</p>
+</a>
+<!-- Category 2 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">receipt_long</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">Billing &amp; Invoices</h4>
+<p class="font-body-md text-body-md text-black">Membership fees, payment methods, past invoices, and credit usage.</p>
+</a>
+<!-- Category 3 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">Mail &amp; Packages</h4>
+<p class="font-body-md text-body-md text-black">Delivery instructions, mail handling policies, and pickup procedures.</p>
+</a>
+<!-- Category 4 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">local_cafe</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">Amenities &amp; Spaces</h4>
+<p class="font-body-md text-body-md text-black">Kitchen use, quiet zones, phone booths, lockers, and parking information.</p>
+</a>
+<!-- Category 5 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">diversity_3</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">Community Guidelines</h4>
+<p class="font-body-md text-body-md text-black">House rules, guest policies, pet guidelines, and community etiquette.</p>
+</a>
+<!-- Category 6 -->
+<a class="group bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] rounded-2xl p-8 flex flex-col items-start transition-all duration-300 border border-transparent hover:border-surface-container-highest" href="#">
+<div class="w-14 h-14 rounded-full bg-surface-container-low group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 0;">manage_accounts</span>
+</div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-slate-900 mb-2">Account Settings</h4>
+<p class="font-body-md text-body-md text-black">Profile updates, notification preferences, and team member management.</p>
+</a>
+</div>
+<!-- CTA Section -->
+<div class="mt-12 md:mt-16 bg-surface shadow-[0px_4px_20px_rgba(0,0,0,0.04)] rounded-3xl p-10 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border border-surface-container-highest">
+<div class="flex items-start gap-6">
+<div class="hidden sm:flex w-16 h-16 rounded-full bg-blue-100 items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[#004ac6] text-[32px]" style="font-variation-settings: 'FILL' 1;">support_agent</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-slate-900 mb-2">Can't find what you're looking for?</h3>
+<p class="font-body-md text-body-md text-black max-w-xl">Our community team is on-site and ready to assist you. Raise a ticket detailing your issue, and we'll get back to you promptly.</p>
+</div>
+</div>
+<a class="bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-lg hover:opacity-90 transition-opacity duration-200 flex-shrink-0 whitespace-nowrap shadow-md inline-block text-center" href="raise_support.html">Raise a Ticket</a>
+</div>
+</div>
+</main>
+</body></html>

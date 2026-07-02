@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visitor Check-in - SB Telecom</title>
+<link href="layout.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbf9f9; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.04);
+        }
+        .ambient-shadow-hover:hover {
+            box-shadow: 0px 8px 30px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+    </style>
+    <script src="layout.js" defer></script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex antialiased">
+<main class="page-layout flex-1 w-full flex justify-center items-center p-margin-mobile md:p-margin-desktop min-h-screen">
+<div class="max-w-2xl w-full bg-surface-container-lowest ambient-shadow rounded-xl p-stack-lg flex flex-col items-center text-center">
+<!-- Success Indicator -->
+<div class="w-20 h-20 rounded-full bg-secondary-container flex items-center justify-center mb-stack-md">
+<span class="material-symbols-outlined icon-fill text-on-secondary-container" style="font-size: 40px;">check_circle</span>
+</div>
+<!-- Headline -->
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-stack-sm">
+                Visitor Checked In Successfully
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-section-gap max-w-md">
+                Please provide the visitor with their access badge or direct them to scan the QR code below for digital entry.
+            </p>
+<!-- Visitor Details & QR Layout -->
+<div class="w-full flex flex-col md:flex-row gap-gutter border border-outline-variant rounded-lg p-stack-md text-left mb-section-gap bg-surface">
+<!-- Details List -->
+<div class="flex-1 flex flex-col justify-center gap-stack-md pr-gutter md:border-r border-outline-variant">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Visitor Name</p>
+<p class="font-body-lg text-body-lg text-primary">Eleanor Vance</p>
+</div>
+<hr class="border-t border-outline-variant opacity-50"/>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Company</p>
+<p class="font-body-lg text-body-lg text-primary">Hill House Architecture</p>
+</div>
+<hr class="border-t border-outline-variant opacity-50"/>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Arrival Time</p>
+<p class="font-body-lg text-body-lg text-primary">10:15 AM</p>
+</div>
+</div>
+<!-- QR Code Section -->
+<div class="flex flex-col items-center justify-center pt-stack-md md:pt-0 pl-0 md:pl-gutter min-w-[200px]">
+<img alt="Visitor QR Code" class="w-40 h-40 object-cover border border-outline-variant rounded mb-stack-sm" src="https://lh3.googleusercontent.com/aida/AP1WRLs6NS7lnbG2KKlIrEUCLLiiT-B-RSSFunwenobew8vHWDFI3Hd5jd_kkMgVxLybVNJmv9PbLP5-YMguqAeLyhVtdtDCLhsASEILxrQV1cGs_vjUkqxgNg55Xxh7BfUn3E15xW-dV0a2gzo36_38Aupq6UfvwF0iBF96UI5_pFvSNj10M6TNAOhDrla0K2G93llVRvIumzpea3EP874l7gKtiTECOwtdOANyDTj0Zhi2Ghm4ekBSw1TJ81Bo"/>
+<p class="font-label-md text-label-md text-on-surface-variant text-center">Scan for Access</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col sm:flex-row gap-stack-md w-full justify-center">
+<button class="flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-tint transition-colors duration-200 w-full sm:w-auto">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                    Print Badge
+                </button>
+<a class="flex items-center justify-center gap-2 bg-transparent border border-outline text-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-variant transition-colors duration-200 w-full sm:w-auto text-center" href="visitor_history.html">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    Back to Visitor History
+                </a>
+</div>
+</div>
+</main>
+</body></html>

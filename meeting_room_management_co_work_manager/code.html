@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Meeting Room Management - CoWork Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface w-[260px] h-screen fixed left-0 top-0 border-r border-outline-variant dark:border-outline shadow-sm flex flex-col py-6 z-50">
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">domain</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">CoWork Manager</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operational Excellence</p>
+</div>
+</div>
+<button class="mx-6 mb-6 bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span> Quick Add
+        </button>
+<div class="flex-1 overflow-y-auto px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-secondary-fixed-dim font-bold border-l-4 border-primary dark:border-secondary-fixed-dim bg-surface-container-high dark:bg-on-surface-variant/20 scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="meeting_room" data-weight="fill" style="font-variation-settings: 'FILL' 1;">meeting_room</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+<span class="font-label-md text-label-md">Visitors</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-label-md text-label-md">Tickets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-label-md text-label-md">Announcements</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="mt-auto px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-on-background h-16 fixed top-0 right-0 left-[260px] z-40 border-b border-outline-variant dark:border-outline flex justify-between items-center px-lg w-[calc(100%-260px)] transition-all duration-200">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-2 pl-10 pr-4 font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" placeholder="Search rooms..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/20 px-4 py-2 rounded-lg transition-colors">Support</button>
+<button class="font-label-md text-label-md bg-primary text-on-primary hover:bg-on-primary-fixed-variant px-4 py-2 rounded-lg transition-colors shadow-sm">Add New</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant ml-2" data-alt="A professional headshot of a smiling community manager in a modern office setting. Clear, bright lighting emphasizing a welcoming corporate environment. The person is wearing business casual attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHrogJRbggGzS-N1lI-gY9twpp3dzcIn1Afz2SZ-n42lPO9S9uBCeDEbeRIXKz9Ves057tX7jB6VdY8esrSx2MYwIZMTsCBg5esaWW0BD7-S4Rc8YRYOXZ3GLa3HlAX_s31DdHw5L7uPewPaapA0YXD8u61qsvrPguJKWN4bb9dh36DzEejUkFoZQWLTn6t04Wxp1QZS8lOhFjqxd68QSlJgBCHjtZtD1BWT0cy1JeaeFV-OGHohxTcQhdOkKfNbH0xerzEYAMtzo">
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[260px] mt-16 p-lg w-[calc(100%-260px)]">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Meeting Rooms</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage spaces, capacities, and technical amenities.</p>
+</div>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 border border-outline-variant px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-2 border border-outline-variant px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">view_module</span> Grid
+                    </button>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Room Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A bright, modern executive boardroom featuring a large polished wooden table surrounded by ergonomic black leather chairs. A large glass whiteboard and a sophisticated video conferencing screen are visible on the wall. Sunlight streams through floor-to-ceiling windows showing a cityscape. Corporate minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8F7XSU3hVZuJs9WeP-eE9D0OcxIaXSA6YC2Lm6CSWUTbi3XnAW4PxMmM1FWN8j4EeOHVsgyDkZ8Sk4rSbxA7YjWTj5tLcwlKgovho3LPdufugyu7PNSjc1P0h76Hxv5s_xS_533Awf5QxZIUnmA_yiXPW_ScNuo7ago0K33QhjRiBtz3AZz_tRcVWdY6i-lMHTce0bdNR5UxLFJWOCC1KemqlaRS4gvMCJG625_V_OMDCXwGWWSRJy5xfT38gaGrlFLqJf4MIiSs')"></div>
+<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                        </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">The Boardroom</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Floor 3, North Wing</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100 p-1">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">group</span>
+<span>12 Capacity</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">square_foot</span>
+<span>400 sq ft</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Amenities</p>
+<div class="flex flex-wrap gap-2">
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">wifi</span> High-Speed WiFi
+                                </div>
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">video_camera_front</span> Video Conf
+                                </div>
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">tv</span> 4K Display
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Room Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A cozy, informal collaboration space with a small round table, comfortable upholstered colorful chairs, and a small writable wall surface. Warm lighting with a modern pendant lamp overhead. The setting feels creative and relaxed, yet professional. Plant accents are visible." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBy_kKZxnrnxV2HH5GqOlI_YXt2ZNH6y0ytaN-dNnhT2y8m4OX7ok05fj2KQl0iFHYUSdPN1i5FUC6FKAsBHnXiirk-UydaQJZ_zjxAlNVWKdW5dCH9jYma2oN6LM6NwNm4BsBIfkdtqeX1j-ZfXq6cKwev-YPBOrMBonnzqqkWVnBDko0GO3nUe9fXO9yBNEnJpavgYKjk6eE60Xf59JHmbxSlqOVigx3KjF1SDVEWMnzimnWwtpF63xfZdNbRbnRHvBCdiGfYruc')"></div>
+<div class="absolute top-4 right-4 bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-error"></span> Maintenance
+                        </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Creative Hub A</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Floor 2, East Wing</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100 p-1">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">group</span>
+<span>4 Capacity</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">square_foot</span>
+<span>150 sq ft</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Amenities</p>
+<div class="flex flex-wrap gap-2">
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">wifi</span> High-Speed WiFi
+                                </div>
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">architecture</span> Whiteboard Wall
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Room Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] hover:shadow-md transition-shadow flex flex-col group">
+<div class="h-48 w-full relative bg-surface-container-low flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant" style="font-size: 48px;">camera_alt</span>
+<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Active
+                        </div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Podcast Studio</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Basement Level</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors opacity-0 group-hover:opacity-100 p-1">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">group</span>
+<span>2 Capacity</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">square_foot</span>
+<span>100 sq ft</span>
+</div>
+</div>
+<div class="mt-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-3">Amenities</p>
+<div class="flex flex-wrap gap-2">
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">mic</span> Pro Audio Gear
+                                </div>
+<div class="bg-surface-container text-on-surface px-3 py-1.5 rounded-lg flex items-center gap-2 font-body-sm text-body-sm border border-outline-variant/50">
+<span class="material-symbols-outlined text-sm">volume_off</span> Soundproof
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

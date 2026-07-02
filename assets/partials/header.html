@@ -1,0 +1,54 @@
+<header id="appHeader" class="bg-surface-container-lowest/80 dark:bg-on-background/80 backdrop-blur-md h-16 fixed top-0 right-0 left-0 md:left-[260px] z-30 border-b border-outline-variant/30 dark:border-outline flex justify-between items-center pl-4 pr-6 sm:pl-6 sm:pr-8 lg:pl-lg lg:pr-xl transition-[left] duration-200 shadow-sm">
+    <!-- Mobile Brand & Toggle (Left Side on mobile, hidden on desktop) -->
+    <div class="flex items-center gap-3 md:hidden">
+        <button type="button" id="sidebarToggle" class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low p-2 rounded-xl transition-colors flex-shrink-0" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <span class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary text-sm truncate">CoWork</span>
+    </div>
+
+    <!-- Right Aligned Group (Contains all actions, search, and user profile) -->
+    <div class="flex items-center justify-end gap-3 ml-auto flex-1 min-w-0">
+        <!-- Search bar -->
+        <div class="hidden md:flex items-center bg-surface-container-low/40 hover:bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant/70 rounded-xl px-4 h-9 focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all w-60 lg:w-72 shadow-inner">
+            <span class="material-symbols-outlined text-outline/80 flex-shrink-0" style="font-size: 18px;">search</span>
+            <input class="bg-transparent border-none focus:ring-0 outline-none w-full ml-2 font-body-sm text-[13px] text-on-surface placeholder:text-outline min-w-0" placeholder="Search anything..." type="search" aria-label="Search">
+        </div>
+
+        <button type="button" class="md:hidden text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors" aria-label="Search">
+            <span class="material-symbols-outlined" style="font-size: 20px;">search</span>
+        </button>
+
+        <div class="h-5 w-px bg-outline-variant/30 hidden md:block self-center"></div>
+        
+        <!-- Notification Button -->
+        <button type="button" class="w-9 h-9 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low/80 rounded-xl transition-all relative shrink-0" title="Notifications" aria-label="Notifications">
+            <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full notification-dot" aria-hidden="true"></span>
+        </button>
+        
+        <!-- Help Button -->
+        <button type="button" class="w-9 h-9 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low/80 rounded-xl transition-all shrink-0" title="Help" aria-label="Help">
+            <span class="material-symbols-outlined" style="font-size: 20px;">help_outline</span>
+        </button>
+
+        <div class="h-5 w-px bg-outline-variant/30 hidden md:block self-center"></div>
+        
+        <!-- User Profile Pill -->
+        <div class="hidden md:flex items-center gap-3 border border-outline-variant/30 hover:border-primary/30 bg-surface-container-low/20 hover:bg-surface-container-low/50 transition-all duration-200 pl-3 pr-1 h-9 rounded-xl cursor-pointer active:scale-[0.98] shrink-0" onclick="navigateTo('settings')">
+            <div class="text-right hidden lg:block select-none leading-none">
+                <p class="text-[12px] font-semibold text-on-surface leading-none">Admin User</p>
+                <p class="text-[10px] text-on-surface-variant leading-none mt-1 truncate max-w-[120px]" id="headerUserEmail">admin@cowork.com</p>
+            </div>
+            <!-- Avatar with Active Indicator -->
+            <div class="relative w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 font-bold text-[11px] border border-primary/20 shadow-sm">
+                <span>AD</span>
+                <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-secondary border border-surface-container-lowest rounded-full" title="Online"></span>
+            </div>
+        </div>
+        
+        <div class="md:hidden w-8 h-8 rounded-lg bg-primary/10 text-primary border border-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm active:scale-95 cursor-pointer" onclick="navigateTo('settings')">
+            <span class="material-symbols-outlined text-inherit" style="font-size: 18px;">person</span>
+        </div>
+    </div>
+</header>

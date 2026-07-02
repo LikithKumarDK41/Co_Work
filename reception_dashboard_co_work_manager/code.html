@@ -1,0 +1,429 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Reception Dashboard - CoWork Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid theme('colors.outline-variant');
+        }
+    </style>
+</head>
+<body class="min-h-screen flex antialiased bg-background text-on-background">
+<!-- SideNavBar -->
+<nav class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline shadow-sm flex flex-col py-6 z-50 md:flex hidden">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">C</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">CoWork Manager</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Operational Excellence</p>
+</div>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors scale-95 active:scale-90 duration-150">
+<span class="material-symbols-outlined">add</span> Quick Add
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto px-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-md text-label-md">Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">meeting_room</span>
+<span class="font-label-md text-label-md">Rooms</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-primary dark:text-secondary-fixed-dim font-bold border-l-4 border-primary dark:border-secondary-fixed-dim bg-surface-container-high dark:bg-on-surface-variant/20 hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">person_add</span>
+<span class="font-label-md text-label-md">Visitors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+<span class="font-label-md text-label-md">Bookings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">confirmation_number</span>
+<span class="font-label-md text-label-md">Tickets</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+<span class="font-label-md text-label-md">Announcements</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="px-4 mt-auto space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="h-16 fixed top-0 right-0 left-0 md:left-[260px] z-40 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline flex justify-between items-center px-lg w-auto transition-all duration-200">
+<div class="flex items-center gap-4">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary hidden md:block">CoWork Admin</h2>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="flex-1 max-w-md mx-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full border border-outline-variant bg-surface-container-lowest focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body-sm text-body-sm" placeholder="Search..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors hidden sm:block">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="font-label-md text-label-md text-primary hidden sm:block">Support</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg hidden sm:block">Add New</button>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a person with a warm smile, well-lit, corporate environment, shallow depth of field, neutral background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAd-OAu0mzEy-LvHKSf6tUG1OcwjxF1fIa45GnUPHr9YL6HesGzqTDW5Uy_njDkwEoOeWJbB-2d-FD62RDAPsmV2Yx8PtEF6_fWN-8WUfLph1QueEol3NSpLZligWRueru-Qbgsuy2UNshfahn6l3yEj4At0KgSShehWj-zkzpzGmgmT4yhaDXT2C5GIuPFXTWPLhvtHocRGFh-caa-oLYvae5YkpEfZgi46fMHgnzydCG8JdhY_XWrZ4d9b2ZGc-_naYS7roYRp4">
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="mt-16 p-md md:p-lg lg:p-xl space-y-lg flex-1 overflow-y-auto">
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Reception Dashboard</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Manage today's visitors and arrivals efficiently.</p>
+</div>
+<div class="flex items-center gap-2 text-primary font-label-md text-label-md bg-surface-container-low px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined">today</span>
+<span id="current-date">October 24, 2023</span>
+</div>
+</div>
+<!-- Quick Actions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Check-In Button -->
+<button class="group relative overflow-hidden rounded-xl p-6 bg-primary text-on-primary shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary-container flex flex-col items-center justify-center min-h-[160px]">
+<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[48px] mb-4" style="font-variation-settings: 'FILL' 1;">login</span>
+<span class="font-headline-sm text-headline-sm">Quick Check-In</span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim mt-2 opacity-80 group-hover:opacity-100">Register new visitor</span>
+</button>
+<!-- Check-Out Button -->
+<button class="group relative overflow-hidden rounded-xl p-6 bg-surface-container-lowest text-primary border border-outline-variant shadow-sm hover:shadow-md hover:border-primary transition-all duration-300 transform hover:-translate-y-1 flex flex-col items-center justify-center min-h-[160px]">
+<div class="absolute inset-0 bg-surface-container-low opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[48px] mb-4 relative z-10" style="font-variation-settings: 'FILL' 1;">logout</span>
+<span class="font-headline-sm text-headline-sm relative z-10">Quick Check-Out</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-2 relative z-10 opacity-80 group-hover:opacity-100">Record departure</span>
+</button>
+</div>
+<!-- Main Content Split -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Today's Visitors List (Spans 2 columns on lg) -->
+<div class="lg:col-span-2 glass-card rounded-xl p-md md:p-lg flex flex-col shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+                            Today's Visitors
+                        </h3>
+<div class="flex gap-2">
+<button class="font-label-sm text-label-sm px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-full border border-outline-variant hover:bg-surface-variant transition-colors">All (24)</button>
+<button class="font-label-sm text-label-sm px-3 py-1 bg-surface-container-lowest text-on-surface-variant rounded-full border border-outline-variant hover:bg-surface-variant transition-colors">Expected (12)</button>
+<button class="font-label-sm text-label-sm px-3 py-1 bg-primary/10 text-primary rounded-full border border-primary/20">Checked In (8)</button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="pb-3 px-2 font-semibold">Visitor Name</th>
+<th class="pb-3 px-2 font-semibold">Host</th>
+<th class="pb-3 px-2 font-semibold">Time</th>
+<th class="pb-3 px-2 font-semibold">Status</th>
+<th class="pb-3 px-2 text-right font-semibold">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-outline-variant/50">
+<!-- Row 1: Expected -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary font-semibold text-sm">JS</div>
+<div>
+<div class="font-medium text-on-background">Jane Smith</div>
+<div class="text-xs text-on-surface-variant">Tech Solutions Inc.</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-2 text-on-surface-variant">Mark Davis</td>
+<td class="py-4 px-2 text-on-surface-variant">10:00 AM</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-container-highest text-on-surface-variant border border-outline-variant/30">
+                                            Expected
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<button class="text-primary font-label-sm text-label-sm hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Check In</button>
+</td>
+</tr>
+<!-- Row 2: Checked In -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+<img alt="Visitor" class="w-full h-full object-cover" data-alt="A casual portrait of a man with glasses, neutral background, bright lighting, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe_4ea4EXiLoFyM1d5aAtELOfM5JmEzFESR24lEEc4iDGE0F7w_6D8B9JQKV4bdhUaXbOwEoBxeadXVbegZIVNVDqAy2yR7aDoBvBcLHlN2p84UvK1uh7wSR6nKFpU4fFhyJnQWkgaCYDft3rOBO4bv4tor8l0aU-TKIAbWprAygOvp33rT56-6xY1E_MmdBJq3s3HyPyBu_EHo7HSCbkXlVnAuP6D7Si2F5tGZfN1D3WgssVPyHinOFzpOWXy8X2fNRdxaSYwNJM">
+</div>
+<div>
+<div class="font-medium text-on-background">Robert Chen</div>
+<div class="text-xs text-on-surface-variant">Freelancer</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-2 text-on-surface-variant">Sarah Jenkins</td>
+<td class="py-4 px-2 text-on-surface-variant">09:15 AM</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5"></span>
+                                            Checked In
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<button class="text-on-surface-variant hover:text-error font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">Check Out</button>
+</td>
+</tr>
+<!-- Row 3: Delayed -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary/20 flex items-center justify-center text-tertiary font-semibold text-sm">AL</div>
+<div>
+<div class="font-medium text-on-background">Amanda Lee</div>
+<div class="text-xs text-on-surface-variant">Design Studio</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-2 text-on-surface-variant">Tom Wilson</td>
+<td class="py-4 px-2 text-error">08:30 AM</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error border border-error/20">
+                                            Delayed
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<button class="text-primary font-label-sm text-label-sm hover:underline opacity-0 group-hover:opacity-100 transition-opacity">Contact</button>
+</td>
+</tr>
+<!-- Row 4: Checked Out -->
+<tr class="hover:bg-surface-container-low transition-colors group opacity-70">
+<td class="py-4 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-semibold text-sm">MR</div>
+<div>
+<div class="font-medium text-on-surface-variant">Michael Ross</div>
+<div class="text-xs text-on-surface-variant">Legal Corp</div>
+</div>
+</div>
+</td>
+<td class="py-4 px-2 text-on-surface-variant">David Kim</td>
+<td class="py-4 px-2 text-on-surface-variant line-through">08:00 AM</td>
+<td class="py-4 px-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant/50">
+                                            Checked Out
+                                        </span>
+</td>
+<td class="py-4 px-2 text-right">
+<span class="material-symbols-outlined text-outline text-sm">history</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 text-center">
+<button class="text-primary font-label-sm text-label-sm hover:underline">View All Visitors</button>
+</div>
+</div>
+<!-- Host Arrival Alerts Panel -->
+<div class="glass-card rounded-xl p-md md:p-lg flex flex-col shadow-sm bg-surface-bright">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">notifications_active</span>
+                            Host Alerts
+                        </h3>
+<span class="bg-error text-on-error text-xs font-bold px-2 py-1 rounded-full">3 New</span>
+</div>
+<div class="space-y-4 flex-1 overflow-y-auto pr-2">
+<!-- Alert 1 -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border border-l-4 border-l-secondary border-outline-variant/50 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-10">
+<span class="material-symbols-outlined text-4xl">mark_email_unread</span>
+</div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-label-sm text-secondary">Host Notified</span>
+<span class="text-xs text-on-surface-variant">Just now</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-background">
+<strong>Sarah Jenkins</strong> has been notified of <strong>Robert Chen's</strong> arrival.
+                            </p>
+<div class="mt-3 flex gap-2">
+<button class="text-xs px-2 py-1 bg-surface-variant text-on-surface-variant rounded hover:bg-outline-variant transition-colors">Mark Read</button>
+<button class="text-xs px-2 py-1 text-primary hover:underline">Send Reminder</button>
+</div>
+</div>
+<!-- Alert 2 -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border border-l-4 border-l-error border-outline-variant/50 shadow-sm">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-label-sm text-error flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">warning</span> Action Required</span>
+<span class="text-xs text-on-surface-variant">10m ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-background">
+<strong>Mark Davis</strong> is unresponsive for <strong>Jane Smith's</strong> expected arrival.
+                            </p>
+<div class="mt-3 flex gap-2">
+<button class="text-xs px-2 py-1 bg-error/10 text-error rounded border border-error/20 hover:bg-error/20 transition-colors">Call Host</button>
+</div>
+</div>
+<!-- Alert 3 -->
+<div class="p-4 rounded-lg bg-surface-container-lowest border border-l-4 border-l-primary border-outline-variant/50 shadow-sm">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-label-sm text-primary">Delivery</span>
+<span class="text-xs text-on-surface-variant">45m ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-background">
+                                Package arrived for <strong>Tom Wilson</strong>. Ready for pickup at front desk.
+                            </p>
+<div class="mt-3 flex gap-2">
+<button class="text-xs px-2 py-1 bg-surface-variant text-on-surface-variant rounded hover:bg-outline-variant transition-colors">Mark Picked Up</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple script to set current date
+        const dateElement = document.getElementById('current-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = new Date().toLocaleDateString('en-US', options);
+    </script>
+</body></html>

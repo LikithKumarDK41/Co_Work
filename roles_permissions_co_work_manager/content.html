@@ -1,0 +1,238 @@
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+    <div>
+        <div class="flex items-center gap-2 text-on-surface-variant mb-2 flex-wrap">
+            <a class="font-label-sm text-label-sm hover:text-primary transition-colors uppercase" href="#" onclick="navigateTo('users'); return false;">Users</a>
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span class="font-label-sm text-label-sm text-outline uppercase">Roles & Permissions</span>
+        </div>
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-background">Role Management Matrix</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Configure access levels and permissions across different user roles within the platform.</p>
+    </div>
+    <div class="flex gap-2 w-full sm:w-auto shrink-0">
+        <button class="px-4 py-2 border border-outline-variant rounded-lg text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2 justify-center flex-1 sm:flex-initial shadow-sm whitespace-nowrap">
+            <span class="material-symbols-outlined text-[20px]">audit</span>
+            Audit Log
+        </button>
+        <button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary/90 shadow-sm transition-colors flex items-center gap-2 justify-center flex-1 sm:flex-initial whitespace-nowrap">
+            <span class="material-symbols-outlined text-[20px]">save</span>
+            Save Changes
+        </button>
+    </div>
+</div>
+
+<!-- Bento Layout Container -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-lg">
+    <!-- Matrix Section (Spans 9 cols on wide screens) -->
+    <div class="xl:col-span-9 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
+        <!-- Matrix Toolbar -->
+        <div class="p-md border-b border-outline-variant bg-surface flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+            <div class="flex items-center gap-md w-full sm:w-auto">
+                <div class="relative w-full sm:w-64">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">filter_list</span>
+                    <select class="w-full h-10 pl-10 pr-8 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none text-body-sm text-on-surface appearance-none">
+                        <option>All Permission Categories</option>
+                        <option>User Management</option>
+                        <option>Billing & Finance</option>
+                        <option>Facilities & Rooms</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline text-[18px] pointer-events-none">expand_more</span>
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end">
+                <button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" title="Expand All">
+                    <span class="material-symbols-outlined text-[20px]">unfold_more</span>
+                </button>
+                <button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" title="Export CSV">
+                    <span class="material-symbols-outlined text-[20px]">download</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- The Matrix Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low border-b border-outline-variant">
+                        <th class="p-md font-label-sm text-label-sm text-on-surface uppercase sticky left-0 bg-surface-container-low z-10 w-1/3 min-w-[200px]">Permission Context</th>
+                        <!-- Role Columns -->
+                        <th class="p-md text-center border-l border-outline-variant/50 min-w-[120px]">
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="px-2.5 py-0.5 bg-primary/10 text-primary rounded-full font-label-sm text-label-sm uppercase">Admin</span>
+                                <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Full System</span>
+                            </div>
+                        </th>
+                        <th class="p-md text-center border-l border-outline-variant/50 min-w-[120px]">
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="px-2.5 py-0.5 bg-secondary/10 text-secondary rounded-full font-label-sm text-label-sm uppercase">Manager</span>
+                                <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Operational Focus</span>
+                            </div>
+                        </th>
+                        <th class="p-md text-center border-l border-outline-variant/50 min-w-[120px]">
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="px-2.5 py-0.5 bg-tertiary/10 text-tertiary rounded-full font-label-sm text-label-sm uppercase">Reception</span>
+                                <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Front Desk</span>
+                            </div>
+                        </th>
+                        <th class="p-md text-center border-l border-outline-variant/50 min-w-[120px]">
+                            <div class="flex flex-col items-center gap-1">
+                                <span class="px-2.5 py-0.5 bg-outline-variant/20 text-on-surface-variant rounded-full font-label-sm text-label-sm uppercase">Member</span>
+                                <span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">End User Portal</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="font-body-sm text-body-sm">
+                    <!-- Category Row -->
+                    <tr class="bg-surface border-b border-outline-variant/50">
+                        <td class="p-sm px-md font-label-md text-label-md text-on-surface bg-surface-container-lowest sticky left-0" colspan="5">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px] text-primary">group</span>
+                                User Management
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Permission Row -->
+                    <tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors group">
+                        <td class="p-md pl-xl sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low/50 transition-colors">
+                            <div class="font-label-md text-label-md text-on-surface">View Member Profiles</div>
+                            <div class="text-on-surface-variant text-[12px] mt-0.5">Read-only access to member directories and basic details.</div>
+                        </td>
+                        <!-- Toggles -->
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" disabled type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary opacity-50"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                    </tr>
+                    <!-- Permission Row -->
+                    <tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors group">
+                        <td class="p-md pl-xl sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low/50 transition-colors">
+                            <div class="font-label-md text-label-md text-on-surface">Edit Member Billing</div>
+                            <div class="text-on-surface-variant text-[12px] mt-0.5">Modify payment methods and plan assignments.</div>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" disabled type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary opacity-50"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input class="sr-only peer" type="checkbox" disabled>
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary bg-surface-container-highest cursor-not-allowed"></div>
+                            </label>
+                        </td>
+                    </tr>
+                    <!-- Category Row -->
+                    <tr class="bg-surface border-b border-outline-variant/50">
+                        <td class="p-sm px-md font-label-md text-label-md text-on-surface bg-surface-container-lowest sticky left-0" colspan="5">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px] text-secondary">meeting_room</span>
+                                Facilities & Bookings
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Permission Row -->
+                    <tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors group">
+                        <td class="p-md pl-xl sticky left-0 bg-surface-container-lowest group-hover:bg-surface-container-low/50 transition-colors">
+                            <div class="font-label-md text-label-md text-on-surface">Approve Room Bookings</div>
+                            <div class="text-on-surface-variant text-[12px] mt-0.5">Accept or reject pending conference room reservations.</div>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" disabled type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary opacity-50"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input checked class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                        <td class="p-md text-center border-l border-outline-variant/50">
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input class="sr-only peer" type="checkbox">
+                                <div class="w-9 h-5 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Contextual Side Panel (Spans 3 cols) -->
+    <div class="xl:col-span-3 space-y-lg">
+        <!-- Role Summary Card -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-4 sm:p-6">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface border-b border-outline-variant pb-3 mb-4 font-semibold">Role Summary: Admin</h3>
+            <div class="space-y-4">
+                <div>
+                    <div class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Total Users in Role</div>
+                    <div class="text-[32px] font-bold text-primary leading-none">12</div>
+                </div>
+                <div>
+                    <div class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-1">Risk Level</div>
+                    <div class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-error-container text-on-error-container font-label-md text-label-md">
+                        <span class="material-symbols-outlined text-[16px]">warning</span>
+                        High Access
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-outline-variant">
+                    <button class="w-full py-2 border border-primary text-primary rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm" onclick="navigateTo('users')">
+                        View Users
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Role Creation Promo -->
+        <div class="bg-surface-bright rounded-xl border border-outline-variant p-4 sm:p-6 relative overflow-hidden group">
+            <div class="absolute -right-8 -top-8 w-32 h-32 bg-secondary-container rounded-full blur-2xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-2 relative z-10 font-semibold">Need a specific role?</h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-4 relative z-10">Create custom roles with granular permission control for specialized staff.</p>
+            <button class="flex items-center gap-2 text-secondary font-label-md text-label-md hover:text-on-secondary-container transition-colors relative z-10">
+                <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                Create Custom Role
+            </button>
+        </div>
+    </div>
+</div>

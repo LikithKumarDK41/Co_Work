@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>My Bookings - SB Telecom</title>
+    <link href="layout.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            background-color: #f8fafc;
+        }
+
+        body {
+            color: #0f172a;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .page-main {
+            max-width: none !important;
+            width: 100% !important;
+            min-width: 0;
+            background-color: #f8fafc;
+        }
+
+        .booking-list {
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+
+    <script src="layout.js" defer></script>
+</head>
+
+<body class="flex flex-col md:flex-row min-h-screen bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <main class="page-layout flex-1 min-h-screen pb-24 pt-6 md:pt-10 px-4 md:px-8 w-full max-w-[1440px] mx-auto">
+
+        <header class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4 w-full">
+            <div>
+                <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">
+                    My Bookings
+                </h2>
+                <p class="text-base text-slate-500 mt-2 max-w-2xl">
+                    Manage your upcoming reservations and review past workspace usage.
+                </p>
+            </div>
+
+            <div class="bg-slate-100 flex rounded-xl p-1.5 w-full md:w-auto self-start md:self-end border border-slate-200">
+                <button
+                    class="bg-white shadow-sm flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-semibold text-slate-900 transition-all">
+                    Upcoming
+                </button>
+                <button
+                    class="flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 transition-all">
+                    Past
+                </button>
+            </div>
+        </header>
+
+        <div class="booking-list grid grid-cols-1 gap-6">
+
+            <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+
+                <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
+                    <div class="flex gap-6 items-start flex-1 min-w-0">
+                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
+                            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500"
+                                alt="Executive Strategy Session"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1IQlQlcof7FDUPAxnbovOUNP-9BOCt8fnlKgcIMdKrcobkd8O_CTI9HxCcrytE_xilohPaaNrIS1-IyO3kqixxCKyhBMbQbZCHtdw5cHQ0fuzsPgAo7aK3vsEqmG8Kn_mkLd3biwnwZfKT47l7tYEYclvlVdxMMJK-6NsT8hQqlLWAikgMehyCXBbjsszUMx_ZWMHdQBq3ZDVvF3_S4ezCjcfP8K76XIRymUaYljqtubjXeXDjI-gYcA1yQiBFUzzGwqDUJZg7lCu">
+                        </div>
+
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <span
+                                    class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
+                                    Confirmed
+                                </span>
+                                <span
+                                    class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Boardroom A
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-slate-900 mb-1">
+                                Executive Strategy Session
+                            </h3>
+
+                            <div
+                                class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                    Oct 24, 2023
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                                    10:00 AM - 12:00 PM
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+                                    2 Hours
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-row md:flex-col gap-3 justify-end items-end md:items-stretch border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 shrink-0">
+                        <button
+                            class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200">
+                            Reschedule
+                        </button>
+                        <button
+                            class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+
+                <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
+                    <div class="flex gap-6 items-start flex-1 min-w-0">
+                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
+                            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500"
+                                alt="Deep Work Block"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1qxSfvpP6ACYTYKCCkX554gl8YKP6UYnUHcpHLFdYUSj7_tKhoJSSbJBkTWKnWIJ-LqzxW225rx57Z8m5Hx4Km4IYF2CsTDcDPX2pz3nbDEnhwk04m65WAEH4UjTD4rxKEZk5FsaX3M8jZJTxQF7aM6LUd8Pl7T3gfGTwUncd48DrjnbgKlU0XZlpkc1E-Utj83BwksIus_W8Pi_b92mcWyOTJzZzL_jyd0xlJyCYBlw_TcVAt-HdKZOsEHe2ywuBUQl_V_SPNtaa">
+                        </div>
+
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <span
+                                    class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
+                                    Confirmed
+                                </span>
+                                <span
+                                    class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Focus Pod 04
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-slate-900 mb-1">
+                                Deep Work Block
+                            </h3>
+
+                            <div
+                                class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                    Oct 26, 2023
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                                    1:00 PM - 5:00 PM
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+                                    4 Hours
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-row md:flex-col gap-3 justify-end items-end md:items-stretch border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 shrink-0">
+                        <button
+                            class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200">
+                            Reschedule
+                        </button>
+                        <button
+                            class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
+                <div class="absolute top-0 left-0 w-1.5 h-full bg-slate-300"></div>
+
+                <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
+                    <div class="flex gap-6 items-start opacity-70 flex-1 min-w-0">
+                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
+                            <img class="w-full h-full object-cover grayscale transition-all duration-500"
+                                alt="Open Seating Request"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLdgiFJt208cZcwnraljyaxgL8PWzf71eyhA8SF6clJSjMptpEjkM3q9g3e1SQ4bC7IVf8eCAstc3O-AoIXOljFioUqeZ8Y2N_z88UB2AE4DMWB7qDMBalO9z3owb63i1GSNpYmiqDCRgWugDDH-STPuVIiLr96NqJtmi3Fmi376KIImr95smYajfZHWUOR-6_ZYT6gYD9cEcz0h1_IB9gNjItzNqUqDopRdVNhhc5O4_qPDwPorcg8NO5Pzc7Mj1KFYAWBgWJOTrI">
+                        </div>
+
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                <span
+                                    class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border border-slate-200">
+                                    Waitlist
+                                </span>
+                                <span
+                                    class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
+                                    Hot Desk Area
+                                </span>
+                            </div>
+
+                            <h3 class="text-xl font-bold text-slate-900 mb-1">
+                                Open Seating Request
+                            </h3>
+
+                            <div
+                                class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                    Nov 01, 2023
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                                    9:00 AM - 5:00 PM
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+                                    Full Day
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-row md:flex-col gap-3 justify-end items-end md:items-stretch border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 shrink-0">
+                        <button
+                            class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
+                            Remove Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+<div class="flex flex-col gap-lg">
+    <!-- Header & Controls -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-2">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Room Bookings</h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Manage and monitor meeting space utilization.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-sm self-start sm:self-auto">
+            <button onclick="openNewBookingModal()" class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-1.5 rounded-lg font-label-md shadow-sm hover:bg-primary/90 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">add</span> New Booking
+            </button>
+            <button onclick="openCancellationsModal()" class="flex items-center gap-1.5 bg-surface border border-outline-variant text-on-surface px-4 py-1.5 rounded-lg font-label-md shadow-sm hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-[18px]">block</span> Cancellations
+            </button>
+        </div>
+    </div>
+
+    <!-- Top Row: Dashboard Widgets -->
+    <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-lg shrink-0">
+        <!-- Pending Approvals List -->
+        <div class="lg:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
+            <div class="px-md py-sm border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+                <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface flex items-center gap-2">
+                    Action Required
+                    <span class="bg-error-container text-on-error-container font-label-sm text-[10px] px-2 py-0.5 rounded-full">3 Pending</span>
+                </h3>
+                <button onclick="openAllApprovalsModal()" class="text-primary font-label-sm hover:underline">View All</button>
+            </div>
+            
+            <div class="flex flex-col divide-y divide-outline-variant/30 h-full">
+                <!-- Compact Pending Item 1 -->
+                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-md font-bold text-on-surface">External Workshop</span>
+                            <span class="font-label-sm text-[10px] text-error bg-error/10 border border-error/20 px-1.5 py-0.5 rounded uppercase font-bold">Review</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-on-surface-variant">
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Podcast Studio</span>
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Tomorrow, 1:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
+                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
+                    </div>
+                </div>
+
+                <!-- Compact Pending Item 2 -->
+                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-md font-bold text-on-surface">Board Meeting (Recurring)</span>
+                            <span class="material-symbols-outlined text-outline text-[14px]">autorenew</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-on-surface-variant">
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> The Boardroom</span>
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Fridays, 9:00 AM (x4)</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
+                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
+                    </div>
+                </div>
+                
+                <!-- Compact Pending Item 3 -->
+                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-label-md font-bold text-on-surface">Team Offsite Prep</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-on-surface-variant">
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Creative Hub A</span>
+                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 28, 10:00 AM</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
+                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donut Utilization Chart -->
+        <div class="lg:col-span-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col">
+            <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface mb-4">Today's Utilization</h3>
+            <div class="flex-1 flex flex-col items-center justify-center py-2">
+                <!-- CSS Donut Chart -->
+                <div class="relative w-32 h-32 rounded-full flex items-center justify-center" style="background: conic-gradient(var(--color-primary) 0% 65%, var(--color-surface-container-high) 65% 100%);">
+                    <div class="absolute w-24 h-24 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center shadow-inner border border-outline-variant/30">
+                        <span class="font-headline-lg font-bold text-on-surface leading-none">65%</span>
+                        <span class="text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Booked</span>
+                    </div>
+                </div>
+                
+                <!-- Legend -->
+                <div class="mt-6 w-full space-y-3 px-2">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+                            <span class="font-label-sm text-on-surface">The Boardroom</span>
+                        </div>
+                        <span class="font-label-sm font-bold text-on-surface-variant">85%</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2.5 h-2.5 rounded-full bg-surface-container-high border border-outline-variant/50"></div>
+                            <span class="font-label-sm text-on-surface">Creative Hub A</span>
+                        </div>
+                        <span class="font-label-sm font-bold text-on-surface-variant">40%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calendar View -->
+    <div class="flex-1 flex flex-col gap-lg min-w-0">
+        <!-- Calendar Container -->
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col flex-1 overflow-hidden">
+            <!-- Toolbar -->
+            <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
+                <div class="flex items-center bg-surface border border-outline-variant rounded-lg p-0.5 shadow-sm">
+                    <button onclick="changeDate(-1)" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded-md transition-colors flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+                    </button>
+                    
+                    <div class="relative flex items-center px-3 border-x border-outline-variant/30">
+                        <span class="material-symbols-outlined text-primary text-[18px] mr-2 pointer-events-none">calendar_month</span>
+                        <input type="date" id="calendarDate" value="2023-10-24" onchange="updateCalendarData()" 
+                            class="font-label-lg text-[15px] text-on-surface font-semibold bg-transparent border-none outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer relative z-10 w-[125px] text-center">
+                    </div>
+                    
+                    <button onclick="changeDate(1)" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded-md transition-colors flex items-center justify-center">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-sm w-full md:w-auto">
+                    <div class="relative flex-1 md:flex-initial">
+                        <span class="material-symbols-outlined absolute left-2 top-1.5 text-outline text-[18px]">search</span>
+                        <input id="searchRooms" oninput="filterRooms()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search rooms..." type="text"/>
+                    </div>
+                    <button class="text-on-surface-variant hover:text-primary p-1.5 rounded border border-outline-variant hover:bg-surface-container-low transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">filter_list</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="flex overflow-x-auto relative min-h-[400px] bg-surface-container-lowest">
+                <div class="flex flex-col min-w-[1200px] w-full">
+                    
+                    <!-- Time Headers -->
+                    <div class="flex border-b border-outline-variant sticky top-0 z-20 bg-surface-container-low">
+                        <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-30 bg-surface-container-low flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                            Rooms
+                        </div>
+                        <div class="flex-1 flex">
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">9:00 AM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">10:00 AM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">11:00 AM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">12:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">1:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">2:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">3:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">4:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">5:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">6:00 PM</div>
+                            <div class="flex-1 min-w-[200px] h-12 border-r border-outline-variant/30"></div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">4:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">5:00 PM</div>
+                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">6:00 PM</div>
+                            <div class="flex-1 min-w-[200px] h-12 border-r border-outline-variant/30"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar Body with Rows -->
+                    <div class="relative flex-1" id="calendarBody">
+                        
+                        <!-- The Boardroom Row -->
+                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="The Boardroom">
+                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
+                                <span class="font-label-md text-label-md text-on-surface truncate">The Boardroom</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 12 • Screen</span>
+                            </div>
+                            <div class="flex-1 flex relative h-20">
+                                <!-- Background lines -->
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
+                                <!-- Event -->
+                                <div class="booking-event absolute top-2 left-[64px] w-[256px] h-16 bg-gradient-to-r from-primary/15 to-primary/5 border-l-4 border-l-primary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
+                                    <div class="flex justify-between items-start">
+                                        <span class="font-label-sm text-label-sm text-primary font-bold truncate">Acme Corp Pitch</span>
+                                        <div class="w-5 h-5 rounded-full border border-surface bg-surface-container-low flex items-center justify-center text-[10px] text-on-surface-variant font-bold shrink-0 shadow-sm">JD</div>
+                                    </div>
+                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1 group-hover:text-primary transition-colors">9:30 AM - 11:30 AM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Creative Hub A Row -->
+                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Creative Hub A">
+                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
+                                <span class="font-label-md text-label-md text-on-surface truncate">Creative Hub A</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 4 • Whiteboard</span>
+                            </div>
+                            <div class="flex-1 flex relative h-20">
+                                <!-- Background lines -->
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
+                                <!-- Event -->
+                                <div class="booking-event absolute top-2 left-[512px] w-[128px] h-16 bg-gradient-to-r from-secondary/15 to-secondary/5 border-l-4 border-l-secondary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
+                                    <span class="font-label-sm text-label-sm text-secondary font-bold truncate">Sync up</span>
+                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">1:00 PM - 2:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Podcast Studio Row -->
+                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Podcast Studio">
+                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
+                                <span class="font-label-md text-label-md text-on-surface truncate">Podcast Studio</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 2 • A/V</span>
+                            </div>
+                            <div class="flex-1 flex relative h-20">
+                                <!-- Background lines -->
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
+                                <!-- Event -->
+                                <div class="booking-event absolute top-2 left-[128px] w-[640px] h-16 bg-gradient-to-r from-tertiary/15 to-tertiary/5 border-l-4 border-l-tertiary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
+                                        <span class="font-label-sm text-label-sm text-tertiary font-bold truncate">Design Sprint (Internal)</span>
+                                    </div>
+                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">10:00 AM - 3:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Focus Pod Row -->
+                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Focus Pod">
+                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
+                                <span class="font-label-md text-label-md text-on-surface truncate">Focus Pod</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 1 • None</span>
+                            </div>
+                            <div class="flex-1 flex relative h-20">
+                                <!-- Background lines -->
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
+                            </div>
+                        </div>
+
+                        <!-- Studio B Row -->
+                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Studio B">
+                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
+                                <span class="font-label-md text-label-md text-on-surface truncate">Studio B</span>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 8 • Mic</span>
+                            </div>
+                            <div class="flex-1 flex relative h-20">
+                                <!-- Background lines -->
+                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
+                            </div>
+                        </div>
+
+                        <!-- Current Time Indicator -->
+                        <div class="absolute top-0 bottom-0 left-[272px] w-px bg-primary z-20 pointer-events-none drop-shadow-[0_0_2px_rgba(var(--color-primary),0.5)]">
+                            <div class="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full bg-primary shadow-sm border border-surface"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Booking Modal -->
+<div id="newBookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeNewBookingModal()"></div>
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-md relative z-10 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+            <h3 class="font-headline-sm font-bold text-on-surface">New Booking</h3>
+            <button onclick="closeNewBookingModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="p-4 flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Book On Behalf Of (Member)</label>
+                <select class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+                    <option>Search for member...</option>
+                    <option>John Doe</option>
+                    <option>Sarah Jenkins</option>
+                    <option>Marcus Reed</option>
+                </select>
+            </div>
+            <input type="text" placeholder="Meeting Title (Optional)" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+            <select class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+                <option>Select Room...</option>
+                <option>The Boardroom</option>
+                <option>Creative Hub A</option>
+                <option>Podcast Studio</option>
+            </select>
+            <div class="flex gap-2">
+                <input type="time" class="flex-1 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+                <input type="time" class="flex-1 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+            </div>
+            <button onclick="closeNewBookingModal()" class="w-full bg-primary text-on-primary py-2 rounded-lg font-bold hover:bg-primary/90 mt-2">Book Room</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cancellations Modal -->
+<div id="cancellationsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeCancellationsModal()"></div>
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-lg relative z-10 flex flex-col overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+            <h3 class="font-headline-sm font-bold text-on-surface">Manage Cancellations</h3>
+            <button onclick="closeCancellationsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="p-4 flex flex-col gap-4 max-h-[60vh] overflow-y-auto">
+            <div class="p-3 border border-outline-variant rounded-lg flex justify-between items-center bg-surface-bright">
+                <div>
+                    <h4 class="font-bold text-on-surface">Acme Corp Pitch</h4>
+                    <p class="text-sm text-on-surface-variant">The Boardroom • Today, 9:30 AM</p>
+                </div>
+                <button class="bg-error/10 text-error px-3 py-1 rounded-md font-bold text-sm hover:bg-error hover:text-on-error transition-colors">Cancel</button>
+            </div>
+            <div class="p-3 border border-outline-variant rounded-lg flex justify-between items-center bg-surface-bright">
+                <div>
+                    <h4 class="font-bold text-on-surface">Sync up</h4>
+                    <p class="text-sm text-on-surface-variant">Creative Hub A • Today, 1:00 PM</p>
+                </div>
+                <button class="bg-error/10 text-error px-3 py-1 rounded-md font-bold text-sm hover:bg-error hover:text-on-error transition-colors">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All Approvals Modal -->
+<div id="allApprovalsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeAllApprovalsModal()"></div>
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-2xl relative z-10 flex flex-col overflow-hidden max-h-[90vh]">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+            <h3 class="font-headline-sm font-bold text-on-surface">All Pending Approvals</h3>
+            <button onclick="closeAllApprovalsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="p-4 flex flex-col gap-4 overflow-y-auto bg-surface-container-lowest">
+            
+            <!-- Pending Item 1 -->
+            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="font-label-md font-bold text-on-surface">External Workshop</span>
+                        <span class="font-label-sm text-[10px] text-error bg-error/10 border border-error/20 px-1.5 py-0.5 rounded uppercase font-bold">Review</span>
+                    </div>
+                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Podcast Studio</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Tomorrow, 1:00 PM</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> Sarah Jenkins</span>
+                    </div>
+                </div>
+                <div class="flex gap-2 w-full md:w-auto">
+                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
+                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
+                </div>
+            </div>
+
+            <!-- Pending Item 2 -->
+            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="font-label-md font-bold text-on-surface">Board Meeting (Recurring)</span>
+                        <span class="material-symbols-outlined text-outline text-[16px]">autorenew</span>
+                    </div>
+                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> The Boardroom</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Fridays, 9:00 AM (x4)</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> Marcus Reed</span>
+                    </div>
+                </div>
+                <div class="flex gap-2 w-full md:w-auto">
+                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
+                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
+                </div>
+            </div>
+
+            <!-- Pending Item 3 -->
+            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="font-label-md font-bold text-on-surface">Team Offsite Prep</span>
+                    </div>
+                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Creative Hub A</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 28, 10:00 AM</span>
+                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> John Doe</span>
+                    </div>
+                </div>
+                <div class="flex gap-2 w-full md:w-auto">
+                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
+                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openAllApprovalsModal() { document.getElementById('allApprovalsModal').classList.remove('hidden'); }
+    function closeAllApprovalsModal() { document.getElementById('allApprovalsModal').classList.add('hidden'); }
+    function openNewBookingModal() { document.getElementById('newBookingModal').classList.remove('hidden'); }
+    function closeNewBookingModal() { document.getElementById('newBookingModal').classList.add('hidden'); }
+    function openCancellationsModal() { document.getElementById('cancellationsModal').classList.remove('hidden'); }
+    function closeCancellationsModal() { document.getElementById('cancellationsModal').classList.add('hidden'); }
+
+    // Calendar Filtering Logic
+    function filterRooms() {
+        const query = document.getElementById('searchRooms').value.toLowerCase();
+        const rows = document.querySelectorAll('.room-row');
+        rows.forEach(row => {
+            const name = row.getAttribute('data-room-name').toLowerCase();
+            if (name.includes(query)) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Calendar Date Change Logic
+    function changeDate(days) {
+        const dateInput = document.getElementById('calendarDate');
+        const currentDate = new Date(dateInput.value);
+        currentDate.setDate(currentDate.getDate() + days);
+        dateInput.value = currentDate.toISOString().split('T')[0];
+        updateCalendarData();
+    }
+
+    function updateCalendarData() {
+        // Dummy function to simulate loading new date's data
+        const events = document.querySelectorAll('.booking-event');
+        events.forEach(evt => {
+            // Randomly hide/show to simulate different days
+            evt.style.opacity = Math.random() > 0.4 ? '1' : '0';
+            evt.style.pointerEvents = evt.style.opacity === '1' ? 'auto' : 'none';
+        });
+    }
+</script>
