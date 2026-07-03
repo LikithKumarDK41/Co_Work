@@ -80,7 +80,7 @@
     <div class="table-responsive">
         <table class="w-full text-left border-collapse">
             <thead>
-                <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80">
+                <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80 whitespace-nowrap">
                     <th class="px-md py-sm font-semibold">Booker</th>
                     <th class="px-md py-sm font-semibold">Workspace</th>
                     <th class="px-md py-sm font-semibold">Scope</th>
@@ -148,6 +148,15 @@
                     <option value="Weekly">Weekly</option>
                     <option value="Monthly">Monthly</option>
                     <option value="Yearly">Yearly</option>
+                </select>
+            </div>
+
+            <!-- Client Category (Internal vs External) -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
+                <select id="book_client_category" required onchange="handleClientCategoryChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="Internal">Internal (Building 812)</option>
+                    <option value="External">External (Building 813)</option>
                 </select>
             </div>
 
@@ -244,7 +253,7 @@
         let stored = sessionStorage.getItem("workspaces");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (!parsed.some(w => w.name === "Workspace 1")) {
+            if (!parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
                 stored = null;
             }
         }
@@ -268,15 +277,26 @@
         const select = document.getElementById("book_parent_workspace");
         if (!select) return;
 
+        const categorySelect = document.getElementById("book_client_category");
+        const category = categorySelect ? categorySelect.value : "Internal";
+
         const val = select.value;
-        // Filter only parent workspaces (Workspace 1, Workspace 2, Workspace 3)
-        const parents = wList.filter(w => w.status === "Active" && !w.parentWorkspace);
+        // Filter only parent workspaces matching selected clientType
+        const parents = wList.filter(w => w.status === "Active" && !w.parentWorkspace && w.clientType === category);
         
         select.innerHTML = `<option value="">Select a Parent Zone...</option>` +
-            parents.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name}</option>`)
+            parents.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
                    .join("");
 
         if (val) select.value = val;
+    }
+
+    function handleClientCategoryChange() {
+        populateParentWorkspaceOptions();
+        // Clear sub-space & parent workspace dropdown selections to prevent mix-ups
+        const parentSelect = document.getElementById("book_parent_workspace");
+        if (parentSelect) parentSelect.value = "";
+        handleFormDateOrWorkspaceChange();
     }
 
     async function loadWorkspaceBookings() {
@@ -284,37 +304,30 @@
         populateParentWorkspaceOptions();
 
         let stored = sessionStorage.getItem("workspace_bookings");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (!parsed.some(b => b.workspace === "Nichi-In Workspace 1 (Int)")) {
+                sessionStorage.removeItem("workspace_bookings");
+                stored = null;
+            }
+        }
+
         if (!stored) {
             const seedWorkspaceBookings = [
-                { id: 100, booker: "Operational Manager", workspace: "Workspace 1", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1", type: "Shared Space", term: "Weekly", period: "Oct 23, 2023 - Oct 29, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                { id: 100, booker: "Operational Manager", workspace: "Nichi-In Workspace 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
+                { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2023 - Oct 29, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
                 { id: 2, booker: "Marcus Reed", workspace: "Server Room", type: "Shared Space", term: "Monthly", period: "Oct 01, 2023 - Oct 31, 2023", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                { id: 3, booker: "David Chen", workspace: "eBay 2", type: "Shared Space", term: "Daily", period: "Oct 24, 2023 - Oct 24, 2023", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                { id: 4, booker: "Matthew Johnson", workspace: "Library", type: "Shared Space", term: "Yearly", period: "Jan 01, 2023 - Dec 31, 2023", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                { id: 5, booker: "Anna Lopez", workspace: "eBay 1", type: "Shared Space", term: "Weekly", period: "Oct 30, 2023 - Nov 05, 2023", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                { id: 6, booker: "Ronald Rodriguez", workspace: "Library", type: "Shared Space", term: "Monthly", period: "Nov 01, 2023 - Nov 30, 2023", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                { id: 7, booker: "Matthew Johnson", workspace: "eBay 2", type: "Shared Space", term: "Daily", period: "Oct 25, 2023 - Oct 25, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
+                { id: 3, booker: "David Chen", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 24, 2023 - Oct 24, 2023", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
+                { id: 4, booker: "Matthew Johnson", workspace: "Library (Int)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2023 - Dec 31, 2023", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
+                { id: 5, booker: "Anna Lopez", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 30, 2023 - Nov 05, 2023", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
+                { id: 6, booker: "Ronald Rodriguez", workspace: "Library (Int)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2023 - Nov 30, 2023", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
+                { id: 7, booker: "Matthew Johnson", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 25, 2023 - Oct 25, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
                 { id: 8, booker: "Jessica Taylor", workspace: "Server Room", type: "Shared Space", term: "Yearly", period: "Nov 01, 2023 - Oct 31, 2024", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
             ];
             sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
             stored = JSON.stringify(seedWorkspaceBookings);
         }
         workspaceBookings = JSON.parse(stored);
-        if (!workspaceBookings.some(b => b.id === 100)) {
-            workspaceBookings.unshift({
-                id: 100,
-                booker: "Operational Manager",
-                workspace: "Workspace 1",
-                type: "Shared Space",
-                term: "Weekly",
-                period: "Oct 26, 2026 - Nov 01, 2026",
-                bookingScope: "Entire",
-                seatsBooked: 18,
-                recurring: "None",
-                status: "Confirmed"
-            });
-            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
-        }
         applyFilters();
     }
 
@@ -421,9 +434,9 @@
             actionHTML += `</div>`;
 
             return `
-                <tr class="hover:bg-surface-container-low/30 transition-colors">
+                <tr class="hover:bg-surface-container-low/30 transition-colors whitespace-nowrap">
                     <td class="px-md py-sm font-semibold">${b.booker}</td>
-                    <td class="px-md py-sm text-on-surface font-semibold">${b.workspace}</td>
+                    <td class="px-md py-sm text-on-surface font-semibold">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</td>
                     <td class="px-md py-sm text-on-surface-variant font-medium">${b.bookingScope || "Seats"}</td>
                     <td class="px-md py-sm text-on-surface-variant font-bold">${b.seatsBooked || 1}</td>
                     <td class="px-md py-sm text-on-surface-variant font-bold">${b.term}</td>
@@ -945,7 +958,25 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <span class="text-xs uppercase font-bold tracking-wider text-primary">Workspace Desk Resource</span>
-                            <h4 class="text-lg font-bold text-on-surface mt-0.5">${b.workspace}</h4>
+                            <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
+                                <h4 class="text-lg font-bold text-on-surface">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</h4>
+                                <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function(){
+                                    let ct = "Internal";
+                                    try {
+                                        const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                                        const wObj = wList.find(w => w.name === b.workspace);
+                                        if (wObj) {
+                                            if (wObj.parentWorkspace) {
+                                                const parent = wList.find(w => w.name === wObj.parentWorkspace);
+                                                if (parent) ct = parent.clientType;
+                                            } else {
+                                                ct = wObj.clientType;
+                                            }
+                                        }
+                                    } catch(e){}
+                                    return ct;
+                                })()}</span>
+                            </div>
                         </div>
                         <span class="px-3 py-1 text-xs font-bold rounded-full border ${statusColor}">
                             ${b.status === "Waitlist" ? "Pending" : b.status}
@@ -1093,5 +1124,6 @@
     window.handleSubspaceChange = handleSubspaceChange;
     window.handleScopeChange = handleScopeChange;
     window.updateAvailableSeats = updateAvailableSeats;
+    window.handleClientCategoryChange = handleClientCategoryChange;
 })();
 </script>

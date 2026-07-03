@@ -43,6 +43,35 @@
                         <label class="font-label-sm text-on-surface-variant font-semibold">Workspace Name <span class="text-error">*</span></label>
                         <input type="text" id="workspaceName" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface" placeholder="e.g. eBay 1, Library, Server Room">
                     </div>
+                    
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Workspace Type <span class="text-error">*</span></label>
+                        <select id="workspaceType" required onchange="handleWorkspaceTypeChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface">
+                            <option value="Parent">Parent Workspace (e.g. Nichi-In Workspace 1)</option>
+                            <option value="Subspace">Sub-space / Child Zone (e.g. eBay 1, Server Room)</option>
+                        </select>
+                    </div>
+
+                    <div id="parentCategoryWrapper" class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
+                        <select id="workspaceClientType" onchange="handleWorkspaceClientTypeChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface">
+                            <option value="Internal">Internal</option>
+                            <option value="External">External</option>
+                        </select>
+                    </div>
+
+                    <div id="buildingIdWrapper" class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Building ID <span class="text-error">*</span></label>
+                        <input type="text" id="workspaceBuildingId" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface" placeholder="e.g. 812, 813, 814">
+                    </div>
+
+                    <div id="subspaceParentWrapper" class="hidden flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Parent Workspace Zone <span class="text-error">*</span></label>
+                        <select id="workspaceParentWorkspace" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
                     <div class="flex flex-col gap-1">
                         <label class="font-label-sm text-on-surface-variant font-semibold">Location <span class="text-error">*</span></label>
                         <input type="text" id="workspaceLocation" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface" placeholder="e.g. Floor 1, East Wing">
@@ -136,7 +165,7 @@
         let stored = sessionStorage.getItem("workspaces");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Workspace 1")) {
+            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
                 sessionStorage.removeItem("workspaces");
                 stored = null;
             }
@@ -176,31 +205,23 @@
 
             const imgUrl = w.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
 
+            const clientType = w.clientType || "Internal";
+            const categoryBadge = `<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-lg font-label-sm text-xs shadow-sm font-semibold uppercase tracking-wider z-10">${clientType}</div>`;
+
             return `
                 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group relative">
-                    <div class="h-48 w-full relative bg-surface-container-low">
+                    <div class="h-48 w-full relative bg-surface-container-low shrink-0">
                         <img src="${imgUrl}" alt="${w.name}" class="w-full h-full object-cover">
+                        ${categoryBadge}
                         ${statusBadge}
-                        <div class="absolute top-4 left-4 bg-surface-bright/90 backdrop-blur-xs text-on-surface px-2.5 py-1 rounded-lg font-bold text-[11px] uppercase tracking-wider shadow-sm border border-outline-variant/30">
-                            Shared Space
-                        </div>
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">${w.name}</h3>
-                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">location_on</span> ${w.location}
-                                </p>
-                            </div>
-                            <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-[138px] right-4 bg-surface-bright/95 backdrop-blur-xs border border-outline-variant/55 shadow-sm rounded-lg p-0.5 z-10">
-                                <button onclick="openWorkspaceModal(${w.id})" class="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded" aria-label="Edit Workspace" title="Edit Workspace">
-                                    <span class="material-symbols-outlined text-[18px]">edit</span>
-                                </button>
-                                <button onclick="deleteWorkspace(${w.id})" class="text-on-surface-variant hover:text-error transition-colors p-1.5 rounded" aria-label="Delete Workspace" title="Delete Workspace">
-                                    <span class="material-symbols-outlined text-[18px]">delete</span>
-                                </button>
-                            </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div class="mb-4">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight break-words">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-start gap-1">
+                                <span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-outline-variant">location_on</span>
+                                <span class="leading-normal break-words">${w.location}</span>
+                            </p>
                         </div>
                         <div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
                             <div class="flex items-center gap-2">
@@ -222,9 +243,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="border-t border-outline-variant/40 bg-surface-bright/50 px-6 py-3 flex justify-end gap-2 shrink-0">
+                        <button onclick="openWorkspaceModal(${w.id})" class="flex items-center gap-1 text-primary hover:bg-primary/10 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm">
+                            <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                        </button>
+                        <button onclick="deleteWorkspace(${w.id})" class="flex items-center gap-1 text-error hover:bg-error/10 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                    </div>
                 </div>
             `;
         }).join("");
+    }
+
+    function handleWorkspaceTypeChange() {
+        const type = document.getElementById("workspaceType").value;
+        const parentWrapper = document.getElementById("parentCategoryWrapper");
+        const buildingIdWrapper = document.getElementById("buildingIdWrapper");
+        const childWrapper = document.getElementById("subspaceParentWrapper");
+        
+        if (type === "Parent") {
+            parentWrapper.classList.remove("hidden");
+            buildingIdWrapper.classList.remove("hidden");
+            childWrapper.classList.add("hidden");
+        } else {
+            parentWrapper.classList.add("hidden");
+            buildingIdWrapper.classList.add("hidden");
+            childWrapper.classList.remove("hidden");
+            populateParentSelect();
+        }
+    }
+
+    function handleWorkspaceClientTypeChange() {
+        const ct = document.getElementById("workspaceClientType").value;
+        const bIdInput = document.getElementById("workspaceBuildingId");
+        if (bIdInput) {
+            bIdInput.value = ct === "Internal" ? "812" : "813";
+        }
+    }
+
+    function populateParentSelect() {
+        const select = document.getElementById("workspaceParentWorkspace");
+        if (!select) return;
+        const parents = workspaces.filter(w => !w.parentWorkspace);
+        select.innerHTML = `<option value="">Select Parent Workspace Zone...</option>` +
+            parents.map(p => `<option value="${p.name}">${p.name.replace(/\s*\((Int|Ext)\)/i, "")} (${p.clientType || "Internal"})</option>`).join("");
     }
 
     function openWorkspaceModal(id = null) {
@@ -234,18 +297,28 @@
         const form = document.getElementById('workspaceForm');
         
         document.querySelectorAll('input[name="amenities"]').forEach(cb => cb.checked = false);
+        populateParentSelect();
 
         if (id) {
             const w = workspaces.find(x => x.id === id);
             if (w) {
                 title.innerText = 'Edit Workspace';
                 document.getElementById('workspaceId').value = w.id;
-                document.getElementById('workspaceName').value = w.name;
+                document.getElementById('workspaceName').value = w.name.replace(/\s*\((Int|Ext)\)/i, "");
                 document.getElementById('workspaceLocation').value = w.location;
                 document.getElementById('workspaceCapacity').value = w.capacity;
                 document.getElementById('workspaceSize').value = w.size || 150;
                 document.getElementById('workspaceStatus').value = w.status || 'Active';
                 document.getElementById('workspaceImage').value = w.image || '';
+
+                if (w.parentWorkspace) {
+                    document.getElementById("workspaceType").value = "Subspace";
+                    document.getElementById("workspaceParentWorkspace").value = w.parentWorkspace;
+                } else {
+                    document.getElementById("workspaceType").value = "Parent";
+                    document.getElementById("workspaceClientType").value = w.clientType || "Internal";
+                    document.getElementById("workspaceBuildingId").value = w.buildingId || (w.clientType === "Internal" ? "812" : "813");
+                }
 
                 if (w.amenities) {
                     w.amenities.forEach(a => {
@@ -258,7 +331,12 @@
             title.innerText = 'Add Workspace';
             form.reset();
             document.getElementById('workspaceId').value = '';
+            document.getElementById("workspaceType").value = "Parent";
+            document.getElementById("workspaceClientType").value = "Internal";
+            document.getElementById("workspaceBuildingId").value = "812";
         }
+
+        handleWorkspaceTypeChange();
         
         modal.classList.remove('hidden');
         overlay.classList.remove('hidden');
@@ -293,16 +371,42 @@
         e.preventDefault();
         
         const idVal = document.getElementById('workspaceId').value;
-        const name = document.getElementById('workspaceName').value.trim();
+        const rawName = document.getElementById('workspaceName').value.trim();
         const location = document.getElementById('workspaceLocation').value.trim();
         const capacity = parseInt(document.getElementById('workspaceCapacity').value);
         const size = parseInt(document.getElementById('workspaceSize').value);
         const status = document.getElementById('workspaceStatus').value;
         const image = document.getElementById('workspaceImage').value.trim();
 
+        const type = document.getElementById("workspaceType").value;
+        let clientType = "Internal";
+        let parentWorkspace = "";
+        let buildingId = "812";
+
+        if (type === "Parent") {
+            clientType = document.getElementById("workspaceClientType").value;
+            buildingId = document.getElementById("workspaceBuildingId").value.trim() || (clientType === "Internal" ? "812" : "813");
+        } else {
+            parentWorkspace = document.getElementById("workspaceParentWorkspace").value;
+            if (!parentWorkspace) {
+                alert("Please select a parent workspace zone.");
+                return;
+            }
+            const parentObj = workspaces.find(w => w.name === parentWorkspace);
+            if (parentObj) {
+                clientType = parentObj.clientType;
+                buildingId = parentObj.buildingId;
+            }
+        }
+
+        // Generate final name suffix cleanly to prevent duplicates
+        const cleanName = rawName.replace(/\s*\((Int|Ext)\)/i, "");
+        const suffix = clientType === "Internal" ? " (Int)" : " (Ext)";
+        const name = cleanName + suffix;
+
         const amenities = Array.from(document.querySelectorAll('input[name="amenities"]:checked')).map(cb => cb.value);
 
-        if (!name || !location || isNaN(capacity) || isNaN(size)) {
+        if (!cleanName || !location || isNaN(capacity) || isNaN(size)) {
             alert("Please fill in all required fields.");
             return;
         }
@@ -318,7 +422,10 @@
                     size,
                     status,
                     image,
-                    amenities
+                    amenities,
+                    clientType,
+                    buildingId,
+                    parentWorkspace: parentWorkspace || undefined
                 };
                 alert('Workspace updated successfully!');
             }
@@ -333,7 +440,10 @@
                 size,
                 status,
                 image,
-                amenities
+                amenities,
+                clientType,
+                buildingId,
+                parentWorkspace: parentWorkspace || undefined
             };
             workspaces.unshift(newWorkspace);
             alert('Workspace added successfully!');
@@ -362,5 +472,7 @@
     window.saveWorkspace = saveWorkspace;
     window.deleteWorkspace = deleteWorkspace;
     window.triggerFormSubmit = triggerFormSubmit;
+    window.handleWorkspaceTypeChange = handleWorkspaceTypeChange;
+    window.handleWorkspaceClientTypeChange = handleWorkspaceClientTypeChange;
 })();
 </script>

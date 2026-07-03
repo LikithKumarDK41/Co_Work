@@ -107,7 +107,7 @@ async function ensureMockDatabaseInitialized() {
     if (db) {
         try {
             const parsed = JSON.parse(db);
-            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 45) {
+            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 45 && parsed.bookings && parsed.bookings.some(b => b.roomName && (b.roomName.includes("(Int)") || b.roomName.includes("(Ext)")))) {
                 return parsed;
             }
         } catch (e) {
@@ -116,17 +116,19 @@ async function ensureMockDatabaseInitialized() {
     }
 
     try {
-        const [usersRes, visitorsRes] = await Promise.all([
+        const [usersRes, visitorsRes, roomsRes] = await Promise.all([
             fetch('../member/data/users.json'),
-            fetch('../member/data/visitors.json')
+            fetch('../member/data/visitors.json'),
+            fetch('../member/data/rooms.json')
         ]);
 
-        if (!usersRes.ok || !visitorsRes.ok) {
-            throw new Error('Failed to fetch user or visitor JSON files');
+        if (!usersRes.ok || !visitorsRes.ok || !roomsRes.ok) {
+            throw new Error('Failed to fetch JSON database files');
         }
 
         const members = await usersRes.json();
         let visitors = await visitorsRes.json();
+        const roomsList = await roomsRes.json();
 
         // Normalize visitor structure for Admin panel integration
         visitors = visitors.map(v => {
@@ -142,13 +144,6 @@ async function ensureMockDatabaseInitialized() {
             };
         });
 
-        const roomsList = [
-            { name: 'The Boardroom', capacity: 16 },
-            { name: 'Meeting Room A', capacity: 8 },
-            { name: 'Meeting Room B', capacity: 6 },
-            { name: 'Focus Room A', capacity: 2 },
-            { name: 'Focus Room B', capacity: 2 }
-        ];
         const bookings = [];
         const today = new Date().toISOString().split('T')[0];
         for (let i = 1; i <= 15; i++) {
