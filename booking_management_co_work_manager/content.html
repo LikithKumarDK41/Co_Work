@@ -31,8 +31,18 @@
         </div>
     </div>
 
-    <!-- Table Card -->
-    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+    <!-- Segmented Tab Control -->
+    <div class="flex items-center bg-surface-container-low p-1 rounded-xl self-start mb-2 border border-outline-variant/60 shadow-xs">
+        <button id="tabListBtn" onclick="switchBookingTab('list')" class="px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30">
+            <span class="material-symbols-outlined text-[16px]">list</span> Reservations List
+        </button>
+        <button id="tabTimelineBtn" onclick="switchBookingTab('timeline')" class="px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">calendar_view_day</span> Room Availability Timeline
+        </button>
+    </div>
+
+    <!-- Reservations List View -->
+    <div id="bookingsListContainer" class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
         <!-- Table Toolbar -->
         <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
             <div class="flex items-center gap-2">
@@ -80,6 +90,62 @@
             <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 0 to 0 of 0 entries</span>
             <div id="pagination_container" class="flex gap-xs items-center">
                 <!-- Dynamic buttons injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Availability Timeline View -->
+    <div id="bookingsTimelineContainer" class="hidden bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+        <!-- Timeline Toolbar -->
+        <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-4">
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="adjustTimelineDate(-1)" class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                </button>
+                <div class="relative flex items-center shrink-0">
+                    <span class="material-symbols-outlined text-primary text-[18px] absolute left-3 pointer-events-none">calendar_today</span>
+                    <input type="date" id="timelineDateInput" onchange="handleTimelineDateChange()" class="pl-9 pr-3 py-1.5 text-xs font-bold rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none cursor-pointer w-40">
+                </div>
+                <button type="button" onclick="adjustTimelineDate(1)" class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </button>
+            </div>
+            <div class="flex items-center gap-sm w-full md:w-auto">
+                <div class="relative flex-1 md:flex-initial">
+                    <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                    <input id="searchTimelineRooms" oninput="renderTimelineGrid()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search rooms..." type="text"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Timeline Grid -->
+        <div class="overflow-x-auto w-full relative">
+            <div class="min-w-[960px] flex flex-col relative">
+                <!-- Header row with hours -->
+                <div class="flex border-b border-outline-variant/60 bg-surface-container-low text-xs text-on-surface-variant font-semibold select-none">
+                    <div class="w-[220px] border-r border-outline-variant/60 p-3 shrink-0 uppercase tracking-wider text-[10px] font-bold">Rooms</div>
+                    <div class="flex-1 flex divide-x divide-outline-variant/40">
+                        <div class="flex-1 p-3 text-center">9:00 AM</div>
+                        <div class="flex-1 p-3 text-center">10:00 AM</div>
+                        <div class="flex-1 p-3 text-center">11:00 AM</div>
+                        <div class="flex-1 p-3 text-center">12:00 PM</div>
+                        <div class="flex-1 p-3 text-center">1:00 PM</div>
+                        <div class="flex-1 p-3 text-center">2:00 PM</div>
+                        <div class="flex-1 p-3 text-center">3:00 PM</div>
+                        <div class="flex-1 p-3 text-center">4:00 PM</div>
+                        <div class="flex-1 p-3 text-center">5:00 PM</div>
+                    </div>
+                </div>
+                
+                <!-- Grid Rows Container -->
+                <div id="timeline_grid_rows" class="flex flex-col divide-y divide-outline-variant/40 relative min-h-[300px] bg-surface-bright">
+                    <!-- Rows will be dynamically generated -->
+                </div>
+
+                <!-- Current time blue line indicator -->
+                <div id="currentTimeIndicator" class="absolute top-0 bottom-0 w-[2px] bg-primary z-10 pointer-events-none hidden">
+                    <div class="w-3 h-3 bg-primary rounded-full absolute -top-1.5 -left-1"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -214,7 +280,7 @@
         let stored = sessionStorage.getItem("rooms_list");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (!parsed.some(r => r.parentWorkspace === "Nichi-In Workspace 1 (Int)")) {
+            if (parsed.some(r => r.name.includes("Boardroom") || r.name.includes("Creative Hub") || r.name.includes("Podcast") || r.name.includes("Focus Pod"))) {
                 stored = null;
             }
         }
@@ -271,10 +337,14 @@
         await ensureRoomsLoaded();
         populateRoomOptions();
 
+        const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+
         let stored = sessionStorage.getItem("bookings");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (!parsed.some(b => b.room === "The Boardroom (Int)")) {
+            const hasOldRooms = parsed.some(b => b.room.includes("Boardroom") || b.room.includes("Creative Hub") || b.room.includes("Podcast") || b.room.includes("Focus Pod"));
+            const hasOverlap = parsed.some(b => b.booker === "Matthew Johnson" && b.time === "09:00 AM - 11:00 AM");
+            if (hasOldRooms || hasOverlap || !parsed.some(b => b.date === todayFormatted)) {
                 sessionStorage.removeItem("bookings");
                 stored = null;
             }
@@ -294,15 +364,16 @@
                         ...b, 
                         booker: b.booker || booker,
                         term: b.term || "Hourly",
+                        date: todayFormatted,
                         recurring: b.recurring || "None"
                     };
                 });
 
                 if (seedBookings.length < 5) {
                     seedBookings.push(
-                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Podcast Studio (Int)", date: "Oct 25, 2023", time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" },
-                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "The Boardroom (Int)", date: "Oct 27, 2023", time: "09:00 AM - 11:00 AM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Waitlist", image: "" },
-                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Creative Hub A (Int)", date: "Oct 28, 2023", time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" }
+                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Meeting Corner 1 (Int)", date: todayFormatted, time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" },
+                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "Conference Room 1 (Int)", date: todayFormatted, time: "02:00 PM - 04:00 PM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Confirmed", image: "" },
+                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Meeting Room 1 (Int)", date: todayFormatted, time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" }
                     );
                 }
 
@@ -497,9 +568,9 @@
             const rList = JSON.parse(storedRooms);
             rList.forEach(r => roomHours[r.name] = 0);
         } else {
-            roomHours["The Boardroom"] = 0;
-            roomHours["Creative Hub A"] = 0;
-            roomHours["Podcast Studio"] = 0;
+            roomHours["Conference Room 1"] = 0;
+            roomHours["Meeting Room 1"] = 0;
+            roomHours["Meeting Corner 1"] = 0;
         }
 
         bookings.forEach(b => {
@@ -699,10 +770,11 @@
     }
 
     const spaceDetailsLookup = {
-        "The Boardroom": { capacity: 12, location: "Level 2 • North Wing", amenities: ["TV Screen", "Conference Phone", "Whiteboard", "High-speed WiFi"] },
-        "Creative Hub A": { capacity: 6, location: "Level 1 • East Wing", amenities: ["Whiteboard", "Apple TV Screen", "High-speed WiFi"] },
-        "Podcast Studio": { capacity: 4, location: "Level 2 • South Wing", amenities: ["Pro Microphones", "A/V Mixer", "Soundproof Booth", "High-speed WiFi"] },
-        "Focus Pod A": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["Soundproof Room", "High-speed WiFi"] }
+        "Conference Room 1": { capacity: 12, location: "Level 2 • North Wing", amenities: ["TV Screen", "Conference Phone", "Whiteboard", "High-speed WiFi"] },
+        "Meeting Room 1": { capacity: 6, location: "Level 1 • East Wing", amenities: ["Whiteboard", "Apple TV Screen", "High-speed WiFi"] },
+        "Meeting Corner 1": { capacity: 4, location: "Level 2 • South Wing", amenities: ["Power Outlets", "High-speed WiFi"] },
+        "Meeting Corner 2": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["High-speed WiFi"] },
+        "Meeting Corner 3": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["High-speed WiFi"] }
     };
 
     function getMockBookerDetails(name) {
@@ -1122,6 +1194,217 @@
         closeNewBookingModal();
     }
 
+    let currentTab = "list"; // "list" or "timeline"
+    let timelineDate = new Date(); // default to today
+
+    function switchBookingTab(tab) {
+        currentTab = tab;
+        const listBtn = document.getElementById("tabListBtn");
+        const timelineBtn = document.getElementById("tabTimelineBtn");
+        const listContainer = document.getElementById("bookingsListContainer");
+        const timelineContainer = document.getElementById("bookingsTimelineContainer");
+
+        if (tab === "list") {
+            listBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30";
+            timelineBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5";
+            listContainer.classList.remove("hidden");
+            timelineContainer.classList.add("hidden");
+        } else {
+            timelineBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30";
+            listBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5";
+            listContainer.classList.add("hidden");
+            timelineContainer.classList.remove("hidden");
+
+            // Set input date
+            const dateInput = document.getElementById("timelineDateInput");
+            if (dateInput && !dateInput.value) {
+                const yyyy = timelineDate.getFullYear();
+                const mm = String(timelineDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(timelineDate.getDate()).padStart(2, '0');
+                dateInput.value = `${yyyy}-${mm}-${dd}`;
+            }
+            renderTimelineGrid();
+        }
+    }
+
+    function adjustTimelineDate(days) {
+        const dateInput = document.getElementById("timelineDateInput");
+        if (!dateInput) return;
+        const currentVal = dateInput.value ? new Date(dateInput.value + "T00:00:00") : new Date();
+        currentVal.setDate(currentVal.getDate() + days);
+        const yyyy = currentVal.getFullYear();
+        const mm = String(currentVal.getMonth() + 1).padStart(2, '0');
+        const dd = String(currentVal.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+        renderTimelineGrid();
+    }
+
+    function handleTimelineDateChange() {
+        renderTimelineGrid();
+    }
+
+    function renderTimelineGrid() {
+        const gridContainer = document.getElementById("timeline_grid_rows");
+        const dateInput = document.getElementById("timelineDateInput");
+        const searchInput = document.getElementById("searchTimelineRooms");
+        const indicator = document.getElementById("currentTimeIndicator");
+
+        if (!gridContainer || !dateInput) return;
+
+        const selectedDateObj = new Date(dateInput.value + "T00:00:00");
+        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+        const dateString = selectedDateObj.toLocaleDateString('en-US', dateOptions);
+
+        const roomsText = (searchInput ? searchInput.value : "").toLowerCase().trim();
+
+        // Get rooms
+        let rooms = [];
+        try {
+            rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+        } catch (e){}
+
+        if (rooms.length === 0) {
+            rooms = [
+                { name: "Conference Room 1", capacity: 12, parentWorkspace: "Nichi-In Workspace 1", amenities: ["TV Screen", "Conference Phone"] },
+                { name: "Meeting Room 1", capacity: 6, parentWorkspace: "Nichi-In Workspace 1", amenities: ["Whiteboard"] },
+                { name: "Meeting Corner 1", capacity: 4, parentWorkspace: "Nichi-In Workspace 2", amenities: ["Power Outlets"] },
+                { name: "Meeting Corner 2", capacity: 2, parentWorkspace: "Nichi-In Workspace 2", amenities: ["High-speed WiFi"] }
+            ];
+        }
+
+        let workspaces = [];
+        try {
+            workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        } catch(e){}
+
+        const filteredRooms = rooms.filter(r => r.status === "Active" && r.name.toLowerCase().includes(roomsText));
+
+        if (filteredRooms.length === 0) {
+            gridContainer.innerHTML = `<div class="p-8 text-center text-sm text-on-surface-variant italic">No rooms match the search criteria.</div>`;
+            if (indicator) indicator.classList.add("hidden");
+            return;
+        }
+
+        // Generate Rows
+        let rowsHtml = "";
+        filteredRooms.forEach((room, roomIdx) => {
+            // Find parent workspace client category
+            const parent = workspaces.find(w => w.name === room.parentWorkspace);
+            const clientType = parent ? parent.clientType : "Internal";
+            const badgeBg = clientType === "External" 
+                ? "bg-purple-50 text-purple-700 border-purple-200" 
+                : "bg-blue-50 text-blue-700 border-blue-200";
+
+            // Find all confirmed bookings on this room for selectedDate
+            const roomBookings = bookings.filter(b => 
+                b.status === "Confirmed" && 
+                b.room.trim() === room.name.trim() && 
+                b.date === dateString
+            );
+
+            // Generate booking block elements
+            let blocksHtml = "";
+            roomBookings.forEach((b, bIdx) => {
+                let startMin = 540; // 9:00 AM default
+                let endMin = 1020;  // 5:00 PM default
+                let isHourly = b.term === "Hourly";
+
+                if (isHourly && b.time) {
+                    const times = b.time.split(" - ");
+                    if (times.length === 2) {
+                        startMin = parseTimeSlotToMinutes(times[0]);
+                        endMin = parseTimeSlotToMinutes(times[1]);
+                    }
+                }
+
+                // Calculate relative bounds in our 9:00 AM - 6:00 PM view (540 mins total)
+                let leftPercent = ((startMin - 540) / 540) * 100;
+                let widthPercent = ((endMin - startMin) / 540) * 100;
+
+                // Clamp values
+                if (leftPercent < 0) {
+                    widthPercent += leftPercent;
+                    leftPercent = 0;
+                }
+                if (leftPercent + widthPercent > 100) {
+                    widthPercent = 100 - leftPercent;
+                }
+
+                if (widthPercent > 0) {
+                    const colorSchemes = [
+                        { bg: "bg-sky-50/95 text-sky-800 border-sky-300 hover:bg-sky-100", bar: "bg-sky-500" },
+                        { bg: "bg-emerald-50/95 text-emerald-800 border-emerald-300 hover:bg-emerald-100", bar: "bg-emerald-500" },
+                        { bg: "bg-indigo-50/95 text-indigo-800 border-indigo-300 hover:bg-indigo-100", bar: "bg-indigo-500" },
+                        { bg: "bg-amber-50/95 text-amber-800 border-amber-300 hover:bg-amber-100", bar: "bg-amber-500" }
+                    ];
+                    const scheme = colorSchemes[bIdx % colorSchemes.length];
+
+                    blocksHtml += `
+                        <div onclick="viewBookingDetails(${b.id})" 
+                             style="left: ${leftPercent}%; width: ${widthPercent}%;" 
+                             class="absolute top-2 bottom-2 border rounded-lg shadow-xs flex items-stretch overflow-hidden cursor-pointer transition-all duration-150 ${scheme.bg}"
+                             title="${b.title || 'Room Reservation'} (${b.time})">
+                            <div class="w-1 shrink-0 ${scheme.bar}"></div>
+                            <div class="p-1 px-2.5 flex flex-col justify-center min-w-0 select-none">
+                                <span class="font-bold text-[11px] truncate leading-tight text-on-surface">${b.title || 'Reservation'}</span>
+                                <span class="text-[9px] font-medium opacity-85 truncate mt-0.5">${b.booker} • ${b.time}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            rowsHtml += `
+                <div class="flex h-16 items-stretch relative">
+                    <!-- Left: Room Information Card -->
+                    <div class="w-[220px] border-r border-outline-variant/60 p-3 shrink-0 flex flex-col justify-center bg-surface-container-lowest gap-0.5 select-none">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="font-bold text-xs text-on-surface truncate max-w-[120px]">${room.name.replace(/\s*\((Int|Ext)\)/i, "")}</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeBg}">${clientType}</span>
+                        </div>
+                        <span class="text-[10px] text-on-surface-variant font-medium">Cap: ${room.capacity} • ${room.amenities ? room.amenities.slice(0, 2).join(", ") : "WiFi"}</span>
+                    </div>
+                    
+                    <!-- Right: Timeline Track Grid Columns -->
+                    <div class="flex-1 relative flex divide-x divide-outline-variant/30 bg-surface-container-lowest">
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1 bg-surface-container-low/10"></div>
+                        
+                        <!-- Booking Block Overlays -->
+                        <div class="absolute inset-0 z-5 pointer-events-auto">
+                            ${blocksHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        gridContainer.innerHTML = rowsHtml;
+
+        const today = new Date();
+        const isToday = selectedDateObj.toDateString() === today.toDateString();
+
+        if (isToday && indicator) {
+            const currMin = today.getHours() * 60 + today.getMinutes();
+            if (currMin >= 540 && currMin <= 1080) {
+                const lineOffsetPercent = ((currMin - 540) / 540) * 100;
+                indicator.style.left = `calc(220px + ${lineOffsetPercent}%)`;
+                indicator.classList.remove("hidden");
+            } else {
+                indicator.classList.add("hidden");
+            }
+        } else if (indicator) {
+            indicator.classList.add("hidden");
+        }
+    }
+
     // Initialize page
     loadBookings();
 
@@ -1142,5 +1425,9 @@
     window.handleSearch = handleSearch;
     window.handleTermChange = handleTermChange;
     window.handleClientCategoryChange = handleClientCategoryChange;
+    window.switchBookingTab = switchBookingTab;
+    window.adjustTimelineDate = adjustTimelineDate;
+    window.handleTimelineDateChange = handleTimelineDateChange;
+    window.renderTimelineGrid = renderTimelineGrid;
 })();
 </script>
