@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "The Boardroom (Int)",
+    "name": "Conference Room 1 (Int)",
     "parentWorkspace": "Nichi-In Workspace 1 (Int)",
     "capacity": 12,
     "location": "Building 812 • Level 2 • North Wing",
@@ -12,7 +12,7 @@
   },
   {
     "id": 2,
-    "name": "Creative Hub A (Int)",
+    "name": "Meeting Room 1 (Int)",
     "parentWorkspace": "Nichi-In Workspace 2 (Int)",
     "capacity": 6,
     "location": "Building 812 • Level 1 • East Wing",
@@ -23,29 +23,29 @@
   },
   {
     "id": 3,
-    "name": "Podcast Studio (Int)",
+    "name": "Meeting Corner 1 (Int)",
     "parentWorkspace": "Nichi-In Workspace 2 (Int)",
     "capacity": 4,
     "location": "Building 812 • Level 2 • South Wing",
     "size": 100,
-    "amenities": ["Pro Audio Gear", "Soundproof", "High-Speed WiFi"],
+    "amenities": ["Comfortable Chairs", "Power Outlets", "High-Speed WiFi"],
     "status": "Active",
     "image": "images/podcast_studio.png"
   },
   {
     "id": 4,
-    "name": "Focus Pod A (Int)",
+    "name": "Meeting Corner 2 (Int)",
     "parentWorkspace": "Nichi-In Workspace 3 (Int)",
     "capacity": 2,
     "location": "Building 812 • Level 2 • Central Hub",
     "size": 60,
-    "amenities": ["High-Speed WiFi", "Soundproof"],
+    "amenities": ["High-Speed WiFi", "Power Outlets"],
     "status": "Active",
     "image": ""
   },
   {
     "id": 5,
-    "name": "The Boardroom (Ext)",
+    "name": "Conference Room 1 (Ext)",
     "parentWorkspace": "Nichi-In Workspace 1 (Ext)",
     "capacity": 12,
     "location": "Building 813 • Level 2 • North Wing",
@@ -56,7 +56,7 @@
   },
   {
     "id": 6,
-    "name": "Meeting Corner A (Ext)",
+    "name": "Meeting Corner 1 (Ext)",
     "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
     "capacity": 3,
     "location": "Building 813 • Level 1 • East Wing",
@@ -67,7 +67,7 @@
   },
   {
     "id": 7,
-    "name": "Creative Hub A (Ext)",
+    "name": "Meeting Room 1 (Ext)",
     "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
     "capacity": 6,
     "location": "Building 813 • Level 1 • East Wing",
@@ -78,23 +78,23 @@
   },
   {
     "id": 8,
-    "name": "Podcast Studio (Ext)",
+    "name": "Meeting Corner 2 (Ext)",
     "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
     "capacity": 4,
     "location": "Building 813 • Level 2 • South Wing",
     "size": 100,
-    "amenities": ["Pro Audio Gear", "Soundproof", "High-Speed WiFi"],
+    "amenities": ["Comfortable Chairs", "Power Outlets", "High-Speed WiFi"],
     "status": "Active",
     "image": ""
   },
   {
     "id": 9,
-    "name": "Focus Pod A (Ext)",
+    "name": "Meeting Corner 3 (Ext)",
     "parentWorkspace": "Nichi-In Workspace 3 (Ext)",
     "capacity": 2,
     "location": "Building 813 • Level 2 • Central Hub",
     "size": 60,
-    "amenities": ["High-Speed WiFi", "Soundproof"],
+    "amenities": ["High-Speed WiFi", "Power Outlets"],
     "status": "Active",
     "image": ""
   }

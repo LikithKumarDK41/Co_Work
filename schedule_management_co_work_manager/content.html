@@ -168,44 +168,14 @@
                 </select>
             </div>
 
-            <!-- Parent Entire Booking Checkbox -->
-            <div id="parentEntireSpaceContainer" class="hidden flex flex-col gap-2 p-3 border border-outline-variant/40 rounded-lg bg-surface-container-low">
-                <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" id="book_entire_parent" onchange="handleParentCheckboxChange()" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                    <span class="font-body-sm font-semibold text-on-surface">Book entire Workspace Zone (Full Space)</span>
-                </label>
-                <span id="parentAvailabilityStatus" class="text-xs font-semibold text-on-surface-variant">Please select dates to verify availability.</span>
+            <!-- Dynamic Sub-spaces Selection List -->
+            <div id="selectedWorkspacesContainer" class="flex flex-col gap-4">
+                <!-- Row instances populated dynamically -->
             </div>
 
-            <!-- Specific Child Workspace Selector -->
-            <div id="childWorkspaceContainer" class="hidden flex flex-col gap-4 border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low">
-                <div class="flex flex-col gap-1">
-                    <label class="font-label-sm text-on-surface-variant font-semibold">Select Sub-space / eBay Zone <span class="text-error">*</span></label>
-                    <select id="book_subspace" onchange="handleSubspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                        <!-- Dynamic sub-workspaces will be injected here -->
-                    </select>
-                </div>
-
-                <!-- Booking Scope for child workspace -->
-                <div id="subspaceScopeContainer" class="hidden flex flex-col gap-4">
-                    <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Booking Scope <span class="text-error">*</span></label>
-                        <select id="book_scope" onchange="handleScopeChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                            <option value="Seats">Specific Seats</option>
-                            <option value="Entire">Entire Sub-space</option>
-                        </select>
-                    </div>
-
-                    <!-- Seats count -->
-                    <div id="seatsCountContainer" class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Number of Seats to Book <span class="text-error">*</span></label>
-                        <div class="flex items-center gap-2">
-                            <input id="book_seats" type="number" min="1" value="1" oninput="updateAvailableSeats()" class="w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none outline-none text-body-sm">
-                            <span id="availableSeatsBadge" class="text-xs text-on-surface-variant font-medium bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available Seats: --</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <button type="button" onclick="addNewSpaceRow()" style="display: none;" class="mt-1 text-primary font-bold flex items-center gap-1 hover:text-primary/80 transition-colors self-start text-xs border border-primary/20 px-3 py-1.5 rounded-lg bg-primary/5">
+                <span class="material-symbols-outlined text-[16px]">add_circle</span> Add Another Sub-space
+            </button>
 
             <!-- Recurring option -->
             <div class="flex flex-col gap-1">
@@ -679,161 +649,214 @@
             }
         }
         return { parent, childrenWorkspaces, childrenRooms };
-    }
-
-    // Handles date changes or parent workspace dropdown adjustments dynamically
+    }    // Handles date changes or parent workspace dropdown adjustments dynamically
     function handleFormDateOrWorkspaceChange() {
         const parentSelect = document.getElementById("book_parent_workspace");
-        const startVal = document.getElementById("book_start_date").value;
-        const endVal = document.getElementById("book_end_date").value;
-
-        const parentContainer = document.getElementById("parentEntireSpaceContainer");
-        const childContainer = document.getElementById("childWorkspaceContainer");
-
+        const selectedContainer = document.getElementById("selectedWorkspacesContainer");
+        
         if (!parentSelect || parentSelect.value === "") {
-            parentContainer.classList.add("hidden");
-            childContainer.classList.add("hidden");
+            selectedContainer.innerHTML = "";
+            updateAddSpaceButtonVisibility();
             return;
         }
 
-        const parentName = parentSelect.value;
-        parentContainer.classList.remove("hidden");
+        const rows = selectedContainer.querySelectorAll(".space-row");
+        if (rows.length === 0) {
+            addNewSpaceRow();
+        } else {
+            rows.forEach(row => {
+                const select = row.querySelector(".subspace-select");
+                const val = select.value;
+                populateRowSubspaces(row, parentSelect.value);
+                select.value = val;
+                updateRowAvailableSeats(select);
+            });
+        }
+        updateAddSpaceButtonVisibility();
+    }
 
-        // Verify if Entire Workspace is available
-        const parentStatusEl = document.getElementById("parentAvailabilityStatus");
-        const checkbox = document.getElementById("book_entire_parent");
+    function updateAddSpaceButtonVisibility() {
+        const addBtn = document.querySelector("button[onclick='addNewSpaceRow()']");
+        if (!addBtn) return;
 
-        if (!startVal || !endVal) {
-            parentStatusEl.textContent = "Please select dates to verify availability.";
-            parentStatusEl.className = "text-xs font-semibold text-on-surface-variant";
-            checkbox.disabled = false;
+        const parentSelect = document.getElementById("book_parent_workspace");
+        if (!parentSelect || !parentSelect.value) {
+            addBtn.style.display = "none";
+            return;
+        }
+
+        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+        if (rows.length === 0) {
+            addBtn.style.display = "none";
+            return;
+        }
+
+        let allValid = true;
+        let selectedNames = [];
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const select = row.querySelector(".subspace-select");
+            const badge = row.querySelector(".available-badge");
+
+            if (!select || !select.value) {
+                allValid = false;
+                break;
+            }
+
+            selectedNames.push(select.value);
+
+            const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 0;
+            if (avail <= 0) {
+                allValid = false;
+                break;
+            }
+        }
+
+        // Also check if there are other active subspaces under this parent not yet selected
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        const allParentSubspaces = workspaces.filter(w => w.parentWorkspace === parentSelect.value && w.status === "Active");
+        const remainingSubspaces = allParentSubspaces.filter(w => !selectedNames.includes(w.name));
+
+        if (allValid && remainingSubspaces.length > 0) {
+            addBtn.style.display = "flex";
+        } else {
+            addBtn.style.display = "none";
+        }
+    }
+
+    function addNewSpaceRow() {
+        const container = document.getElementById("selectedWorkspacesContainer");
+        const parentSelect = document.getElementById("book_parent_workspace");
+        if (!parentSelect || !parentSelect.value) {
+            alert("Please select a building zone first.");
+            return;
+        }
+
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "space-row border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low flex flex-col gap-3 relative";
+
+        rowDiv.innerHTML = `
+            <button type="button" onclick="removeSpaceRow(this)" class="absolute top-2 right-2 text-on-surface-variant hover:text-error transition-colors flex items-center justify-center p-1 rounded-full hover:bg-error/10">
+                <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
             
-            // Populate sub-spaces anyway
-            populateSubspaces(parentName);
-            childContainer.classList.remove("hidden");
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Select Sub-space / Zone <span class="text-error">*</span></label>
+                <select class="subspace-select w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" onchange="handleRowSubspaceChange(this)">
+                    <!-- Loaded dynamically -->
+                </select>
+            </div>
+            
+            <div class="row-scope-container hidden flex flex-col gap-3">
+                <label class="flex items-center gap-2 cursor-pointer mt-1">
+                    <input type="checkbox" class="reserve-all-checkbox rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" onchange="handleReserveAllChange(this)">
+                    <span class="font-body-sm font-semibold text-on-surface">Reserve all seats in this space</span>
+                </label>
+                
+                <div class="seats-count-wrapper flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Number of Seats to Book <span class="text-error">*</span></label>
+                    <div class="flex items-center gap-2">
+                        <input type="number" min="1" value="1" class="seats-input w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" oninput="updateRowAvailableSeats(this)">
+                        <span class="available-badge text-xs text-on-surface-variant font-medium bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available Seats: --</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        container.appendChild(rowDiv);
+        populateRowSubspaces(rowDiv, parentSelect.value);
+        updateAddSpaceButtonVisibility();
+    }
+
+    function removeSpaceRow(btn) {
+        const row = btn.closest(".space-row");
+        const container = document.getElementById("selectedWorkspacesContainer");
+        if (container.querySelectorAll(".space-row").length <= 1) {
+            alert("At least one sub-space must be selected.");
             return;
         }
+        row.remove();
+        updateAllRowsSubspaceOptions();
+        updateAddSpaceButtonVisibility();
+    }
 
-        const reqStart = new Date(startVal + "T00:00:00");
-        const reqEnd = new Date(endVal + "T23:59:59");
-        const recurring = document.getElementById("book_recurring").value;
+    function updateAllRowsSubspaceOptions() {
+        const parentSelect = document.getElementById("book_parent_workspace");
+        if (!parentSelect || !parentSelect.value) return;
+        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+        rows.forEach(row => {
+            const select = row.querySelector(".subspace-select");
+            const val = select.value;
+            populateRowSubspaces(row, parentSelect.value);
+            select.value = val;
+        });
+    }
 
-        const hierarchy = getHierarchy(parentName);
+    function populateRowSubspaces(row, parentName) {
+        const select = row.querySelector(".subspace-select");
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        const children = workspaces.filter(w => w.parentWorkspace === parentName && w.status === "Active");
 
-        // Check if there are any active bookings on:
-        // 1. the parent itself
-        // 2. any child workspace
-        // 3. any child room
-        let bookedReason = "";
-        let isOccupied = false;
-
-        // Check workspaces
-        workspaceBookings.forEach(o => {
-            if (o.status !== "Confirmed" || isOccupied) return;
-            if (o.workspace !== parentName && o.workspace !== hierarchy.parent && !hierarchy.childrenWorkspaces.includes(o.workspace)) return;
-
-            const period = parsePeriod(o.period);
-            if (hasRecurrenceOverlap(reqStart.getTime(), reqEnd.getTime(), recurring, period.start.getTime(), period.end.getTime(), o.recurring || "None")) {
-                isOccupied = true;
-                bookedReason = `occupied by ${o.booker} (${o.workspace})`;
+        const otherSelected = [];
+        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+        rows.forEach(r => {
+            if (r !== row) {
+                const s = r.querySelector(".subspace-select");
+                if (s && s.value) {
+                    otherSelected.push(s.value);
+                }
             }
         });
 
-        // Check rooms
-        if (!isOccupied && hierarchy.childrenRooms.length > 0) {
-            let allRoomBookings = [];
-            try {
-                allRoomBookings = JSON.parse(sessionStorage.getItem("bookings") || "[]");
-            } catch(e){}
+        const val = select.value;
+        const availableChildren = children.filter(w => w.name === val || !otherSelected.includes(w.name));
 
-            allRoomBookings.forEach(rb => {
-                if (rb.status !== "Confirmed" || !hierarchy.childrenRooms.includes(rb.room) || isOccupied) return;
-                const period = parsePeriod(rb.date);
-                if (hasRecurrenceOverlap(reqStart.getTime(), reqEnd.getTime(), recurring, period.start.getTime(), period.end.getTime(), rb.recurring || "None")) {
-                    isOccupied = true;
-                    bookedReason = `occupied by ${rb.booker} (${rb.room})`;
-                }
-            });
-        }
-
-        if (isOccupied) {
-            checkbox.checked = false;
-            checkbox.disabled = true;
-            parentStatusEl.textContent = `Unavailable: Child spaces are occupied (${bookedReason})`;
-            parentStatusEl.className = "text-xs font-semibold text-error";
-        } else {
-            checkbox.disabled = false;
-            parentStatusEl.textContent = "Entire workspace is available for booking.";
-            parentStatusEl.className = "text-xs font-semibold text-emerald-600";
-        }
-
-        // Populate sub-spaces
-        populateSubspaces(parentName);
-        
-        handleParentCheckboxChange();
+        select.innerHTML = `<option value="">Select a Sub-space...</option>` +
+            availableChildren.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`).join("");
+        if (val) select.value = val;
     }
 
-    function populateSubspaces(parentName) {
-        const select = document.getElementById("book_subspace");
-        if (!select) return;
-
-        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-        // Filter sub-workspaces belonging to parent workspace
-        const children = workspaces.filter(w => w.parentWorkspace === parentName && w.status === "Active");
-
-        select.innerHTML = children.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name}</option>`).join("");
-        
-        handleSubspaceChange();
-    }
-
-    function handleParentCheckboxChange() {
-        const checkbox = document.getElementById("book_entire_parent");
-        const childContainer = document.getElementById("childWorkspaceContainer");
-
-        if (checkbox.checked) {
-            childContainer.classList.add("hidden");
-        } else {
-            childContainer.classList.remove("hidden");
-            handleSubspaceChange();
-        }
-    }
-
-    function handleSubspaceChange() {
-        const subSelect = document.getElementById("book_subspace");
-        const scopeContainer = document.getElementById("subspaceScopeContainer");
-
-        if (!subSelect || subSelect.value === "") {
+    function handleRowSubspaceChange(select) {
+        const row = select.closest(".space-row");
+        const scopeContainer = row.querySelector(".row-scope-container");
+        if (!select.value) {
             scopeContainer.classList.add("hidden");
+            updateAddSpaceButtonVisibility();
             return;
         }
-
         scopeContainer.classList.remove("hidden");
-        handleScopeChange();
-        updateAvailableSeats();
+        updateRowAvailableSeats(select);
+        updateAllRowsSubspaceOptions();
+        updateAddSpaceButtonVisibility();
     }
 
-    function handleScopeChange() {
-        const scope = document.getElementById("book_scope").value;
-        const container = document.getElementById("seatsCountContainer");
-        if (scope === "Entire") {
-            container.classList.add("hidden");
+    function handleReserveAllChange(checkbox) {
+        const row = checkbox.closest(".space-row");
+        const seatsInput = row.querySelector(".seats-input");
+        const badge = row.querySelector(".available-badge");
+
+        if (checkbox.checked) {
+            seatsInput.disabled = true;
+            const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
+            seatsInput.value = avail;
         } else {
-            container.classList.remove("hidden");
+            seatsInput.disabled = false;
+            seatsInput.value = 1;
         }
-        updateAvailableSeats();
+        updateAddSpaceButtonVisibility();
     }
 
-    function updateAvailableSeats() {
-        const subSelect = document.getElementById("book_subspace");
-        const parentSelect = document.getElementById("book_parent_workspace");
+    function updateRowAvailableSeats(element) {
+        const row = element.closest(".space-row");
+        const select = row.querySelector(".subspace-select");
+        const badge = row.querySelector(".available-badge");
         const startVal = document.getElementById("book_start_date").value;
         const endVal = document.getElementById("book_end_date").value;
         const recurring = document.getElementById("book_recurring").value;
-        const badge = document.getElementById("availableSeatsBadge");
-        const scope = document.getElementById("book_scope").value;
 
-        if (!subSelect || !badge) return;
-        const opt = subSelect.options[subSelect.selectedIndex];
+        if (!select || !badge) return;
+        const opt = select.options[select.selectedIndex];
         if (!opt || opt.value === "") {
             badge.textContent = "Available: --";
             return;
@@ -843,7 +866,7 @@
         const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
 
         if (!startVal || !endVal) {
-            badge.textContent = `Available: ${totalCapacity}`;
+            badge.textContent = `Available Now: ${totalCapacity} • Total Seats: ${totalCapacity}`;
             badge.dataset.available = totalCapacity;
             return;
         }
@@ -851,10 +874,6 @@
         const reqStart = new Date(startVal + "T00:00:00");
         const reqEnd = new Date(endVal + "T23:59:59");
 
-        const hierarchy = getHierarchy(workspaceName);
-
-        // Sum up seat occupancies of this child workspace
-        let occupiedToday = 0;
         let peakOccupied = 0;
         let curr = new Date(reqStart);
 
@@ -880,8 +899,15 @@
         }
 
         const available = Math.max(0, totalCapacity - peakOccupied);
-        badge.textContent = `Available: ${available} / ${totalCapacity}`;
+        badge.textContent = `Available Now: ${available} • Total Seats: ${totalCapacity}`;
         badge.dataset.available = available;
+
+        const checkbox = row.querySelector(".reserve-all-checkbox");
+        const seatsInput = row.querySelector(".seats-input");
+        if (checkbox && checkbox.checked && seatsInput) {
+            seatsInput.value = available;
+        }
+        updateAddSpaceButtonVisibility();
     }
 
     const spaceDetailsLookup = {
@@ -1036,41 +1062,39 @@
             return;
         }
 
-        const isEntireParent = document.getElementById("book_entire_parent").checked;
-        
-        let targetWorkspaceName = parentWorkspace;
-        let scope = "Entire";
-        let seatsToBook = parseInt(parentSelect.options[parentSelect.selectedIndex].getAttribute("data-capacity") || 18);
+        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+        if (rows.length === 0) {
+            alert("Please select at least one sub-space.");
+            return;
+        }
 
-        if (!isEntireParent) {
-            const subSelect = document.getElementById("book_subspace");
-            const subOpt = subSelect.options[subSelect.selectedIndex];
-            if (!subSelect || subSelect.value === "") {
-                alert("Please select a sub-space.");
+        let bookingsToCreate = [];
+
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const subSelect = row.querySelector(".subspace-select");
+            if (!subSelect.value) {
+                alert(`Please select a sub-space for row ${i + 1}.`);
                 return;
             }
-            targetWorkspaceName = subSelect.value;
-            scope = document.getElementById("book_scope").value;
-            const subCapacity = parseInt(subOpt.getAttribute("data-capacity") || 10);
-            seatsToBook = scope === "Entire" ? subCapacity : parseInt(document.getElementById("book_seats").value) || 1;
 
-            // Perform seats limit check
-            updateAvailableSeats();
-            const badge = document.getElementById("availableSeatsBadge");
-            const available = badge.dataset.available ? parseInt(badge.dataset.available) : subCapacity;
+            const checkbox = row.querySelector(".reserve-all-checkbox");
+            const seatsInput = row.querySelector(".seats-input");
+            const badge = row.querySelector(".available-badge");
+
+            const seatsToBook = parseInt(seatsInput.value) || 1;
+            const available = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
 
             if (seatsToBook > available) {
-                alert(`Booking failed! Over-capacity/Space collision. Only ${available} seats are available in ${targetWorkspaceName}.`);
+                alert(`Booking failed! Row ${i + 1}: only ${available} seats are available in ${subSelect.value.replace(/\s*\((Int|Ext)\)/i, "")}.`);
                 return;
             }
-        } else {
-            // Check Entire Workspace Availability once more
-            handleFormDateOrWorkspaceChange();
-            const checkbox = document.getElementById("book_entire_parent");
-            if (checkbox.disabled) {
-                alert(`Booking failed! Sibling elements or rooms in ${parentWorkspace} are already occupied during this period.`);
-                return;
-            }
+
+            bookingsToCreate.push({
+                workspace: subSelect.value,
+                bookingScope: checkbox.checked ? "Entire" : "Seats",
+                seatsBooked: seatsToBook
+            });
         }
 
         // Format dates
@@ -1079,25 +1103,26 @@
         const endFormatted = new Date(rawEnd + "T00:00:00").toLocaleDateString('en-US', dateOptions);
         const periodStr = `${startFormatted} - ${endFormatted}`;
 
-        const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
-        const newBooking = {
-            id: newId,
-            booker: booker,
-            workspace: targetWorkspaceName,
-            type: "Shared Space",
-            term: term,
-            period: periodStr,
-            bookingScope: scope,
-            seatsBooked: seatsToBook,
-            recurring: recurring,
-            status: "Confirmed"
-        };
+        bookingsToCreate.forEach(b => {
+            const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
+            workspaceBookings.unshift({
+                id: newId,
+                booker: booker,
+                workspace: b.workspace,
+                type: "Shared Space",
+                term: term,
+                period: periodStr,
+                bookingScope: b.bookingScope,
+                seatsBooked: b.seatsBooked,
+                recurring: recurring,
+                status: "Confirmed"
+            });
+        });
 
-        workspaceBookings.unshift(newBooking);
         sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
         applyFilters();
 
-        alert("Workspace booking added successfully.");
+        alert("Workspace bookings created successfully.");
         closeNewBookingModal();
     }
 
@@ -1120,10 +1145,11 @@
     window.applyFilters = applyFilters;
     window.handleSearch = handleSearch;
     window.handleFormDateOrWorkspaceChange = handleFormDateOrWorkspaceChange;
-    window.handleParentCheckboxChange = handleParentCheckboxChange;
-    window.handleSubspaceChange = handleSubspaceChange;
-    window.handleScopeChange = handleScopeChange;
-    window.updateAvailableSeats = updateAvailableSeats;
+    window.addNewSpaceRow = addNewSpaceRow;
+    window.removeSpaceRow = removeSpaceRow;
+    window.handleRowSubspaceChange = handleRowSubspaceChange;
+    window.handleReserveAllChange = handleReserveAllChange;
+    window.updateRowAvailableSeats = updateRowAvailableSeats;
     window.handleClientCategoryChange = handleClientCategoryChange;
 })();
 </script>
