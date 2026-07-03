@@ -3,444 +3,1091 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-2">
         <div>
             <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Room Bookings</h2>
-            <p class="font-body-sm text-body-sm text-on-surface-variant">Manage and monitor meeting space utilization.</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Review, approve, deny, and monitor meeting rooms and conference room reservations.</p>
         </div>
-        <div class="flex flex-col sm:flex-row sm:items-center gap-sm self-start sm:self-auto">
-            <button onclick="openNewBookingModal()" class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-1.5 rounded-lg font-label-md shadow-sm hover:bg-primary/90 transition-colors">
+        <div class="flex items-center gap-sm">
+            <button onclick="openNewBookingModal()" class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md shadow-sm hover:bg-primary/90 transition-colors">
                 <span class="material-symbols-outlined text-[18px]">add</span> New Booking
             </button>
-            <button onclick="openCancellationsModal()" class="flex items-center gap-1.5 bg-surface border border-outline-variant text-on-surface px-4 py-1.5 rounded-lg font-label-md shadow-sm hover:bg-surface-container-low transition-colors">
-                <span class="material-symbols-outlined text-[18px]">block</span> Cancellations
-            </button>
         </div>
     </div>
 
-    <!-- Top Row: Dashboard Widgets -->
-    <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-lg shrink-0">
-        <!-- Pending Approvals List -->
-        <div class="lg:col-span-2 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden">
-            <div class="px-md py-sm border-b border-outline-variant bg-surface-bright flex justify-between items-center">
-                <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface flex items-center gap-2">
-                    Action Required
-                    <span class="bg-error-container text-on-error-container font-label-sm text-[10px] px-2 py-0.5 rounded-full">3 Pending</span>
-                </h3>
-                <button onclick="openAllApprovalsModal()" class="text-primary font-label-sm hover:underline">View All</button>
-            </div>
-            
-            <div class="flex flex-col divide-y divide-outline-variant/30 h-full">
-                <!-- Compact Pending Item 1 -->
-                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2">
-                            <span class="font-label-md font-bold text-on-surface">External Workshop</span>
-                            <span class="font-label-sm text-[10px] text-error bg-error/10 border border-error/20 px-1.5 py-0.5 rounded uppercase font-bold">Review</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-on-surface-variant">
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Podcast Studio</span>
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Tomorrow, 1:00 PM</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
-                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
-                    </div>
-                </div>
-
-                <!-- Compact Pending Item 2 -->
-                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2">
-                            <span class="font-label-md font-bold text-on-surface">Board Meeting (Recurring)</span>
-                            <span class="material-symbols-outlined text-outline text-[14px]">autorenew</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-on-surface-variant">
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> The Boardroom</span>
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Fridays, 9:00 AM (x4)</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
-                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
-                    </div>
-                </div>
-                
-                <!-- Compact Pending Item 3 -->
-                <div class="flex items-center justify-between p-3 hover:bg-surface-container-low/50 transition-colors group">
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2">
-                            <span class="font-label-md font-bold text-on-surface">Team Offsite Prep</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-on-surface-variant">
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Creative Hub A</span>
-                            <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 28, 10:00 AM</span>
-                        </div>
-                    </div>
-                    <div class="flex gap-2">
-                        <button class="bg-primary text-on-primary hover:bg-primary/90 px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Approve</button>
-                        <button class="bg-surface border border-outline-variant text-on-surface-variant hover:bg-surface-container-high px-3 py-1 rounded-md font-label-sm transition-colors text-[12px]">Deny</button>
-                    </div>
-                </div>
+    <!-- Utilization Cards Section -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-4">
+            <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+                Daily Room Utilization
+            </h3>
+            <div class="flex items-center gap-2">
+                <label class="font-label-sm text-on-surface-variant font-semibold text-sm">Select Date:</label>
+                <select id="utilizationDateSelect" onchange="calculateUtilization()" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none cursor-pointer">
+                    <!-- Dynamic date options will be injected here -->
+                </select>
             </div>
         </div>
-
-        <!-- Donut Utilization Chart -->
-        <div class="lg:col-span-1 bg-surface-container-lowest rounded-xl border border-outline-variant p-4 shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col">
-            <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface mb-4">Today's Utilization</h3>
-            <div class="flex-1 flex flex-col items-center justify-center py-2">
-                <!-- CSS Donut Chart -->
-                <div class="relative w-32 h-32 rounded-full flex items-center justify-center" style="background: conic-gradient(var(--color-primary) 0% 65%, var(--color-surface-container-high) 65% 100%);">
-                    <div class="absolute w-24 h-24 bg-surface-container-lowest rounded-full flex flex-col items-center justify-center shadow-inner border border-outline-variant/30">
-                        <span class="font-headline-lg font-bold text-on-surface leading-none">65%</span>
-                        <span class="text-[10px] text-on-surface-variant uppercase tracking-wider mt-1">Booked</span>
-                    </div>
-                </div>
-                
-                <!-- Legend -->
-                <div class="mt-6 w-full space-y-3 px-2">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                            <span class="font-label-sm text-on-surface">The Boardroom</span>
-                        </div>
-                        <span class="font-label-sm font-bold text-on-surface-variant">85%</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <div class="w-2.5 h-2.5 rounded-full bg-surface-container-high border border-outline-variant/50"></div>
-                            <span class="font-label-sm text-on-surface">Creative Hub A</span>
-                        </div>
-                        <span class="font-label-sm font-bold text-on-surface-variant">40%</span>
-                    </div>
-                </div>
-            </div>
+        <div id="utilization_cards_container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-sm">
+            <!-- Dynamic room utilization cards will be injected here -->
         </div>
     </div>
 
-    <!-- Calendar View -->
-    <div class="flex-1 flex flex-col gap-lg min-w-0">
-        <!-- Calendar Container -->
-        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_1px_3px_0_rgba(0,0,0,0.1),0_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col flex-1 overflow-hidden">
-            <!-- Toolbar -->
-            <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
-                <div class="flex items-center bg-surface border border-outline-variant rounded-lg p-0.5 shadow-sm">
-                    <button onclick="changeDate(-1)" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded-md transition-colors flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[20px]">chevron_left</span>
-                    </button>
-                    
-                    <div class="relative flex items-center px-3 border-x border-outline-variant/30">
-                        <span class="material-symbols-outlined text-primary text-[18px] mr-2 pointer-events-none">calendar_month</span>
-                        <input type="date" id="calendarDate" value="2023-10-24" onchange="updateCalendarData()" 
-                            class="font-label-lg text-[15px] text-on-surface font-semibold bg-transparent border-none outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer relative z-10 w-[125px] text-center">
-                    </div>
-                    
-                    <button onclick="changeDate(1)" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded-md transition-colors flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
-                    </button>
-                </div>
-                <div class="flex items-center gap-sm w-full md:w-auto">
-                    <div class="relative flex-1 md:flex-initial">
-                        <span class="material-symbols-outlined absolute left-2 top-1.5 text-outline text-[18px]">search</span>
-                        <input id="searchRooms" oninput="filterRooms()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search rooms..." type="text"/>
-                    </div>
-                    <button class="text-on-surface-variant hover:text-primary p-1.5 rounded border border-outline-variant hover:bg-surface-container-low transition-colors">
-                        <span class="material-symbols-outlined text-[20px]">filter_list</span>
-                    </button>
-                </div>
+    <!-- Table Card -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+        <!-- Table Toolbar -->
+        <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
+            <div class="flex items-center gap-2">
+                <span class="font-label-md font-bold text-on-surface text-[16px]">All Reservations</span>
+                <span id="bookingCountBadge" class="bg-primary/10 text-primary font-label-sm text-[11px] px-2 py-0.5 rounded-full font-bold">0 Total</span>
             </div>
-
-            <!-- Calendar Grid -->
-            <div class="flex overflow-x-auto relative min-h-[400px] bg-surface-container-lowest">
-                <div class="flex flex-col min-w-[1200px] w-full">
-                    
-                    <!-- Time Headers -->
-                    <div class="flex border-b border-outline-variant sticky top-0 z-20 bg-surface-container-low">
-                        <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-30 bg-surface-container-low flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                            Rooms
-                        </div>
-                        <div class="flex-1 flex">
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">9:00 AM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">10:00 AM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">11:00 AM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">12:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">1:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">2:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">3:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">4:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">5:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">6:00 PM</div>
-                            <div class="flex-1 min-w-[200px] h-12 border-r border-outline-variant/30"></div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">4:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">5:00 PM</div>
-                            <div class="w-32 flex-shrink-0 h-12 flex items-center justify-start pl-2 font-label-sm text-label-sm text-on-surface-variant border-r border-outline-variant">6:00 PM</div>
-                            <div class="flex-1 min-w-[200px] h-12 border-r border-outline-variant/30"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Calendar Body with Rows -->
-                    <div class="relative flex-1" id="calendarBody">
-                        
-                        <!-- The Boardroom Row -->
-                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="The Boardroom">
-                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
-                                <span class="font-label-md text-label-md text-on-surface truncate">The Boardroom</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 12 • Screen</span>
-                            </div>
-                            <div class="flex-1 flex relative h-20">
-                                <!-- Background lines -->
-                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
-                                <!-- Event -->
-                                <div class="booking-event absolute top-2 left-[64px] w-[256px] h-16 bg-gradient-to-r from-primary/15 to-primary/5 border-l-4 border-l-primary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
-                                    <div class="flex justify-between items-start">
-                                        <span class="font-label-sm text-label-sm text-primary font-bold truncate">Acme Corp Pitch</span>
-                                        <div class="w-5 h-5 rounded-full border border-surface bg-surface-container-low flex items-center justify-center text-[10px] text-on-surface-variant font-bold shrink-0 shadow-sm">JD</div>
-                                    </div>
-                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1 group-hover:text-primary transition-colors">9:30 AM - 11:30 AM</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Creative Hub A Row -->
-                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Creative Hub A">
-                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
-                                <span class="font-label-md text-label-md text-on-surface truncate">Creative Hub A</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 4 • Whiteboard</span>
-                            </div>
-                            <div class="flex-1 flex relative h-20">
-                                <!-- Background lines -->
-                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
-                                <!-- Event -->
-                                <div class="booking-event absolute top-2 left-[512px] w-[128px] h-16 bg-gradient-to-r from-secondary/15 to-secondary/5 border-l-4 border-l-secondary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
-                                    <span class="font-label-sm text-label-sm text-secondary font-bold truncate">Sync up</span>
-                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">1:00 PM - 2:00 PM</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Podcast Studio Row -->
-                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Podcast Studio">
-                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
-                                <span class="font-label-md text-label-md text-on-surface truncate">Podcast Studio</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 2 • A/V</span>
-                            </div>
-                            <div class="flex-1 flex relative h-20">
-                                <!-- Background lines -->
-                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
-                                <!-- Event -->
-                                <div class="booking-event absolute top-2 left-[128px] w-[640px] h-16 bg-gradient-to-r from-tertiary/15 to-tertiary/5 border-l-4 border-l-tertiary border-y border-r border-outline-variant/50 rounded-r-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-2 flex flex-col justify-center cursor-pointer overflow-hidden">
-                                    <div class="flex items-center gap-2">
-                                        <span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
-                                        <span class="font-label-sm text-label-sm text-tertiary font-bold truncate">Design Sprint (Internal)</span>
-                                    </div>
-                                    <span class="font-body-sm text-[11px] text-on-surface-variant mt-1">10:00 AM - 3:00 PM</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Focus Pod Row -->
-                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Focus Pod">
-                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
-                                <span class="font-label-md text-label-md text-on-surface truncate">Focus Pod</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 1 • None</span>
-                            </div>
-                            <div class="flex-1 flex relative h-20">
-                                <!-- Background lines -->
-                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
-                            </div>
-                        </div>
-
-                        <!-- Studio B Row -->
-                        <div class="flex border-b border-outline-variant/50 room-row hover:bg-surface-container-low/30 transition-colors group" data-room-name="Studio B">
-                            <div class="w-48 flex-shrink-0 border-r border-outline-variant sticky left-0 z-10 bg-surface-container-lowest group-hover:bg-surface-container-low/30 transition-colors px-sm py-2 flex flex-col justify-center">
-                                <span class="font-label-md text-label-md text-on-surface truncate">Studio B</span>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">Cap: 8 • Mic</span>
-                            </div>
-                            <div class="flex-1 flex relative h-20">
-                                <!-- Background lines -->
-                                <div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="w-32 flex-shrink-0 border-r border-outline-variant/30"></div><div class="flex-1 min-w-[200px] border-r border-outline-variant/30"></div>
-                            </div>
-                        </div>
-
-                        <!-- Current Time Indicator -->
-                        <div class="absolute top-0 bottom-0 left-[272px] w-px bg-primary z-20 pointer-events-none drop-shadow-[0_0_2px_rgba(var(--color-primary),0.5)]">
-                            <div class="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full bg-primary shadow-sm border border-surface"></div>
-                        </div>
-
-                    </div>
+            <div class="flex items-center gap-sm w-full md:w-auto">
+                <div class="relative flex-1 md:flex-initial">
+                    <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                    <input id="searchBookings" oninput="handleSearch()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search bookings..." type="text"/>
                 </div>
+                <select id="statusFilter" onchange="applyFilters()" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
+                    <option value="all">All Statuses</option>
+                    <option value="Waitlist">Pending</option>
+                    <option value="Confirmed">Approved</option>
+                    <option value="Denied">Denied</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="table-responsive">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80">
+                        <th class="px-md py-sm font-semibold">Booker</th>
+                        <th class="px-md py-sm font-semibold">Room</th>
+                        <th class="px-md py-sm font-semibold">Meeting Title</th>
+                        <th class="px-md py-sm font-semibold">Term</th>
+                        <th class="px-md py-sm font-semibold">Period / Date</th>
+                        <th class="px-md py-sm font-semibold">Time Slot</th>
+                        <th class="px-md py-sm font-semibold">Recurring</th>
+                        <th class="px-md py-sm font-semibold">Status</th>
+                        <th class="px-md py-sm font-semibold text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings_table_body" class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
+                    <!-- Dynamic rows will be injected here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Table Footer Pagination -->
+        <div class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 0 to 0 of 0 entries</span>
+            <div id="pagination_container" class="flex gap-xs items-center">
+                <!-- Dynamic buttons injected here -->
             </div>
         </div>
     </div>
 </div>
 
 <!-- New Booking Modal -->
-<div id="newBookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeNewBookingModal()"></div>
-    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-md relative z-10 flex flex-col overflow-hidden">
-        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+<div id="newBookingModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeNewBookingModal()"></div>
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center shrink-0">
             <h3 class="font-headline-sm font-bold text-on-surface">New Booking</h3>
             <button onclick="closeNewBookingModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
         </div>
-        <div class="p-4 flex flex-col gap-4">
+        <form id="newBookingForm" onsubmit="submitNewBooking(event)" class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-surface-container-lowest pb-10">
+            <!-- Searchable Member -->
+            <div class="flex flex-col gap-1 relative">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Member Name <span class="text-error">*</span></label>
+                <div class="relative">
+                    <input id="book_member_name" type="text" autocomplete="off" required onfocus="showMemberDropdown()" oninput="filterMemberDropdown()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="Search and select member...">
+                    <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-[20px]">expand_more</span>
+                </div>
+                <div id="member_options_list" class="hidden absolute top-full left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-outline-variant bg-surface-container-lowest rounded-lg shadow-lg z-50 divide-y divide-outline-variant/30">
+                    <!-- Dynamic searchable members list will be injected here -->
+                </div>
+            </div>
+
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Book On Behalf Of (Member)</label>
-                <select class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
-                    <option>Search for member...</option>
-                    <option>John Doe</option>
-                    <option>Sarah Jenkins</option>
-                    <option>Marcus Reed</option>
+                <label class="font-label-sm text-on-surface-variant font-semibold">Meeting Title / Purpose <span class="text-error">*</span></label>
+                <input id="book_title" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="e.g. Weekly Strategy Sync">
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Select Room <span class="text-error">*</span></label>
+                <select id="book_room" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="">Select a Room...</option>
                 </select>
             </div>
-            <input type="text" placeholder="Meeting Title (Optional)" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
-            <select class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
-                <option>Select Room...</option>
-                <option>The Boardroom</option>
-                <option>Creative Hub A</option>
-                <option>Podcast Studio</option>
-            </select>
-            <div class="flex gap-2">
-                <input type="time" class="flex-1 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
-                <input type="time" class="flex-1 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none">
+
+            <!-- Term Select -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Booking Term / Cycle <span class="text-error">*</span></label>
+                <select id="book_term" required onchange="handleTermChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="Hourly">Hourly</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
             </div>
-            <button onclick="closeNewBookingModal()" class="w-full bg-primary text-on-primary py-2 rounded-lg font-bold hover:bg-primary/90 mt-2">Book Room</button>
-        </div>
+
+            <!-- Hourly Inputs -->
+            <div id="hourlyInputs" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Date <span class="text-error">*</span></label>
+                    <input id="book_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+                <div class="flex gap-2">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Start Time <span class="text-error">*</span></label>
+                        <input id="book_start" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    </div>
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">End Time <span class="text-error">*</span></label>
+                        <input id="book_end" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Range Inputs (Hidden by default) -->
+            <div id="rangeInputs" class="hidden flex gap-2">
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span class="text-error">*</span></label>
+                    <input id="book_start_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span class="text-error">*</span></label>
+                    <input id="book_end_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+            </div>
+
+            <!-- Recurring Pattern -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
+                <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="None">None</option>
+                    <option value="Daily">Daily Recurring</option>
+                    <option value="Weekly">Weekly Recurring</option>
+                    <option value="Monthly">Monthly Recurring</option>
+                </select>
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:bg-primary/90 mt-2 shrink-0 transition-colors">Book Room</button>
+        </form>
     </div>
 </div>
 
-<!-- Cancellations Modal -->
-<div id="cancellationsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeCancellationsModal()"></div>
-    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-lg relative z-10 flex flex-col overflow-hidden">
+<!-- Booking Details Drawer Modal -->
+<div id="bookingDetailsModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <!-- Backdrop overlay -->
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeBookingDetailsModal()"></div>
+    <!-- Drawer Panel -->
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
-            <h3 class="font-headline-sm font-bold text-on-surface">Manage Cancellations</h3>
-            <button onclick="closeCancellationsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+            <h3 class="font-headline-sm font-bold text-on-surface">Reservation Details</h3>
+            <button onclick="closeBookingDetailsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
         </div>
-        <div class="p-4 flex flex-col gap-4 max-h-[60vh] overflow-y-auto">
-            <div class="p-3 border border-outline-variant rounded-lg flex justify-between items-center bg-surface-bright">
-                <div>
-                    <h4 class="font-bold text-on-surface">Acme Corp Pitch</h4>
-                    <p class="text-sm text-on-surface-variant">The Boardroom • Today, 9:30 AM</p>
-                </div>
-                <button class="bg-error/10 text-error px-3 py-1 rounded-md font-bold text-sm hover:bg-error hover:text-on-error transition-colors">Cancel</button>
-            </div>
-            <div class="p-3 border border-outline-variant rounded-lg flex justify-between items-center bg-surface-bright">
-                <div>
-                    <h4 class="font-bold text-on-surface">Sync up</h4>
-                    <p class="text-sm text-on-surface-variant">Creative Hub A • Today, 1:00 PM</p>
-                </div>
-                <button class="bg-error/10 text-error px-3 py-1 rounded-md font-bold text-sm hover:bg-error hover:text-on-error transition-colors">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- All Approvals Modal -->
-<div id="allApprovalsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-    <div class="absolute inset-0 bg-on-surface/50 backdrop-blur-sm" onclick="closeAllApprovalsModal()"></div>
-    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg w-full max-w-2xl relative z-10 flex flex-col overflow-hidden max-h-[90vh]">
-        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
-            <h3 class="font-headline-sm font-bold text-on-surface">All Pending Approvals</h3>
-            <button onclick="closeAllApprovalsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
-        </div>
-        <div class="p-4 flex flex-col gap-4 overflow-y-auto bg-surface-container-lowest">
-            
-            <!-- Pending Item 1 -->
-            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-label-md font-bold text-on-surface">External Workshop</span>
-                        <span class="font-label-sm text-[10px] text-error bg-error/10 border border-error/20 px-1.5 py-0.5 rounded uppercase font-bold">Review</span>
-                    </div>
-                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Podcast Studio</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Tomorrow, 1:00 PM</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> Sarah Jenkins</span>
-                    </div>
-                </div>
-                <div class="flex gap-2 w-full md:w-auto">
-                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
-                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
-                </div>
-            </div>
-
-            <!-- Pending Item 2 -->
-            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-label-md font-bold text-on-surface">Board Meeting (Recurring)</span>
-                        <span class="material-symbols-outlined text-outline text-[16px]">autorenew</span>
-                    </div>
-                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> The Boardroom</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Fridays, 9:00 AM (x4)</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> Marcus Reed</span>
-                    </div>
-                </div>
-                <div class="flex gap-2 w-full md:w-auto">
-                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
-                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
-                </div>
-            </div>
-
-            <!-- Pending Item 3 -->
-            <div class="bg-surface border border-outline-variant rounded-lg p-3 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div class="flex-1">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-label-md font-bold text-on-surface">Team Offsite Prep</span>
-                    </div>
-                    <div class="text-on-surface-variant flex flex-wrap gap-x-4 gap-y-1">
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">meeting_room</span> Creative Hub A</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_today</span> Oct 28, 10:00 AM</span>
-                        <span class="font-body-sm text-[12px] flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person</span> John Doe</span>
-                    </div>
-                </div>
-                <div class="flex gap-2 w-full md:w-auto">
-                    <button class="flex-1 md:flex-none bg-primary text-on-primary hover:bg-primary/90 px-4 py-1.5 rounded-md font-label-sm transition-colors">Approve</button>
-                    <button class="flex-1 md:flex-none bg-surface border border-outline-variant hover:bg-surface-container-high px-4 py-1.5 rounded-md font-label-sm transition-colors">Deny</button>
-                </div>
-            </div>
-
+        <div id="bookingDetailsContent" class="flex-1 p-6 flex flex-col gap-lg overflow-y-auto bg-surface-container-lowest">
+            <!-- Dynamic reservation details injected here -->
         </div>
     </div>
 </div>
 
 <script>
-    function openAllApprovalsModal() { document.getElementById('allApprovalsModal').classList.remove('hidden'); }
-    function closeAllApprovalsModal() { document.getElementById('allApprovalsModal').classList.add('hidden'); }
-    function openNewBookingModal() { document.getElementById('newBookingModal').classList.remove('hidden'); }
-    function closeNewBookingModal() { document.getElementById('newBookingModal').classList.add('hidden'); }
-    function openCancellationsModal() { document.getElementById('cancellationsModal').classList.remove('hidden'); }
-    function closeCancellationsModal() { document.getElementById('cancellationsModal').classList.add('hidden'); }
+(function() {
+    let bookings = [];
+    let filteredBookings = [];
+    let searchQuery = "";
+    let statusFilter = "all";
+    let currentPage = 1;
+    const itemsPerPage = 8;
 
-    // Calendar Filtering Logic
-    function filterRooms() {
-        const query = document.getElementById('searchRooms').value.toLowerCase();
-        const rows = document.querySelectorAll('.room-row');
-        rows.forEach(row => {
-            const name = row.getAttribute('data-room-name').toLowerCase();
-            if (name.includes(query)) {
-                row.style.display = 'flex';
-            } else {
-                row.style.display = 'none';
+    async function ensureRoomsLoaded() {
+        let stored = sessionStorage.getItem("rooms_list");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (!parsed.some(r => r.parentWorkspace === "Workspace 1")) {
+                stored = null;
             }
-        });
+        }
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/rooms.json");
+                const data = await res.json();
+                sessionStorage.setItem("rooms_list", JSON.stringify(data));
+            } catch (e) {
+                console.error("Failed to seed rooms in bookings", e);
+            }
+        }
     }
 
-    // Calendar Date Change Logic
-    function changeDate(days) {
-        const dateInput = document.getElementById('calendarDate');
-        const currentDate = new Date(dateInput.value);
-        currentDate.setDate(currentDate.getDate() + days);
-        dateInput.value = currentDate.toISOString().split('T')[0];
-        updateCalendarData();
+    async function populateRoomOptions() {
+        await ensureRoomsLoaded();
+        const stored = sessionStorage.getItem("rooms_list");
+        if (!stored) return;
+        
+        const rList = JSON.parse(stored);
+        const select = document.getElementById("book_room");
+        if (!select) return;
+        
+        const val = select.value;
+        select.innerHTML = `<option value="">Select a Room...</option>` + 
+            rList.filter(r => r.status === "Active")
+                 .map(r => `<option value="${r.name}" data-capacity="${r.capacity}">${r.name}</option>`)
+                 .join("");
+                 
+        if (val) select.value = val;
     }
 
-    function updateCalendarData() {
-        // Dummy function to simulate loading new date's data
-        const events = document.querySelectorAll('.booking-event');
-        events.forEach(evt => {
-            // Randomly hide/show to simulate different days
-            evt.style.opacity = Math.random() > 0.4 ? '1' : '0';
-            evt.style.pointerEvents = evt.style.opacity === '1' ? 'auto' : 'none';
-        });
+    async function loadBookings() {
+        await ensureRoomsLoaded();
+        populateRoomOptions();
+
+        let stored = sessionStorage.getItem("bookings");
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/bookings.json");
+                const data = await res.json();
+                
+                const seedBookings = data.map((b, idx) => {
+                    let booker = "Alex Rivera";
+                    if (idx === 0) booker = "Sarah Jenkins";
+                    if (idx === 1) booker = "Marcus Reed";
+                    if (idx === 2) booker = "David Chen";
+                    return { 
+                        ...b, 
+                        booker: b.booker || booker,
+                        term: b.term || "Hourly",
+                        recurring: b.recurring || "None"
+                    };
+                });
+
+                if (seedBookings.length < 5) {
+                    seedBookings.push(
+                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Podcast Studio", date: "Oct 25, 2023", time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" },
+                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "The Boardroom", date: "Oct 27, 2023", time: "09:00 AM - 11:00 AM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Waitlist", image: "" },
+                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Creative Hub A", date: "Oct 28, 2023", time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" }
+                    );
+                }
+
+                sessionStorage.setItem("bookings", JSON.stringify(seedBookings));
+                stored = JSON.stringify(seedBookings);
+            } catch (e) {
+                console.error("Failed to fetch initial bookings", e);
+                return;
+            }
+        }
+        bookings = JSON.parse(stored);
+        applyFilters();
     }
+
+    function applyFilters() {
+        const filterDropdown = document.getElementById("statusFilter");
+        if (filterDropdown) {
+            statusFilter = filterDropdown.value;
+        }
+
+        filteredBookings = bookings.filter(b => {
+            const matchSearch = searchQuery === "" || 
+                (b.booker && b.booker.toLowerCase().includes(searchQuery)) ||
+                (b.title && b.title.toLowerCase().includes(searchQuery)) ||
+                b.room.toLowerCase().includes(searchQuery);
+
+            const matchStatus = statusFilter === "all" || b.status === statusFilter;
+            
+            return matchSearch && matchStatus;
+        });
+
+        currentPage = 1;
+        renderBookingsTable();
+        calculateUtilization();
+    }
+
+    function handleSearch() {
+        const input = document.getElementById("searchBookings");
+        if (input) {
+            searchQuery = input.value.toLowerCase().trim();
+            applyFilters();
+        }
+    }
+
+    function renderBookingsTable() {
+        const tbody = document.getElementById("bookings_table_body");
+        if (!tbody) return;
+
+        const totalItems = filteredBookings.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+        const pageBookings = filteredBookings.slice(startIndex, endIndex);
+
+        const countBadge = document.getElementById("bookingCountBadge");
+        if (countBadge) {
+            countBadge.textContent = `${totalItems} Total`;
+        }
+
+        if (pageBookings.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" class="px-md py-8 text-center text-sm text-on-surface-variant">No bookings found</td></tr>`;
+            renderPagination(0, 0, 0);
+            return;
+        }
+
+        tbody.innerHTML = pageBookings.map(b => {
+            let statusBadgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+            let statusLabel = "Approved";
+
+            if (b.status === "Waitlist") {
+                statusBadgeClass = "bg-amber-50 text-amber-800 border-amber-200";
+                statusLabel = "Pending";
+            } else if (b.status === "Denied") {
+                statusBadgeClass = "bg-error/10 text-error border-error-container";
+                statusLabel = "Denied";
+            }
+
+            let actionHTML = `<div class="flex gap-1 justify-end items-center">`;
+            if (b.status === "Waitlist") {
+                actionHTML += `
+                    <button onclick="approveBooking(${b.id})" class="bg-emerald-600 text-white hover:bg-emerald-700 px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Approve</button>
+                    <button onclick="denyBooking(${b.id})" class="border border-outline-variant text-on-surface-variant hover:bg-surface-container-low px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Deny</button>
+                `;
+            } else {
+                actionHTML += `
+                    <button onclick="deleteBooking(${b.id})" class="text-error hover:bg-error/10 p-1.5 rounded transition-colors" title="Delete Booking">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                `;
+            }
+            actionHTML += `
+                <button onclick="viewBookingDetails(${b.id})" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded transition-colors inline-flex items-center justify-center" title="View Details">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                </button>
+            `;
+            actionHTML += `</div>`;
+
+            return `
+                <tr class="hover:bg-surface-container-low/30 transition-colors">
+                    <td class="px-md py-sm font-semibold">${b.booker || "Alex Rivera"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.room}</td>
+                    <td class="px-md py-sm font-medium">${b.title || "Room Reservation"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.term || "Hourly"}</td>
+                    <td class="px-md py-sm text-on-surface-variant">${b.date}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-medium">${b.term === "Hourly" ? b.time : "Full Day"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-medium text-xs">
+                        <span class="px-2 py-0.5 rounded ${b.recurring && b.recurring !== "None" ? 'bg-secondary-container text-on-secondary-container font-semibold' : 'text-on-surface-variant'}">${b.recurring || "None"}</span>
+                    </td>
+                    <td class="px-md py-sm">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${statusBadgeClass}">
+                            ${statusLabel}
+                        </span>
+                    </td>
+                    <td class="px-md py-sm text-right">${actionHTML}</td>
+                </tr>
+            `;
+        }).join("");
+
+        renderPagination(startIndex + 1, endIndex, totalItems);
+    }
+
+    function renderPagination(start, end, total) {
+        const container = document.getElementById("pagination_container");
+        const info = document.getElementById("paginationInfo");
+        if (!container || !info) return;
+
+        info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+
+        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+        
+        let html = `
+            <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+            } else {
+                html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+            }
+        }
+
+        html += `
+            <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function goToPage(p) {
+        currentPage = p;
+        renderBookingsTable();
+    }
+
+    function calculateUtilization() {
+        const container = document.getElementById("utilization_cards_container");
+        const dateSelect = document.getElementById("utilizationDateSelect");
+        if (!container || !dateSelect) return;
+
+        const uniqueDates = Array.from(new Set(bookings.map(b => b.date))).sort((a, b) => new Date(a) - new Date(b));
+        if (uniqueDates.length === 0) {
+            uniqueDates.push(new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }));
+        }
+
+        const previousValue = dateSelect.value;
+        dateSelect.innerHTML = uniqueDates.map(d => `<option value="${d}">${d}</option>`).join("");
+        if (previousValue && uniqueDates.includes(previousValue)) {
+            dateSelect.value = previousValue;
+        } else {
+            const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            if (uniqueDates.includes(todayFormatted)) {
+                dateSelect.value = todayFormatted;
+            } else {
+                dateSelect.value = uniqueDates[0];
+            }
+        }
+
+        const selectedDate = dateSelect.value;
+
+        // Initialize rooms dynamically
+        const roomHours = {};
+        const storedRooms = sessionStorage.getItem("rooms_list");
+        if (storedRooms) {
+            const rList = JSON.parse(storedRooms);
+            rList.forEach(r => roomHours[r.name] = 0);
+        } else {
+            roomHours["The Boardroom"] = 0;
+            roomHours["Creative Hub A"] = 0;
+            roomHours["Podcast Studio"] = 0;
+        }
+
+        bookings.forEach(b => {
+            if (b.status !== "Confirmed") return;
+            if (b.date !== selectedDate) return;
+
+            let durationHours = 1.0;
+            if (b.term !== "Hourly") {
+                durationHours = 8.0; // Daily or longer terms occupy the whole day capacity
+            } else if (b.duration) {
+                const match = b.duration.match(/([0-9.]+)\s*Hour/i);
+                if (match) durationHours = parseFloat(match[1]);
+            } else if (b.time) {
+                const times = b.time.split("-").map(t => t.trim());
+                if (times.length === 2) {
+                    try {
+                        const d1 = new Date("2000/01/01 " + times[0]);
+                        const d2 = new Date("2000/01/01 " + times[1]);
+                        const diff = (d2 - d1) / (1000 * 60 * 60);
+                        if (diff > 0) durationHours = diff;
+                    } catch (e) {}
+                }
+            }
+
+            const roomName = b.room.trim();
+            if (roomHours[roomName] === undefined) {
+                roomHours[roomName] = 0;
+            }
+            roomHours[roomName] += durationHours;
+        });
+
+        const maxCapacity = 8.0;
+
+        container.innerHTML = Object.keys(roomHours).map(room => {
+            const hours = roomHours[room];
+            const pct = Math.min(Math.round((hours / maxCapacity) * 100), 100);
+
+            let colorClass = "text-primary bg-primary/5 border-primary/20";
+            let progressBgClass = "bg-primary";
+            if (pct > 75) {
+                colorClass = "text-emerald-700 bg-emerald-50 border-emerald-200";
+                progressBgClass = "bg-emerald-600";
+            } else if (pct === 0) {
+                colorClass = "text-on-surface-variant bg-surface-container-low border-outline-variant/30";
+                progressBgClass = "bg-outline-variant";
+            }
+
+            return `
+                <div class="border rounded-xl p-3 flex flex-col gap-1 transition-all hover:shadow-sm ${colorClass}">
+                    <span class="text-xs font-bold truncate">${room}</span>
+                    <div class="flex items-baseline gap-1 mt-1">
+                        <span class="text-xl font-bold leading-none">${pct}%</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider opacity-70">Occupied</span>
+                    </div>
+                    <span class="text-[10px] opacity-75 mt-0.5">${hours.toFixed(1)} / ${maxCapacity} hrs booked</span>
+                    <div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden mt-2">
+                        <div class="${progressBgClass} h-full transition-all duration-300" style="width: ${pct}%"></div>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function approveBooking(id) {
+        const idx = bookings.findIndex(x => x.id === id);
+        if (idx !== -1) {
+            bookings[idx].status = "Confirmed";
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking approved successfully.");
+        }
+    }
+
+    function denyBooking(id) {
+        const idx = bookings.findIndex(x => x.id === id);
+        if (idx !== -1) {
+            bookings[idx].status = "Denied";
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking request denied.");
+        }
+    }
+
+    function deleteBooking(id) {
+        if (confirm("Are you sure you want to remove this booking?")) {
+            bookings = bookings.filter(b => b.id !== id);
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking removed successfully.");
+        }
+    }
+
+    let usersList = [];
+    async function ensureUsersLoaded() {
+        if (usersList.length > 0) return;
+        let stored = sessionStorage.getItem("users");
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/users.json");
+                const data = await res.json();
+                sessionStorage.setItem("users", JSON.stringify(data));
+                stored = JSON.stringify(data);
+            } catch (e) {
+                console.error("Failed to load users for bookings list", e);
+                return;
+            }
+        }
+        usersList = JSON.parse(stored);
+    }
+
+    async function showMemberDropdown() {
+        await ensureUsersLoaded();
+        const list = document.getElementById("member_options_list");
+        if (list) {
+            list.classList.remove("hidden");
+            filterMemberDropdown();
+        }
+    }
+
+    function filterMemberDropdown() {
+        const input = document.getElementById("book_member_name");
+        const list = document.getElementById("member_options_list");
+        if (!input || !list) return;
+
+        const val = input.value.toLowerCase().trim();
+        const filtered = usersList.filter(u => u.name.toLowerCase().includes(val) || u.email.toLowerCase().includes(val));
+
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="px-3 py-2 text-xs text-on-surface-variant italic">No members found</div>`;
+            return;
+        }
+
+        list.innerHTML = filtered.map(u => `
+            <div onclick="selectMember('${u.name.replace(/'/g, "\\'")}')" class="px-3 py-2 cursor-pointer hover:bg-primary/5 transition-colors text-body-sm text-on-surface flex flex-col">
+                <span class="font-semibold text-sm">${u.name}</span>
+                <span class="text-xs text-on-surface-variant">${u.email} • ${u.company}</span>
+            </div>
+        `).join("");
+    }
+
+    function selectMember(name) {
+        const input = document.getElementById("book_member_name");
+        const list = document.getElementById("member_options_list");
+        if (input) {
+            input.value = name;
+        }
+        if (list) {
+            list.classList.add("hidden");
+        }
+    }
+
+    window.addEventListener("click", function(e) {
+        const list = document.getElementById("member_options_list");
+        const input = document.getElementById("book_member_name");
+        if (list && input && e.target !== input && !list.contains(e.target)) {
+            list.classList.add("hidden");
+        }
+    });
+
+    function handleTermChange() {
+        const term = document.getElementById("book_term").value;
+        const hourlyDiv = document.getElementById("hourlyInputs");
+        const rangeDiv = document.getElementById("rangeInputs");
+
+        if (term === "Hourly") {
+            hourlyDiv.classList.remove("hidden");
+            rangeDiv.classList.add("hidden");
+            document.getElementById("book_date").required = true;
+            document.getElementById("book_start").required = true;
+            document.getElementById("book_end").required = true;
+            document.getElementById("book_start_date").required = false;
+            document.getElementById("book_end_date").required = false;
+        } else {
+            hourlyDiv.classList.add("hidden");
+            rangeDiv.classList.remove("hidden");
+            document.getElementById("book_date").required = false;
+            document.getElementById("book_start").required = false;
+            document.getElementById("book_end").required = false;
+            document.getElementById("book_start_date").required = true;
+            document.getElementById("book_end_date").required = true;
+        }
+    }
+
+    function openNewBookingModal() {
+        populateRoomOptions();
+        document.getElementById('newBookingModal').classList.remove('hidden');
+        document.getElementById("book_term").value = "Hourly";
+        document.getElementById("book_recurring").value = "None";
+        handleTermChange();
+    }
+
+    function closeNewBookingModal() {
+        document.getElementById('newBookingModal').classList.add('hidden');
+        document.getElementById('newBookingForm').reset();
+        const list = document.getElementById("member_options_list");
+        if (list) list.classList.add("hidden");
+    }
+
+    const spaceDetailsLookup = {
+        "The Boardroom": { capacity: 12, location: "Level 2 • North Wing", amenities: ["TV Screen", "Conference Phone", "Whiteboard", "High-speed WiFi"] },
+        "Creative Hub A": { capacity: 6, location: "Level 1 • East Wing", amenities: ["Whiteboard", "Apple TV Screen", "High-speed WiFi"] },
+        "Podcast Studio": { capacity: 4, location: "Level 2 • South Wing", amenities: ["Pro Microphones", "A/V Mixer", "Soundproof Booth", "High-speed WiFi"] },
+        "Focus Pod A": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["Soundproof Room", "High-speed WiFi"] }
+    };
+
+    function getMockBookerDetails(name) {
+        const fallback = {
+            role: "Member",
+            email: name.toLowerCase().replace(/[^a-z]/g, "") + "@coworkspace.com",
+            phone: "+1 (555) 345-6789",
+            company: "CoWork Resident",
+            plan: "Hot Desk Plan"
+        };
+
+        if (usersList && usersList.length > 0) {
+            const matched = usersList.find(u => u.name.toLowerCase() === name.toLowerCase());
+            if (matched) {
+                return {
+                    role: matched.role || "Member",
+                    email: matched.email || fallback.email,
+                    phone: matched.phone || fallback.phone,
+                    company: matched.company || fallback.company,
+                    plan: matched.plan || "Hot Desk Plan"
+                };
+            }
+        }
+        return fallback;
+    }
+
+    async function viewBookingDetails(id) {
+        await ensureUsersLoaded();
+        const b = bookings.find(x => x.id === id);
+        if (!b) return;
+
+        const space = spaceDetailsLookup[b.room.trim()] || { capacity: 4, location: "Level 2 • Workspace", amenities: ["Power Outlets", "WiFi"] };
+        const bookerInfo = getMockBookerDetails(b.booker || "Alex Rivera");
+
+        let statusColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
+        if (b.status === "Waitlist") statusColor = "bg-amber-50 text-amber-800 border-amber-200";
+        else if (b.status === "Denied") statusColor = "bg-error/10 text-error border-error-container";
+
+        const contentDiv = document.getElementById("bookingDetailsContent");
+        const initials = b.booker ? b.booker.split(" ").map(n=>n[0]).join("").toUpperCase().substring(0,2) : "AR";
+
+        contentDiv.innerHTML = `
+            <div class="flex flex-col gap-6 w-full pb-10">
+                <!-- Booker details top section -->
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant/35">
+                    <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg shrink-0">
+                        ${initials}
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-base font-bold text-on-surface leading-tight">${b.booker || "Alex Rivera"}</h4>
+                        <span class="text-xs text-primary font-semibold mt-1 inline-block">${bookerInfo.role}</span>
+                        <div class="grid grid-cols-1 gap-y-1.5 mt-3 text-xs text-on-surface-variant">
+                            <p><strong>Company:</strong> ${bookerInfo.company}</p>
+                            <p><strong>Email:</strong> ${bookerInfo.email}</p>
+                            <p><strong>Phone:</strong> ${bookerInfo.phone}</p>
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <strong>Plan:</strong>
+                                <span class="bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[9px]">${bookerInfo.plan}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Space Info -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs uppercase font-bold tracking-wider text-primary">Meeting Room</span>
+                            <h4 class="text-lg font-bold text-on-surface mt-0.5">${b.room}</h4>
+                        </div>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full border ${statusColor}">
+                            ${b.status === "Waitlist" ? "Pending" : b.status}
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-on-surface-variant">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> ${space.location}</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">group</span> Capacity: ${space.capacity}</span>
+                    </div>
+                </div>
+
+                <!-- Purpose -->
+                <div class="flex flex-col gap-1">
+                    <span class="text-xs uppercase font-bold tracking-wider text-on-surface-variant">Purpose of booking</span>
+                    <p class="text-sm font-medium text-on-surface bg-surface-container-low p-3 rounded-lg border border-outline-variant/35">${b.title || "Standard workspace booking"}</p>
+                </div>
+
+                <!-- Period / Date Time -->
+                <div class="grid grid-cols-2 gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant/35 text-xs">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Reservation Period</span>
+                        <span class="font-bold text-on-surface">${b.date}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Time Slot</span>
+                        <span class="font-bold text-on-surface">${b.term === "Hourly" ? b.time : "Full Day"}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Billing Cycle</span>
+                        <span class="font-bold text-on-surface">${b.term || "Hourly"}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Recurrence</span>
+                        <span class="font-bold text-on-surface">${b.recurring || "None"}</span>
+                    </div>
+                </div>
+
+                <!-- Amenities -->
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs uppercase font-bold tracking-wider text-on-surface-variant">Amenities Available</span>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${space.amenities.map(a => `<span class="bg-surface-variant/40 text-on-surface-variant border border-outline-variant/50 text-[11px] px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById("bookingDetailsModal").classList.remove("hidden");
+    }
+
+    function closeBookingDetailsModal() {
+        document.getElementById("bookingDetailsModal").classList.add("hidden");
+    }
+
+    function parseTimeToMinutes(timeStr) {
+        const [hh, mm] = timeStr.split(":").map(Number);
+        return hh * 60 + mm;
+    }
+
+    function parsePeriod(b) {
+        if (b.term === "Hourly") {
+            const d = new Date(b.date + "T00:00:00");
+            return { start: d, end: new Date(b.date + "T23:59:59") };
+        }
+        const parts = b.date.split(" - ");
+        if (parts.length === 2) {
+            return {
+                start: new Date(parts[0] + "T00:00:00"),
+                end: new Date(parts[1] + "T23:59:59")
+            };
+        }
+        const single = new Date(b.date + "T00:00:00");
+        return { start: single, end: new Date(b.date + "T23:59:59") };
+    }
+
+    function parseTimeSlotToMinutes(str) {
+        let [time, modifier] = str.split(" ");
+        let [hours, minutes] = time.split(":").map(Number);
+        if (modifier === "PM" && hours < 12) hours += 12;
+        if (modifier === "AM" && hours === 12) hours = 0;
+        return hours * 60 + minutes;
+    }
+
+    function isTimeOverlapping(start1, end1, start2, end2) {
+        return Math.max(start1, start2) < Math.min(end1, end2);
+    }
+
+    function matchesRecurrence(dateObj, baseDate, recurType) {
+        if (recurType === "None" || recurType === "" || !recurType) return true;
+        if (recurType === "Daily") return true;
+        if (recurType === "Weekly") {
+            return dateObj.getDay() === baseDate.getDay();
+        }
+        if (recurType === "Monthly") {
+            return dateObj.getDate() === baseDate.getDate();
+        }
+        return false;
+    }
+
+    function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
+        if (Math.max(start1, start2) > Math.min(end1, end2)) {
+            return false;
+        }
+        if (recur1 === "None" && recur2 === "None") {
+            return true;
+        }
+
+        let curr = new Date(Math.max(start1, start2));
+        let boundary = new Date(Math.min(end1, end2));
+        while (curr <= boundary) {
+            if (matchesRecurrence(curr, new Date(start1), recur1) && 
+                matchesRecurrence(curr, new Date(start2), recur2)) {
+                return true;
+            }
+            curr.setDate(curr.getDate() + 1);
+        }
+        return false;
+    }
+
+    function getHierarchy(name) {
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        let rooms = [];
+        try {
+            rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+        } catch(e){}
+        
+        const wMatch = workspaces.find(w => w.name === name);
+        const isParent = wMatch && !wMatch.parentWorkspace;
+        
+        let parent = null;
+        let childrenWorkspaces = [];
+        let childrenRooms = [];
+        
+        if (isParent) {
+            parent = name;
+            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
+            childrenRooms = rooms.filter(r => r.parentWorkspace === name).map(r => r.name);
+        } else {
+            if (wMatch && wMatch.parentWorkspace) {
+                parent = wMatch.parentWorkspace;
+            } else {
+                const rMatch = rooms.find(r => r.name === name);
+                if (rMatch && rMatch.parentWorkspace) {
+                    parent = rMatch.parentWorkspace;
+                }
+            }
+            if (parent) {
+                childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
+                childrenRooms = rooms.filter(r => r.parentWorkspace === parent).map(r => r.name);
+            }
+        }
+        return { parent, childrenWorkspaces, childrenRooms };
+    }
+
+    function getOverlappingBookings(roomName, reqTerm, reqStartD, reqEndD, reqStartTime, reqEndTime, reqRecur) {
+        let overlaps = [];
+        if (bookings && bookings.length > 0) {
+            const reqStartTMin = reqStartTime ? parseTimeToMinutes(reqStartTime) : 0;
+            const reqEndTMin = reqEndTime ? parseTimeToMinutes(reqEndTime) : 1440;
+
+            overlaps = bookings.filter(b => {
+                if (b.status !== "Confirmed" || b.room.trim() !== roomName.trim()) {
+                    return false;
+                }
+
+                const bPeriod = parsePeriod(b);
+                if (!hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, bPeriod.start.getTime(), bPeriod.end.getTime(), b.recurring || "None")) {
+                    return false;
+                }
+
+                if (reqTerm === "Hourly" && b.term === "Hourly") {
+                    const parts = b.time.split(" - ");
+                    if (parts.length === 2) {
+                        const bStartMin = parseTimeSlotToMinutes(parts[0]);
+                        const bEndMin = parseTimeSlotToMinutes(parts[1]);
+                        return isTimeOverlapping(reqStartTMin, reqEndTMin, bStartMin, bEndMin);
+                    }
+                    return true;
+                }
+                return true;
+            });
+        }
+
+        if (overlaps.length > 0) {
+            return overlaps;
+        }
+
+        // Check parent workspace Entire Space blocks
+        const hierarchy = getHierarchy(roomName);
+        if (hierarchy.parent) {
+            let workspaceBookings = [];
+            try {
+                workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
+            } catch(e){}
+
+            const parentBlock = workspaceBookings.filter(o => {
+                if (o.status !== "Confirmed" || o.workspace !== hierarchy.parent || o.bookingScope !== "Entire") return false;
+
+                const parts = o.period.split(" - ");
+                let start, end;
+                if (parts.length === 2) {
+                    start = new Date(parts[0] + "T00:00:00");
+                    end = new Date(parts[1] + "T23:59:59");
+                } else {
+                    start = new Date(o.period + "T00:00:00");
+                    end = new Date(o.period + "T23:59:59");
+                }
+
+                return hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, start.getTime(), end.getTime(), o.recurring || "None");
+            });
+
+            if (parentBlock.length > 0) {
+                return [{
+                    id: 9999,
+                    booker: parentBlock[0].booker,
+                    room: roomName,
+                    term: parentBlock[0].term,
+                    date: parentBlock[0].period,
+                    time: "Full Day",
+                    status: "Confirmed",
+                    recurring: parentBlock[0].recurring
+                }];
+            }
+        }
+
+        return [];
+    }
+
+    function submitNewBooking(e) {
+        e.preventDefault();
+        
+        const booker = document.getElementById("book_member_name").value.trim();
+        const title = document.getElementById("book_title").value.trim();
+        const room = document.getElementById("book_room").value;
+        const term = document.getElementById("book_term").value;
+        const recurring = document.getElementById("book_recurring").value;
+
+        if (!booker || !title || !room || !term) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        let dateRangeStr = "";
+        let timeRangeStr = "";
+        let durationStr = "1 Hour";
+        let reqStartD, reqEndD;
+        let reqStartT = null;
+        let reqEndT = null;
+
+        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+
+        if (term === "Hourly") {
+            const rawDate = document.getElementById("book_date").value;
+            reqStartT = document.getElementById("book_start").value;
+            reqEndT = document.getElementById("book_end").value;
+
+            if (!rawDate || !reqStartT || !reqEndT) {
+                alert("Please fill in hourly date and time slots.");
+                return;
+            }
+
+            reqStartD = new Date(rawDate + "T00:00:00");
+            reqEndD = new Date(rawDate + "T23:59:59");
+            dateRangeStr = reqStartD.toLocaleDateString('en-US', dateOptions);
+
+            const formatTimeAMPM = (timeStr) => {
+                const [hours, minutes] = timeStr.split(":");
+                let hh = parseInt(hours);
+                const suffix = hh >= 12 ? "PM" : "AM";
+                hh = hh % 12 || 12;
+                return `${hh}:${minutes} ${suffix}`;
+            };
+            timeRangeStr = `${formatTimeAMPM(reqStartT)} - ${formatTimeAMPM(reqEndT)}`;
+
+            try {
+                const d1 = new Date("2000/01/01 " + reqStartT);
+                const d2 = new Date("2000/01/01 " + reqEndT);
+                const diff = (d2 - d1) / (1000 * 60 * 60);
+                if (diff > 0) {
+                    durationStr = diff === 1 ? "1 Hour" : `${diff} Hours`;
+                }
+            } catch (err) {}
+        } else {
+            const rawStart = document.getElementById("book_start_date").value;
+            const rawEnd = document.getElementById("book_end_date").value;
+
+            if (!rawStart || !rawEnd) {
+                alert("Please select start and end dates.");
+                return;
+            }
+
+            reqStartD = new Date(rawStart + "T00:00:00");
+            reqEndD = new Date(rawEnd + "T23:59:59");
+
+            if (reqEndD < reqStartD) {
+                alert("End Date cannot be before Start Date.");
+                return;
+            }
+
+            dateRangeStr = `${reqStartD.toLocaleDateString('en-US', dateOptions)} - ${reqEndD.toLocaleDateString('en-US', dateOptions)}`;
+            timeRangeStr = "Full Day";
+            durationStr = "All Day";
+        }
+
+        // Perform Recurrence & Date Overlap Check
+        const overlaps = getOverlappingBookings(room, term, reqStartD, reqEndD, reqStartT, reqEndT, recurring);
+        if (overlaps.length > 0) {
+            const over = overlaps[0];
+            alert(`Overlap conflict detected! ${room} is already booked by ${over.booker} (${over.term} cycle) during this time.`);
+            return;
+        }
+
+        const newId = bookings.length > 0 ? Math.max(...bookings.map(x => x.id)) + 1 : 1;
+        const newBooking = {
+            id: newId,
+            booker: booker,
+            title: title,
+            room: room,
+            term: term,
+            date: dateRangeStr,
+            time: timeRangeStr,
+            duration: durationStr,
+            recurring: recurring,
+            status: "Confirmed",
+            image: ""
+        };
+
+        bookings.unshift(newBooking);
+        sessionStorage.setItem("bookings", JSON.stringify(bookings));
+        applyFilters();
+
+        alert("Room booked successfully.");
+        closeNewBookingModal();
+    }
+
+    // Initialize page
+    loadBookings();
+
+    // Expose functions globally for SPA inline event handlers
+    window.closeBookingDetailsModal = closeBookingDetailsModal;
+    window.closeNewBookingModal = closeNewBookingModal;
+    window.openNewBookingModal = openNewBookingModal;
+    window.viewBookingDetails = viewBookingDetails;
+    window.approveBooking = approveBooking;
+    window.denyBooking = denyBooking;
+    window.deleteBooking = deleteBooking;
+    window.selectMember = selectMember;
+    window.submitNewBooking = submitNewBooking;
+    window.filterMemberDropdown = filterMemberDropdown;
+    window.showMemberDropdown = showMemberDropdown;
+    window.goToPage = goToPage;
+    window.applyFilters = applyFilters;
+    window.handleSearch = handleSearch;
+    window.handleTermChange = handleTermChange;
+})();
 </script>

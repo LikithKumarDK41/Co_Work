@@ -18,8 +18,13 @@ const APP_CONFIG = {
         },
         rooms: {
             title: 'Workspace',
-            icon: 'meeting_room',
+            icon: 'grid_view',
             path: '../meeting_room_management_co_work_manager/content.html'
+        },
+        meeting_rooms: {
+            title: 'Rooms',
+            icon: 'meeting_room',
+            path: '../meeting_room_settings_co_work_manager/content.html'
         },
         visitors: {
             title: 'Visitor Management',
@@ -27,9 +32,14 @@ const APP_CONFIG = {
             path: '../visitor_management_co_work_manager/content.html'
         },
         bookings: {
-            title: 'Booking Management',
+            title: 'Room Bookings',
             icon: 'event_available',
             path: '../booking_management_co_work_manager/content.html'
+        },
+        schedule: {
+            title: 'Workspace Bookings',
+            icon: 'calendar_month',
+            path: '../schedule_management_co_work_manager/content.html'
         },
         tickets: {
             title: 'Support Tickets',
@@ -51,11 +61,6 @@ const APP_CONFIG = {
             icon: 'badge',
             path: '../reception_dashboard_co_work_manager/content.html'
         },
-        roles: {
-            title: 'Roles & Permissions',
-            icon: 'security',
-            path: '../roles_permissions_co_work_manager/content.html'
-        },
         settings: {
             title: 'Settings',
             icon: 'settings',
@@ -64,8 +69,8 @@ const APP_CONFIG = {
     }
 };
 
-const TOP_NAV_ORDER = ['dashboard', 'bookings', 'visitors', 'users'];
-const DROPDOWN_NAV_ORDER = ['rooms','roles', 'tickets', 'announcements', 'reports', 'reception'];
+const TOP_NAV_ORDER = ['dashboard', 'schedule', 'bookings', 'visitors', 'users', 'reception'];
+const DROPDOWN_NAV_ORDER = ['rooms', 'meeting_rooms', 'tickets', 'announcements', 'reports'];
 
 let currentPageKey = null;
 let sidebarOpen = false;
