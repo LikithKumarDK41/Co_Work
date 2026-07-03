@@ -378,197 +378,206 @@
 </style>
 
 <script>
-    // Tab Filtering Logic
-    function filterVisitors(status) {
-        // Update tab UI
-        document.querySelectorAll('.visitor-tab').forEach(tab => {
-            tab.classList.remove('text-primary', 'font-bold', 'border-primary');
-            tab.classList.add('text-on-surface-variant', 'border-transparent');
-        });
-        const activeTab = document.getElementById(`tab-${status}`);
-        if(activeTab) {
-            activeTab.classList.remove('text-on-surface-variant', 'border-transparent');
-            activeTab.classList.add('text-primary', 'font-bold', 'border-primary');
+    (function() {
+        // Tab Filtering Logic
+        function filterVisitors(status) {
+            // Update tab UI
+            document.querySelectorAll('.visitor-tab').forEach(tab => {
+                tab.classList.remove('text-primary', 'font-bold', 'border-primary');
+                tab.classList.add('text-on-surface-variant', 'border-transparent');
+            });
+            const activeTab = document.getElementById(`tab-${status}`);
+            if(activeTab) {
+                activeTab.classList.remove('text-on-surface-variant', 'border-transparent');
+                activeTab.classList.add('text-primary', 'font-bold', 'border-primary');
+            }
+
+            // Filter Rows
+            const rows = document.querySelectorAll('.visitor-row');
+            rows.forEach(row => {
+                if (status === 'all' || row.dataset.status === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
 
-        // Filter Rows
-        const rows = document.querySelectorAll('.visitor-row');
-        rows.forEach(row => {
-            if (status === 'all' || row.dataset.status === status) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
+        // Search Logic
+        function searchVisitors() {
+            const query = document.getElementById('searchQuery').value.toLowerCase();
+            const activeTab = document.querySelector('.visitor-tab.text-primary');
+            const status = activeTab ? activeTab.id.replace('tab-', '') : 'all';
 
-    // Search Logic
-    function searchVisitors(query) {
-        query = query.toLowerCase();
-        
-        // Ensure "All Visitors" tab is selected to search globally, or search within current tab
-        const activeTab = document.querySelector('.visitor-tab.text-primary');
-        const status = activeTab ? activeTab.id.replace('tab-', '') : 'all';
+            const rows = document.querySelectorAll('.visitor-row');
+            rows.forEach(row => {
+                const textContent = row.innerText.toLowerCase();
+                const matchesSearch = textContent.includes(query);
+                const matchesTab = status === 'all' || row.dataset.status === status;
 
-        const rows = document.querySelectorAll('.visitor-row');
-        rows.forEach(row => {
-            const textContent = row.innerText.toLowerCase();
-            const matchesSearch = textContent.includes(query);
-            const matchesTab = status === 'all' || row.dataset.status === status;
+                if (matchesSearch && matchesTab) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Pre-Register Modal Actions
+        function openPreRegisterModal(data = null) {
+            const modal = document.getElementById('preRegisterModal');
+            const overlay = document.getElementById('preRegisterModalOverlay');
+            const title = document.getElementById('pr_modal_title');
+            const submitBtn = document.getElementById('pr_submit_btn');
             
-            if (matchesSearch && matchesTab) {
-                row.style.display = '';
+            if(data && typeof data === 'object') {
+                title.innerText = "Edit Registration";
+                submitBtn.innerText = "Save Changes";
+                document.getElementById('pr_name').value = data.name || '';
+                document.getElementById('pr_company').value = data.company || '';
+                document.getElementById('pr_host').value = data.host || '';
+                document.getElementById('pr_time').value = data.time || '';
             } else {
-                row.style.display = 'none';
+                title.innerText = "Pre-Register Visitor";
+                submitBtn.innerText = "Generate QR & Send";
+                document.getElementById('preRegisterForm').reset();
             }
-        });
-    }
 
-    // Pre-Register Modal Logic
-    function openPreRegisterModal(name = '', company = '', host = '', time = '', purpose = '') {
-        const modal = document.getElementById('preRegisterModal');
-        const overlay = document.getElementById('preRegisterModalOverlay');
-        const title = document.getElementById('pr_modal_title');
-        const submitBtn = document.getElementById('pr_submit_btn');
-        
-        document.getElementById('pr_name').value = name;
-        document.getElementById('pr_company').value = company;
-        document.getElementById('pr_host').value = host;
-        document.getElementById('pr_time').value = time;
-        document.getElementById('pr_purpose').value = purpose;
-        
-        if (name) {
-            title.innerText = 'Edit Visitor';
-            submitBtn.innerText = 'Update Visitor';
-        } else {
-            title.innerText = 'Pre-register Visitor';
-            submitBtn.innerText = 'Generate QR & Send';
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreRegisterModal() {
+            const modal = document.getElementById('preRegisterModal');
+            const overlay = document.getElementById('preRegisterModalOverlay');
+            modal.classList.add('translate-x-full');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function submitPreRegister() {
+            const submitBtn = document.getElementById('pr_submit_btn');
+            if (submitBtn.innerText === 'Save Changes') {
+                alert("Visitor updated successfully!");
+            } else {
+                alert("Visitor Pre-registered! A QR code invite has been sent.");
+            }
+            closePreRegisterModal();
             document.getElementById('preRegisterForm').reset();
         }
 
-        modal.classList.remove('hidden');
-        overlay.classList.remove('hidden');
-        setTimeout(() => {
-            modal.classList.remove('translate-x-full');
-            overlay.classList.remove('opacity-0');
-        }, 10);
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closePreRegisterModal() {
-        const modal = document.getElementById('preRegisterModal');
-        const overlay = document.getElementById('preRegisterModalOverlay');
-        modal.classList.add('translate-x-full');
-        overlay.classList.add('opacity-0');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-            overlay.classList.add('hidden');
-            document.body.style.overflow = '';
-        }, 300);
-    }
-    
-    function submitPreRegister() {
-        const submitBtn = document.getElementById('pr_submit_btn');
-        if (submitBtn.innerText === 'Update Visitor') {
-            alert("Visitor updated successfully!");
-        } else {
-            alert("Visitor Pre-registered! A QR code invite has been sent.");
-        }
-        closePreRegisterModal();
-        document.getElementById('preRegisterForm').reset();
-    }
-
-    function deleteVisitor(id) {
-        if(confirm("Are you sure you want to delete this visitor?")) {
-            const row = document.querySelector(`.visitor-row[data-id="${id}"]`);
-            if(row) {
-                row.remove();
-                alert("Visitor deleted successfully.");
+        function deleteVisitor(id) {
+            if(confirm("Are you sure you want to delete this visitor?")) {
+                const row = document.querySelector(`.visitor-row[data-id="${id}"]`);
+                if(row) {
+                    row.remove();
+                    alert("Visitor deleted successfully.");
+                }
             }
         }
-    }
 
-    // Check-In / Check-Out Modal Logic
-    let currentActionRowId = null;
-    let currentActionStatus = null;
+        // Check-In / Check-Out Modal Logic
+        let currentActionRowId = null;
+        let currentActionStatus = null;
 
-    function openCheckInModal(id, name, company, host, currentStatus) {
-        currentActionRowId = id;
-        currentActionStatus = currentStatus;
-        
-        // Direct checkout without opening QR scanner modal
-        if (currentStatus === 'checked-in') {
-            if (confirm("Are you sure you want to check out this visitor?")) {
-                confirmCheckInStatus();
+        function openCheckInModal(id, name, company, host, currentStatus) {
+            currentActionRowId = id;
+            currentActionStatus = currentStatus;
+            
+            // Direct checkout without opening QR scanner modal
+            if (currentStatus === 'checked-in') {
+                if (confirm("Are you sure you want to check out this visitor?")) {
+                    confirmCheckInStatus();
+                }
+                return;
             }
-            return;
+
+            // Open QR scanner modal for Check-In
+            document.getElementById('ci_name').innerText = name;
+            document.getElementById('ci_company').innerText = company;
+            document.getElementById('ci_host').innerText = "Host: " + host;
+            
+            const title = document.getElementById('checkInTitle');
+            const btn = document.getElementById('ci_confirm_btn');
+            
+            title.innerText = 'Check In Visitor';
+            btn.innerText = 'Confirm Check-In';
+            
+            const overlay = document.getElementById('checkInModalOverlay');
+            const modal = document.getElementById('checkInModal');
+            
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                modal.classList.remove('scale-95', 'opacity-0');
+                modal.classList.add('scale-100', 'opacity-100');
+            }, 10);
         }
 
-        // Open QR scanner modal for Check-In
-        document.getElementById('ci_name').innerText = name;
-        document.getElementById('ci_company').innerText = company;
-        document.getElementById('ci_host').innerText = "Host: " + host;
-        
-        const title = document.getElementById('checkInTitle');
-        const btn = document.getElementById('ci_confirm_btn');
-        
-        title.innerText = 'Check In Visitor';
-        btn.innerText = 'Confirm Check-In';
-        
-        const overlay = document.getElementById('checkInModalOverlay');
-        const modal = document.getElementById('checkInModal');
-        
-        overlay.classList.remove('hidden');
-        setTimeout(() => {
-            overlay.classList.remove('opacity-0');
-            modal.classList.remove('scale-95', 'opacity-0');
-            modal.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
-
-    function closeCheckInModal() {
-        const overlay = document.getElementById('checkInModalOverlay');
-        const modal = document.getElementById('checkInModal');
-        
-        overlay.classList.remove('opacity-100');
-        modal.classList.remove('scale-100', 'opacity-100');
-        modal.classList.add('scale-95', 'opacity-0');
-        
-        setTimeout(() => {
-            overlay.classList.add('hidden');
-        }, 300);
-    }
-
-    function confirmCheckInStatus() {
-        const row = document.querySelector(`.visitor-row[data-id="${currentActionRowId}"]`);
-        if(!row) return;
-        
-        const badge = row.querySelector('.status-badge');
-        const actionBtn = row.querySelector('.action-btn');
-        
-        if (currentActionStatus === 'expected') {
-            row.dataset.status = 'checked-in';
-            badge.innerText = 'CHECKED-IN';
-            badge.className = 'status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-primary-container text-on-primary-container border border-primary/20';
-            actionBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">logout</span>';
-            actionBtn.title = 'Check Out';
-            actionBtn.setAttribute('onclick', actionBtn.getAttribute('onclick').replace("'expected'", "'checked-in'"));
-            alert("Checked in successfully via QR code.");
-        } else if (currentActionStatus === 'checked-in') {
-            row.dataset.status = 'checked-out';
-            badge.innerText = 'CHECKED-OUT';
-            badge.className = 'status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-surface-variant text-on-surface-variant border border-outline-variant';
-            actionBtn.style.visibility = 'hidden'; // No more actions after checkout
-            alert("Checked out successfully.");
+        function closeCheckInModal() {
+            const overlay = document.getElementById('checkInModalOverlay');
+            const modal = document.getElementById('checkInModal');
+            
+            overlay.classList.remove('opacity-100');
+            modal.classList.remove('scale-100', 'opacity-100');
+            modal.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
         }
-        
-        closeCheckInModal();
-        
-        // Re-apply filter to hide the row if the tab doesn't match anymore
-        const activeTab = document.querySelector('.visitor-tab.text-primary');
-        if(activeTab) {
-            const currentTabId = activeTab.id.replace('tab-', '');
-            filterVisitors(currentTabId);
+
+        function confirmCheckInStatus() {
+            const row = document.querySelector(`.visitor-row[data-id="${currentActionRowId}"]`);
+            if(!row) return;
+            
+            const badge = row.querySelector('.status-badge');
+            const actionBtn = row.querySelector('.action-btn');
+            
+            if (currentActionStatus === 'expected') {
+                row.dataset.status = 'checked-in';
+                badge.innerText = 'CHECKED-IN';
+                badge.className = 'status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-primary-container text-on-primary-container border border-primary/20';
+                actionBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">logout</span>';
+                actionBtn.title = 'Check Out';
+                actionBtn.setAttribute('onclick', actionBtn.getAttribute('onclick').replace("'expected'", "'checked-in'"));
+                alert("Checked in successfully via QR code.");
+            } else if (currentActionStatus === 'checked-in') {
+                row.dataset.status = 'checked-out';
+                badge.innerText = 'CHECKED-OUT';
+                badge.className = 'status-badge inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-surface-variant text-on-surface-variant border border-outline-variant';
+                actionBtn.style.visibility = 'hidden'; // No more actions after checkout
+                alert("Checked out successfully.");
+            }
+            
+            closeCheckInModal();
+            
+            // Re-apply filter to hide the row if the tab doesn't match anymore
+            const activeTab = document.querySelector('.visitor-tab.text-primary');
+            if(activeTab) {
+                const currentTabId = activeTab.id.replace('tab-', '');
+                filterVisitors(currentTabId);
+            }
         }
-    }
+
+        // Export functions to window
+        window.filterVisitors = filterVisitors;
+        window.searchVisitors = searchVisitors;
+        window.openPreRegisterModal = openPreRegisterModal;
+        window.closePreRegisterModal = closePreRegisterModal;
+        window.submitPreRegister = submitPreRegister;
+        window.deleteVisitor = deleteVisitor;
+        window.openCheckInModal = openCheckInModal;
+        window.closeCheckInModal = closeCheckInModal;
+        window.confirmCheckInStatus = confirmCheckInStatus;
+    })();
 </script>

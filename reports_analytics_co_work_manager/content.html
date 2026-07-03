@@ -142,234 +142,236 @@
 </div>
 
 <script>
-    // Get live mock database
-    function getDb() {
-        let db = localStorage.getItem('coworkMockDatabase');
-        if (db) {
-            try {
-                return JSON.parse(db);
-            } catch (e) {
-                console.error(e);
+    (function() {
+        // Get live mock database
+        function getDb() {
+            let db = localStorage.getItem('coworkMockDatabase');
+            if (db) {
+                try {
+                    return JSON.parse(db);
+                } catch (e) {
+                    console.error(e);
+                }
             }
+            return { members: [], bookings: [], visitors: [] };
         }
-        return { members: [], bookings: [], visitors: [] };
-    }
 
-    const db = getDb();
-    const bookings = db.bookings || [];
-    const visitors = db.visitors || [];
-    const membersCount = db.members ? db.members.length : 145;
+        const db = getDb();
+        const bookings = db.bookings || [];
+        const visitors = db.visitors || [];
+        const membersCount = db.members ? db.members.length : 145;
 
-    // 1. Update Metrics Cards
-    const totalBookingsVal = bookings.length * 48 + 528;
-    const uniqueVisitorsVal = visitors.length * 6 + 120;
-    const occupancyRateVal = Math.min(98, Math.max(45, Math.round((bookings.length / 20) * 100))) || 76;
+        // 1. Update Metrics Cards
+        const totalBookingsVal = bookings.length * 48 + 528;
+        const uniqueVisitorsVal = visitors.length * 6 + 120;
+        const occupancyRateVal = Math.min(98, Math.max(45, Math.round((bookings.length / 20) * 100))) || 76;
 
-    document.getElementById('report_total_bookings').textContent = totalBookingsVal.toLocaleString();
-    document.getElementById('report_unique_visitors').textContent = uniqueVisitorsVal.toLocaleString();
-    document.getElementById('report_occupancy_rate').textContent = `${occupancyRateVal}%`;
-    document.getElementById('report_avg_resolution').textContent = '2.4h';
+        document.getElementById('report_total_bookings').textContent = totalBookingsVal.toLocaleString();
+        document.getElementById('report_unique_visitors').textContent = uniqueVisitorsVal.toLocaleString();
+        document.getElementById('report_occupancy_rate').textContent = `${occupancyRateVal}%`;
+        document.getElementById('report_avg_resolution').textContent = '2.4h';
 
-    // 2. Common Chart.js Configuration
-    if (window.Chart) {
-        Chart.defaults.font.family = 'Inter, sans-serif';
-        Chart.defaults.color = '#737686';
-        const gridColor = '#e2e8f0';
+        // 2. Common Chart.js Configuration
+        if (window.Chart) {
+            Chart.defaults.font.family = 'Inter, sans-serif';
+            Chart.defaults.color = '#737686';
+            const gridColor = '#e2e8f0';
 
-        // Booking Trends Calculation
-        const todayCount = bookings.length;
-        const meetingRoomTrend = [
-            Math.round(todayCount * 0.7) || 12,
-            Math.round(todayCount * 0.9) || 15,
-            Math.round(todayCount * 1.1) || 18,
-            Math.round(todayCount * 0.8) || 14,
-            Math.round(todayCount * 1.0) || 16,
-            Math.round(todayCount * 0.4) || 6,
-            Math.round(todayCount * 0.3) || 4
-        ];
-        const deskTrend = [
-            Math.round(membersCount * 0.45) || 65,
-            Math.round(membersCount * 0.54) || 78,
-            Math.round(membersCount * 0.62) || 90,
-            Math.round(membersCount * 0.56) || 81,
-            Math.round(membersCount * 0.39) || 56,
-            Math.round(membersCount * 0.21) || 30,
-            Math.round(membersCount * 0.14) || 20
-        ];
+            // Booking Trends Calculation
+            const todayCount = bookings.length;
+            const meetingRoomTrend = [
+                Math.round(todayCount * 0.7) || 12,
+                Math.round(todayCount * 0.9) || 15,
+                Math.round(todayCount * 1.1) || 18,
+                Math.round(todayCount * 0.8) || 14,
+                Math.round(todayCount * 1.0) || 16,
+                Math.round(todayCount * 0.4) || 6,
+                Math.round(todayCount * 0.3) || 4
+            ];
+            const deskTrend = [
+                Math.round(membersCount * 0.45) || 65,
+                Math.round(membersCount * 0.54) || 78,
+                Math.round(membersCount * 0.62) || 90,
+                Math.round(membersCount * 0.56) || 81,
+                Math.round(membersCount * 0.39) || 56,
+                Math.round(membersCount * 0.21) || 30,
+                Math.round(membersCount * 0.14) || 20
+            ];
 
-        // 1. Line Chart: Booking Analytics
-        const ctxLine = document.getElementById('bookingLineChart').getContext('2d');
-        new Chart(ctxLine, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [
-                    {
-                        label: 'Desks',
-                        data: deskTrend,
-                        borderColor: '#004ac6',
-                        backgroundColor: 'rgba(0, 74, 198, 0.1)',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#004ac6',
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    },
-                    {
-                        label: 'Meeting Rooms',
-                        data: meetingRoomTrend,
-                        borderColor: '#006b5f',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        borderDash: [5, 5],
-                        pointBackgroundColor: '#006b5f',
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        align: 'end',
-                        labels: { usePointStyle: true, boxWidth: 8 }
-                    },
-                    tooltip: {
-                        backgroundColor: '#213145',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        padding: 12,
-                        cornerRadius: 4,
-                        displayColors: false
-                    }
+            // 1. Line Chart: Booking Analytics
+            const ctxLine = document.getElementById('bookingLineChart').getContext('2d');
+            new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Desks',
+                            data: deskTrend,
+                            borderColor: '#004ac6',
+                            backgroundColor: 'rgba(0, 74, 198, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#004ac6',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Meeting Rooms',
+                            data: meetingRoomTrend,
+                            borderColor: '#006b5f',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            borderDash: [5, 5],
+                            pointBackgroundColor: '#006b5f',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: gridColor, drawBorder: false },
-                        border: { display: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            align: 'end',
+                            labels: { usePointStyle: true, boxWidth: 8 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: false
+                        }
                     },
-                    x: {
-                        grid: { display: false, drawBorder: false },
-                        border: { display: false }
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor, drawBorder: false },
+                            border: { display: false }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            border: { display: false }
+                        }
                     }
                 }
-            }
-        });
+            });
 
-        // 2. Pie Chart: Support Tickets
-        const ctxPie = document.getElementById('supportPieChart').getContext('2d');
-        new Chart(ctxPie, {
-            type: 'doughnut',
-            data: {
-                labels: ['High', 'Medium', 'Low'],
-                datasets: [{
-                    data: [15, 45, 40],
-                    backgroundColor: [
-                        '#ba1a1a',
-                        '#3e3fcc',
-                        '#b4c5ff'
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#213145',
-                        padding: 12,
-                        cornerRadius: 4
-                    }
-                }
-            }
-        });
-
-        // Visitor Peaks Calculation
-        const hourBuckets = {
-            '8am': 0, '9am': 0, '10am': 0, '11am': 0, '12pm': 0,
-            '1pm': 0, '2pm': 0, '3pm': 0, '4pm': 0, '5pm': 0, '6pm': 0
-        };
-        visitors.forEach(v => {
-            const timeStr = v.expectedArrival || v.time;
-            if (!timeStr) return;
-            const parts = timeStr.toLowerCase().match(/(\d+):(\d+)\s*(am|pm)/);
-            if (parts) {
-                let hr = parseInt(parts[1], 10);
-                const ampm = parts[3];
-                if (ampm === 'pm' && hr < 12) hr += 12;
-                if (ampm === 'am' && hr === 12) hr = 0;
-                
-                if (hr >= 8 && hr <= 18) {
-                    const label = hr === 12 ? '12pm' : hr > 12 ? `${hr - 12}pm` : `${hr}am`;
-                    if (hourBuckets[label] !== undefined) {
-                        hourBuckets[label]++;
-                    }
-                }
-            }
-        });
-        const visitorPeakData = [
-            hourBuckets['8am'] * 3 + 12,
-            hourBuckets['9am'] * 3 + 45,
-            hourBuckets['10am'] * 3 + 85,
-            hourBuckets['11am'] * 3 + 110,
-            hourBuckets['12pm'] * 3 + 95,
-            hourBuckets['1pm'] * 3 + 120,
-            hourBuckets['2pm'] * 3 + 80,
-            hourBuckets['3pm'] * 3 + 65,
-            hourBuckets['4pm'] * 3 + 40,
-            hourBuckets['5pm'] * 3 + 20,
-            hourBuckets['6pm'] * 3 + 5
-        ];
-
-        // 3. Bar Chart: Visitor Peak Times
-        const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
-        new Chart(ctxBar, {
-            type: 'bar',
-            data: {
-                labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'],
-                datasets: [{
-                    label: 'Visitors',
-                    data: visitorPeakData,
-                    backgroundColor: '#dce9ff',
-                    hoverBackgroundColor: '#004ac6',
-                    borderRadius: 4,
-                    barThickness: 'flex',
-                    maxBarThickness: 32
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#213145',
-                        padding: 12,
-                        cornerRadius: 4,
-                        displayColors: false
-                    }
+            // 2. Pie Chart: Support Tickets
+            const ctxPie = document.getElementById('supportPieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High', 'Medium', 'Low'],
+                    datasets: [{
+                        data: [15, 45, 40],
+                        backgroundColor: [
+                            '#ba1a1a',
+                            '#3e3fcc',
+                            '#b4c5ff'
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: gridColor, drawBorder: false },
-                        border: { display: false }
-                    },
-                    x: {
-                        grid: { display: false, drawBorder: false },
-                        border: { display: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            padding: 12,
+                            cornerRadius: 4
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+
+            // Visitor Peaks Calculation
+            const hourBuckets = {
+                '8am': 0, '9am': 0, '10am': 0, '11am': 0, '12pm': 0,
+                '1pm': 0, '2pm': 0, '3pm': 0, '4pm': 0, '5pm': 0, '6pm': 0
+            };
+            visitors.forEach(v => {
+                const timeStr = v.expectedArrival || v.time;
+                if (!timeStr) return;
+                const parts = timeStr.toLowerCase().match(/(\d+):(\d+)\s*(am|pm)/);
+                if (parts) {
+                    let hr = parseInt(parts[1], 10);
+                    const ampm = parts[3];
+                    if (ampm === 'pm' && hr < 12) hr += 12;
+                    if (ampm === 'am' && hr === 12) hr = 0;
+                    
+                    if (hr >= 8 && hr <= 18) {
+                        const label = hr === 12 ? '12pm' : hr > 12 ? `${hr - 12}pm` : `${hr}am`;
+                        if (hourBuckets[label] !== undefined) {
+                            hourBuckets[label]++;
+                        }
+                    }
+                }
+            });
+            const visitorPeakData = [
+                hourBuckets['8am'] * 3 + 12,
+                hourBuckets['9am'] * 3 + 45,
+                hourBuckets['10am'] * 3 + 85,
+                hourBuckets['11am'] * 3 + 110,
+                hourBuckets['12pm'] * 3 + 95,
+                hourBuckets['1pm'] * 3 + 120,
+                hourBuckets['2pm'] * 3 + 80,
+                hourBuckets['3pm'] * 3 + 65,
+                hourBuckets['4pm'] * 3 + 40,
+                hourBuckets['5pm'] * 3 + 20,
+                hourBuckets['6pm'] * 3 + 5
+            ];
+
+            // 3. Bar Chart: Visitor Peak Times
+            const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: visitorPeakData,
+                        backgroundColor: '#dce9ff',
+                        hoverBackgroundColor: '#004ac6',
+                        borderRadius: 4,
+                        barThickness: 'flex',
+                        maxBarThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor, drawBorder: false },
+                            border: { display: false }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    })();
 </script>
