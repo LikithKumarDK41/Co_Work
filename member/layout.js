@@ -10,12 +10,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const navItems = [
         { label: "Dashboard", icon: "dashboard", href: "dashboard.html", activePatterns: ["dashboard.html"] },
         { label: "Workspaces", icon: "meeting_room", href: "meeting_rooms.html", activePatterns: ["meeting_rooms.html", "book_rooms.html", "book_meeting_room.html", "booking_confirm.html"] },
+        { label: "Rooms", icon: "grid_view", href: "rooms.html", activePatterns: ["rooms.html"] },
         { label: "My Bookings", icon: "event_available", href: "my_booking.html", activePatterns: ["my_booking.html"] },
         { label: "Visitors", icon: "group", href: "visitor_history.html", activePatterns: ["visitor_history.html", "invite_visitor.html", "visitor_checkin.html"] },
         { label: "Support", icon: "help_center", href: "help_center.html", activePatterns: ["help_center.html", "raise_support.html", "ticket_history.html", "ticket_detail.html"] }
     ];
 
-    const isActive = (item) => item.activePatterns.some(p => filename.includes(p));
+    const isActive = (item) => item.activePatterns.some(p => {
+        const cleanFile = filename.split('?')[0].split('#')[0];
+        return cleanFile === p;
+    });
 
     const navLinksHTML = () => navItems.map(item => {
         const active = isActive(item);
@@ -321,11 +325,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateActiveLink(url) {
         const filename = url.substring(url.lastIndexOf("/") + 1) || "dashboard.html";
+        const cleanFile = filename.split('?')[0].split('#')[0];
         document.querySelectorAll(".nav-link").forEach(link => {
             const href = link.getAttribute("href");
             const item = navItems.find(i => i.href === href);
             if (item) {
-                const active = item.activePatterns.some(p => filename.includes(p));
+                const active = item.activePatterns.some(p => cleanFile === p);
                 if (active) {
                     link.classList.add("nav-link--active");
                     const icon = link.querySelector(".nav-icon");

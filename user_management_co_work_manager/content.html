@@ -1,36 +1,49 @@
 <!-- Page Header -->
 <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 sm:mb-8 gap-4">
     <div>
-        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Member List</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage co-working space members, their access roles, and account status.</p>
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Member List
+        </h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage co-working space members, their access
+            roles, and account status.</p>
     </div>
     <div class="flex gap-2 w-full sm:w-auto shrink-0">
-        <button class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-label-md font-bold justify-center flex-grow md:flex-grow-0 whitespace-nowrap" onclick="openRegisterModal()">
+        <button
+            class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-label-md font-bold justify-center flex-grow md:flex-grow-0 whitespace-nowrap"
+            onclick="openRegisterModal()">
             <span class="material-symbols-outlined text-[18px]">person_add</span> Add Member
         </button>
     </div>
 </div>
 
 <!-- Data Table Container (Level 1 Elevation) -->
-<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
+<div
+    class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden flex flex-col">
     <!-- Table Toolbar -->
-    <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
+    <div
+        class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
         <div class="flex items-center gap-2">
             <span class="font-label-md font-bold text-on-surface text-[16px]">All Members</span>
-            <span id="memberCountBadge" class="bg-primary/10 text-primary font-label-sm text-[11px] px-2 py-0.5 rounded-full font-bold">0 Total</span>
+            <span id="memberCountBadge"
+                class="bg-primary/10 text-primary font-label-sm text-[11px] px-2 py-0.5 rounded-full font-bold">0
+                Total</span>
         </div>
         <div class="flex items-center gap-sm w-full md:w-auto">
             <div class="relative flex-grow md:flex-grow-0">
-                <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-                <input id="memberSearch" oninput="handleSearch()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search members..." type="text">
+                <span
+                    class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                <input id="memberSearch" oninput="handleSearch()"
+                    class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all"
+                    placeholder="Search members..." type="text">
             </div>
-            <select id="statusFilter" onchange="handleStatusFilterChange(this.value)" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
+            <select id="statusFilter" onchange="handleStatusFilterChange(this.value)"
+                class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
                 <option value="all">All Statuses</option>
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
                 <option value="Past Due">Past Due</option>
             </select>
-            <select id="roleFilter" onchange="handleRoleFilterChange(this.value)" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
+            <select id="roleFilter" onchange="handleRoleFilterChange(this.value)"
+                class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
                 <option value="all">All Roles</option>
                 <option value="Admin">Admin</option>
                 <option value="Staff">Staff</option>
@@ -38,7 +51,7 @@
             </select>
         </div>
     </div>
-    
+
     <div class="table-responsive">
         <table class="w-full text-left border-collapse">
             <thead>
@@ -305,11 +318,11 @@
         <!-- Register Member Modal (Level 3 Elevation) -->
         <div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300"
             id="registerScrim" onclick="closeRegisterModal()"></div>
-        <aside class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant hidden"
+        <aside
+            class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant hidden"
             id="registerModalWrapper">
             <!-- Header -->
-            <div
-                class="p-md border-b border-outline-variant flex items-center justify-between bg-surface shrink-0">
+            <div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface shrink-0">
                 <div>
                     <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Register New Member
                     </h3>
@@ -326,184 +339,183 @@
             <!-- Form Content -->
             <div class="flex-1 overflow-y-auto p-lg">
                 <form id="registerMemberForm" class="space-y-6">
-                        <!-- Basic Info -->
-                        <div>
-                            <h4
-                                class="font-label-md font-semibold text-on-surface border-b border-outline-variant pb-xs mb-sm">
-                                Basic Information</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">First Name <span
-                                            class="text-error">*</span></label>
-                                    <input id="reg_first_name" type="text" required
-                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                        placeholder="John">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Last Name <span
-                                            class="text-error">*</span></label>
-                                    <input id="reg_last_name" type="text" required
-                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                        placeholder="Doe">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Email Address <span
-                                            class="text-error">*</span></label>
-                                    <input id="reg_email" type="email" required
-                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                        placeholder="john@example.com">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Phone Number</label>
-                                    <input id="reg_phone" type="tel"
-                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                        placeholder="+1 (555) 000-0000">
-                                </div>
-                                <div class="flex flex-col gap-1 sm:col-span-2">
-                                    <label class="font-label-sm text-on-surface-variant">User Role <span
-                                            class="text-error">*</span></label>
-                                    <select id="userRoleSelect" onchange="handleRoleChange()" required
-                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface">
-                                        <option value="end_user" selected>End User</option>
-                                        <option value="staff">Staff</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </div>
-                                <!-- Dynamic: End User Container -->
-                                <div id="endUserContainer"
-                                    class="flex flex-col gap-3 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 block">
-                                    <label class="font-label-sm text-on-surface-variant font-bold text-primary">Company
-                                        Information</label>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                                        <div class="flex flex-col gap-1">
-                                            <label class="font-label-sm text-on-surface-variant">Company Name</label>
-                                            <input type="text"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="e.g. Acme Corp">
-                                        </div>
-                                        <div class="flex flex-col gap-1">
-                                            <label class="font-label-sm text-on-surface-variant">Job Title /
-                                                Designation</label>
-                                            <input type="text"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="e.g. Software Engineer">
-                                            <input id="reg_company" type="text"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="e.g. Acme Corp">
-                                        </div>
-                                        <div class="flex flex-col gap-1">
-                                            <label class="font-label-sm text-on-surface-variant">Job Title /
-                                                Designation</label>
-                                            <input id="reg_title" type="text"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="e.g. Software Engineer">
-                                        </div>
-                                        <div class="flex flex-col gap-1">
-                                            <label class="font-label-sm text-on-surface-variant">Company Website</label>
-                                            <input type="url"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="https://www.example.com">
-                                        </div>
-                                        <div class="flex flex-col gap-1">
-                                            <label class="font-label-sm text-on-surface-variant">Industry</label>
-                                            <input type="text"
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                placeholder="e.g. Technology, Real Estate">
-                                        </div>
-                                        <div class="flex flex-col gap-1 sm:col-span-2">
-                                            <label class="font-label-sm text-on-surface-variant">Company Address</label>
-                                            <textarea
-                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
-                                                rows="2" placeholder="Full company address"></textarea>
-                                        </div>
+                    <!-- Basic Info -->
+                    <div>
+                        <h4
+                            class="font-label-md font-semibold text-on-surface border-b border-outline-variant pb-xs mb-sm">
+                            Basic Information</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant">First Name <span
+                                        class="text-error">*</span></label>
+                                <input id="reg_first_name" type="text" required
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                    placeholder="John">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant">Last Name <span
+                                        class="text-error">*</span></label>
+                                <input id="reg_last_name" type="text" required
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                    placeholder="Doe">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant">Email Address <span
+                                        class="text-error">*</span></label>
+                                <input id="reg_email" type="email" required
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                    placeholder="john@example.com">
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant">Phone Number</label>
+                                <input id="reg_phone" type="tel"
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                    placeholder="+1 (555) 000-0000">
+                            </div>
+                            <div class="flex flex-col gap-1 sm:col-span-2">
+                                <label class="font-label-sm text-on-surface-variant">User Role <span
+                                        class="text-error">*</span></label>
+                                <select id="userRoleSelect" onchange="handleRoleChange()" required
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface">
+                                    <option value="end_user" selected>End User</option>
+                                    <option value="staff">Staff</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <!-- Dynamic: End User Container -->
+                            <div id="endUserContainer"
+                                class="flex flex-col gap-3 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 block">
+                                <label class="font-label-sm text-on-surface-variant font-bold text-primary">Company
+                                    Information</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-on-surface-variant">Company Name</label>
+                                        <input type="text"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="e.g. Acme Corp">
                                     </div>
-                                </div>
-
-                                <!-- Dynamic: Admin Container -->
-                                <div id="adminContainer"
-                                    class="flex flex-col gap-1 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 hidden">
-                                    <div
-                                        class="bg-secondary-container/20 text-on-secondary-container p-3 rounded-lg border border-secondary-container flex items-start gap-2">
-                                        <span
-                                            class="material-symbols-outlined text-[20px] text-primary">admin_panel_settings</span>
-                                        <span class="font-body-sm">All permissions granted. Admin users have full access
-                                            to all
-                                            screens and settings.</span>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-on-surface-variant">Job Title /
+                                            Designation</label>
+                                        <input type="text"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="e.g. Software Engineer">
+                                        <input id="reg_company" type="text"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="e.g. Acme Corp">
                                     </div>
-                                </div>
-
-                                <!-- Dynamic: Staff Permissions Container -->
-                                <div id="staffPermissionsContainer"
-                                    class="flex flex-col gap-2 sm:col-span-2 hidden mt-2 border-t border-outline-variant pt-3">
-                                    <label class="font-label-sm text-on-surface-variant font-bold text-primary">Select
-                                        Screen
-                                        Permissions for Staff <span class="text-error">*</span></label>
-                                    <div class="grid grid-cols-2 gap-3 mt-1">
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Admin Dashboard</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Reception Dashboard</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">User Management</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Booking Management</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Meeting Rooms</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Visitor Management</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Announcements</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Support Tickets</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Reports & Analytics</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Roles & Permissions</span>
-                                        </label>
-                                        <label class="flex items-center gap-2 cursor-pointer">
-                                            <input type="checkbox"
-                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                            <span class="font-body-sm text-on-surface">Settings</span>
-                                        </label>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-on-surface-variant">Job Title /
+                                            Designation</label>
+                                        <input id="reg_title" type="text"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="e.g. Software Engineer">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-on-surface-variant">Company Website</label>
+                                        <input type="url"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="https://www.example.com">
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-on-surface-variant">Industry</label>
+                                        <input type="text"
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            placeholder="e.g. Technology, Real Estate">
+                                    </div>
+                                    <div class="flex flex-col gap-1 sm:col-span-2">
+                                        <label class="font-label-sm text-on-surface-variant">Company Address</label>
+                                        <textarea
+                                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                            rows="2" placeholder="Full company address"></textarea>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Dynamic: Admin Container -->
+                            <div id="adminContainer"
+                                class="flex flex-col gap-1 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 hidden">
+                                <div
+                                    class="bg-secondary-container/20 text-on-secondary-container p-3 rounded-lg border border-secondary-container flex items-start gap-2">
+                                    <span
+                                        class="material-symbols-outlined text-[20px] text-primary">admin_panel_settings</span>
+                                    <span class="font-body-sm">All permissions granted. Admin users have full access
+                                        to all
+                                        screens and settings.</span>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic: Staff Permissions Container -->
+                            <div id="staffPermissionsContainer"
+                                class="flex flex-col gap-2 sm:col-span-2 hidden mt-2 border-t border-outline-variant pt-3">
+                                <label class="font-label-sm text-on-surface-variant font-bold text-primary">Select
+                                    Screen
+                                    Permissions for Staff <span class="text-error">*</span></label>
+                                <div class="grid grid-cols-2 gap-3 mt-1">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Admin Dashboard</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Reception Dashboard</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">User Management</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Booking Management</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Meeting Rooms</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Visitor Management</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Announcements</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Support Tickets</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Reports & Analytics</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Roles & Permissions</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox"
+                                            class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                        <span class="font-body-sm text-on-surface">Settings</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
 
             <!-- Footer Actions -->
-            <div
-                class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end shrink-0">
+            <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end shrink-0">
                 <button type="button"
                     class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm"
                     onclick="closeRegisterModal()">Cancel</button>
@@ -513,107 +525,107 @@
             </div>
         </aside>
 
-<script>
-    (function() {
-        let users = [];
-        let filteredUsers = [];
-        let searchQuery = "";
-        let statusFilter = "all";
-        let roleFilter = "all";
-        let currentPage = 1;
-        const itemsPerPage = 4;
+        <script>
+            (function () {
+                let users = [];
+                let filteredUsers = [];
+                let searchQuery = "";
+                let statusFilter = "all";
+                let roleFilter = "all";
+                let currentPage = 1;
+                const itemsPerPage = 4;
 
-        async function loadUsers() {
-            let stored = sessionStorage.getItem("users");
-            if (!stored) {
-                try {
-                    const res = await fetch("../member/data/users.json");
-                    const data = await res.json();
-                    sessionStorage.setItem("users", JSON.stringify(data));
-                    stored = JSON.stringify(data);
-                } catch (e) {
-                    console.error("Failed to load users", e);
-                    return;
-                }
-            }
-            users = JSON.parse(stored);
-            applyFilters();
-        }
-
-        function applyFilters() {
-            filteredUsers = users.filter(u => {
-                const matchSearch = searchQuery === "" ||
-                    u.name.toLowerCase().includes(searchQuery) ||
-                    u.email.toLowerCase().includes(searchQuery) ||
-                    u.role.toLowerCase().includes(searchQuery);
-                const matchStatus = statusFilter === "all" || u.status === statusFilter;
-                const matchRole = roleFilter === "all" || u.role === roleFilter;
-                return matchSearch && matchStatus && matchRole;
-            });
-            currentPage = 1;
-            renderUsers();
-            
-            const badge = document.getElementById("memberCountBadge");
-            if (badge) {
-                badge.textContent = `${filteredUsers.length} Total`;
-            }
-        }
-
-        function handleStatusFilterChange(val) {
-            statusFilter = val;
-            applyFilters();
-        }
-
-        function handleRoleFilterChange(val) {
-            roleFilter = val;
-            applyFilters();
-        }
-
-        function handleSearch() {
-            const input = document.getElementById("memberSearch");
-            if (input) {
-                searchQuery = input.value.toLowerCase().trim();
-                applyFilters();
-            }
-        }
-
-        function renderUsers() {
-            const tbody = document.getElementById("members_table_body");
-            if (!tbody) return;
-
-            const totalItems = filteredUsers.length;
-            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-            if (currentPage > totalPages) currentPage = totalPages;
-            if (currentPage < 1) currentPage = 1;
-
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-            const pageUsers = filteredUsers.slice(startIndex, endIndex);
-
-            if (pageUsers.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
-                renderPagination(0, 0, 0);
-                return;
-            }
-
-            tbody.innerHTML = pageUsers.map(u => {
-                let avatarHTML = "";
-                if (u.avatar) {
-                    avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
-                } else {
-                    const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                    avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+                async function loadUsers() {
+                    let stored = sessionStorage.getItem("users");
+                    if (!stored) {
+                        try {
+                            const res = await fetch("../member/data/users.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("users", JSON.stringify(data));
+                            stored = JSON.stringify(data);
+                        } catch (e) {
+                            console.error("Failed to load users", e);
+                            return;
+                        }
+                    }
+                    users = JSON.parse(stored);
+                    applyFilters();
                 }
 
-                let statusBadgeClass = "bg-secondary/10 text-secondary";
-                if (u.status === "Inactive") {
-                    statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
-                } else if (u.status === "Past Due") {
-                    statusBadgeClass = "bg-error/10 text-error";
+                function applyFilters() {
+                    filteredUsers = users.filter(u => {
+                        const matchSearch = searchQuery === "" ||
+                            u.name.toLowerCase().includes(searchQuery) ||
+                            u.email.toLowerCase().includes(searchQuery) ||
+                            u.role.toLowerCase().includes(searchQuery);
+                        const matchStatus = statusFilter === "all" || u.status === statusFilter;
+                        const matchRole = roleFilter === "all" || u.role === roleFilter;
+                        return matchSearch && matchStatus && matchRole;
+                    });
+                    currentPage = 1;
+                    renderUsers();
+
+                    const badge = document.getElementById("memberCountBadge");
+                    if (badge) {
+                        badge.textContent = `${filteredUsers.length} Total`;
+                    }
                 }
 
-                return `
+                function handleStatusFilterChange(val) {
+                    statusFilter = val;
+                    applyFilters();
+                }
+
+                function handleRoleFilterChange(val) {
+                    roleFilter = val;
+                    applyFilters();
+                }
+
+                function handleSearch() {
+                    const input = document.getElementById("memberSearch");
+                    if (input) {
+                        searchQuery = input.value.toLowerCase().trim();
+                        applyFilters();
+                    }
+                }
+
+                function renderUsers() {
+                    const tbody = document.getElementById("members_table_body");
+                    if (!tbody) return;
+
+                    const totalItems = filteredUsers.length;
+                    const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+                    if (currentPage > totalPages) currentPage = totalPages;
+                    if (currentPage < 1) currentPage = 1;
+
+                    const startIndex = (currentPage - 1) * itemsPerPage;
+                    const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+                    const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+                    if (pageUsers.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
+                        renderPagination(0, 0, 0);
+                        return;
+                    }
+
+                    tbody.innerHTML = pageUsers.map(u => {
+                        let avatarHTML = "";
+                        if (u.avatar) {
+                            avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
+                        } else {
+                            const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                            avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+                        }
+
+                        let statusBadgeClass = "bg-secondary/10 text-secondary";
+                        if (u.status === "Inactive") {
+                            statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
+                        } else if (u.status === "Past Due") {
+                            statusBadgeClass = "bg-error/10 text-error";
+                        }
+
+                        return `
                 <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="viewMemberProfile(${u.id})">
                     <td class="px-md py-sm">
                         <div class="flex items-center gap-sm">
@@ -634,254 +646,254 @@
                     </td>
                 </tr>
             `;
-            }).join("");
+                    }).join("");
 
-            renderPagination(startIndex + 1, endIndex, totalItems);
-        }
+                    renderPagination(startIndex + 1, endIndex, totalItems);
+                }
 
-        function renderPagination(start, end, total) {
-            const container = document.getElementById("pagination_container");
-            const info = document.getElementById("paginationInfo");
-            if (!container || !info) return;
+                function renderPagination(start, end, total) {
+                    const container = document.getElementById("pagination_container");
+                    const info = document.getElementById("paginationInfo");
+                    if (!container || !info) return;
 
-            info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+                    info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
 
-            const totalPages = Math.ceil(total / itemsPerPage) || 1;
+                    const totalPages = Math.ceil(total / itemsPerPage) || 1;
 
-            let html = `
+                    let html = `
             <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
         `;
 
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
-                } else {
-                    html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
-                }
-            }
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (i === currentPage) {
+                            html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+                        } else {
+                            html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+                        }
+                    }
 
-            html += `
+                    html += `
             <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
         `;
 
-            container.innerHTML = html;
-        }
-
-        function goToPage(p) {
-            currentPage = p;
-            renderUsers();
-        }
-
-        function viewMemberProfile(id) {
-            const u = users.find(x => x.id === id);
-            if (!u) return;
-
-            // Populate side-over panel elements
-            const nameEl = document.getElementById("profile_name");
-            const emailEl = document.getElementById("profile_email");
-            const statusEl = document.getElementById("profile_status");
-            const planEl = document.getElementById("profile_plan");
-            const joinDateEl = document.getElementById("profile_join_date");
-            const companyEl = document.getElementById("profile_company");
-            const accessEl = document.getElementById("profile_access_level");
-            const avatarContainer = document.getElementById("profile_avatar_container");
-
-            if (nameEl) nameEl.textContent = u.name;
-            if (emailEl) emailEl.textContent = u.email;
-            if (planEl) planEl.textContent = u.plan || "Hot Desk";
-            if (joinDateEl) joinDateEl.textContent = u.joinDate;
-            if (companyEl) companyEl.textContent = u.company || "Independent";
-            if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
-
-            if (statusEl) {
-                statusEl.textContent = u.status + " Member";
-                statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
-                if (u.status === "Active") {
-                    statusEl.classList.add("bg-secondary/10", "text-secondary");
-                } else if (u.status === "Inactive") {
-                    statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
-                } else if (u.status === "Past Due") {
-                    statusEl.classList.add("bg-error/10", "text-error");
+                    container.innerHTML = html;
                 }
-            }
 
-            if (avatarContainer) {
-                if (u.avatar) {
-                    avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
-                } else {
-                    const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                    avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
+                function goToPage(p) {
+                    currentPage = p;
+                    renderUsers();
                 }
-            }
 
-            openProfileModal();
-        }
+                function viewMemberProfile(id) {
+                    const u = users.find(x => x.id === id);
+                    if (!u) return;
 
-        function openProfileModal() {
-            const modal = document.getElementById('profileModal');
-            const scrim = document.getElementById('profileScrim');
+                    // Populate side-over panel elements
+                    const nameEl = document.getElementById("profile_name");
+                    const emailEl = document.getElementById("profile_email");
+                    const statusEl = document.getElementById("profile_status");
+                    const planEl = document.getElementById("profile_plan");
+                    const joinDateEl = document.getElementById("profile_join_date");
+                    const companyEl = document.getElementById("profile_company");
+                    const accessEl = document.getElementById("profile_access_level");
+                    const avatarContainer = document.getElementById("profile_avatar_container");
 
-            scrim.classList.remove('hidden');
-            setTimeout(() => {
-                scrim.classList.remove('opacity-0');
-                modal.classList.remove('translate-x-full');
-            }, 10);
+                    if (nameEl) nameEl.textContent = u.name;
+                    if (emailEl) emailEl.textContent = u.email;
+                    if (planEl) planEl.textContent = u.plan || "Hot Desk";
+                    if (joinDateEl) joinDateEl.textContent = u.joinDate;
+                    if (companyEl) companyEl.textContent = u.company || "Independent";
+                    if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
 
-            document.body.style.overflow = 'hidden';
-        }
+                    if (statusEl) {
+                        statusEl.textContent = u.status + " Member";
+                        statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
+                        if (u.status === "Active") {
+                            statusEl.classList.add("bg-secondary/10", "text-secondary");
+                        } else if (u.status === "Inactive") {
+                            statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
+                        } else if (u.status === "Past Due") {
+                            statusEl.classList.add("bg-error/10", "text-error");
+                        }
+                    }
 
-        function closeProfileModal() {
-            const modal = document.getElementById('profileModal');
-            const scrim = document.getElementById('profileScrim');
+                    if (avatarContainer) {
+                        if (u.avatar) {
+                            avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
+                        } else {
+                            const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                            avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
+                        }
+                    }
 
-            modal.classList.add('translate-x-full');
-            scrim.classList.add('opacity-0');
+                    openProfileModal();
+                }
 
-            setTimeout(() => {
-                scrim.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        }
+                function openProfileModal() {
+                    const modal = document.getElementById('profileModal');
+                    const scrim = document.getElementById('profileScrim');
 
-        function openRegisterModal() {
-            const modal = document.getElementById('registerModalWrapper');
-            const scrim = document.getElementById('registerScrim');
+                    scrim.classList.remove('hidden');
+                    setTimeout(() => {
+                        scrim.classList.remove('opacity-0');
+                        modal.classList.remove('translate-x-full');
+                    }, 10);
 
-            scrim.classList.remove('hidden');
-            modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
 
-            setTimeout(() => {
-                scrim.classList.remove('opacity-0');
-                modal.classList.remove('translate-x-full');
-            }, 10);
+                function closeProfileModal() {
+                    const modal = document.getElementById('profileModal');
+                    const scrim = document.getElementById('profileScrim');
 
-            document.body.style.overflow = 'hidden';
-        }
+                    modal.classList.add('translate-x-full');
+                    scrim.classList.add('opacity-0');
 
-        function closeRegisterModal() {
-            const modal = document.getElementById('registerModalWrapper');
-            const scrim = document.getElementById('registerScrim');
+                    setTimeout(() => {
+                        scrim.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }, 300);
+                }
 
-            modal.classList.add('translate-x-full');
-            scrim.classList.add('opacity-0');
+                function openRegisterModal() {
+                    const modal = document.getElementById('registerModalWrapper');
+                    const scrim = document.getElementById('registerScrim');
 
-            setTimeout(() => {
-                scrim.classList.add('hidden');
-                modal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300);
-        }
+                    scrim.classList.remove('hidden');
+                    modal.classList.remove('hidden');
 
-        function submitRegistration() {
-            const form = document.getElementById('registerMemberForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
-                return;
-            }
+                    setTimeout(() => {
+                        scrim.classList.remove('opacity-0');
+                        modal.classList.remove('translate-x-full');
+                    }, 10);
 
-            const firstName = document.getElementById("reg_first_name").value.trim();
-            const lastName = document.getElementById("reg_last_name").value.trim();
-            const email = document.getElementById("reg_email").value.trim();
-            const phone = document.getElementById("reg_phone").value.trim();
-            const rawRole = document.getElementById("userRoleSelect").value;
-            const company = document.getElementById("reg_company").value.trim();
-            const title = document.getElementById("reg_title").value.trim();
+                    document.body.style.overflow = 'hidden';
+                }
 
-            let displayRole = "End User";
-            let displayAccess = "24/7 Standard";
-            let displayPlan = "Hot Desk";
-            if (rawRole === "admin") {
-                displayRole = "Admin";
-                displayAccess = "Full Access";
-                displayPlan = "Dedicated Desk";
-            } else if (rawRole === "staff") {
-                displayRole = "Staff";
-                displayAccess = "Business Hours";
-                displayPlan = "Hot Desk";
-            }
+                function closeRegisterModal() {
+                    const modal = document.getElementById('registerModalWrapper');
+                    const scrim = document.getElementById('registerScrim');
 
-            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-            const options = { month: 'short', day: '2-digit', year: 'numeric' };
-            const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
+                    modal.classList.add('translate-x-full');
+                    scrim.classList.add('opacity-0');
 
-            const newUser = {
-                id: newId,
-                name: `${firstName} ${lastName}`,
-                email: email,
-                role: displayRole,
-                status: "Active",
-                joinDate: formattedDate,
-                avatar: "",
-                company: company || "Independent",
-                accessLevel: displayAccess,
-                plan: displayPlan,
-                phone: phone
-            };
+                    setTimeout(() => {
+                        scrim.classList.add('hidden');
+                        modal.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }, 300);
+                }
 
-            users.unshift(newUser);
-            sessionStorage.setItem("users", JSON.stringify(users));
-            applyFilters();
+                function submitRegistration() {
+                    const form = document.getElementById('registerMemberForm');
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
+                    }
 
-            alert('Member registered successfully!');
-            closeRegisterModal();
-            form.reset();
-        }
+                    const firstName = document.getElementById("reg_first_name").value.trim();
+                    const lastName = document.getElementById("reg_last_name").value.trim();
+                    const email = document.getElementById("reg_email").value.trim();
+                    const phone = document.getElementById("reg_phone").value.trim();
+                    const rawRole = document.getElementById("userRoleSelect").value;
+                    const company = document.getElementById("reg_company").value.trim();
+                    const title = document.getElementById("reg_title").value.trim();
 
-        function deleteMember(id) {
-            if (confirm("Are you sure you want to remove this member?")) {
-                users = users.filter(u => u.id !== id);
-                sessionStorage.setItem("users", JSON.stringify(users));
-                applyFilters();
-                alert("Member removed successfully.");
-            }
-        }
+                    let displayRole = "End User";
+                    let displayAccess = "24/7 Standard";
+                    let displayPlan = "Hot Desk";
+                    if (rawRole === "admin") {
+                        displayRole = "Admin";
+                        displayAccess = "Full Access";
+                        displayPlan = "Dedicated Desk";
+                    } else if (rawRole === "staff") {
+                        displayRole = "Staff";
+                        displayAccess = "Business Hours";
+                        displayPlan = "Hot Desk";
+                    }
 
-        function handleRoleChange() {
-            const roleSelect = document.getElementById('userRoleSelect');
-            const endUserContainer = document.getElementById('endUserContainer');
-            const adminContainer = document.getElementById('adminContainer');
-            const staffContainer = document.getElementById('staffPermissionsContainer');
+                    const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+                    const options = { month: 'short', day: '2-digit', year: 'numeric' };
+                    const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
 
-            // Hide all first
-            endUserContainer.classList.add('hidden');
-            endUserContainer.classList.remove('block');
-            adminContainer.classList.add('hidden');
-            adminContainer.classList.remove('block');
-            staffContainer.classList.add('hidden');
-            staffContainer.classList.remove('block');
+                    const newUser = {
+                        id: newId,
+                        name: `${firstName} ${lastName}`,
+                        email: email,
+                        role: displayRole,
+                        status: "Active",
+                        joinDate: formattedDate,
+                        avatar: "",
+                        company: company || "Independent",
+                        accessLevel: displayAccess,
+                        plan: displayPlan,
+                        phone: phone
+                    };
 
-            // Show based on selection
-            if (roleSelect.value === 'end_user') {
-                endUserContainer.classList.remove('hidden');
-                endUserContainer.classList.add('block');
-            } else if (roleSelect.value === 'admin') {
-                adminContainer.classList.remove('hidden');
-                adminContainer.classList.add('block');
-            } else if (roleSelect.value === 'staff') {
-                staffContainer.classList.remove('hidden');
-                staffContainer.classList.add('block');
-            }
-        }
+                    users.unshift(newUser);
+                    sessionStorage.setItem("users", JSON.stringify(users));
+                    applyFilters();
 
-        // Export to window
-        window.loadUsers = loadUsers;
-        window.applyFilters = applyFilters;
-        window.handleSearch = handleSearch;
-        window.renderUsers = renderUsers;
-        window.goToPage = goToPage;
-        window.viewMemberProfile = viewMemberProfile;
-        window.openProfileModal = openProfileModal;
-        window.closeProfileModal = closeProfileModal;
-        window.openRegisterModal = openRegisterModal;
-        window.closeRegisterModal = closeRegisterModal;
-        window.submitRegistration = submitRegistration;
-        window.deleteMember = deleteMember;
-        window.handleRoleChange = handleRoleChange;
-        window.handleStatusFilterChange = handleStatusFilterChange;
-        window.handleRoleFilterChange = handleRoleFilterChange;
-    })();
-</script>
+                    alert('Member registered successfully!');
+                    closeRegisterModal();
+                    form.reset();
+                }
+
+                function deleteMember(id) {
+                    if (confirm("Are you sure you want to remove this member?")) {
+                        users = users.filter(u => u.id !== id);
+                        sessionStorage.setItem("users", JSON.stringify(users));
+                        applyFilters();
+                        alert("Member removed successfully.");
+                    }
+                }
+
+                function handleRoleChange() {
+                    const roleSelect = document.getElementById('userRoleSelect');
+                    const endUserContainer = document.getElementById('endUserContainer');
+                    const adminContainer = document.getElementById('adminContainer');
+                    const staffContainer = document.getElementById('staffPermissionsContainer');
+
+                    // Hide all first
+                    endUserContainer.classList.add('hidden');
+                    endUserContainer.classList.remove('block');
+                    adminContainer.classList.add('hidden');
+                    adminContainer.classList.remove('block');
+                    staffContainer.classList.add('hidden');
+                    staffContainer.classList.remove('block');
+
+                    // Show based on selection
+                    if (roleSelect.value === 'end_user') {
+                        endUserContainer.classList.remove('hidden');
+                        endUserContainer.classList.add('block');
+                    } else if (roleSelect.value === 'admin') {
+                        adminContainer.classList.remove('hidden');
+                        adminContainer.classList.add('block');
+                    } else if (roleSelect.value === 'staff') {
+                        staffContainer.classList.remove('hidden');
+                        staffContainer.classList.add('block');
+                    }
+                }
+
+                // Export to window
+                window.loadUsers = loadUsers;
+                window.applyFilters = applyFilters;
+                window.handleSearch = handleSearch;
+                window.renderUsers = renderUsers;
+                window.goToPage = goToPage;
+                window.viewMemberProfile = viewMemberProfile;
+                window.openProfileModal = openProfileModal;
+                window.closeProfileModal = closeProfileModal;
+                window.openRegisterModal = openRegisterModal;
+                window.closeRegisterModal = closeRegisterModal;
+                window.submitRegistration = submitRegistration;
+                window.deleteMember = deleteMember;
+                window.handleRoleChange = handleRoleChange;
+                window.handleStatusFilterChange = handleStatusFilterChange;
+                window.handleRoleFilterChange = handleRoleFilterChange;
+            })();
+        </script>

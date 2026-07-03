@@ -348,7 +348,7 @@
 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">push_pin</span>
                                     Pinned
                                 </span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Published • Oct 24, 2023</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Published • Dec 18, 2026</span>
 </div>
 <button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-low">
 <span class="material-symbols-outlined">more_vert</span>
@@ -378,7 +378,7 @@
 <span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded font-label-sm text-label-sm uppercase border border-outline-variant/50">
                                 Draft
                             </span>
-<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-low">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-low" onclick="openEditDraftModal('New Coffee Machine Installation', 'We\'re upgrading the pantry! A new espresso machine will be installed on the 4th floor...', 'Specific Floor/Zone')">
 <span class="material-symbols-outlined">edit</span>
 </button>
 </div>
@@ -386,9 +386,8 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-md flex-1">
                             We're upgrading the pantry! A new espresso machine will be installed on the 4th floor...
                         </p>
-<div class="mt-auto pt-md border-t border-outline-variant/50 flex justify-between items-center">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Last edited: 2 hrs ago</span>
-<button class="text-primary font-label-sm text-label-sm hover:underline">Continue</button>
+<div class="mt-auto pt-md border-t border-outline-variant/50 flex justify-end items-center">
+<button class="text-primary font-label-sm text-label-sm hover:underline font-semibold" onclick="openEditDraftModal('New Coffee Machine Installation', 'We\'re upgrading the pantry! A new espresso machine will be installed on the 4th floor...', 'Specific Floor/Zone')">Continue</button>
 </div>
 </div>
 <!-- Standard Published Card -->
@@ -398,7 +397,7 @@
 <span class="bg-primary/10 text-primary px-2 py-1 rounded font-label-sm text-label-sm uppercase border border-primary/20">
                                     Published
                                 </span>
-<span class="text-on-surface-variant font-label-sm text-label-sm">Oct 20, 2023</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Jul 01, 2026</span>
 </div>
 <button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-full hover:bg-surface-container-low">
 <span class="material-symbols-outlined">more_vert</span>
@@ -409,12 +408,8 @@
                             Please give a warm welcome to our newest enterprise members moving into suites 401-405 today.
                         </p>
 <div class="flex items-center gap-md mt-auto pt-md border-t border-outline-variant/50">
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-[18px]">visibility</span>
-<span class="font-label-sm text-label-sm">210</span>
-</div>
 <div class="ml-auto">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Target: Floor 4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target: Specific Floor/Zone</span>
 </div>
 </div>
 </div>
@@ -436,7 +431,7 @@
                             Join us next Friday for drinks, snacks, and a chance to meet other members in the community lounge.
                         </p>
 <div class="mt-auto pt-md border-t border-outline-variant/50">
-<span class="font-label-sm text-label-sm text-on-surface-variant">Publishes: Oct 28, 9:00 AM</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Publishes: Jul 05, 2026 at 9:00 AM</span>
 </div>
 </div>
 </div>
@@ -461,7 +456,7 @@
 <!-- Title Input -->
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface mb-sm uppercase tracking-wide">Title</label>
-<input class="w-full px-4 py-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Enter announcement title" type="text">
+<input id="announcementTitleInput" class="w-full px-4 py-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Enter announcement title" type="text">
 </div>
 <!-- Rich Text Editor Mockup -->
 <div>
@@ -480,7 +475,7 @@
 <button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded transition-colors"><span class="material-symbols-outlined text-[18px]">image</span></button>
 </div>
 <!-- Text Area -->
-<textarea class="w-full p-4 bg-transparent border-none font-body-md text-body-md focus:ring-0 resize-none" placeholder="Write your announcement here..." rows="6"></textarea>
+<textarea id="announcementContentInput" class="w-full p-4 bg-transparent border-none font-body-md text-body-md focus:ring-0 resize-none" placeholder="Write your announcement here..." rows="6"></textarea>
 </div>
 </div>
 <!-- Settings Grid -->
@@ -488,7 +483,7 @@
 <!-- Target Audience -->
 <div>
 <label class="block font-label-sm text-label-sm text-on-surface mb-sm uppercase tracking-wide">Target Audience</label>
-<select class="w-full px-4 py-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
+<select id="announcementTargetInput" class="w-full px-4 py-3 bg-surface border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all appearance-none">
 <option>All Members</option>
 <option>Specific Floor/Zone</option>
 <option>Enterprise Members Only</option>
@@ -535,11 +530,34 @@
 </div>
 <script>
         function openModal() {
+            const titleInput = document.getElementById('announcementTitleInput');
+            const contentInput = document.getElementById('announcementContentInput');
+            const targetInput = document.getElementById('announcementTargetInput');
+            if (titleInput) titleInput.value = '';
+            if (contentInput) contentInput.value = '';
+            if (targetInput) targetInput.selectedIndex = 0;
             document.getElementById('createModal').classList.remove('hidden');
         }
 
         function closeModal() {
             document.getElementById('createModal').classList.add('hidden');
+        }
+
+        function openEditDraftModal(title, content, targetVal = 'All Members') {
+            openModal();
+            const titleInput = document.getElementById('announcementTitleInput');
+            const contentInput = document.getElementById('announcementContentInput');
+            const targetInput = document.getElementById('announcementTargetInput');
+            if (titleInput) titleInput.value = title;
+            if (contentInput) contentInput.value = content;
+            if (targetInput) {
+                for(let i=0; i<targetInput.options.length; i++) {
+                    if(targetInput.options[i].text === targetVal || targetInput.options[i].value === targetVal) {
+                        targetInput.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
     </script>
 </body></html>

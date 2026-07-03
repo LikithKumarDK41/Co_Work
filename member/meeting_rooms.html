@@ -162,82 +162,224 @@
     <main
         class="page-layout page-bg p-4 md:p-8 pb-24 md:pb-24 max-w-[1440px] mx-auto w-full flex-1 flex flex-col gap-6">
 
-        <!-- Page Header -->
-        <div
-            class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-container-high pb-6">
+        <!-- Page Header & Search Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-container-high pb-6">
             <div>
-                <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">
-                    Meeting Rooms
+                <h2 class="text-3xl font-bold text-primary tracking-tight mb-2">
+                    Workspaces
                 </h2>
-
                 <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
-                    Find and reserve the perfect space for your next collaboration. Filter by capacity, amenities, or
-                    immediate availability.
+                    Find and reserve the perfect workspace for your next collaboration. Filter by capacity, size, or amenities.
                 </p>
             </div>
-        </div>
-
-        <!-- Search & Filter Bar -->
-        <div
-            class="bg-surface rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-4 flex flex-col md:flex-row gap-4 items-center justify-between border border-surface-container-highest">
-
-            <div class="relative w-full md:w-1/3">
-                <span
-                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+            <div class="relative w-full md:w-80 shrink-0">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
                     search
                 </span>
-
-                <input
+                <input id="roomSearchInput" oninput="handleSearch()"
                     class="w-full bg-surface-container-low border border-surface-variant rounded-lg pl-10 pr-4 py-2.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-on-surface-variant/70"
-                    placeholder="Search room name or location..." type="text">
-            </div>
-
-            <div class="flex flex-wrap gap-3 w-full md:w-auto items-center">
-
-                <div class="relative group">
-                    <button
-                        class="flex items-center gap-2 bg-surface border border-surface-variant rounded-lg px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
-                        <span class="material-symbols-outlined text-sm text-on-surface-variant">group</span>
-                        Capacity
-                        <span class="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
-                    </button>
-                </div>
-
-                <div class="relative group">
-                    <button
-                        class="flex items-center gap-2 bg-surface border border-surface-variant rounded-lg px-4 py-2 font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
-                        <span class="material-symbols-outlined text-sm text-on-surface-variant">tv</span>
-                        Amenities
-                        <span class="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
-                    </button>
-                </div>
-
-                <div class="flex items-center bg-surface-container-low rounded-lg p-1 border border-surface-variant">
-                    <button
-                        class="px-4 py-1.5 rounded-md font-label-md text-label-md bg-surface text-primary shadow-sm">
-                        All
-                    </button>
-
-                    <button
-                        class="px-4 py-1.5 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">
-                        Available Now
-                    </button>
-                </div>
-
+                    placeholder="Search workspace name or location..." type="text">
             </div>
         </div>
 
         <!-- Room Grid -->
-        <div id="rooms_grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="rooms_grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <!-- Will be populated dynamically -->
+        </div>
+
+        <!-- Schedule Modal Overlay -->
+        <div id="scheduleModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-xs z-[100] hidden opacity-0 transition-opacity duration-300" onclick="closeScheduleModal()"></div>
+        <!-- Schedule Modal Dialog -->
+        <div id="scheduleModal" class="fixed inset-y-0 right-0 w-full sm:w-[500px] bg-surface-container-lowest shadow-level-5 z-[101] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full rounded-l-2xl border-l border-outline-variant">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between p-6 border-b border-outline-variant shrink-0 bg-surface-bright rounded-tl-2xl">
+                <div>
+                    <h3 id="scheduleModalTitle" class="font-headline-md font-bold text-on-surface text-xl">Workspace Schedule</h3>
+                    <p id="scheduleModalSubtitle" class="font-body-sm text-on-surface-variant mt-1">Live availability & bookings calendar</p>
+                </div>
+                <button onclick="closeScheduleModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors cursor-pointer" aria-label="Close modal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto flex-1 bg-surface-container-lowest flex flex-col gap-6">
+                
+                <!-- Date Selector Row (Big Calendar) -->
+                <div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/35 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <label class="font-label-sm font-semibold text-on-surface flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[20px] text-primary">calendar_month</span> Choose Date
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <button type="button" onclick="prevCalendarMonth()" class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant cursor-pointer border-0 bg-transparent flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+                            <span id="calendarMonthYearLabel" class="text-xs font-bold text-on-surface min-w-[90px] text-center">July 2026</span>
+                            <button type="button" onclick="nextCalendarMonth()" class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant cursor-pointer border-0 bg-transparent flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-7 text-center text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">
+                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                    </div>
+
+                    <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1.5">
+                        <!-- Dynamic calendar day buttons injected here -->
+                    </div>
+                </div>
+
+                <!-- Time Slots & Availability -->
+                <div>
+                    <h4 class="font-label-md font-semibold text-on-surface mb-3 flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[18px] text-primary">schedule</span> Hourly Availability
+                    </h4>
+                    <div class="flex flex-col gap-3" id="scheduleTimeSlots">
+                        <!-- Dynamic schedule slots -->
+                    </div>
+                </div>
+
+                <!-- Sample Info Note -->
+                <div class="bg-primary/5 border border-primary/20 p-4 rounded-xl flex gap-3 items-start mt-2">
+                    <span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">info</span>
+                    <div class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        <span class="font-semibold text-primary">Demo Preview:</span> This calendar showcases live booking statuses for this workspace. Green slots are open for reservations, and red slots represent already occupied blocks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-4 border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-bl-2xl shrink-0">
+                <button type="button" class="px-6 py-2.5 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm cursor-pointer" onclick="closeScheduleModal()">Close</button>
+                <button id="scheduleModalBookBtn" onclick="openNewBookingModal(scheduleWorkspaceId, getSelectedScheduleDateString()); closeScheduleModal();" class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm font-semibold flex items-center gap-2 cursor-pointer border-0">
+                    <span class="material-symbols-outlined text-[18px]">event_available</span> Book Workspace
+                </button>
+            </div>
+        </div>
+
+        <!-- New Workspace Booking Modal Drawer -->
+        <div id="newBookingModal" class="hidden fixed inset-0 z-50 flex justify-end">
+            <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeNewBookingModal()"></div>
+            <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+                <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center shrink-0">
+                    <h3 class="font-headline-sm font-bold text-on-surface">New Workspace Booking</h3>
+                    <button onclick="closeNewBookingModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors cursor-pointer"><span class="material-symbols-outlined">close</span></button>
+                </div>
+                <form id="newBookingForm" onsubmit="submitNewBooking(event)" class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-surface-container-lowest pb-10">
+                    <!-- Date Range picker -->
+                    <div class="flex gap-2">
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span class="text-error">*</span></label>
+                            <input id="book_start_date" type="date" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                        </div>
+                        <div class="flex-1 flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span class="text-error">*</span></label>
+                            <input id="book_end_date" type="date" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                        </div>
+                    </div>
+
+                    <!-- Term/Billing Cycle -->
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Term / Cycle <span class="text-error">*</span></label>
+                        <select id="book_term" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
+                        </select>
+                    </div>
+
+                    <!-- Client Category (Internal vs External) -->
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
+                        <select id="book_client_category" disabled required onchange="handleClientCategoryChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm opacity-75 cursor-not-allowed">
+                            <option value="Internal">Internal (Building 812)</option>
+                            <option value="External" selected>External (Building 813)</option>
+                        </select>
+                    </div>
+
+                    <!-- Select Parent Workspace / Zone -->
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Select Building Zone / Parent Workspace <span class="text-error">*</span></label>
+                        <select id="book_parent_workspace" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                            <option value="">Select a Parent Zone...</option>
+                        </select>
+                    </div>
+
+                    <!-- Parent Entire Booking Checkbox -->
+                    <div id="parentEntireSpaceContainer" class="hidden flex flex-col gap-2 p-3 border border-outline-variant/40 rounded-lg bg-surface-container-low">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="book_entire_parent" onchange="handleParentCheckboxChange()" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                            <span class="font-body-sm font-semibold text-on-surface">Book entire Workspace Zone (Full Space)</span>
+                        </label>
+                        <span id="parentAvailabilityStatus" class="text-xs font-semibold text-on-surface-variant">Please select dates to verify availability.</span>
+                    </div>
+
+                    <!-- Specific Child Workspace Selector -->
+                    <div id="childWorkspaceContainer" class="hidden flex flex-col gap-4 border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low">
+                        <div class="flex flex-col gap-1">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">Select Sub-space / eBay Zone <span class="text-error">*</span></label>
+                            <select id="book_subspace" onchange="handleSubspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                                <!-- Dynamic sub-workspaces will be injected here -->
+                            </select>
+                        </div>
+
+                        <!-- Booking Scope for child workspace -->
+                        <div id="subspaceScopeContainer" class="hidden flex flex-col gap-4">
+                            <div class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant font-semibold">Booking Scope <span class="text-error">*</span></label>
+                                <select id="book_scope" onchange="handleScopeChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                                    <option value="Seats">Specific Seats</option>
+                                    <option value="Entire">Entire Sub-space</option>
+                                </select>
+                            </div>
+
+                            <!-- Seats count -->
+                            <div id="seatsCountContainer" class="flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant font-semibold">Number of Seats to Book <span class="text-error">*</span></label>
+                                <div class="flex items-center gap-2">
+                                    <input id="book_seats" type="number" min="1" value="1" oninput="updateAvailableSeats()" class="w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none outline-none text-body-sm">
+                                    <span id="availableSeatsBadge" class="text-xs text-on-surface-variant font-medium bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available Seats: --</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recurring option -->
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
+                        <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                            <option value="None">None</option>
+                            <option value="Daily">Daily Recurring</option>
+                            <option value="Weekly">Weekly Recurring</option>
+                            <option value="Monthly">Monthly Recurring</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:bg-primary/90 mt-2 shrink-0 transition-colors cursor-pointer border-0">Book Workspace</button>
+                </form>
+            </div>
         </div>
 
         <script>
             (function() {
                 let workspaces = [];
+                let workspaceBookings = [];
 
                 async function loadWorkspaces() {
                     let stored = sessionStorage.getItem("workspaces");
+                    if (stored) {
+                        try {
+                            const parsed = JSON.parse(stored);
+                            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
+                                sessionStorage.removeItem("workspaces");
+                                stored = null;
+                            }
+                        } catch (e) {
+                            sessionStorage.removeItem("workspaces");
+                            stored = null;
+                        }
+                    }
+
                     if (!stored) {
                         try {
                             const res = await fetch("data/workspaces.json");
@@ -249,91 +391,811 @@
                             return;
                         }
                     }
-                    workspaces = JSON.parse(stored);
-                    renderWorkspaces();
+                    const allList = JSON.parse(stored);
+                    workspaces = allList.filter(w => {
+                        if (w.clientType === "External") return true;
+                        if (w.parentWorkspace) {
+                            const p = allList.find(x => x.name === w.parentWorkspace);
+                            return p && p.clientType === "External";
+                        }
+                        return false;
+                    });
+                    renderWorkspaces(workspaces);
+                    
+                    // Initial load of workspace bookings for availability
+                    loadWorkspaceBookings();
                 }
 
-                function renderWorkspaces() {
+                function renderWorkspaces(list) {
                     const grid = document.getElementById("rooms_grid");
                     if (!grid) return;
 
-                    if (workspaces.length === 0) {
-                        grid.innerHTML = `<p class="col-span-3 py-8 text-center text-sm text-slate-500">No meeting rooms found</p>`;
+                    if (list.length === 0) {
+                        grid.innerHTML = `<div class="col-span-full py-12 text-center text-on-surface-variant font-body-md">No workspaces found.</div>`;
                         return;
                     }
 
-                    grid.innerHTML = workspaces.map(w => {
-                        let statusBadgeClass = "bg-secondary-container text-on-secondary-container";
-                        let dotClass = "bg-secondary";
-                        if (w.status !== "Available") {
-                            statusBadgeClass = "bg-surface-variant text-on-surface-variant";
-                            dotClass = "bg-outline";
+                    grid.innerHTML = list.map(w => {
+                        let statusBadge = `<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-secondary"></span> Active</div>`;
+                        if (w.status === "Maintenance") {
+                            statusBadge = `<div class="absolute top-4 right-4 bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-error"></span> Maintenance</div>`;
+                        } else if (w.status === "Inactive") {
+                            statusBadge = `<div class="absolute top-4 right-4 bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> Inactive</div>`;
                         }
 
-                        const amenitiesHTML = w.amenities.map(a => {
-                            let icon = "tv";
-                            if (a.toLowerCase().includes("wifi")) icon = "wifi";
-                            else if (a.toLowerCase().includes("whiteboard")) icon = "edit";
-                            else if (a.toLowerCase().includes("soundproof")) icon = "volume_off";
-                            else if (a.toLowerCase().includes("phone")) icon = "call";
+                        const imgUrl = w.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
 
-                            return `
-                                <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[14px]">${icon}</span>
-                                    ${a}
-                                </span>
+                        let bookButton = "";
+                        if (w.id === 106) {
+                            bookButton = `
+                                <button onclick="openScheduleModal(${w.id}, '${w.name.replace(/'/g, "\\'")}')" class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-sm font-semibold cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px]">calendar_month</span> View Schedule
+                                </button>
                             `;
-                        }).join("");
-
-                        const buttonHTML = w.status === "Available" ? `
-                            <button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
-                                Book
-                            </button>
-                        ` : `
-                            <button class="w-full bg-surface text-primary border border-surface-variant font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-colors">
-                                View Schedule
-                            </button>
-                        `;
+                        } else {
+                            bookButton = w.status === "Active" ? `
+                                <button onclick="openNewBookingModal(${w.id})" class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-sm font-semibold cursor-pointer border-0">
+                                    <span class="material-symbols-outlined text-[18px]">event_available</span> Book Now
+                                </button>
+                            ` : `
+                                <button disabled class="w-full bg-surface-variant text-on-surface-variant border border-outline-variant font-label-md text-label-md py-2.5 rounded-lg cursor-not-allowed opacity-60 flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">block</span> Unavailable
+                                </button>
+                            `;
+                        }
 
                         return `
-                            <div class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
-                                <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
-                                    <img alt="${w.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${w.image}">
-                                    <div class="absolute top-3 right-3 ${statusBadgeClass} font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
-                                        <span class="w-2 h-2 rounded-full ${dotClass}"></span>
-                                        ${w.status}
+                            <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group relative">
+                                <div class="h-48 w-full relative bg-surface-container-low shrink-0">
+                                    <img src="${imgUrl}" alt="${w.name}" class="w-full h-full object-cover">
+                                    ${statusBadge}
+                                </div>
+                                <div class="p-6 flex-1 flex flex-col justify-between">
+                                    <div class="mb-4">
+                                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight break-words">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</h3>
+                                        <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-start gap-1">
+                                            <span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-outline-variant">location_on</span>
+                                            <span class="leading-normal break-words">${w.location}</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-outline text-[18px]">group</span>
+                                            <span class="font-semibold">${w.capacity} Seats</span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-outline text-[18px]">square_foot</span>
+                                            <span class="font-semibold">${w.size || 150} sq ft</span>
+                                        </div>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Amenities</p>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            ${w.amenities && w.amenities.length > 0 
+                                                ? w.amenities.map(a => `<span class="bg-surface-variant/40 text-on-surface-variant border border-outline-variant/50 text-[11px] px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")
+                                                : `<span class="text-xs italic text-on-surface-variant">No amenities listed</span>`
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="p-5 flex-1 flex flex-col">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <h3 class="font-headline-md text-headline-md text-primary" style="font-size: 20px; line-height: 28px;">
-                                            ${w.name}
-                                        </h3>
-                                        <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
-                                            <span class="material-symbols-outlined text-sm">group</span>
-                                            ${w.capacity}
-                                        </span>
-                                    </div>
-                                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
-                                        ${w.location}
-                                    </p>
-                                    <div class="flex flex-wrap gap-2 mb-6">
-                                        ${amenitiesHTML}
-                                    </div>
-                                    <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
-                                        <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
-                                            <span>Next available:</span>
-                                            <strong class="text-primary text-right">${w.nextAvailable}</strong>
-                                        </div>
-                                        ${buttonHTML}
-                                    </div>
+                                <div class="border-t border-outline-variant/40 bg-surface-bright/50 px-6 py-3 shrink-0">
+                                    ${bookButton}
                                 </div>
                             </div>
                         `;
                     }).join("");
                 }
 
+                function handleSearch() {
+                    const query = document.getElementById("roomSearchInput").value.toLowerCase().trim();
+                    const filtered = workspaces.filter(w => 
+                        w.name.toLowerCase().includes(query) || 
+                        w.location.toLowerCase().includes(query)
+                    );
+                    renderWorkspaces(filtered);
+                }
+
+                // Load existing bookings from sessionStorage
+                function loadWorkspaceBookings() {
+                    let stored = sessionStorage.getItem("workspace_bookings");
+                    if (stored) {
+                        const parsed = JSON.parse(stored);
+                        if (!parsed.some(b => b.workspace === "Nichi-In Workspace 1 (Int)")) {
+                            sessionStorage.removeItem("workspace_bookings");
+                            stored = null;
+                        }
+                    }
+
+                    if (!stored) {
+                        const seedWorkspaceBookings = [
+                            { id: 100, booker: "Operational Manager", workspace: "Nichi-In Workspace 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
+                            { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2023 - Oct 29, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                            { id: 2, booker: "Marcus Reed", workspace: "Server Room", type: "Shared Space", term: "Monthly", period: "Oct 01, 2023 - Oct 31, 2023", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                            { id: 3, booker: "David Chen", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 24, 2023 - Oct 24, 2023", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
+                            { id: 4, booker: "Matthew Johnson", workspace: "Library (Int)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2023 - Dec 31, 2023", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
+                            { id: 5, booker: "Anna Lopez", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 30, 2023 - Nov 05, 2023", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
+                            { id: 6, booker: "Ronald Rodriguez", workspace: "Library (Int)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2023 - Nov 30, 2023", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
+                            { id: 7, booker: "Matthew Johnson", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 25, 2023 - Oct 25, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
+                            { id: 8, booker: "Jessica Taylor", workspace: "Server Room", type: "Shared Space", term: "Yearly", period: "Nov 01, 2023 - Oct 31, 2024", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
+                        ];
+                        sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
+                        stored = JSON.stringify(seedWorkspaceBookings);
+                    }
+                    workspaceBookings = JSON.parse(stored);
+                }
+
+                // Booking Modal popup handler
+                async function populateParentWorkspaceOptions(selectedCategory = "Internal") {
+                    const select = document.getElementById("book_parent_workspace");
+                    if (!select) return;
+
+                    const parents = workspaces.filter(w => w.status === "Active" && !w.parentWorkspace && w.clientType === selectedCategory);
+                    select.innerHTML = `<option value="">Select a Parent Zone...</option>` +
+                        parents.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
+                               .join("");
+                }
+
+                async function openNewBookingModal(workspaceId = null, dateStr = null) {
+                    loadWorkspaceBookings();
+
+                    const modal = document.getElementById('newBookingModal');
+                    const form = document.getElementById('newBookingForm');
+                    if (form) form.reset();
+
+                    // Pre-populate fields based on clicked workspace
+                    if (workspaceId) {
+                        const clicked = workspaces.find(w => w.id === workspaceId);
+                        if (clicked) {
+                            const category = clicked.clientType || "Internal";
+                            document.getElementById("book_client_category").value = category;
+
+                            await populateParentWorkspaceOptions(category);
+                            
+                            if (clicked.parentWorkspace) {
+                                document.getElementById("book_parent_workspace").value = clicked.parentWorkspace;
+                                handleFormDateOrWorkspaceChange();
+                                document.getElementById("book_subspace").value = clicked.name;
+                                handleSubspaceChange();
+                            } else {
+                                document.getElementById("book_parent_workspace").value = clicked.name;
+                                handleFormDateOrWorkspaceChange();
+                                document.getElementById("book_entire_parent").checked = true;
+                                handleParentCheckboxChange();
+                            }
+                        }
+                    } else {
+                        await populateParentWorkspaceOptions("External");
+                        document.getElementById("book_client_category").value = "External";
+                        document.getElementById("book_parent_workspace").value = "";
+                        handleFormDateOrWorkspaceChange();
+                    }
+
+                    // Pre-populate date picker values
+                    const today = new Date();
+                    let dateToUse = "";
+                    if (dateStr) {
+                        dateToUse = dateStr;
+                    } else {
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0');
+                        const dd = String(today.getDate()).padStart(2, '0');
+                        dateToUse = `${yyyy}-${mm}-${dd}`;
+                    }
+
+                    document.getElementById("book_start_date").value = dateToUse;
+                    document.getElementById("book_end_date").value = dateToUse;
+                    
+                    // Re-calculate slot and seat occupancies
+                    handleFormDateOrWorkspaceChange();
+
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeNewBookingModal() {
+                    document.getElementById('newBookingModal').classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+
+                function handleClientCategoryChange() {
+                    const category = document.getElementById("book_client_category").value;
+                    populateParentWorkspaceOptions(category);
+                    const parentSelect = document.getElementById("book_parent_workspace");
+                    if (parentSelect) parentSelect.value = "";
+                    handleFormDateOrWorkspaceChange();
+                }
+
+                function getHierarchy(name) {
+                    const wMatch = workspaces.find(w => w.name === name);
+                    const isParent = wMatch && !wMatch.parentWorkspace;
+                    
+                    let parent = null;
+                    let childrenWorkspaces = [];
+                    let childrenRooms = [];
+                    
+                    if (isParent) {
+                        parent = name;
+                        childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
+                    } else {
+                        if (wMatch && wMatch.parentWorkspace) {
+                            parent = wMatch.parentWorkspace;
+                        }
+                        if (parent) {
+                            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
+                        }
+                    }
+                    return { parent, childrenWorkspaces, childrenRooms };
+                }
+
+                function parsePeriod(periodStr) {
+                    const parts = periodStr.split(" - ");
+                    if (parts.length === 2) {
+                        return {
+                            start: new Date(parts[0] + "T00:00:00"),
+                            end: new Date(parts[1] + "T23:59:59")
+                        };
+                    }
+                    const d = new Date(periodStr + "T00:00:00");
+                    return { start: d, end: new Date(periodStr + "T23:59:59") };
+                }
+
+                function matchesRecurrence(dateObj, baseDate, recurType) {
+                    if (recurType === "None" || recurType === "" || !recurType) return true;
+                    if (recurType === "Daily") return true;
+                    if (recurType === "Weekly") {
+                        return dateObj.getDay() === baseDate.getDay();
+                    }
+                    if (recurType === "Monthly") {
+                        return dateObj.getDate() === baseDate.getDate();
+                    }
+                    return false;
+                }
+
+                function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
+                    if (Math.max(start1, start2) > Math.min(end1, end2)) {
+                        return false;
+                    }
+                    if (recur1 === "None" && recur2 === "None") {
+                        return true;
+                    }
+
+                    let curr = new Date(Math.max(start1, start2));
+                    let boundary = new Date(Math.min(end1, end2));
+                    while (curr <= boundary) {
+                        if (matchesRecurrence(curr, new Date(start1), recur1) && 
+                            matchesRecurrence(curr, new Date(start2), recur2)) {
+                            return true;
+                        }
+                        curr.setDate(curr.getDate() + 1);
+                    }
+                    return false;
+                }
+
+                function handleFormDateOrWorkspaceChange() {
+                    const parentSelect = document.getElementById("book_parent_workspace");
+                    const startVal = document.getElementById("book_start_date").value;
+                    const endVal = document.getElementById("book_end_date").value;
+
+                    const parentContainer = document.getElementById("parentEntireSpaceContainer");
+                    const childContainer = document.getElementById("childWorkspaceContainer");
+
+                    if (!parentSelect || parentSelect.value === "") {
+                        parentContainer.classList.add("hidden");
+                        childContainer.classList.add("hidden");
+                        return;
+                    }
+
+                    const parentName = parentSelect.value;
+                    parentContainer.classList.remove("hidden");
+
+                    const parentStatusEl = document.getElementById("parentAvailabilityStatus");
+                    const checkbox = document.getElementById("book_entire_parent");
+
+                    if (!startVal || !endVal) {
+                        parentStatusEl.textContent = "Please select dates to verify availability.";
+                        parentStatusEl.className = "text-xs font-semibold text-on-surface-variant";
+                        checkbox.disabled = false;
+                        
+                        populateSubspaces(parentName);
+                        childContainer.classList.remove("hidden");
+                        return;
+                    }
+
+                    const reqStart = new Date(startVal + "T00:00:00");
+                    const reqEnd = new Date(endVal + "T23:59:59");
+                    const recurring = document.getElementById("book_recurring").value;
+
+                    const hierarchy = getHierarchy(parentName);
+
+                    let bookedReason = "";
+                    let isOccupied = false;
+
+                    workspaceBookings.forEach(o => {
+                        if (o.status !== "Confirmed" || isOccupied) return;
+                        if (o.workspace !== parentName && o.workspace !== hierarchy.parent && !hierarchy.childrenWorkspaces.includes(o.workspace)) return;
+
+                        const period = parsePeriod(o.period);
+                        if (hasRecurrenceOverlap(reqStart.getTime(), reqEnd.getTime(), recurring, period.start.getTime(), period.end.getTime(), o.recurring || "None")) {
+                            isOccupied = true;
+                            bookedReason = `occupied by ${o.booker} (${o.workspace})`;
+                        }
+                    });
+
+                    if (isOccupied) {
+                        checkbox.checked = false;
+                        checkbox.disabled = true;
+                        parentStatusEl.textContent = `Unavailable: Child spaces are occupied (${bookedReason})`;
+                        parentStatusEl.className = "text-xs font-semibold text-error";
+                    } else {
+                        checkbox.disabled = false;
+                        parentStatusEl.textContent = "Entire workspace is available for booking.";
+                        parentStatusEl.className = "text-xs font-semibold text-emerald-600";
+                    }
+
+                    populateSubspaces(parentName);
+                    handleParentCheckboxChange();
+                }
+
+                function populateSubspaces(parentName) {
+                    const select = document.getElementById("book_subspace");
+                    if (!select) return;
+
+                    const children = workspaces.filter(w => w.parentWorkspace === parentName && w.status === "Active");
+                    select.innerHTML = children.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`).join("");
+                    
+                    handleSubspaceChange();
+                }
+
+                function handleParentCheckboxChange() {
+                    const checkbox = document.getElementById("book_entire_parent");
+                    const childContainer = document.getElementById("childWorkspaceContainer");
+
+                    if (checkbox.checked) {
+                        childContainer.classList.add("hidden");
+                    } else {
+                        childContainer.classList.remove("hidden");
+                        handleSubspaceChange();
+                    }
+                }
+
+                function handleSubspaceChange() {
+                    const subSelect = document.getElementById("book_subspace");
+                    const scopeContainer = document.getElementById("subspaceScopeContainer");
+
+                    if (!subSelect || subSelect.value === "") {
+                        scopeContainer.classList.add("hidden");
+                        return;
+                    }
+
+                    scopeContainer.classList.remove("hidden");
+                    handleScopeChange();
+                }
+
+                function handleScopeChange() {
+                    const scope = document.getElementById("book_scope").value;
+                    const container = document.getElementById("seatsCountContainer");
+                    if (scope === "Entire") {
+                        container.classList.add("hidden");
+                    } else {
+                        container.classList.remove("hidden");
+                    }
+                    updateAvailableSeats();
+                }
+
+                function updateAvailableSeats() {
+                    const subSelect = document.getElementById("book_subspace");
+                    const startVal = document.getElementById("book_start_date").value;
+                    const endVal = document.getElementById("book_end_date").value;
+                    const recurring = document.getElementById("book_recurring").value;
+                    const badge = document.getElementById("availableSeatsBadge");
+
+                    if (!subSelect || !badge) return;
+                    const opt = subSelect.options[subSelect.selectedIndex];
+                    if (!opt || opt.value === "") {
+                        badge.textContent = "Available: --";
+                        return;
+                    }
+
+                    const workspaceName = opt.value;
+                    const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
+
+                    if (!startVal || !endVal) {
+                        badge.textContent = `Available: ${totalCapacity}`;
+                        badge.dataset.available = totalCapacity;
+                        return;
+                    }
+
+                    const reqStart = new Date(startVal + "T00:00:00");
+                    const reqEnd = new Date(endVal + "T23:59:59");
+
+                    let peakOccupied = 0;
+                    let curr = new Date(reqStart);
+
+                    while (curr <= reqEnd) {
+                        if (matchesRecurrence(curr, reqStart, recurring)) {
+                            let countToday = 0;
+                            workspaceBookings.forEach(o => {
+                                if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                                const period = parsePeriod(o.period);
+                                if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
+                                    if (o.bookingScope === "Entire") {
+                                        countToday = totalCapacity;
+                                    } else {
+                                        countToday += parseInt(o.seatsBooked || 1);
+                                    }
+                                }
+                            });
+                            if (countToday > peakOccupied) {
+                                peakOccupied = countToday;
+                            }
+                        }
+                        curr.setDate(curr.getDate() + 1);
+                    }
+
+                    const available = Math.max(0, totalCapacity - peakOccupied);
+                    badge.textContent = `Available: ${available} / ${totalCapacity}`;
+                    badge.dataset.available = available;
+                }
+
+                function submitNewBooking(e) {
+                    e.preventDefault();
+
+                    const parentSelect = document.getElementById("book_parent_workspace");
+                    const parentWorkspace = parentSelect.value;
+                    const term = document.getElementById("book_term").value;
+                    const rawStart = document.getElementById("book_start_date").value;
+                    const rawEnd = document.getElementById("book_end_date").value;
+                    const recurring = document.getElementById("book_recurring").value;
+
+                    if (!parentWorkspace || !term || !rawStart || !rawEnd) {
+                        alert("Please fill in all fields.");
+                        return;
+                    }
+
+                    const isEntireParent = document.getElementById("book_entire_parent").checked;
+                    
+                    let targetWorkspaceName = parentWorkspace;
+                    let scope = "Entire";
+                    let seatsToBook = parseInt(parentSelect.options[parentSelect.selectedIndex].getAttribute("data-capacity") || 18);
+
+                    if (!isEntireParent) {
+                        const subSelect = document.getElementById("book_subspace");
+                        const subOpt = subSelect.options[subSelect.selectedIndex];
+                        if (!subSelect || subSelect.value === "") {
+                            alert("Please select a sub-space.");
+                            return;
+                        }
+                        targetWorkspaceName = subSelect.value;
+                        scope = document.getElementById("book_scope").value;
+                        const subCapacity = parseInt(subOpt.getAttribute("data-capacity") || 10);
+                        seatsToBook = scope === "Entire" ? subCapacity : parseInt(document.getElementById("book_seats").value) || 1;
+
+                        updateAvailableSeats();
+                        const badge = document.getElementById("availableSeatsBadge");
+                        const available = badge.dataset.available ? parseInt(badge.dataset.available) : subCapacity;
+
+                        if (seatsToBook > available) {
+                            alert(`Booking failed! Over-capacity/Space collision. Only ${available} seats are available in ${targetWorkspaceName}.`);
+                            return;
+                        }
+                    } else {
+                        handleFormDateOrWorkspaceChange();
+                        const checkbox = document.getElementById("book_entire_parent");
+                        if (checkbox.disabled) {
+                            alert(`Booking failed! Sibling elements or zones in ${parentWorkspace} are already occupied during this period.`);
+                            return;
+                        }
+                    }
+
+                    const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+                    const startFormatted = new Date(rawStart + "T00:00:00").toLocaleDateString('en-US', dateOptions);
+                    const endFormatted = new Date(rawEnd + "T00:00:00").toLocaleDateString('en-US', dateOptions);
+                    const periodStr = `${startFormatted} - ${endFormatted}`;
+
+                    const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
+                    const newBooking = {
+                        id: newId,
+                        booker: "Alex Rivera",
+                        workspace: targetWorkspaceName,
+                        type: "Shared Space",
+                        term: term,
+                        period: periodStr,
+                        bookingScope: scope,
+                        seatsBooked: seatsToBook,
+                        recurring: recurring,
+                        status: "Confirmed"
+                    };
+
+                    workspaceBookings.unshift(newBooking);
+                    sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+
+                    alert("Workspace booking confirmed successfully!");
+                    closeNewBookingModal();
+                    
+                    if (scheduleWorkspaceId) {
+                        renderBigCalendar();
+                        updateTimeSlotsForSelectedDate(selectedCalendarDateString);
+                    }
+                }
+
+                // Schedule Modal functions
+                let scheduleWorkspaceId = null;
+                let currentCalendarDate = new Date();
+                let selectedCalendarDateString = "";
+
+                function getSelectedScheduleDateString() {
+                    return selectedCalendarDateString;
+                }
+
+                function openScheduleModal(id, name) {
+                    scheduleWorkspaceId = id;
+                    window.scheduleWorkspaceId = id;
+                    document.getElementById("scheduleModalTitle").textContent = name.replace(/\s*\((Int|Ext)\)/i, "");
+                    document.getElementById("scheduleModalSubtitle").textContent = `Availability Schedule for ID #${id}`;
+
+                    // Set default selected calendar date to Today
+                    const today = new Date();
+                    currentCalendarDate = new Date();
+                    const yyyy = today.getFullYear();
+                    const mm = String(today.getMonth() + 1).padStart(2, '0');
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    selectedCalendarDateString = `${yyyy}-${mm}-${dd}`;
+
+                    renderBigCalendar();
+                    updateTimeSlotsForSelectedDate(selectedCalendarDateString);
+
+                    const overlay = document.getElementById("scheduleModalOverlay");
+                    const modal = document.getElementById("scheduleModal");
+                    
+                    modal.classList.remove("hidden");
+                    overlay.classList.remove("hidden");
+                    
+                    setTimeout(() => {
+                        modal.classList.remove("translate-x-full");
+                        overlay.classList.remove("opacity-0");
+                    }, 10);
+                    
+                    document.body.style.overflow = "hidden";
+                }
+
+                function closeScheduleModal() {
+                    const overlay = document.getElementById("scheduleModalOverlay");
+                    const modal = document.getElementById("scheduleModal");
+                    
+                    modal.classList.add("translate-x-full");
+                    overlay.classList.add("opacity-0");
+                    
+                    setTimeout(() => {
+                        modal.classList.add("hidden");
+                        overlay.classList.add("hidden");
+                        document.body.style.overflow = "";
+                    }, 300);
+                }
+
+                function renderBigCalendar() {
+                    const grid = document.getElementById("calendarDaysGrid");
+                    const label = document.getElementById("calendarMonthYearLabel");
+                    if (!grid || !label) return;
+
+                    const year = currentCalendarDate.getFullYear();
+                    const month = currentCalendarDate.getMonth(); // 0-indexed
+
+                    // Set label text
+                    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    label.textContent = `${monthNames[month]} ${year}`;
+
+                    // First day of the month
+                    const firstDayOfMonth = new Date(year, month, 1).getDay(); // 0 (Sun) to 6 (Sat)
+                    // Total days in the month
+                    const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
+
+                    let html = "";
+
+                    // Pad empty spots before first day
+                    for (let i = 0; i < firstDayOfMonth; i++) {
+                        html += `<div class="aspect-square"></div>`;
+                    }
+
+                    // Render days
+                    for (let day = 1; day <= totalDaysInMonth; day++) {
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                        const isSelected = dateStr === selectedCalendarDateString;
+
+                        const status = getCalendarDateStatus(year, month, day);
+
+                        let cardStyle = "";
+                        let statusColorClass = "";
+
+                        if (status === "Blocked") {
+                            statusColorClass = "bg-error/10 text-error border-error/25 hover:bg-error/15";
+                        } else {
+                            statusColorClass = "bg-emerald-500/10 text-emerald-700 border-emerald-500/25 hover:bg-emerald-500/15";
+                        }
+
+                        if (isSelected) {
+                            if (status === "Blocked") {
+                                cardStyle = "border-2 border-error bg-error-container/20 text-error font-bold ring-2 ring-error/20";
+                            } else {
+                                cardStyle = "border-2 border-emerald-600 bg-emerald-500/20 text-emerald-800 font-bold ring-2 ring-emerald-500/20";
+                            }
+                        } else {
+                            cardStyle = `border ${statusColorClass} font-semibold`;
+                        }
+
+                        html += `
+                            <button type="button" onclick="selectCalendarDay('${dateStr}')" class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs transition-all cursor-pointer ${cardStyle}">
+                                <span>${day}</span>
+                            </button>
+                        `;
+                    }
+
+                    grid.innerHTML = html;
+                }
+
+                function getCalendarDateStatus(year, month, day) {
+                    const checkDate = new Date(year, month, day);
+                    checkDate.setHours(0, 0, 0, 0);
+
+                    let isBooked = false;
+
+                    const clickedWorkspace = workspaces.find(w => w.id === scheduleWorkspaceId);
+                    if (clickedWorkspace) {
+                        const hierarchy = getHierarchy(clickedWorkspace.name);
+                        workspaceBookings.forEach(b => {
+                            if (b.status !== "Confirmed") return;
+                            const isMatch = b.workspace === clickedWorkspace.name || 
+                                            b.workspace === hierarchy.parent || 
+                                            hierarchy.childrenWorkspaces.includes(b.workspace);
+
+                            if (isMatch) {
+                                const period = parsePeriod(b.period);
+                                const periodStart = new Date(period.start);
+                                periodStart.setHours(0, 0, 0, 0);
+                                const periodEnd = new Date(period.end);
+                                periodEnd.setHours(23, 59, 59, 999);
+
+                                if (checkDate >= periodStart && checkDate <= periodEnd) {
+                                    isBooked = true;
+                                }
+                            }
+                        });
+                    }
+
+                    if (isBooked) return "Blocked";
+
+                    // Default fallback mock: Today is blocked, others available
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    if (checkDate.getTime() === today.getTime()) {
+                        return "Blocked";
+                    }
+
+                    return "Available";
+                }
+
+                function selectCalendarDay(dateStr) {
+                    selectedCalendarDateString = dateStr;
+                    renderBigCalendar();
+                    updateTimeSlotsForSelectedDate(dateStr);
+                }
+
+                function prevCalendarMonth() {
+                    currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+                    renderBigCalendar();
+                }
+
+                function nextCalendarMonth() {
+                    currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+                    renderBigCalendar();
+                }
+
+                function updateTimeSlotsForSelectedDate(dateStr) {
+                    const slotsContainer = document.getElementById("scheduleTimeSlots");
+                    if (!slotsContainer) return;
+
+                    const targetDate = new Date(dateStr + "T00:00:00");
+                    targetDate.setHours(0, 0, 0, 0);
+
+                    let isBooked = false;
+                    let bookingFound = null;
+
+                    const clickedWorkspace = workspaces.find(w => w.id === scheduleWorkspaceId);
+                    if (clickedWorkspace) {
+                        const hierarchy = getHierarchy(clickedWorkspace.name);
+                        workspaceBookings.forEach(b => {
+                            if (b.status !== "Confirmed") return;
+                            const isMatch = b.workspace === clickedWorkspace.name || 
+                                            b.workspace === hierarchy.parent || 
+                                            hierarchy.childrenWorkspaces.includes(b.workspace);
+
+                            if (isMatch) {
+                                const period = parsePeriod(b.period);
+                                const periodStart = new Date(period.start);
+                                periodStart.setHours(0, 0, 0, 0);
+                                const periodEnd = new Date(period.end);
+                                periodEnd.setHours(23, 59, 59, 999);
+
+                                if (targetDate >= periodStart && targetDate <= periodEnd) {
+                                    isBooked = true;
+                                    bookingFound = b;
+                                }
+                            }
+                        });
+                    }
+
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const isToday = targetDate.getTime() === today.getTime();
+
+                    const slotTime = "Full Day (09:00 AM - 06:00 PM)";
+                    let slots = [];
+                    if (isBooked && bookingFound) {
+                        slots = [{
+                            time: slotTime,
+                            status: "Booked",
+                            host: bookingFound.booker,
+                            purpose: bookingFound.bookingScope === "Entire" ? "Full Space Booking" : `${bookingFound.seatsBooked} Seats Booking`
+                        }];
+                    } else {
+                        if (isToday) {
+                            slots = [{ time: slotTime, status: "Booked", host: "Marcus Reed", purpose: "Strategy Planning" }];
+                        } else {
+                            slots = [{ time: slotTime, status: "Available" }];
+                        }
+                    }
+
+                    slotsContainer.innerHTML = slots.map(slot => {
+                        if (slot.status === "Booked") {
+                            return `
+                                <div class="flex items-center justify-between p-4 bg-error-container/20 border border-error/10 rounded-xl">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-error shrink-0">cancel</span>
+                                        <div>
+                                            <div class="font-label-md text-label-md font-semibold text-on-surface">${slot.time}</div>
+                                            <div class="text-xs text-error font-medium mt-0.5">Booked • ${slot.purpose} (${slot.host})</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-bold text-error uppercase tracking-wider bg-error/10 px-2.5 py-1 rounded-lg">Busy</span>
+                                </div>
+                            `;
+                        } else {
+                            return `
+                                <div class="flex items-center justify-between p-4 bg-secondary-container/20 border border-secondary/15 rounded-xl hover:border-secondary transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <span class="material-symbols-outlined text-secondary shrink-0">check_circle</span>
+                                        <div>
+                                            <div class="font-label-md text-label-md font-semibold text-on-surface">${slot.time}</div>
+                                            <div class="text-xs text-secondary font-medium mt-0.5">Open slot • Tap to reserve</div>
+                                        </div>
+                                    </div>
+                                    <button onclick="openNewBookingModal(${scheduleWorkspaceId}, getSelectedScheduleDateString()); closeScheduleModal();" class="text-xs font-bold text-secondary uppercase tracking-wider bg-secondary/10 hover:bg-secondary/20 px-2.5 py-1 rounded-lg transition-colors border-0 cursor-pointer">Available</button>
+                                </div>
+                            `;
+                        }
+                    }).join("");
+                }
+
                 loadWorkspaces();
+                
+                window.handleSearch = handleSearch;
+                window.openScheduleModal = openScheduleModal;
+                window.closeScheduleModal = closeScheduleModal;
+                window.renderBigCalendar = renderBigCalendar;
+                window.selectCalendarDay = selectCalendarDay;
+                window.prevCalendarMonth = prevCalendarMonth;
+                window.nextCalendarMonth = nextCalendarMonth;
+                window.updateTimeSlotsForSelectedDate = updateTimeSlotsForSelectedDate;
+                window.getSelectedScheduleDateString = getSelectedScheduleDateString;
+                window.openNewBookingModal = openNewBookingModal;
+                window.closeNewBookingModal = closeNewBookingModal;
+                window.handleClientCategoryChange = handleClientCategoryChange;
+                window.handleFormDateOrWorkspaceChange = handleFormDateOrWorkspaceChange;
+                window.handleParentCheckboxChange = handleParentCheckboxChange;
+                window.handleSubspaceChange = handleSubspaceChange;
+                window.handleScopeChange = handleScopeChange;
+                window.updateAvailableSeats = updateAvailableSeats;
+                window.submitNewBooking = submitNewBooking;
             })();
         </script>
     </main>
