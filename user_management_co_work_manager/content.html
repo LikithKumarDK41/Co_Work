@@ -8,7 +8,7 @@
         <!-- Search -->
         <div class="relative flex-grow md:flex-grow-0">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-            <input class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Search members..." type="text">
+            <input id="memberSearch" oninput="handleSearch()" class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Search members..." type="text">
         </div>
         <!-- Filters -->
         <button class="flex items-center gap-1.5 px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors font-label-md shadow-sm justify-center flex-grow md:flex-grow-0 whitespace-nowrap">
@@ -37,87 +37,8 @@
                     <th class="px-md py-sm w-12"></th>
                 </tr>
             </thead>
-            <tbody class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
-                <!-- Row 1 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc">
-                            <span class="font-label-md text-label-md font-semibold">Sarah Jenkins</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">sarah.j@example.com</td>
-                    <td class="px-md py-sm">End User</td>
-                    <td class="px-md py-sm">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Oct 12, 2023</td>
-                    <td class="px-md py-sm text-right">
-                        <button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 2 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">MR</div>
-                            <span class="font-label-md text-label-md font-semibold">Marcus Reed</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">m.reed@techcorp.io</td>
-                    <td class="px-md py-sm">Admin</td>
-                    <td class="px-md py-sm">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Aug 05, 2023</td>
-                    <td class="px-md py-sm text-right">
-                        <button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 3 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzUHqL2k0j2xNOIkkiq_7sOjlLc5_RXUP-SgGvH479IK6ykn_s4jtfS7PSzCVKyfbOSreBIjjfO-Je_xviI62onBszhSLpyYjtjtEJ3wkNsF6UwxzI_V8PKNVMBloaU-sTGFmD5-RThemF0XtuyxoIjPBwbJv_9ODlerG04x8E--dyp_SIfaUjilPHuDJ43zbucEdCbuy89uOtbDiRoy2dSpsYMWYzxkHFnksFMP9bsKfW2Sn5nArJT2nANEdK2_WQI2BbMWK1Z3Y">
-                            <span class="font-label-md text-label-md font-semibold">David Chen</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">d.chen@freelance.net</td>
-                    <td class="px-md py-sm">Staff</td>
-                    <td class="px-md py-sm">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-error/10 text-error">Past Due</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Jan 22, 2024</td>
-                    <td class="px-md py-sm text-right">
-                        <button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 4 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-label-md shrink-0">AL</div>
-                            <span class="font-label-md text-label-md font-semibold">Anna Lopez</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">anna.l@designstudio.co</td>
-                    <td class="px-md py-sm">End User</td>
-                    <td class="px-md py-sm">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant border border-outline-variant/50">Inactive</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Nov 15, 2022</td>
-                    <td class="px-md py-sm text-right">
-                        <button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
+            <tbody id="members_table_body" class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
+                <!-- Dynamic rows will be injected here -->
             </tbody>
         </table>
     </div>
@@ -125,16 +46,8 @@
     <!-- Pagination Footer -->
     <div class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
         <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 1 to 4 of 48 entries</span>
-        <div class="flex gap-xs">
-            <button class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" disabled>
-                <span class="material-symbols-outlined">chevron_left</span>
-            </button>
-            <button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center" onclick="changePage(1, this)">1</button>
-            <button class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center" onclick="changePage(2, this)">2</button>
-            <button class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center" onclick="changePage(3, this)">3</button>
-            <button class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant">
-                <span class="material-symbols-outlined">chevron_right</span>
-            </button>
+        <div id="pagination_container" class="flex gap-xs items-center">
+            <!-- Dynamic pagination buttons will be injected here -->
         </div>
     </div>
 </div>
@@ -153,28 +66,30 @@
     <div class="flex-1 overflow-y-auto p-lg">
         <!-- Hero Info -->
         <div class="flex flex-col items-center text-center mb-xl">
-            <img alt="Sarah Jenkins Profile" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB60-3oK9U3PahU-2LbhIqE0cMOHgR-Pk1UPJpnR59m52GvwxUUcW9npcgOHq9CUpQJ14GVwF8YiP3SMy-BHGkV2_sHKQyBmGm_xVzVzjd0Tly2RG892JKktZBy1oMOxizWorHzxWMswFgSbq4PWYQFZn_XOxDAg5jiiaIqstcCMThBaCzlgl0EAEFE0WWYaIk5IVk5hzkkJRa9CNX81dbkJvuNpb9TxXZzDL-Z6wAcqqIDgUlVCAgiCOkikF9DvlOgLzPu8R7lcdk">
-            <h4 class="font-headline-md text-headline-md text-on-surface">Sarah Jenkins</h4>
-            <p class="font-body-sm text-on-surface-variant mb-sm">sarah.j@example.com</p>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-secondary/10 text-secondary">Active Member</span>
+            <div id="profile_avatar_container" class="mb-md">
+                <!-- Image or Initial will be loaded here -->
+            </div>
+            <h4 id="profile_name" class="font-headline-md text-headline-md text-on-surface"></h4>
+            <p id="profile_email" class="font-body-sm text-on-surface-variant mb-sm"></p>
+            <span id="profile_status" class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold"></span>
         </div>
         <!-- Bento Details Grid -->
         <div class="grid grid-cols-2 gap-sm mb-xl">
             <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Plan</p>
-                <p class="font-label-md text-on-surface font-semibold">Hot Desk</p>
+                <p id="profile_plan" class="font-label-md text-on-surface font-semibold"></p>
             </div>
             <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Join Date</p>
-                <p class="font-label-md text-on-surface font-semibold">Oct 12, 2023</p>
+                <p id="profile_join_date" class="font-label-md text-on-surface font-semibold"></p>
             </div>
             <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Company</p>
-                <p class="font-label-md text-on-surface font-semibold">Independent</p>
+                <p id="profile_company" class="font-label-md text-on-surface font-semibold"></p>
             </div>
             <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
                 <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Access Level</p>
-                <p class="font-label-md text-on-surface font-semibold">24/7 Standard</p>
+                <p id="profile_access_level" class="font-label-md text-on-surface font-semibold"></p>
             </div>
         </div>
         <!-- Recent Activity List -->
@@ -242,19 +157,19 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
                         <div class="flex flex-col gap-1">
                             <label class="font-label-sm text-on-surface-variant">First Name <span class="text-error">*</span></label>
-                            <input type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="John">
+                            <input id="reg_first_name" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="John">
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-label-sm text-on-surface-variant">Last Name <span class="text-error">*</span></label>
-                            <input type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Doe">
+                            <input id="reg_last_name" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Doe">
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-label-sm text-on-surface-variant">Email Address <span class="text-error">*</span></label>
-                            <input type="email" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="john@example.com">
+                            <input id="reg_email" type="email" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="john@example.com">
                         </div>
                         <div class="flex flex-col gap-1">
                             <label class="font-label-sm text-on-surface-variant">Phone Number</label>
-                            <input type="tel" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="+1 (555) 000-0000">
+                            <input id="reg_phone" type="tel" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="+1 (555) 000-0000">
                         </div>
                         <div class="flex flex-col gap-1 sm:col-span-2">
                             <label class="font-label-sm text-on-surface-variant">User Role <span class="text-error">*</span></label>
@@ -270,11 +185,11 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
                                 <div class="flex flex-col gap-1">
                                     <label class="font-label-sm text-on-surface-variant">Company Name</label>
-                                    <input type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Acme Corp">
+                                    <input id="reg_company" type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Acme Corp">
                                 </div>
                                 <div class="flex flex-col gap-1">
                                     <label class="font-label-sm text-on-surface-variant">Job Title / Designation</label>
-                                    <input type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Software Engineer">
+                                    <input id="reg_title" type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Software Engineer">
                                 </div>
                                 <div class="flex flex-col gap-1">
                                     <label class="font-label-sm text-on-surface-variant">Company Website</label>
@@ -363,6 +278,193 @@
 </div>
 
 <script>
+    let users = [];
+    let filteredUsers = [];
+    let searchQuery = "";
+    let currentPage = 1;
+    const itemsPerPage = 4;
+
+    async function loadUsers() {
+        let stored = sessionStorage.getItem("users");
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/users.json");
+                const data = await res.json();
+                sessionStorage.setItem("users", JSON.stringify(data));
+                stored = JSON.stringify(data);
+            } catch (e) {
+                console.error("Failed to load users", e);
+                return;
+            }
+        }
+        users = JSON.parse(stored);
+        applyFilters();
+    }
+
+    function applyFilters() {
+        filteredUsers = users.filter(u => {
+            const matchSearch = searchQuery === "" || 
+                u.name.toLowerCase().includes(searchQuery) ||
+                u.email.toLowerCase().includes(searchQuery) ||
+                u.role.toLowerCase().includes(searchQuery);
+            return matchSearch;
+        });
+        currentPage = 1;
+        renderUsers();
+    }
+
+    function handleSearch() {
+        const input = document.getElementById("memberSearch");
+        if (input) {
+            searchQuery = input.value.toLowerCase().trim();
+            applyFilters();
+        }
+    }
+
+    function renderUsers() {
+        const tbody = document.getElementById("members_table_body");
+        if (!tbody) return;
+
+        const totalItems = filteredUsers.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+        const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+        if (pageUsers.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
+            renderPagination(0, 0, 0);
+            return;
+        }
+
+        tbody.innerHTML = pageUsers.map(u => {
+            let avatarHTML = "";
+            if (u.avatar) {
+                avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
+            } else {
+                const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+            }
+
+            let statusBadgeClass = "bg-secondary/10 text-secondary";
+            if (u.status === "Inactive") {
+                statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
+            } else if (u.status === "Past Due") {
+                statusBadgeClass = "bg-error/10 text-error";
+            }
+
+            return `
+                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="viewMemberProfile(${u.id})">
+                    <td class="px-md py-sm">
+                        <div class="flex items-center gap-sm">
+                            ${avatarHTML}
+                            <span class="font-label-md text-label-md font-semibold">${u.name}</span>
+                        </div>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">${u.email}</td>
+                    <td class="px-md py-sm">${u.role}</td>
+                    <td class="px-md py-sm">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold ${statusBadgeClass}">${u.status}</span>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">${u.joinDate}</td>
+                    <td class="px-md py-sm text-right" onclick="event.stopPropagation()">
+                        <button onclick="deleteMember(${u.id})" class="text-error hover:bg-error/10 p-1.5 rounded-md transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+        renderPagination(startIndex + 1, endIndex, totalItems);
+    }
+
+    function renderPagination(start, end, total) {
+        const container = document.getElementById("pagination_container");
+        const info = document.getElementById("paginationInfo");
+        if (!container || !info) return;
+
+        info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+
+        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+        
+        let html = `
+            <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+            } else {
+                html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+            }
+        }
+
+        html += `
+            <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function goToPage(p) {
+        currentPage = p;
+        renderUsers();
+    }
+
+    function viewMemberProfile(id) {
+        const u = users.find(x => x.id === id);
+        if (!u) return;
+
+        // Populate side-over panel elements
+        const nameEl = document.getElementById("profile_name");
+        const emailEl = document.getElementById("profile_email");
+        const statusEl = document.getElementById("profile_status");
+        const planEl = document.getElementById("profile_plan");
+        const joinDateEl = document.getElementById("profile_join_date");
+        const companyEl = document.getElementById("profile_company");
+        const accessEl = document.getElementById("profile_access_level");
+        const avatarContainer = document.getElementById("profile_avatar_container");
+
+        if (nameEl) nameEl.textContent = u.name;
+        if (emailEl) emailEl.textContent = u.email;
+        if (planEl) planEl.textContent = u.plan || "Hot Desk";
+        if (joinDateEl) joinDateEl.textContent = u.joinDate;
+        if (companyEl) companyEl.textContent = u.company || "Independent";
+        if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
+
+        if (statusEl) {
+            statusEl.textContent = u.status + " Member";
+            statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
+            if (u.status === "Active") {
+                statusEl.classList.add("bg-secondary/10", "text-secondary");
+            } else if (u.status === "Inactive") {
+                statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
+            } else if (u.status === "Past Due") {
+                statusEl.classList.add("bg-error/10", "text-error");
+            }
+        }
+
+        if (avatarContainer) {
+            if (u.avatar) {
+                avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
+            } else {
+                const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
+            }
+        }
+
+        openProfileModal();
+    }
+
     function openProfileModal() {
         const modal = document.getElementById('profileModal');
         const scrim = document.getElementById('profileScrim');
@@ -428,35 +530,66 @@
     
     function submitRegistration() {
         const form = document.getElementById('registerMemberForm');
-        if (form.checkValidity()) {
-            // Placeholder for real logic
-            alert('Member registered successfully!');
-            closeRegisterModal();
-            form.reset();
-        } else {
-            // Trigger native HTML5 validation UI
+        if (!form.checkValidity()) {
             form.reportValidity();
+            return;
         }
+
+        const firstName = document.getElementById("reg_first_name").value.trim();
+        const lastName = document.getElementById("reg_last_name").value.trim();
+        const email = document.getElementById("reg_email").value.trim();
+        const phone = document.getElementById("reg_phone").value.trim();
+        const rawRole = document.getElementById("userRoleSelect").value;
+        const company = document.getElementById("reg_company").value.trim();
+        const title = document.getElementById("reg_title").value.trim();
+
+        let displayRole = "End User";
+        let displayAccess = "24/7 Standard";
+        let displayPlan = "Hot Desk";
+        if (rawRole === "admin") {
+            displayRole = "Admin";
+            displayAccess = "Full Access";
+            displayPlan = "Dedicated Desk";
+        } else if (rawRole === "staff") {
+            displayRole = "Staff";
+            displayAccess = "Business Hours";
+            displayPlan = "Hot Desk";
+        }
+
+        const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+        const options = { month: 'short', day: '2-digit', year: 'numeric' };
+        const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
+
+        const newUser = {
+            id: newId,
+            name: `${firstName} ${lastName}`,
+            email: email,
+            role: displayRole,
+            status: "Active",
+            joinDate: formattedDate,
+            avatar: "",
+            company: company || "Independent",
+            accessLevel: displayAccess,
+            plan: displayPlan,
+            phone: phone
+        };
+
+        users.unshift(newUser);
+        sessionStorage.setItem("users", JSON.stringify(users));
+        applyFilters();
+
+        alert('Member registered successfully!');
+        closeRegisterModal();
+        form.reset();
     }
 
-    function changePage(page, element) {
-        // Reset all buttons
-        const buttons = document.querySelectorAll('.pagination-btn');
-        buttons.forEach(btn => {
-            btn.classList.remove('bg-primary', 'text-on-primary');
-            btn.classList.add('hover:bg-surface-container-low', 'text-on-surface');
-        });
-        
-        // Set active button
-        element.classList.remove('hover:bg-surface-container-low', 'text-on-surface');
-        element.classList.add('bg-primary', 'text-on-primary');
-        
-        // Update text
-        const itemsPerPage = 4;
-        const totalItems = 48;
-        const start = (page - 1) * itemsPerPage + 1;
-        const end = Math.min(page * itemsPerPage, totalItems);
-        document.getElementById('paginationInfo').innerText = `Showing ${start} to ${end} of ${totalItems} entries`;
+    function deleteMember(id) {
+        if (confirm("Are you sure you want to remove this member?")) {
+            users = users.filter(u => u.id !== id);
+            sessionStorage.setItem("users", JSON.stringify(users));
+            applyFilters();
+            alert("Member removed successfully.");
+        }
     }
 
     function handleRoleChange() {
@@ -485,4 +618,7 @@
             staffContainer.classList.add('block');
         }
     }
+
+    // Initialize page
+    loadUsers();
 </script>

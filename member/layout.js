@@ -56,10 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <a class="sidebar-profile" href="profile.html">
-            <img src="${avatarSrc}" alt="Alex Rivera">
+            <img class="profile-avatar" src="${avatarSrc}" alt="Alex Rivera">
             <div>
-                <div class="sidebar-profile-name">Alex Rivera</div>
-                <div class="sidebar-profile-role">Premium Member</div>
+                <div class="sidebar-profile-name profile-name">Alex Rivera</div>
+                <div class="sidebar-profile-role profile-role">Premium Member</div>
             </div>
         </a>
 
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
 
             <a href="profile.html" class="mobile-profile-avatar">
-                <img src="${avatarSrc}" alt="Profile">
+                <img class="profile-avatar" src="${avatarSrc}" alt="Profile">
             </a>
         </div>
     `;
@@ -118,10 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <a class="sidebar-profile" href="profile.html" style="margin:14px 10px 12px;">
-            <img src="${avatarSrc}" alt="Alex Rivera">
+            <img class="profile-avatar" src="${avatarSrc}" alt="Alex Rivera">
             <div>
-                <div class="sidebar-profile-name">Alex Rivera</div>
-                <div class="sidebar-profile-role">Premium Member</div>
+                <div class="sidebar-profile-name profile-name">Alex Rivera</div>
+                <div class="sidebar-profile-role profile-role">Premium Member</div>
             </div>
         </a>
 
@@ -134,6 +134,28 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     `;
     document.body.appendChild(drawer);
+
+    async function loadProfile() {
+        let profile = sessionStorage.getItem("profile");
+        if (profile) return JSON.parse(profile);
+        try {
+            const res = await fetch("data/profile.json");
+            const data = await res.json();
+            sessionStorage.setItem("profile", JSON.stringify(data));
+            return data;
+        } catch (e) {
+            console.error("Failed to load profile.json", e);
+            return null;
+        }
+    }
+
+    loadProfile().then(profile => {
+        if (profile) {
+            document.querySelectorAll(".profile-avatar").forEach(img => img.src = profile.avatar);
+            document.querySelectorAll(".profile-name").forEach(el => el.textContent = profile.name);
+            document.querySelectorAll(".profile-role").forEach(el => el.textContent = profile.role);
+        }
+    });
 
     // const fab = document.createElement("a");
     // fab.id = "layout-fab";
@@ -355,13 +377,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const settingsCb = (e) => {
-        e.preventDefault();
-        alert("Settings panel coming soon!");
-    };
-
-    document.getElementById("settings-btn")?.addEventListener("click", settingsCb);
-    document.getElementById("drawer-settings-btn")?.addEventListener("click", settingsCb);
 
     document.getElementById("layout-notif-btn")?.addEventListener("click", () => {
         alert("No new notifications.");

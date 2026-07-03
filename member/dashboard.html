@@ -181,37 +181,14 @@
 <div class="col-span-12 lg:col-span-4 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col p-6">
     <div class="flex justify-between items-center mb-6 border-b border-slate-50 pb-4">
         <h3 class="text-xl font-bold text-slate-900 tracking-tight">Expected Visitors</h3>
-        <a class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500" href="invite_visitor.html">
+        <a class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500" href="visitor_history.html?register=true">
             <span class="material-symbols-outlined">add</span>
         </a>
     </div>
-    <div class="flex-1 space-y-6">
-        <!-- Visitor 1 -->
-        <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center font-bold text-blue-600 text-sm">SJ</div>
-            <div class="flex-1">
-                <p class="text-sm font-semibold text-slate-900">Sarah Jenkins</p>
-                <p class="text-xs text-slate-500 mt-0.5">Design Agency Inc.</p>
-            </div>
-            <div class="text-right">
-                <p class="text-sm font-semibold text-slate-900">9:45 AM</p>
-                <p class="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider mt-0.5">Arrived</p>
-            </div>
-        </div>
-        <!-- Visitor 2 -->
-        <div class="flex items-center gap-4">
-            <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600 text-sm">MR</div>
-            <div class="flex-1">
-                <p class="text-sm font-semibold text-slate-900">Michael Ross</p>
-                <p class="text-xs text-slate-500 mt-0.5">Freelance Developer</p>
-            </div>
-            <div class="text-right">
-                <p class="text-sm font-semibold text-slate-900">2:00 PM</p>
-                <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5">Expected</p>
-            </div>
-        </div>
+    <div id="expected_visitors_list" class="flex-1 space-y-6">
+        <!-- Will be populated dynamically -->
     </div>
-    <a class="mt-6 w-full border border-slate-200 text-slate-700 text-sm font-semibold py-2.5 rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-colors block text-center" href="invite_visitor.html">
+    <a class="mt-6 w-full border border-slate-200 text-slate-700 text-sm font-semibold py-2.5 rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-colors block text-center" href="visitor_history.html?register=true">
         Register New Visitor
     </a>
 </div>
@@ -268,5 +245,74 @@
 
 </div>
 </div>
+
+<script>
+    async function loadExpectedVisitors() {
+        let visitors = sessionStorage.getItem("visitors");
+        if (!visitors) {
+            try {
+                const res = await fetch("data/visitors.json");
+                const data = await res.json();
+                sessionStorage.setItem("visitors", JSON.stringify(data));
+                visitors = JSON.stringify(data);
+            } catch(e) {
+                console.error("Failed to load visitors list", e);
+                return;
+            }
+        }
+        const visitorList = JSON.parse(visitors);
+        
+        // Filter to show active/expected/registered/confirmed/checked-in visitors
+        const expected = visitorList.filter(v => 
+            v.status === "Registered" || 
+            v.status === "Confirmed" || 
+            v.status === "Checked-In"
+        ).slice(0, 3); // show up to 3
+
+        const container = document.getElementById("expected_visitors_list");
+        if (!container) return;
+
+        if (expected.length === 0) {
+            container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No expected visitors today</p>`;
+            return;
+        }
+
+        container.innerHTML = expected.map(v => {
+            const initials = v.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            let bgClass = "bg-slate-100 text-slate-600";
+            let statusColorClass = "text-slate-500";
+            let displayStatus = v.status;
+            
+            if (v.status === "Checked-In") {
+                bgClass = "bg-amber-50 text-amber-600";
+                statusColorClass = "text-amber-700";
+                displayStatus = "Arrived";
+            } else if (v.status === "Confirmed") {
+                bgClass = "bg-indigo-50 text-indigo-600";
+                statusColorClass = "text-indigo-600";
+                displayStatus = "Confirmed";
+            } else if (v.status === "Registered") {
+                bgClass = "bg-blue-50 text-blue-600";
+                statusColorClass = "text-blue-600";
+                displayStatus = "Expected";
+            }
+            
+            return `
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 ${bgClass} rounded-full flex items-center justify-center font-bold text-sm shrink-0">${initials}</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-slate-900 truncate">${v.name}</p>
+                        <p class="text-xs text-slate-500 mt-0.5 truncate">${v.company}</p>
+                    </div>
+                    <div class="text-right shrink-0">
+                        <p class="text-sm font-semibold text-slate-900">${v.time}</p>
+                        <p class="text-[11px] font-semibold ${statusColorClass} uppercase tracking-wider mt-0.5">${displayStatus}</p>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+    loadExpectedVisitors();
+</script>
 </main>
 </body></html>

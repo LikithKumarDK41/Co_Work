@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Elena Rodriguez",
+    "company": "Acme Corp",
+    "date": "Oct 28, 2023",
+    "time": "10:00 AM",
+    "purpose": "Quarterly Strategy Review",
+    "status": "Registered"
+  },
+  {
+    "id": 2,
+    "name": "Marcus Chen",
+    "company": "Independent Contractor",
+    "date": "Oct 27, 2023",
+    "time": "02:30 PM",
+    "purpose": "Portfolio Pitch",
+    "status": "Confirmed"
+  },
+  {
+    "id": 3,
+    "name": "Sarah Jenkins",
+    "company": "Venture Partners",
+    "date": "Oct 26, 2023",
+    "time": "11:15 AM",
+    "purpose": "Investment Discussion",
+    "status": "Checked-In"
+  },
+  {
+    "id": 4,
+    "name": "Amanda Lee",
+    "company": "TechFlow Inc.",
+    "date": "Oct 24, 2023",
+    "time": "09:00 AM",
+    "purpose": "Technical Interview",
+    "status": "Completed"
+  },
+  {
+    "id": 5,
+    "name": "David Thompson",
+    "company": "Design Studio X",
+    "date": "Oct 22, 2023",
+    "time": "04:00 PM",
+    "purpose": "Project Kickoff",
+    "status": "No-show"
+  }
+]

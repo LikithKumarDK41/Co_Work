@@ -81,7 +81,7 @@
         <section class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
             <div class="lg:col-span-2 bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all">
                 <span class="material-symbols-outlined text-slate-400 pl-3 pr-2">search</span>
-                <input class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-900 placeholder-slate-400 py-2" placeholder="Search visitors by name or company..." type="text">
+                <input id="visitor_search" class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-900 placeholder-slate-400 py-2" placeholder="Search visitors by name or company..." type="text">
             </div>
             <div class="bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm relative hover:border-slate-300 transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-slate-400 pl-3 pr-2 absolute pointer-events-none">calendar_today</span>
@@ -95,10 +95,13 @@
             </div>
             <div class="bg-white rounded-xl p-1.5 flex items-center border border-slate-200 shadow-sm relative hover:border-slate-300 transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-slate-400 pl-3 pr-2 absolute pointer-events-none">filter_list</span>
-                <select class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-700 py-2 pl-10 pr-10 cursor-pointer appearance-none">
-                    <option>All Statuses</option>
-                    <option>Completed</option>
-                    <option>No-show</option>
+                <select id="visitor_status_filter" class="w-full bg-transparent border-none focus:ring-0 text-sm text-slate-700 py-2 pl-10 pr-10 cursor-pointer appearance-none">
+                    <option value="All">All Statuses</option>
+                    <option value="Registered">Registered</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Checked-In">Checked-In</option>
+                    <option value="Completed">Completed</option>
+                    <option value="No-show">No-show</option>
                 </select>
                 <span class="material-symbols-outlined text-slate-400 absolute right-3 pointer-events-none">expand_more</span>
             </div>
@@ -117,173 +120,14 @@
                             <th class="py-4 px-6 text-xs text-slate-500 uppercase tracking-widest font-semibold text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-50">
-                        <!-- Row 1: Registered -->
-                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
-                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
-                                <div class="font-semibold text-sm">Oct 28, 2023</div>
-                                <div class="text-slate-500 text-xs mt-0.5">10:00 AM</div>
-                            </td>
-                            <td class="py-4 px-6 text-slate-900">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-sm shrink-0">ER</div>
-                                    <div>
-                                        <div class="font-semibold text-sm">Elena Rodriguez</div>
-                                        <div class="text-slate-500 text-xs mt-0.5">Acme Corp</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 text-sm text-slate-600">Quarterly Strategy Review</td>
-                            <td class="py-4 px-6">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-blue-50 text-blue-700 text-[11px] font-bold uppercase tracking-wider border border-blue-100">
-                                    Registered
-                                </span>
-                            </td>
-                            <td class="py-4 px-6">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button onclick="openPreRegisterModal('Elena Rodriguez', 'Acme Corp', '10:00', 'Quarterly Strategy Review')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                                    </button>
-                                    <button onclick="deleteVisitor(this)" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Row 2: Confirmed -->
-                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
-                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
-                                <div class="font-semibold text-sm">Oct 27, 2023</div>
-                                <div class="text-slate-500 text-xs mt-0.5">02:30 PM</div>
-                            </td>
-                            <td class="py-4 px-6 text-slate-900">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-sm shrink-0">MC</div>
-                                    <div>
-                                        <div class="font-semibold text-sm">Marcus Chen</div>
-                                        <div class="text-slate-500 text-xs mt-0.5">Independent Contractor</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 text-sm text-slate-600">Portfolio Pitch</td>
-                            <td class="py-4 px-6">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-indigo-50 text-indigo-700 text-[11px] font-bold uppercase tracking-wider border border-indigo-100">
-                                    Confirmed
-                                </span>
-                            </td>
-                            <td class="py-4 px-6">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button onclick="openPreRegisterModal('Marcus Chen', 'Independent Contractor', '14:30', 'Portfolio Pitch')" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                                    </button>
-                                    <button onclick="deleteVisitor(this)" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Row 3: Checked-In -->
-                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
-                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
-                                <div class="font-semibold text-sm">Oct 26, 2023</div>
-                                <div class="text-slate-500 text-xs mt-0.5">11:15 AM</div>
-                            </td>
-                            <td class="py-4 px-6 text-slate-900">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 font-bold text-sm shrink-0">SJ</div>
-                                    <div>
-                                        <div class="font-semibold text-sm">Sarah Jenkins</div>
-                                        <div class="text-slate-500 text-xs mt-0.5">Venture Partners</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 text-sm text-slate-600">Investment Discussion</td>
-                            <td class="py-4 px-6">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-amber-50 text-amber-700 text-[11px] font-bold uppercase tracking-wider border border-amber-100">
-                                    Checked-In
-                                </span>
-                            </td>
-                            <td class="py-4 px-6">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                                    </button>
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Row 4: Completed -->
-                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
-                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
-                                <div class="font-semibold text-sm">Oct 24, 2023</div>
-                                <div class="text-slate-500 text-xs mt-0.5">09:00 AM</div>
-                            </td>
-                            <td class="py-4 px-6 text-slate-900">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-sm shrink-0">AL</div>
-                                    <div>
-                                        <div class="font-semibold text-sm">Amanda Lee</div>
-                                        <div class="text-slate-500 text-xs mt-0.5">TechFlow Inc.</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 text-sm text-slate-600">Technical Interview</td>
-                            <td class="py-4 px-6">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider border border-emerald-100">
-                                    Completed
-                                </span>
-                            </td>
-                            <td class="py-4 px-6">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                                    </button>
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- Row 5: No-show -->
-                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
-                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
-                                <div class="font-semibold text-sm">Oct 22, 2023</div>
-                                <div class="text-slate-500 text-xs mt-0.5">04:00 PM</div>
-                            </td>
-                            <td class="py-4 px-6 text-slate-900">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">DT</div>
-                                    <div>
-                                        <div class="font-semibold text-sm">David Thompson</div>
-                                        <div class="text-slate-500 text-xs mt-0.5">Design Studio X</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="py-4 px-6 text-sm text-slate-600">Project Kickoff</td>
-                            <td class="py-4 px-6">
-                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap bg-slate-100 text-slate-600 text-[11px] font-bold uppercase tracking-wider border border-slate-200">
-                                    No-show
-                                </span>
-                            </td>
-                            <td class="py-4 px-6">
-                                <div class="flex items-center justify-end gap-2">
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                                    </button>
-                                    <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
-                                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    <tbody id="visitors_table_body" class="divide-y divide-slate-50">
+                        <!-- Will be populated dynamically -->
                     </tbody>
                 </table>
             </div>
             <!-- Pagination Footer -->
             <div class="py-4 px-6 border-t border-slate-100 flex items-center justify-between bg-white">
-                <span class="text-sm font-medium text-slate-500">Showing 1 to 5 of 32 visitors</span>
+                <span id="showing_visitors_text" class="text-sm font-medium text-slate-500">Showing 1 to 5 of 32 visitors</span>
                 <div class="flex gap-2">
                     <button class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 hover:text-slate-600 transition-colors disabled:opacity-50" disabled>
                         <span class="material-symbols-outlined text-sm">chevron_left</span>
@@ -328,29 +172,166 @@
             </div>
             <div class="p-6 border-t border-slate-100 bg-white flex gap-3 mt-auto justify-end sm:rounded-bl-3xl shrink-0">
                 <button type="button" class="px-6 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm" onclick="closePreRegisterModal()">Cancel</button>
-                <button id="pr_submit_btn" type="button" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm" onclick="submitPreRegister()">Register</button>
+                <button id="pr_submit_btn" type="button" class="px-6 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2" onclick="submitPreRegister()">
+                    <span class="material-symbols-outlined text-[18px]">qr_code</span>
+                    <span id="pr_submit_btn_text">Generate QR & Send</span>
+                </button>
             </div>
         </div>
 
         <script>
-            function openPreRegisterModal(name = '', company = '', time = '', purpose = '') {
+            let visitors = [];
+            let editingVisitorId = null;
+
+            async function loadVisitors() {
+                let stored = sessionStorage.getItem("visitors");
+                if (!stored) {
+                    try {
+                        const res = await fetch("data/visitors.json");
+                        const data = await res.json();
+                        sessionStorage.setItem("visitors", JSON.stringify(data));
+                        stored = JSON.stringify(data);
+                    } catch (e) {
+                        console.error("Failed to load visitors list", e);
+                        return;
+                    }
+                }
+                visitors = JSON.parse(stored);
+                renderVisitors();
+            }
+
+            function renderVisitors() {
+                const searchQuery = document.getElementById("visitor_search").value.toLowerCase();
+                const statusFilter = document.getElementById("visitor_status_filter").value;
+
+                const filtered = visitors.filter(v => {
+                    const matchesSearch = v.name.toLowerCase().includes(searchQuery) || v.company.toLowerCase().includes(searchQuery);
+                    const matchesStatus = statusFilter === "All" || v.status === statusFilter;
+                    return matchesSearch && matchesStatus;
+                });
+
+                const tbody = document.getElementById("visitors_table_body");
+                if (!tbody) return;
+
+                if (filtered.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="py-8 text-center text-sm text-slate-500">No visitors found</td>
+                        </tr>
+                    `;
+                    document.getElementById("showing_visitors_text").textContent = "Showing 0 of 0 visitors";
+                    return;
+                }
+
+                tbody.innerHTML = filtered.map(v => {
+                    const initials = v.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    let bgClass = "bg-slate-100 text-slate-600";
+                    let statusBadgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                    
+                    if (v.status === "Registered") {
+                        bgClass = "bg-blue-50 text-blue-600";
+                        statusBadgeClass = "bg-blue-50 text-blue-700 border-blue-100";
+                    } else if (v.status === "Confirmed") {
+                        bgClass = "bg-indigo-50 text-indigo-600";
+                        statusBadgeClass = "bg-indigo-50 text-indigo-700 border-indigo-100";
+                    } else if (v.status === "Checked-In") {
+                        bgClass = "bg-amber-50 text-amber-600";
+                        statusBadgeClass = "bg-amber-50 text-amber-700 border-amber-100";
+                    } else if (v.status === "Completed") {
+                        bgClass = "bg-emerald-50 text-emerald-600";
+                        statusBadgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                    } else if (v.status === "No-show") {
+                        bgClass = "bg-slate-100 text-slate-600";
+                        statusBadgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                    }
+
+                    const isPastOrActive = v.status === "Checked-In" || v.status === "Completed" || v.status === "No-show";
+                    
+                    const actionButtons = isPastOrActive ? `
+                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
+                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                        </button>
+                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    ` : `
+                        <button onclick="openPreRegisterModal(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
+                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                        </button>
+                        <button onclick="deleteVisitor(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    `;
+
+                    return `
+                        <tr class="hover:bg-slate-50/80 transition-colors duration-150 group">
+                            <td class="py-4 px-6 whitespace-nowrap text-slate-900">
+                                <div class="font-semibold text-sm">${v.date}</div>
+                                <div class="text-slate-500 text-xs mt-0.5">${v.time}</div>
+                            </td>
+                            <td class="py-4 px-6 text-slate-900">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full ${bgClass} flex items-center justify-center font-bold text-sm shrink-0">${initials}</div>
+                                    <div>
+                                        <div class="font-semibold text-sm">${v.name}</div>
+                                        <div class="text-slate-500 text-xs mt-0.5">${v.company}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-4 px-6 text-sm text-slate-600">${v.purpose || "—"}</td>
+                            <td class="py-4 px-6">
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap ${statusBadgeClass} text-[11px] font-bold uppercase tracking-wider border">
+                                    ${v.status}
+                                </span>
+                            </td>
+                            <td class="py-4 px-6">
+                                <div class="flex items-center justify-end gap-2">
+                                    ${actionButtons}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }).join("");
+
+                document.getElementById("showing_visitors_text").textContent = `Showing 1 to ${filtered.length} of ${visitors.length} visitors`;
+            }
+
+            function openPreRegisterModal(visitorId = null) {
                 const modal = document.getElementById('preRegisterModal');
                 const overlay = document.getElementById('preRegisterModalOverlay');
                 const title = document.getElementById('pr_modal_title');
-                const submitBtn = document.getElementById('pr_submit_btn');
+                const submitBtnText = document.getElementById('pr_submit_btn_text');
                 
-                document.getElementById('pr_name').value = name;
-                document.getElementById('pr_company').value = company;
-                document.getElementById('pr_time').value = time;
-                document.getElementById('pr_purpose').value = purpose;
-                
-                if (name) {
-                    title.innerText = 'Edit Visitor';
-                    submitBtn.innerText = 'Update Visitor';
+                if (visitorId) {
+                    editingVisitorId = visitorId;
+                    const v = visitors.find(item => item.id === visitorId);
+                    if (v) {
+                        document.getElementById('pr_name').value = v.name;
+                        document.getElementById('pr_company').value = v.company;
+                        
+                        // Parse time from 12h AM/PM to 24h input format
+                        let timeStr = "";
+                        if (v.time) {
+                            let [time, modifier] = v.time.split(' ');
+                            let [hours, minutes] = time.split(':');
+                            let hr = parseInt(hours, 10);
+                            if (modifier === 'PM' && hr < 12) hr += 12;
+                            if (modifier === 'AM' && hr === 12) hr = 0;
+                            timeStr = `${hr.toString().padStart(2, '0')}:${minutes}`;
+                        }
+                        
+                        document.getElementById('pr_time').value = timeStr;
+                        document.getElementById('pr_purpose').value = v.purpose || "";
+                        
+                        title.innerText = 'Edit Visitor';
+                        if (submitBtnText) submitBtnText.innerText = 'Update & Send QR';
+                    }
                 } else {
-                    title.innerText = 'Register Visitor';
-                    submitBtn.innerText = 'Register';
+                    editingVisitorId = null;
                     document.getElementById('preRegisterForm').reset();
+                    
+                    title.innerText = 'Register Visitor';
+                    if (submitBtnText) submitBtnText.innerText = 'Generate QR & Send';
                 }
 
                 modal.classList.remove('hidden');
@@ -375,23 +356,82 @@
             }
             
             function submitPreRegister() {
-                const submitBtn = document.getElementById('pr_submit_btn');
-                if (submitBtn.innerText === 'Update Visitor') {
-                    alert("Visitor updated successfully!");
-                } else {
-                    alert("Visitor Registered successfully!");
+                const name = document.getElementById('pr_name').value.trim();
+                const company = document.getElementById('pr_company').value.trim();
+                const timeInput = document.getElementById('pr_time').value;
+                const purpose = document.getElementById('pr_purpose').value.trim();
+
+                if (!name || !company || !timeInput) {
+                    alert("Please fill in all required fields.");
+                    return;
                 }
+
+                // Format time to 12h AM/PM
+                let [hours, minutes] = timeInput.split(':');
+                let ampm = 'AM';
+                let hr = parseInt(hours, 10);
+                if (hr >= 12) {
+                    ampm = 'PM';
+                    if (hr > 12) hr -= 12;
+                }
+                if (hr === 0) hr = 12;
+                const timeStr = `${hr}:${minutes} ${ampm}`;
+
+                // Format current date
+                const options = { month: 'short', day: 'numeric', year: 'numeric' };
+                const dateStr = new Date().toLocaleDateString('en-US', options);
+
+                if (editingVisitorId) {
+                    const idx = visitors.findIndex(v => v.id === editingVisitorId);
+                    if (idx !== -1) {
+                        visitors[idx].name = name;
+                        visitors[idx].company = company;
+                        visitors[idx].time = timeStr;
+                        visitors[idx].purpose = purpose;
+                        alert("Visitor updated and QR sent successfully!");
+                    }
+                } else {
+                    const newId = visitors.length > 0 ? Math.max(...visitors.map(v => v.id)) + 1 : 1;
+                    const newVisitor = {
+                        id: newId,
+                        name: name,
+                        company: company,
+                        date: dateStr,
+                        time: timeStr,
+                        purpose: purpose,
+                        status: "Registered"
+                    };
+                    visitors.unshift(newVisitor);
+                    alert("Visitor registered and QR sent successfully!");
+                }
+
+                sessionStorage.setItem("visitors", JSON.stringify(visitors));
+                renderVisitors();
                 closePreRegisterModal();
             }
 
-            function deleteVisitor(btn) {
+            function deleteVisitor(visitorId) {
                 if (confirm("Are you sure you want to delete this visitor?")) {
-                    const row = btn.closest('tr');
-                    if (row) {
-                        row.remove();
-                        alert("Visitor deleted successfully.");
-                    }
+                    visitors = visitors.filter(v => v.id !== visitorId);
+                    sessionStorage.setItem("visitors", JSON.stringify(visitors));
+                    renderVisitors();
+                    alert("Visitor deleted successfully.");
                 }
+            }
+
+            // Setup filters
+            document.getElementById("visitor_search").addEventListener("input", renderVisitors);
+            document.getElementById("visitor_status_filter").addEventListener("change", renderVisitors);
+
+            // Initial load
+            loadVisitors();
+
+            // Automatically open the registration modal if register=true query parameter is present
+            if (window.location.search.includes('register=true')) {
+                const url = new URL(window.location);
+                url.searchParams.delete('register');
+                window.history.replaceState({}, '', url);
+                openPreRegisterModal();
             }
         </script>
     </main>

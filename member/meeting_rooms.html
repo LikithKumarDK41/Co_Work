@@ -228,197 +228,113 @@
         </div>
 
         <!-- Room Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="rooms_grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Will be populated dynamically -->
+        </div>
 
-            <!-- Room Card 1 -->
-            <div
-                class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
-                <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
-                    <img alt="The Boardroom"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4XLONVI4yXpZu_zL78_DnYecij3NfsVE1EdBRLiqqrgfxcstMl4pumV_b-6NZ15XX85v3VCCYa5UHd1YYe2VIXhgfSJ-HbZtp7hiyt4J5vBFoynoW-lRGEsirmJj8PltzUtikNeRBxpzUbs3mws_yzU5e4dJ3ryFDV48PtYasswobUSn2AL_N6hSB-4ChM4AlQWVVvgEKpX9uRn3bBtmZ3KIlJOBxvv3-r9wjmTTo19Pp8sBIdjMbPo70aJGJXeuqrDJZjV_NbAPS">
+        <script>
+            let workspaces = [];
 
-                    <div
-                        class="absolute top-3 right-3 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                        Available
-                    </div>
-                </div>
+            async function loadWorkspaces() {
+                let stored = sessionStorage.getItem("workspaces");
+                if (!stored) {
+                    try {
+                        const res = await fetch("data/workspaces.json");
+                        const data = await res.json();
+                        sessionStorage.setItem("workspaces", JSON.stringify(data));
+                        stored = JSON.stringify(data);
+                    } catch (e) {
+                        console.error("Failed to load workspaces list", e);
+                        return;
+                    }
+                }
+                workspaces = JSON.parse(stored);
+                renderWorkspaces();
+            }
 
-                <div class="p-5 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-headline-md text-headline-md text-primary"
-                            style="font-size: 20px; line-height: 28px;">
-                            The Boardroom
-                        </h3>
+            function renderWorkspaces() {
+                const grid = document.getElementById("rooms_grid");
+                if (!grid) return;
 
-                        <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">group</span>
-                            12
-                        </span>
-                    </div>
+                if (workspaces.length === 0) {
+                    grid.innerHTML = `<p class="col-span-3 py-8 text-center text-sm text-slate-500">No meeting rooms found</p>`;
+                    return;
+                }
 
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
-                        Level 2 • North Wing
-                    </p>
+                grid.innerHTML = workspaces.map(w => {
+                    let statusBadgeClass = "bg-secondary-container text-on-secondary-container";
+                    let dotClass = "bg-secondary";
+                    if (w.status !== "Available") {
+                        statusBadgeClass = "bg-surface-variant text-on-surface-variant";
+                        dotClass = "bg-outline";
+                    }
 
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">tv</span>
-                            TV
-                        </span>
+                    const amenitiesHTML = w.amenities.map(a => {
+                        let icon = "tv";
+                        if (a.toLowerCase().includes("wifi")) icon = "wifi";
+                        else if (a.toLowerCase().includes("whiteboard")) icon = "edit";
+                        else if (a.toLowerCase().includes("soundproof")) icon = "volume_off";
+                        else if (a.toLowerCase().includes("phone")) icon = "call";
 
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">edit</span>
-                            Whiteboard
-                        </span>
+                        return `
+                            <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">${icon}</span>
+                                ${a}
+                            </span>
+                        `;
+                    }).join("");
 
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">call</span>
-                            Phone
-                        </span>
-                    </div>
-
-                    <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
-                        <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
-                            <span>Next available:</span>
-                            <strong class="text-primary text-right">Now</strong>
-                        </div>
-
-                        <button
-                            class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+                    const buttonHTML = w.status === "Available" ? `
+                        <button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
                             Book
                         </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Room Card 2 -->
-            <div
-                class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
-                <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
-                    <img alt="Creative Nook"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI5dRmzIMDogwIt9r-fE62hI_0Pr0kDJ4ekQsmOTK-lCT9WcK_7ASMSGaldSU0Md66inBMrnYOS6slU9FuWSmcQdM3CqdQZahyuZMZTeIeoysM8SS2q3zIAfLC5_DiZQbVPSqdUHwn74fcLV-Bo9XViSfIu8kStWHn5WWxDGinK4k-ZU8GZlK2mC_ncFMzeCRtBGfa7zLnn6Bl_QYUtkpREIq6Lv3dGbJ-TYAN9lcdpR7nGuubP7AEXP_k96XVLBskSZmvJGWgy_po">
-
-                    <div
-                        class="absolute top-3 right-3 bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-outline"></span>
-                        In Use
-                    </div>
-                </div>
-
-                <div class="p-5 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-headline-md text-headline-md text-primary"
-                            style="font-size: 20px; line-height: 28px;">
-                            Creative Nook
-                        </h3>
-
-                        <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">group</span>
-                            4
-                        </span>
-                    </div>
-
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
-                        Level 1 • East Wing
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">edit</span>
-                            Whiteboard
-                        </span>
-
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">tv</span>
-                            TV
-                        </span>
-                    </div>
-
-                    <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
-                        <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
-                            <span>Next available:</span>
-                            <strong class="text-primary text-right">2:00 PM</strong>
-                        </div>
-
-                        <button
-                            class="w-full bg-surface text-primary border border-surface-variant font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-colors">
+                    ` : `
+                        <button class="w-full bg-surface text-primary border border-surface-variant font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-colors">
                             View Schedule
                         </button>
-                    </div>
-                </div>
-            </div>
+                    `;
 
-            <!-- Room Card 3 -->
-            <div
-                class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
-                <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
-                    <img alt="Focus Pod A"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm_1fmBDn-OMIrYeAAgJRTKRUzM2VxJNXvwSEppVEckr0iE6GFfBplUELSh44D4bnEbfwGhffMRficGMt4wANBkjLvdf2ZSJAPow_skaGPvKLPLHtAXUW5ZKZJc-TIGpCeiaRAdWdweIXmEEmI5GMQrhjcEwv0T70K7gRxsUTApUTuTJKRDWbfiPjjehFElvY7iC3gEBiHnJ_A4DfOkibFGMG0IWMa54X3lbaGPiYuIcCyhvJrc4UBRzoTxaMsO0rdmoYmZmgaSU6I">
-
-                    <div
-                        class="absolute top-3 right-3 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-secondary"></span>
-                        Available
-                    </div>
-                </div>
-
-                <div class="p-5 flex-1 flex flex-col">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-headline-md text-headline-md text-primary"
-                            style="font-size: 20px; line-height: 28px;">
-                            Focus Pod A
-                        </h3>
-
-                        <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
-                            <span class="material-symbols-outlined text-sm">group</span>
-                            2
-                        </span>
-                    </div>
-
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
-                        Level 2 • Central Hub
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">wifi</span>
-                            High-Speed WiFi
-                        </span>
-
-                        <span
-                            class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px]">volume_off</span>
-                            Soundproof
-                        </span>
-                    </div>
-
-                    <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
-                        <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
-                            <span>Next available:</span>
-                            <strong class="text-primary text-right">Now</strong>
+                    return `
+                        <div class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
+                            <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
+                                <img alt="${w.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${w.image}">
+                                <div class="absolute top-3 right-3 ${statusBadgeClass} font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
+                                    <span class="w-2 h-2 rounded-full ${dotClass}"></span>
+                                    ${w.status}
+                                </div>
+                            </div>
+                            <div class="p-5 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-headline-md text-headline-md text-primary" style="font-size: 20px; line-height: 28px;">
+                                        ${w.name}
+                                    </h3>
+                                    <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm">group</span>
+                                        ${w.capacity}
+                                    </span>
+                                </div>
+                                <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
+                                    ${w.location}
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    ${amenitiesHTML}
+                                </div>
+                                <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
+                                    <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
+                                        <span>Next available:</span>
+                                        <strong class="text-primary text-right">${w.nextAvailable}</strong>
+                                    </div>
+                                    ${buttonHTML}
+                                </div>
+                            </div>
                         </div>
+                    `;
+                }).join("");
+            }
 
-                        <button
-                            class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
-                            Book
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            // Initial load
+            loadWorkspaces();
+        </script>
     </main>
-
 </body>
-
 </html>
