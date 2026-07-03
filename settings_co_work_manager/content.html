@@ -9,9 +9,6 @@
         <button id="nav-workspace" onclick="switchSettingsTab('workspace')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">chair_alt</span> Workspace & Resources
         </button>
-        <button id="nav-roles" onclick="switchSettingsTab('roles')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
-            <span class="material-symbols-outlined text-[20px]">manage_accounts</span> Roles & Permissions
-        </button>
         <button id="nav-billing" onclick="switchSettingsTab('billing')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">credit_card</span> Billing & Payments
         </button>
@@ -187,67 +184,6 @@
 
             <div class="flex justify-end gap-3 pt-4 border-t border-outline-variant">
                 <button class="px-6 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm">Save Changes</button>
-            </div>
-        </div>
-
-        <!-- Panel: Roles & Permissions -->
-        <div id="panel-roles" class="settings-panel hidden animate-fade-in space-y-6">
-            <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
-                <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-                    <div>
-                        <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Team Management</h3>
-                        <p class="font-body-sm text-on-surface-variant mt-1">Manage staff access and their roles in the system.</p>
-                    </div>
-                    <button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-primary/90 transition-colors">
-                        <span class="material-symbols-outlined text-[18px]">person_add</span> Invite User
-                    </button>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-surface-container-low border-b border-outline-variant">
-                                <th class="p-4 font-label-sm text-on-surface-variant">User</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Role</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Status</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant">
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="p-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">AL</div>
-                                        <div>
-                                            <p class="font-label-md text-on-surface">Alice Lee</p>
-                                            <p class="text-xs text-on-surface-variant">alice@acmecoworking.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4"><span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded font-label-sm text-xs border border-secondary/20">Admin</span></td>
-                                <td class="p-4"><span class="text-primary text-sm font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
-                                <td class="p-4 text-on-surface-variant">
-                                    <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="p-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center font-bold">BM</div>
-                                        <div>
-                                            <p class="font-label-md text-on-surface">Bob Miller</p>
-                                            <p class="text-xs text-on-surface-variant">bob@acmecoworking.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4"><span class="px-2 py-1 bg-surface-variant text-on-surface-variant rounded font-label-sm text-xs border border-outline-variant">Receptionist</span></td>
-                                <td class="p-4"><span class="text-primary text-sm font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
-                                <td class="p-4 text-on-surface-variant">
-                                    <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
 

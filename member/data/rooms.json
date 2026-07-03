@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "The Boardroom",
+    "parentWorkspace": "Workspace 1",
+    "capacity": 12,
+    "location": "Level 2 • North Wing",
+    "size": 400,
+    "amenities": ["TV", "Whiteboard", "Phone", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA4XLONVI4yXpZu_zL78_DnYecij3NfsVE1EdBRLiqqrgfxcstMl4pumV_b-6NZ15XX85v3VCCYa5UHd1YYe2VIXhgfSJ-HbZtp7hiyt4J5vBFoynoW-lRGEsirmJj8PltzUtikNeRBxpzUbs3mws_yzU5e4dJ3ryFDV48PtYasswobUSn2AL_N6hSB-4ChM4AlQWVVvgEKpX9uRn3bBtmZ3KIlJOBxvv3-r9wjmTTo19Pp8sBIdjMbPo70aJGJXeuqrDJZjV_NbAPS"
+  },
+  {
+    "id": 2,
+    "name": "Creative Hub A",
+    "parentWorkspace": "Workspace 2",
+    "capacity": 6,
+    "location": "Level 1 • East Wing",
+    "size": 150,
+    "amenities": ["Whiteboard", "TV", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAI5dRmzIMDogwIt9r-fE62hI_0Pr0kDJ4ekQsmOTK-lCT9WcK_7ASMSGaldSU0Md66inBMrnYOS6slU9FuWSmcQdM3CqdQZahyuZMZTeIeoysM8SS2q3zIAfLC5_DiZQbVPSqdUHwn74fcLV-Bo9XViSfIu8kStWHn5WWxDGinK4k-ZU8GZlK2mC_ncFMzeCRtBGfa7zLnn6Bl_QYUtkpREIq6Lv3dGbJ-TYAN9lcdpR7nGuubP7AEXP_k96XVLBskSZmvJGWgy_po"
+  },
+  {
+    "id": 3,
+    "name": "Podcast Studio",
+    "parentWorkspace": "Workspace 2",
+    "capacity": 4,
+    "location": "Level 2 • South Wing",
+    "size": 100,
+    "amenities": ["Pro Audio Gear", "Soundproof", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "images/podcast_studio.png"
+  },
+  {
+    "id": 4,
+    "name": "Focus Pod A",
+    "parentWorkspace": "Workspace 3",
+    "capacity": 2,
+    "location": "Level 2 • Central Hub",
+    "size": 60,
+    "amenities": ["High-Speed WiFi", "Soundproof"],
+    "status": "Active",
+    "image": ""
+  }
+]
