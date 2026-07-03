@@ -305,29 +305,27 @@
         <!-- Register Member Modal (Level 3 Elevation) -->
         <div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300"
             id="registerScrim" onclick="closeRegisterModal()"></div>
-        <div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 sm:p-0 opacity-0 transition-opacity duration-300"
-            id="registerModalWrapper" onclick="closeRegisterModal()">
-            <div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] w-full max-w-[600px] max-h-[90vh] flex flex-col border border-outline-variant transform scale-95 transition-transform duration-300"
-                id="registerModalContent" onclick="event.stopPropagation()">
-                <!-- Header -->
-                <div
-                    class="p-md border-b border-outline-variant flex items-center justify-between bg-surface rounded-t-xl shrink-0">
-                    <div>
-                        <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Register New Member
-                        </h3>
-                        <p class="font-body-sm text-on-surface-variant mt-1">Add a new member to the co-working space.
-                        </p>
-                    </div>
-                    <button
-                        class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors"
-                        onclick="closeRegisterModal()">
-                        <span class="material-symbols-outlined">close</span>
-                    </button>
+        <aside class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant hidden"
+            id="registerModalWrapper">
+            <!-- Header -->
+            <div
+                class="p-md border-b border-outline-variant flex items-center justify-between bg-surface shrink-0">
+                <div>
+                    <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Register New Member
+                    </h3>
+                    <p class="font-body-sm text-on-surface-variant mt-1">Add a new member to the co-working space.
+                    </p>
                 </div>
+                <button
+                    class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors"
+                    onclick="closeRegisterModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
 
-                <!-- Form Content -->
-                <div class="flex-1 overflow-y-auto p-lg">
-                    <form id="registerMemberForm" class="space-y-6">
+            <!-- Form Content -->
+            <div class="flex-1 overflow-y-auto p-lg">
+                <form id="registerMemberForm" class="space-y-6">
                         <!-- Basic Info -->
                         <div>
                             <h4
@@ -503,18 +501,17 @@
                     </form>
                 </div>
 
-                <!-- Footer Actions -->
-                <div
-                    class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-b-xl shrink-0">
-                    <button type="button"
-                        class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm"
-                        onclick="closeRegisterModal()">Cancel</button>
-                    <button type="button"
-                        class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm"
-                        onclick="submitRegistration()">Register Member</button>
-                </div>
+            <!-- Footer Actions -->
+            <div
+                class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end shrink-0">
+                <button type="button"
+                    class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm"
+                    onclick="closeRegisterModal()">Cancel</button>
+                <button type="button"
+                    class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm"
+                    onclick="submitRegistration()">Register Member</button>
             </div>
-        </div>
+        </aside>
 
         <script>
             let users = [];
@@ -731,38 +728,30 @@
             }
 
             function openRegisterModal() {
-                const wrapper = document.getElementById('registerModalWrapper');
+                const modal = document.getElementById('registerModalWrapper');
                 const scrim = document.getElementById('registerScrim');
-                const content = document.getElementById('registerModalContent');
 
                 scrim.classList.remove('hidden');
-                wrapper.classList.remove('hidden');
-                wrapper.classList.add('flex'); // Used for centering
+                modal.classList.remove('hidden');
 
                 setTimeout(() => {
                     scrim.classList.remove('opacity-0');
-                    wrapper.classList.remove('opacity-0');
-                    content.classList.remove('scale-95');
-                    content.classList.add('scale-100');
+                    modal.classList.remove('translate-x-full');
                 }, 10);
 
                 document.body.style.overflow = 'hidden';
             }
 
             function closeRegisterModal() {
-                const wrapper = document.getElementById('registerModalWrapper');
+                const modal = document.getElementById('registerModalWrapper');
                 const scrim = document.getElementById('registerScrim');
-                const content = document.getElementById('registerModalContent');
 
+                modal.classList.add('translate-x-full');
                 scrim.classList.add('opacity-0');
-                wrapper.classList.add('opacity-0');
-                content.classList.remove('scale-100');
-                content.classList.add('scale-95');
 
                 setTimeout(() => {
                     scrim.classList.add('hidden');
-                    wrapper.classList.add('hidden');
-                    wrapper.classList.remove('flex');
+                    modal.classList.add('hidden');
                     document.body.style.overflow = '';
                 }, 300);
             }

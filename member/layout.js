@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const footer = document.createElement("footer");
     footer.className = "layout-footer";
     footer.innerHTML = `
-        <p>© 2026Nichi-In. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        <p>© 2026 Nichi-In. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
     `;
 
     // Append footer to content containers
