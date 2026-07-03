@@ -57,7 +57,7 @@
         <div class="table-responsive">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80">
+                    <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80 whitespace-nowrap">
                         <th class="px-md py-sm font-semibold">Booker</th>
                         <th class="px-md py-sm font-semibold">Room</th>
                         <th class="px-md py-sm font-semibold">Meeting Title</th>
@@ -109,6 +109,15 @@
             <div class="flex flex-col gap-1">
                 <label class="font-label-sm text-on-surface-variant font-semibold">Meeting Title / Purpose <span class="text-error">*</span></label>
                 <input id="book_title" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="e.g. Weekly Strategy Sync">
+            </div>
+
+            <!-- Client Category (Internal vs External) -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
+                <select id="book_client_category" required onchange="handleClientCategoryChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="Internal">Internal (Building 812)</option>
+                    <option value="External">External (Building 813)</option>
+                </select>
             </div>
 
             <div class="flex flex-col gap-1">
@@ -205,7 +214,7 @@
         let stored = sessionStorage.getItem("rooms_list");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (!parsed.some(r => r.parentWorkspace === "Workspace 1")) {
+            if (!parsed.some(r => r.parentWorkspace === "Nichi-In Workspace 1 (Int)")) {
                 stored = null;
             }
         }
@@ -225,17 +234,37 @@
         const stored = sessionStorage.getItem("rooms_list");
         if (!stored) return;
         
+        let workspaces = [];
+        try {
+            workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        } catch(e){}
+
+        const categorySelect = document.getElementById("book_client_category");
+        const category = categorySelect ? categorySelect.value : "Internal";
+
         const rList = JSON.parse(stored);
         const select = document.getElementById("book_room");
         if (!select) return;
         
         const val = select.value;
+        // Filter rooms whose parent workspace matches selected clientType category
+        const filteredRooms = rList.filter(r => {
+            if (r.status !== "Active") return false;
+            const parent = workspaces.find(w => w.name === r.parentWorkspace);
+            return parent && parent.clientType === category;
+        });
+
         select.innerHTML = `<option value="">Select a Room...</option>` + 
-            rList.filter(r => r.status === "Active")
-                 .map(r => `<option value="${r.name}" data-capacity="${r.capacity}">${r.name}</option>`)
-                 .join("");
-                 
+            filteredRooms.map(r => `<option value="${r.name}" data-capacity="${r.capacity}">${r.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
+                         .join("");
+                         
         if (val) select.value = val;
+    }
+
+    function handleClientCategoryChange() {
+        populateRoomOptions();
+        const roomSelect = document.getElementById("book_room");
+        if (roomSelect) roomSelect.value = "";
     }
 
     async function loadBookings() {
@@ -243,6 +272,14 @@
         populateRoomOptions();
 
         let stored = sessionStorage.getItem("bookings");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (!parsed.some(b => b.room === "The Boardroom (Int)")) {
+                sessionStorage.removeItem("bookings");
+                stored = null;
+            }
+        }
+
         if (!stored) {
             try {
                 const res = await fetch("../member/data/bookings.json");
@@ -263,9 +300,9 @@
 
                 if (seedBookings.length < 5) {
                     seedBookings.push(
-                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Podcast Studio", date: "Oct 25, 2023", time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" },
-                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "The Boardroom", date: "Oct 27, 2023", time: "09:00 AM - 11:00 AM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Waitlist", image: "" },
-                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Creative Hub A", date: "Oct 28, 2023", time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" }
+                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Podcast Studio (Int)", date: "Oct 25, 2023", time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" },
+                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "The Boardroom (Int)", date: "Oct 27, 2023", time: "09:00 AM - 11:00 AM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Waitlist", image: "" },
+                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Creative Hub A (Int)", date: "Oct 28, 2023", time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Waitlist", image: "" }
                     );
                 }
 
@@ -368,9 +405,9 @@
             actionHTML += `</div>`;
 
             return `
-                <tr class="hover:bg-surface-container-low/30 transition-colors">
+                <tr class="hover:bg-surface-container-low/30 transition-colors whitespace-nowrap">
                     <td class="px-md py-sm font-semibold">${b.booker || "Alex Rivera"}</td>
-                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.room}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.room.replace(/\s*\((Int|Ext)\)/i, "")}</td>
                     <td class="px-md py-sm font-medium">${b.title || "Room Reservation"}</td>
                     <td class="px-md py-sm text-on-surface-variant font-semibold">${b.term || "Hourly"}</td>
                     <td class="px-md py-sm text-on-surface-variant">${b.date}</td>
@@ -734,7 +771,22 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <span class="text-xs uppercase font-bold tracking-wider text-primary">Meeting Room</span>
-                            <h4 class="text-lg font-bold text-on-surface mt-0.5">${b.room}</h4>
+                            <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
+                                <h4 class="text-lg font-bold text-on-surface">${b.room.replace(/\s*\((Int|Ext)\)/i, "")}</h4>
+                                <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function(){
+                                    let ct = "Internal";
+                                    try {
+                                        const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                                        const rList = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+                                        const roomObj = rList.find(r => r.name === b.room);
+                                        if (roomObj) {
+                                            const parent = wList.find(w => w.name === roomObj.parentWorkspace);
+                                            if (parent) ct = parent.clientType;
+                                        }
+                                    } catch(e){}
+                                    return ct;
+                                })()}</span>
+                            </div>
                         </div>
                         <span class="px-3 py-1 text-xs font-bold rounded-full border ${statusColor}">
                             ${b.status === "Waitlist" ? "Pending" : b.status}
@@ -1089,5 +1141,6 @@
     window.applyFilters = applyFilters;
     window.handleSearch = handleSearch;
     window.handleTermChange = handleTermChange;
+    window.handleClientCategoryChange = handleClientCategoryChange;
 })();
 </script>

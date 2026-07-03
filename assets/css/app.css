@@ -374,7 +374,8 @@ body {
         transform: scale(0.95);
         box-shadow: 0 0 0 0 rgba(186, 26, 26, 0);
     }
+}/* Table nowrap styling */
+table th,
+table td {
+    white-space: nowrap;
 }
-
-
-

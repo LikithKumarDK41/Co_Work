@@ -47,6 +47,12 @@
                         <label class="font-label-sm text-on-surface-variant font-semibold">Location <span class="text-error">*</span></label>
                         <input type="text" id="roomLocation" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface" placeholder="e.g. Level 2, North Wing">
                     </div>
+                    <div class="flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Parent Workspace Zone <span class="text-error">*</span></label>
+                        <select id="roomParentWorkspace" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none font-body-sm text-on-surface">
+                            <option value="">Select Parent Workspace...</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -143,6 +149,12 @@
 
     async function loadRooms() {
         let stored = sessionStorage.getItem("rooms_list");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (!parsed.some(r => r.parentWorkspace === "Nichi-In Workspace 1 (Int)")) {
+                stored = null;
+            }
+        }
         if (!stored) {
             try {
                 const res = await fetch("../member/data/rooms.json");
@@ -167,6 +179,8 @@
             return;
         }
 
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+
         grid.innerHTML = rooms.map(r => {
             let statusBadge = `<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-secondary"></span> Active</div>`;
             if (r.status === "Maintenance") {
@@ -177,31 +191,23 @@
 
             const imgUrl = r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
 
+            const parent = workspaces.find(w => w.name === r.parentWorkspace);
+            const clientType = parent ? parent.clientType : "Internal";
+
             return `
                 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group relative">
-                    <div class="h-48 w-full relative bg-surface-container-low">
+                    <div class="h-48 w-full relative bg-surface-container-low shrink-0">
                         <img src="${imgUrl}" alt="${r.name}" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-lg font-label-sm text-xs shadow-sm font-semibold uppercase tracking-wider z-10">${clientType}</div>
                         ${statusBadge}
-                        <div class="absolute top-4 left-4 bg-surface-bright/90 backdrop-blur-xs text-on-surface px-2.5 py-1 rounded-lg font-bold text-[11px] uppercase tracking-wider shadow-sm border border-outline-variant/30">
-                            Meeting Room
-                        </div>
                     </div>
-                    <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">${r.name}</h3>
-                                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
-                                    <span class="material-symbols-outlined text-[16px]">location_on</span> ${r.location}
-                                </p>
-                            </div>
-                            <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-[138px] right-4 bg-surface-bright/95 backdrop-blur-xs border border-outline-variant/55 shadow-sm rounded-lg p-0.5 z-10">
-                                <button onclick="openRoomModal(${r.id})" class="text-on-surface-variant hover:text-primary transition-colors p-1.5 rounded" aria-label="Edit Room" title="Edit Room">
-                                    <span class="material-symbols-outlined text-[18px]">edit</span>
-                                </button>
-                                <button onclick="deleteRoom(${r.id})" class="text-on-surface-variant hover:text-error transition-colors p-1.5 rounded" aria-label="Delete Room" title="Delete Room">
-                                    <span class="material-symbols-outlined text-[18px]">delete</span>
-                                </button>
-                            </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div class="mb-4">
+                            <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight break-words">${r.name.replace(/\s*\((Int|Ext)\)/i, "")}</h3>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant mt-2 flex items-start gap-1">
+                                <span class="material-symbols-outlined text-[16px] mt-0.5 shrink-0 text-outline-variant">location_on</span>
+                                <span class="leading-normal break-words">${r.location}</span>
+                            </p>
                         </div>
                         <div class="flex items-center gap-6 mb-6 font-body-sm text-body-sm text-on-surface-variant">
                             <div class="flex items-center gap-2">
@@ -223,6 +229,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="border-t border-outline-variant/40 bg-surface-bright/50 px-6 py-3 flex justify-end gap-2 shrink-0">
+                        <button onclick="openRoomModal(${r.id})" class="flex items-center gap-1 text-primary hover:bg-primary/10 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm">
+                            <span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                        </button>
+                        <button onclick="deleteRoom(${r.id})" class="flex items-center gap-1 text-error hover:bg-error/10 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm">
+                            <span class="material-symbols-outlined text-[18px]">delete</span> Delete
+                        </button>
+                    </div>
                 </div>
             `;
         }).join("");
@@ -236,6 +250,15 @@
         
         document.querySelectorAll('input[name="room_amenities"]').forEach(cb => cb.checked = false);
 
+        // Populate parent workspaces options
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        const parents = workspaces.filter(w => !w.parentWorkspace && w.status === "Active");
+        const parentSelect = document.getElementById("roomParentWorkspace");
+        if (parentSelect) {
+            parentSelect.innerHTML = `<option value="">Select Parent Workspace...</option>` +
+                parents.map(w => `<option value="${w.name}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")} (${w.clientType})</option>`).join("");
+        }
+
         if (id) {
             const r = rooms.find(x => x.id === id);
             if (r) {
@@ -247,6 +270,8 @@
                 document.getElementById('roomSize').value = r.size || 150;
                 document.getElementById('roomStatus').value = r.status || 'Active';
                 document.getElementById('roomImage').value = r.image || '';
+                
+                if (parentSelect) parentSelect.value = r.parentWorkspace || '';
 
                 if (r.amenities) {
                     r.amenities.forEach(a => {
@@ -259,6 +284,7 @@
             title.innerText = 'Add Room';
             form.reset();
             document.getElementById('roomId').value = '';
+            if (parentSelect) parentSelect.value = '';
         }
         
         modal.classList.remove('hidden');
@@ -296,6 +322,7 @@
         const idVal = document.getElementById('roomId').value;
         const name = document.getElementById('roomName').value.trim();
         const location = document.getElementById('roomLocation').value.trim();
+        const parentWorkspace = document.getElementById('roomParentWorkspace').value;
         const capacity = parseInt(document.getElementById('roomCapacity').value);
         const size = parseInt(document.getElementById('roomSize').value);
         const status = document.getElementById('roomStatus').value;
@@ -303,7 +330,7 @@
 
         const amenities = Array.from(document.querySelectorAll('input[name="room_amenities"]:checked')).map(cb => cb.value);
 
-        if (!name || !location || isNaN(capacity) || isNaN(size)) {
+        if (!name || !location || !parentWorkspace || isNaN(capacity) || isNaN(size)) {
             alert("Please fill in all required fields.");
             return;
         }
@@ -315,6 +342,7 @@
                     ...rooms[idx],
                     name,
                     location,
+                    parentWorkspace,
                     capacity,
                     size,
                     status,
@@ -329,6 +357,7 @@
                 id: newId,
                 name,
                 location,
+                parentWorkspace,
                 capacity,
                 size,
                 status,
