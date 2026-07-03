@@ -139,12 +139,17 @@
     </style>
 </head>
 
-<body class="bg-background text-on-background font-body-md antialiased">
-
-    <main class="h-dvh flex items-center justify-center px-4 py-3 overflow-hidden">
-
+<body class="bg-background min-h-screen min-h-[100dvh] text-on-background font-body-md antialiased overflow-x-hidden">
+    <div class="relative min-h-screen min-h-[100dvh] flex items-center justify-center p-4 sm:p-6 lg:p-md">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 bg-cover bg-center"
+            data-alt="A bright, modern, high-end coworking space with glass partitions, sleek wooden desks, and ergonomic chairs. Natural sunlight streams through large floor-to-ceiling windows, creating a clean, professional atmosphere. The scene is illuminated by soft, natural daylight emphasizing a modern corporate aesthetic with subtle blue and teal accents."
+            style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuBl07aX8BvTDOzxpt87-qOO3fGBghoSi5C8fec9XVkkOavacfdWLwyHp1L1Ml5UX2UluKZrlXq9cTD3KqJPbIEQAPRExoCaU90fXQLl0VR9OFu4mp2WqtNeQzUT0HzYqzphei434XaJ8V2R5pG21e77Nc8mMHAHH5odaNcmsZu70kOQPHntkR9yPsrOPnMyD-xg44wPKYoZEpwKmUUMo29_rrtQn7jZM0WJB3v0yD5En_9hEvU3a1J7SnnoTt6k6edsMpZSZsqOAUE&quot;);">
+        </div>
+        <div class="absolute inset-0 bg-surface/80 backdrop-blur-md"></div>
+        <!-- Login Card -->
         <section
-            class="login-card w-full max-w-[390px] bg-white rounded-[22px] border border-outline-variant px-7 py-5">
+            class="relative z-10 login-card w-full max-w-[390px] bg-white rounded-[22px] border border-outline-variant px-7 py-5">
 
             <div class="text-center mb-4">
                 <div class="mx-auto mb-2 h-14 w-14 rounded-lg bg-[#004ac6] flex items-center justify-center">
@@ -152,7 +157,7 @@
                 </div>
 
                 <h1 class="font-heading text-[22px] leading-7 font-bold text-primary tracking-tight">
-                    Nichi-In
+                    CoWork
                 </h1>
 
                 <p class="mt-0.5 text-[11px] font-semibold tracking-wide uppercase text-on-surface-variant">
@@ -205,7 +210,7 @@
                             class="w-full h-10 rounded-xl border border-outline-variant bg-white pl-11 pr-11 text-[13px] text-on-surface placeholder:text-gray-400 transition focus:border-primary" />
 
                         <button id="togglePassword"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition h-8 w-8 flex items-center justify-center"
                             type="button" aria-label="Toggle password visibility">
                             <span class="material-symbols-outlined text-[19px]">visibility</span>
                         </button>
@@ -253,7 +258,7 @@
 
         </section>
 
-    </main>
+    </div>
 
     <script>
         const togglePass = document.querySelector('#togglePassword');
