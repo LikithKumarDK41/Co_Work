@@ -122,6 +122,11 @@
         .shadow-elevation-3 {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 234, 210, 0.75) !important;
+        }
     </style>
 </head>
 
@@ -135,86 +140,158 @@
         <div class="absolute inset-0 bg-surface/80 backdrop-blur-md"></div>
         <!-- Login Card -->
         <div
-            class="relative z-10 w-full max-w-[440px] mx-4 sm:mx-0 bg-surface-container-lowest rounded-xl shadow-elevation-3 border border-outline-variant p-5 sm:p-6 lg:p-xl flex flex-col gap-4 sm:gap-lg">
+            class="relative z-10 w-full max-w-[390px] mx-4 sm:mx-0 bg-white rounded-[22px] border border-outline-variant px-7 py-5 shadow-[0_18px_45px_rgba(0,0,0,0.08),_0_8px_22px_rgba(0,0,0,0.06)]">
+
             <!-- Header -->
-            <div class="flex flex-col gap-md items-center mb-lg">
-                <!-- Company Logo -->
-                <div class="w-14 h-14 bg-primary rounded-lg flex items-center justify-center">
-                    <span class="material-symbols-outlined text-on-primary text-[32px]">domain</span>
+            <div class="text-center mb-4">
+                <div class="mx-auto mb-2 h-14 w-14 rounded-lg bg-[#004ac6] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-[32px]">domain</span>
                 </div>
-                <!-- Company Name -->
-                <h1 class="font-headline-md text-headline-md text-on-background">Nichi-In</h1>
-                <!-- Subtitle -->
-                <p class="font-body-sm text-body-sm text-on-surface-variant text-center">Sign in to access your
-                    operational dashboard</p>
+
+                <h1 class="font-heading text-[22px] leading-7 font-bold text-primary tracking-tight">
+                    CoWork
+                </h1>
+
+                <p class="mt-0.5 text-[11px] font-semibold tracking-wide uppercase text-on-surface-variant">
+                    Manager Portal
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h2 class="text-[20px] leading-6 font-bold text-on-surface">
+                    Login
+                </h2>
+                <p class="mt-1 text-[11px] text-on-surface-variant">
+                    Please enter your credentials to log in.
+                </p>
             </div>
 
             <!-- Form -->
-            <form class="flex flex-col gap-md" onsubmit="handleLogin(event)">
+            <form class="space-y-3.5" onsubmit="handleLogin(event)">
                 <!-- Email Input -->
-                <div class="flex flex-col gap-xs">
-                    <label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wide" for="email">Email
-                        Address</label>
+                <div>
+                    <label class="block text-[13px] font-bold text-on-surface mb-1.5" for="email">
+                        Email Address
+                    </label>
                     <div class="relative">
                         <span
-                            class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">mail</span>
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">mail</span>
                         <input
-                            class="w-full h-12 pl-[44px] pr-md bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
+                            class="w-full h-10 rounded-xl border border-outline-variant bg-white pl-11 pr-4 text-[13px] text-on-surface placeholder:text-gray-400 transition focus:border-primary"
                             id="email" placeholder="admin@cowork.com" type="email">
                     </div>
+                    <p id="email-error" class="hidden text-[#ba1a1a] text-[11px] mt-1 font-medium">Please enter your
+                        Email Address.</p>
                 </div>
                 <!-- Password Input -->
-                <div class="flex flex-col gap-xs">
-                    <label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wide"
-                        for="password">Password</label>
+                <div>
+                    <label class="block text-[13px] font-bold text-on-surface mb-1.5" for="password">
+                        Password
+                    </label>
                     <div class="relative">
                         <span
-                            class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">lock</span>
+                            class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[19px]">lock</span>
                         <input
-                            class="w-full h-12 pl-[44px] pr-md bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
+                            class="w-full h-10 rounded-xl border border-outline-variant bg-white pl-11 pr-11 text-[13px] text-on-surface placeholder:text-gray-400 transition focus:border-primary"
                             id="password" placeholder="••••••••" type="password">
+                        <button id="togglePassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition h-8 w-8 flex items-center justify-center"
+                            type="button" aria-label="Toggle password visibility">
+                            <span class="material-symbols-outlined text-[19px]">visibility</span>
+                        </button>
                     </div>
+                    <p id="password-error" class="hidden text-[#ba1a1a] text-[11px] mt-1 font-medium">Please enter your
+                        Password.</p>
                 </div>
                 <!-- Options -->
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-xs mb-sm">
-                    <label class="flex items-center gap-sm cursor-pointer group min-h-[44px]">
-                        <input
-                            class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary focus:ring-offset-surface-container-lowest bg-surface-container-lowest cursor-pointer"
-                            type="checkbox">
-                        <span
-                            class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface transition-colors">Remember
-                            Me</span>
+                <div class="flex items-center justify-between gap-3">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" name="remember"
+                            class="h-4 w-4 rounded border-[#c3c6d7] text-[#004ac6] focus:ring-[#004ac6]" />
+                        <span class="text-[11px] text-on-surface-variant">
+                            Remember me
+                        </span>
                     </label>
-                    <a class="font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors min-h-[44px] flex items-center"
-                        href="#">Forgot Password?</a>
+                    <a class="text-[11px] font-bold text-primary hover:underline whitespace-nowrap" href="#">Forgot
+                        password?</a>
                 </div>
                 <!-- Primary Action -->
                 <button
-                    class="w-full h-12 bg-primary hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-sm transition-colors duration-200 shadow-sm active:scale-[0.98]"
+                    class="w-full h-12 rounded-lg bg-[#004ac6] text-white font-semibold text-sm hover:bg-[#003ea8] active:scale-[0.98] transition-colors duration-200 flex items-center justify-center gap-2 shadow-sm"
                     type="submit">
-                    <span class="">Sign In</span>
+                    <span>Sign In</span>
                     <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
                 </button>
             </form>
             <!-- Footer -->
-            <div class="mt-md text-center">
-                <p class="font-body-sm text-body-sm text-on-surface-variant">
-                    Need help? <a class="text-primary font-label-md text-label-md hover:underline" href="#">Contact IT
-                        Support</a>
+            <footer class="mt-4 text-center">
+                <div class="flex items-center justify-center gap-2.5 text-[10.5px] text-on-surface-variant flex-wrap">
+                    <a href="#help-center" class="hover:text-primary">Help Center</a>
+                    <span class="h-1 w-1 rounded-full bg-gray-300"></span>
+                    <a href="#privacy-policy" class="hover:text-primary">Privacy Policy</a>
+                    <span class="h-1 w-1 rounded-full bg-gray-300"></span>
+                    <a href="#terms" class="hover:text-primary">Terms of Use</a>
+                </div>
+
+                <p class="mt-2 text-[8.5px] uppercase tracking-widest text-gray-400">
+                    © 2026 Nichi-In. All Rights Reserved.
                 </p>
-            </div>
+            </footer>
         </div>
     </div>
 
     <script>
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+
+        emailInput?.addEventListener('input', () => {
+            if (emailInput.value.trim()) {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('border-[#ba1a1a]');
+            }
+        });
+
+        passwordInput?.addEventListener('input', () => {
+            if (passwordInput.value.trim()) {
+                passwordError.classList.add('hidden');
+                passwordInput.classList.remove('border-[#ba1a1a]');
+            }
+        });
+
+        const togglePassword = document.getElementById('togglePassword');
+        togglePassword?.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            togglePassword.querySelector('span').textContent = isPassword ? 'visibility_off' : 'visibility';
+        });
+
         function handleLogin(event) {
             event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            let isValid = true;
 
-            // Simple validation
-            if (!email || !password) {
-                alert('Please enter both email and password');
+            if (!email) {
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('border-[#ba1a1a]');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('border-[#ba1a1a]');
+            }
+
+            if (!password) {
+                passwordError.classList.remove('hidden');
+                passwordInput.classList.add('border-[#ba1a1a]');
+                isValid = false;
+            } else {
+                passwordError.classList.add('hidden');
+                passwordInput.classList.remove('border-[#ba1a1a]');
+            }
+
+            if (!isValid) {
                 return;
             }
 
