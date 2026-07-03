@@ -339,31 +339,34 @@
 </div>
 
 <!-- Check-In/Out Modal (QR Code) -->
-<div id="checkInModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center p-4">
-    <div id="checkInModal" class="bg-surface-container-lowest w-full max-w-md rounded-2xl shadow-level-5 flex flex-col overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
-        <div class="p-lg text-center flex flex-col items-center">
-            <h3 id="checkInTitle" class="font-headline-sm font-bold text-on-surface mb-1">Check In Visitor</h3>
-            <p id="checkInSubtitle" class="font-body-sm text-on-surface-variant mb-6">Scan QR Code or manually confirm.</p>
-            
-            <!-- QR Scanner Mockup -->
-            <div class="w-48 h-48 border-4 border-dashed border-primary/50 rounded-xl relative flex items-center justify-center bg-surface-container-low mb-6 overflow-hidden">
-                <span class="material-symbols-outlined text-[64px] text-primary/30">qr_code_scanner</span>
-                <div class="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 animate-scan"></div>
-                <!-- CSS animation added in JS style tag -->
-            </div>
-            
-            <div class="bg-surface-container p-4 rounded-xl w-full text-left mb-6">
-                <p class="font-label-sm text-on-surface-variant mb-1">Visitor Details:</p>
-                <p id="ci_name" class="font-body-md font-bold text-on-surface">Elena Smith</p>
-                <p id="ci_company" class="font-body-sm text-on-surface-variant">TechFlow Inc.</p>
-                <p id="ci_host" class="font-body-sm text-primary mt-2">Host: Marcus Johnson</p>
-            </div>
-            
-            <div class="flex gap-3 w-full">
-                <button onclick="closeCheckInModal()" class="flex-1 px-4 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors">Cancel</button>
-                <button id="ci_confirm_btn" onclick="confirmCheckInStatus()" class="flex-1 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors">Confirm Check-In</button>
-            </div>
+<div id="checkInModalOverlay" class="fixed inset-0 bg-surface-variant/80 backdrop-blur-sm z-[100] hidden opacity-0 transition-opacity duration-300"></div>
+<div id="checkInModal" class="fixed inset-y-0 right-0 w-full sm:w-[450px] bg-surface-container-lowest shadow-level-5 z-[101] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full rounded-l-2xl">
+    <div class="flex items-center justify-between p-lg border-b border-outline-variant shrink-0">
+        <div>
+            <h3 id="checkInTitle" class="font-headline-sm font-bold text-on-surface">Check In Visitor</h3>
+            <p id="checkInSubtitle" class="font-body-sm text-on-surface-variant mt-1">Scan QR Code or manually confirm.</p>
         </div>
+        <button onclick="closeCheckInModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <div class="p-lg overflow-y-auto flex-1 flex flex-col items-center justify-center">
+        <!-- QR Scanner Mockup -->
+        <div class="w-48 h-48 border-4 border-dashed border-primary/50 rounded-xl relative flex items-center justify-center bg-surface-container-low mb-6 shrink-0 overflow-hidden">
+            <span class="material-symbols-outlined text-[64px] text-primary/30">qr_code_scanner</span>
+            <div class="absolute inset-0 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 animate-scan"></div>
+        </div>
+        
+        <div class="bg-surface-container p-4 rounded-xl w-full text-left">
+            <p class="font-label-sm text-on-surface-variant mb-1">Visitor Details:</p>
+            <p id="ci_name" class="font-body-md font-bold text-on-surface">Elena Smith</p>
+            <p id="ci_company" class="font-body-sm text-on-surface-variant">TechFlow Inc.</p>
+            <p id="ci_host" class="font-body-sm text-primary mt-2">Host: Marcus Johnson</p>
+        </div>
+    </div>
+    <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-bl-2xl shrink-0">
+        <button type="button" class="px-6 py-2 border border-outline-variant rounded-lg font-label-md hover:bg-surface-container-low transition-colors shadow-sm" onclick="closeCheckInModal()">Cancel</button>
+        <button id="ci_confirm_btn" type="button" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm" onclick="confirmCheckInStatus()">Confirm Check-In</button>
     </div>
 </div>
 
@@ -516,23 +519,25 @@
             const modal = document.getElementById('checkInModal');
             
             overlay.classList.remove('hidden');
+            modal.classList.remove('hidden');
             setTimeout(() => {
                 overlay.classList.remove('opacity-0');
-                modal.classList.remove('scale-95', 'opacity-0');
-                modal.classList.add('scale-100', 'opacity-100');
+                modal.classList.remove('translate-x-full');
             }, 10);
+            document.body.style.overflow = 'hidden';
         }
 
         function closeCheckInModal() {
             const overlay = document.getElementById('checkInModalOverlay');
             const modal = document.getElementById('checkInModal');
             
-            overlay.classList.remove('opacity-100');
-            modal.classList.remove('scale-100', 'opacity-100');
-            modal.classList.add('scale-95', 'opacity-0');
+            overlay.classList.add('opacity-0');
+            modal.classList.add('translate-x-full');
             
             setTimeout(() => {
                 overlay.classList.add('hidden');
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
             }, 300);
         }
 
