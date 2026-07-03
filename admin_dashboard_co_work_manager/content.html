@@ -365,24 +365,30 @@
 </div>
 
 <script>
-    function openActivityModal() {
-        const modal = document.getElementById('activityModal');
-        const panel = document.getElementById('activityModalPanel');
-        modal.classList.remove('hidden');
-        // Small delay to allow display block to apply before animating opacity
-        setTimeout(() => {
-            panel.classList.remove('scale-95', 'opacity-0');
-            panel.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
+    (function() {
+        function openActivityModal() {
+            const modal = document.getElementById('activityModal');
+            const panel = document.getElementById('activityModalPanel');
+            if (!modal || !panel) return;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                panel.classList.remove('scale-95', 'opacity-0');
+                panel.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
 
-    function closeActivityModal() {
-        const modal = document.getElementById('activityModal');
-        const panel = document.getElementById('activityModalPanel');
-        panel.classList.remove('scale-100', 'opacity-100');
-        panel.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300); // Wait for transition to finish
-    }
+        function closeActivityModal() {
+            const modal = document.getElementById('activityModal');
+            const panel = document.getElementById('activityModalPanel');
+            if (!modal || !panel) return;
+            panel.classList.remove('scale-100', 'opacity-100');
+            panel.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        window.openActivityModal = openActivityModal;
+        window.closeActivityModal = closeActivityModal;
+    })();
 </script>

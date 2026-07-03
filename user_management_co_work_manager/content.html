@@ -513,87 +513,88 @@
             </div>
         </aside>
 
-        <script>
-            let users = [];
-            let filteredUsers = [];
-            let searchQuery = "";
-            let currentPage = 1;
-            const itemsPerPage = 4;
+<script>
+    (function() {
+        let users = [];
+        let filteredUsers = [];
+        let searchQuery = "";
+        let currentPage = 1;
+        const itemsPerPage = 4;
 
-            async function loadUsers() {
-                let stored = sessionStorage.getItem("users");
-                if (!stored) {
-                    try {
-                        const res = await fetch("../member/data/users.json");
-                        const data = await res.json();
-                        sessionStorage.setItem("users", JSON.stringify(data));
-                        stored = JSON.stringify(data);
-                    } catch (e) {
-                        console.error("Failed to load users", e);
-                        return;
-                    }
-                }
-                users = JSON.parse(stored);
-                applyFilters();
-            }
-
-            function applyFilters() {
-                filteredUsers = users.filter(u => {
-                    const matchSearch = searchQuery === "" ||
-                        u.name.toLowerCase().includes(searchQuery) ||
-                        u.email.toLowerCase().includes(searchQuery) ||
-                        u.role.toLowerCase().includes(searchQuery);
-                    return matchSearch;
-                });
-                currentPage = 1;
-                renderUsers();
-            }
-
-            function handleSearch() {
-                const input = document.getElementById("memberSearch");
-                if (input) {
-                    searchQuery = input.value.toLowerCase().trim();
-                    applyFilters();
-                }
-            }
-
-            function renderUsers() {
-                const tbody = document.getElementById("members_table_body");
-                if (!tbody) return;
-
-                const totalItems = filteredUsers.length;
-                const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-                if (currentPage > totalPages) currentPage = totalPages;
-                if (currentPage < 1) currentPage = 1;
-
-                const startIndex = (currentPage - 1) * itemsPerPage;
-                const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-                const pageUsers = filteredUsers.slice(startIndex, endIndex);
-
-                if (pageUsers.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
-                    renderPagination(0, 0, 0);
+        async function loadUsers() {
+            let stored = sessionStorage.getItem("users");
+            if (!stored) {
+                try {
+                    const res = await fetch("../member/data/users.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("users", JSON.stringify(data));
+                    stored = JSON.stringify(data);
+                } catch (e) {
+                    console.error("Failed to load users", e);
                     return;
                 }
+            }
+            users = JSON.parse(stored);
+            applyFilters();
+        }
 
-                tbody.innerHTML = pageUsers.map(u => {
-                    let avatarHTML = "";
-                    if (u.avatar) {
-                        avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
-                    } else {
-                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                        avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
-                    }
+        function applyFilters() {
+            filteredUsers = users.filter(u => {
+                const matchSearch = searchQuery === "" ||
+                    u.name.toLowerCase().includes(searchQuery) ||
+                    u.email.toLowerCase().includes(searchQuery) ||
+                    u.role.toLowerCase().includes(searchQuery);
+                return matchSearch;
+            });
+            currentPage = 1;
+            renderUsers();
+        }
 
-                    let statusBadgeClass = "bg-secondary/10 text-secondary";
-                    if (u.status === "Inactive") {
-                        statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
-                    } else if (u.status === "Past Due") {
-                        statusBadgeClass = "bg-error/10 text-error";
-                    }
+        function handleSearch() {
+            const input = document.getElementById("memberSearch");
+            if (input) {
+                searchQuery = input.value.toLowerCase().trim();
+                applyFilters();
+            }
+        }
 
-                    return `
+        function renderUsers() {
+            const tbody = document.getElementById("members_table_body");
+            if (!tbody) return;
+
+            const totalItems = filteredUsers.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+            if (pageUsers.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
+                renderPagination(0, 0, 0);
+                return;
+            }
+
+            tbody.innerHTML = pageUsers.map(u => {
+                let avatarHTML = "";
+                if (u.avatar) {
+                    avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
+                } else {
+                    const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                    avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+                }
+
+                let statusBadgeClass = "bg-secondary/10 text-secondary";
+                if (u.status === "Inactive") {
+                    statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
+                } else if (u.status === "Past Due") {
+                    statusBadgeClass = "bg-error/10 text-error";
+                }
+
+                return `
                 <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="viewMemberProfile(${u.id})">
                     <td class="px-md py-sm">
                         <div class="flex items-center gap-sm">
@@ -614,236 +615,252 @@
                     </td>
                 </tr>
             `;
-                }).join("");
+            }).join("");
 
-                renderPagination(startIndex + 1, endIndex, totalItems);
-            }
+            renderPagination(startIndex + 1, endIndex, totalItems);
+        }
 
-            function renderPagination(start, end, total) {
-                const container = document.getElementById("pagination_container");
-                const info = document.getElementById("paginationInfo");
-                if (!container || !info) return;
+        function renderPagination(start, end, total) {
+            const container = document.getElementById("pagination_container");
+            const info = document.getElementById("paginationInfo");
+            if (!container || !info) return;
 
-                info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+            info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
 
-                const totalPages = Math.ceil(total / itemsPerPage) || 1;
+            const totalPages = Math.ceil(total / itemsPerPage) || 1;
 
-                let html = `
+            let html = `
             <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
         `;
 
-                for (let i = 1; i <= totalPages; i++) {
-                    if (i === currentPage) {
-                        html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
-                    } else {
-                        html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
-                    }
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+                } else {
+                    html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
                 }
+            }
 
-                html += `
+            html += `
             <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
         `;
 
-                container.innerHTML = html;
-            }
+            container.innerHTML = html;
+        }
 
-            function goToPage(p) {
-                currentPage = p;
-                renderUsers();
-            }
+        function goToPage(p) {
+            currentPage = p;
+            renderUsers();
+        }
 
-            function viewMemberProfile(id) {
-                const u = users.find(x => x.id === id);
-                if (!u) return;
+        function viewMemberProfile(id) {
+            const u = users.find(x => x.id === id);
+            if (!u) return;
 
-                // Populate side-over panel elements
-                const nameEl = document.getElementById("profile_name");
-                const emailEl = document.getElementById("profile_email");
-                const statusEl = document.getElementById("profile_status");
-                const planEl = document.getElementById("profile_plan");
-                const joinDateEl = document.getElementById("profile_join_date");
-                const companyEl = document.getElementById("profile_company");
-                const accessEl = document.getElementById("profile_access_level");
-                const avatarContainer = document.getElementById("profile_avatar_container");
+            // Populate side-over panel elements
+            const nameEl = document.getElementById("profile_name");
+            const emailEl = document.getElementById("profile_email");
+            const statusEl = document.getElementById("profile_status");
+            const planEl = document.getElementById("profile_plan");
+            const joinDateEl = document.getElementById("profile_join_date");
+            const companyEl = document.getElementById("profile_company");
+            const accessEl = document.getElementById("profile_access_level");
+            const avatarContainer = document.getElementById("profile_avatar_container");
 
-                if (nameEl) nameEl.textContent = u.name;
-                if (emailEl) emailEl.textContent = u.email;
-                if (planEl) planEl.textContent = u.plan || "Hot Desk";
-                if (joinDateEl) joinDateEl.textContent = u.joinDate;
-                if (companyEl) companyEl.textContent = u.company || "Independent";
-                if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
+            if (nameEl) nameEl.textContent = u.name;
+            if (emailEl) emailEl.textContent = u.email;
+            if (planEl) planEl.textContent = u.plan || "Hot Desk";
+            if (joinDateEl) joinDateEl.textContent = u.joinDate;
+            if (companyEl) companyEl.textContent = u.company || "Independent";
+            if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
 
-                if (statusEl) {
-                    statusEl.textContent = u.status + " Member";
-                    statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
-                    if (u.status === "Active") {
-                        statusEl.classList.add("bg-secondary/10", "text-secondary");
-                    } else if (u.status === "Inactive") {
-                        statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
-                    } else if (u.status === "Past Due") {
-                        statusEl.classList.add("bg-error/10", "text-error");
-                    }
+            if (statusEl) {
+                statusEl.textContent = u.status + " Member";
+                statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
+                if (u.status === "Active") {
+                    statusEl.classList.add("bg-secondary/10", "text-secondary");
+                } else if (u.status === "Inactive") {
+                    statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
+                } else if (u.status === "Past Due") {
+                    statusEl.classList.add("bg-error/10", "text-error");
                 }
+            }
 
-                if (avatarContainer) {
-                    if (u.avatar) {
-                        avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
-                    } else {
-                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                        avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
-                    }
+            if (avatarContainer) {
+                if (u.avatar) {
+                    avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
+                } else {
+                    const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                    avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
                 }
-
-                openProfileModal();
             }
 
-            function openProfileModal() {
-                const modal = document.getElementById('profileModal');
-                const scrim = document.getElementById('profileScrim');
+            openProfileModal();
+        }
 
-                scrim.classList.remove('hidden');
-                setTimeout(() => {
-                    scrim.classList.remove('opacity-0');
-                    modal.classList.remove('translate-x-full');
-                }, 10);
+        function openProfileModal() {
+            const modal = document.getElementById('profileModal');
+            const scrim = document.getElementById('profileScrim');
 
-                document.body.style.overflow = 'hidden';
+            scrim.classList.remove('hidden');
+            setTimeout(() => {
+                scrim.classList.remove('opacity-0');
+                modal.classList.remove('translate-x-full');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profileModal');
+            const scrim = document.getElementById('profileScrim');
+
+            modal.classList.add('translate-x-full');
+            scrim.classList.add('opacity-0');
+
+            setTimeout(() => {
+                scrim.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function openRegisterModal() {
+            const modal = document.getElementById('registerModalWrapper');
+            const scrim = document.getElementById('registerScrim');
+
+            scrim.classList.remove('hidden');
+            modal.classList.remove('hidden');
+
+            setTimeout(() => {
+                scrim.classList.remove('opacity-0');
+                modal.classList.remove('translate-x-full');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRegisterModal() {
+            const modal = document.getElementById('registerModalWrapper');
+            const scrim = document.getElementById('registerScrim');
+
+            modal.classList.add('translate-x-full');
+            scrim.classList.add('opacity-0');
+
+            setTimeout(() => {
+                scrim.classList.add('hidden');
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        function submitRegistration() {
+            const form = document.getElementById('registerMemberForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
             }
 
-            function closeProfileModal() {
-                const modal = document.getElementById('profileModal');
-                const scrim = document.getElementById('profileScrim');
+            const firstName = document.getElementById("reg_first_name").value.trim();
+            const lastName = document.getElementById("reg_last_name").value.trim();
+            const email = document.getElementById("reg_email").value.trim();
+            const phone = document.getElementById("reg_phone").value.trim();
+            const rawRole = document.getElementById("userRoleSelect").value;
+            const company = document.getElementById("reg_company").value.trim();
+            const title = document.getElementById("reg_title").value.trim();
 
-                modal.classList.add('translate-x-full');
-                scrim.classList.add('opacity-0');
-
-                setTimeout(() => {
-                    scrim.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 300);
+            let displayRole = "End User";
+            let displayAccess = "24/7 Standard";
+            let displayPlan = "Hot Desk";
+            if (rawRole === "admin") {
+                displayRole = "Admin";
+                displayAccess = "Full Access";
+                displayPlan = "Dedicated Desk";
+            } else if (rawRole === "staff") {
+                displayRole = "Staff";
+                displayAccess = "Business Hours";
+                displayPlan = "Hot Desk";
             }
 
-            function openRegisterModal() {
-                const modal = document.getElementById('registerModalWrapper');
-                const scrim = document.getElementById('registerScrim');
+            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+            const options = { month: 'short', day: '2-digit', year: 'numeric' };
+            const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
 
-                scrim.classList.remove('hidden');
-                modal.classList.remove('hidden');
+            const newUser = {
+                id: newId,
+                name: `${firstName} ${lastName}`,
+                email: email,
+                role: displayRole,
+                status: "Active",
+                joinDate: formattedDate,
+                avatar: "",
+                company: company || "Independent",
+                accessLevel: displayAccess,
+                plan: displayPlan,
+                phone: phone
+            };
 
-                setTimeout(() => {
-                    scrim.classList.remove('opacity-0');
-                    modal.classList.remove('translate-x-full');
-                }, 10);
+            users.unshift(newUser);
+            sessionStorage.setItem("users", JSON.stringify(users));
+            applyFilters();
 
-                document.body.style.overflow = 'hidden';
-            }
+            alert('Member registered successfully!');
+            closeRegisterModal();
+            form.reset();
+        }
 
-            function closeRegisterModal() {
-                const modal = document.getElementById('registerModalWrapper');
-                const scrim = document.getElementById('registerScrim');
-
-                modal.classList.add('translate-x-full');
-                scrim.classList.add('opacity-0');
-
-                setTimeout(() => {
-                    scrim.classList.add('hidden');
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 300);
-            }
-
-            function submitRegistration() {
-                const form = document.getElementById('registerMemberForm');
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
-
-                const firstName = document.getElementById("reg_first_name").value.trim();
-                const lastName = document.getElementById("reg_last_name").value.trim();
-                const email = document.getElementById("reg_email").value.trim();
-                const phone = document.getElementById("reg_phone").value.trim();
-                const rawRole = document.getElementById("userRoleSelect").value;
-                const company = document.getElementById("reg_company").value.trim();
-                const title = document.getElementById("reg_title").value.trim();
-
-                let displayRole = "End User";
-                let displayAccess = "24/7 Standard";
-                let displayPlan = "Hot Desk";
-                if (rawRole === "admin") {
-                    displayRole = "Admin";
-                    displayAccess = "Full Access";
-                    displayPlan = "Dedicated Desk";
-                } else if (rawRole === "staff") {
-                    displayRole = "Staff";
-                    displayAccess = "Business Hours";
-                    displayPlan = "Hot Desk";
-                }
-
-                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-                const options = { month: 'short', day: '2-digit', year: 'numeric' };
-                const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
-
-                const newUser = {
-                    id: newId,
-                    name: `${firstName} ${lastName}`,
-                    email: email,
-                    role: displayRole,
-                    status: "Active",
-                    joinDate: formattedDate,
-                    avatar: "",
-                    company: company || "Independent",
-                    accessLevel: displayAccess,
-                    plan: displayPlan,
-                    phone: phone
-                };
-
-                users.unshift(newUser);
+        function deleteMember(id) {
+            if (confirm("Are you sure you want to remove this member?")) {
+                users = users.filter(u => u.id !== id);
                 sessionStorage.setItem("users", JSON.stringify(users));
                 applyFilters();
-
-                alert('Member registered successfully!');
-                closeRegisterModal();
-                form.reset();
+                alert("Member removed successfully.");
             }
+        }
 
-            function deleteMember(id) {
-                if (confirm("Are you sure you want to remove this member?")) {
-                    users = users.filter(u => u.id !== id);
-                    sessionStorage.setItem("users", JSON.stringify(users));
-                    applyFilters();
-                    alert("Member removed successfully.");
-                }
+        function handleRoleChange() {
+            const roleSelect = document.getElementById('userRoleSelect');
+            const endUserContainer = document.getElementById('endUserContainer');
+            const adminContainer = document.getElementById('adminContainer');
+            const staffContainer = document.getElementById('staffPermissionsContainer');
+
+            // Hide all first
+            endUserContainer.classList.add('hidden');
+            endUserContainer.classList.remove('block');
+            adminContainer.classList.add('hidden');
+            adminContainer.classList.remove('block');
+            staffContainer.classList.add('hidden');
+            staffContainer.classList.remove('block');
+
+            // Show based on selection
+            if (roleSelect.value === 'end_user') {
+                endUserContainer.classList.remove('hidden');
+                endUserContainer.classList.add('block');
+            } else if (roleSelect.value === 'admin') {
+                adminContainer.classList.remove('hidden');
+                adminContainer.classList.add('block');
+            } else if (roleSelect.value === 'staff') {
+                staffContainer.classList.remove('hidden');
+                staffContainer.classList.add('block');
             }
+        }
 
-            function handleRoleChange() {
-                const roleSelect = document.getElementById('userRoleSelect');
-                const endUserContainer = document.getElementById('endUserContainer');
-                const adminContainer = document.getElementById('adminContainer');
-                const staffContainer = document.getElementById('staffPermissionsContainer');
-
-                // Hide all first
-                endUserContainer.classList.add('hidden');
-                endUserContainer.classList.remove('block');
-                adminContainer.classList.add('hidden');
-                adminContainer.classList.remove('block');
-                staffContainer.classList.add('hidden');
-                staffContainer.classList.remove('block');
-
-                // Show based on selection
-                if (roleSelect.value === 'end_user') {
-                    endUserContainer.classList.remove('hidden');
-                    endUserContainer.classList.add('block');
-                } else if (roleSelect.value === 'admin') {
-                    adminContainer.classList.remove('hidden');
-                    adminContainer.classList.add('block');
-                } else if (roleSelect.value === 'staff') {
-                    staffContainer.classList.remove('hidden');
-                    staffContainer.classList.add('block');
-                }
-            }
-        </script>
+        // Export to window
+        window.loadUsers = loadUsers;
+        window.applyFilters = applyFilters;
+        window.handleSearch = handleSearch;
+        window.renderUsers = renderUsers;
+        window.goToPage = goToPage;
+        window.viewMemberProfile = viewMemberProfile;
+        window.openProfileModal = openProfileModal;
+        window.closeProfileModal = closeProfileModal;
+        window.openRegisterModal = openRegisterModal;
+        window.closeRegisterModal = closeRegisterModal;
+        window.submitRegistration = submitRegistration;
+        window.deleteMember = deleteMember;
+        window.handleRoleChange = handleRoleChange;
+    })();
+</script>
