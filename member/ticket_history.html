@@ -1,13 +1,20 @@
-<!DOCTYPE html><html class="light" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Ticket History - SB Telecom</title>
-<link href="layout.css" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ticket History -Nichi-In</title>
+    <link href="layout.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -107,102 +114,114 @@
             }
         }
     </script>
-<script src="layout.js" defer></script>
+    <script src="layout.js" defer></script>
 </head>
+
 <body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex">
-<!-- Main Content Area -->
-<main class="page-layout flex-1 md:ml-64 bg-background min-h-screen">
-<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
-<!-- Page Header -->
-<div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-4">
-<div>
-<h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">Ticket History</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Manage and track the status of your support requests.</p>
-</div>
-<div class="flex gap-4">
-<button class="bg-surface border border-outline-variant text-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200">Filter</button>
-<a href="raise_support.html" class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-inverse-surface transition-colors duration-200 shadow-sm flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px]">add</span> New Ticket
+    <!-- Main Content Area -->
+    <main class="page-layout flex-1 md:ml-64 bg-background min-h-screen">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">Ticket History</h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">Manage and track the status of
+                        your support requests.</p>
+                </div>
+                <div class="flex gap-4">
+                    <button
+                        class="bg-surface border border-outline-variant text-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-200">Filter</button>
+                    <a href="raise_support.html"
+                        class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label-md text-label-md hover:bg-inverse-surface transition-colors duration-200 shadow-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]">add</span> New Ticket
 
                     </a>
-</div>
-</div>
-<!-- List View / Cards Container -->
-<div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden border border-surface-container-highest">
-<!-- Table Header (Desktop only) -->
-<div class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-surface-container-highest bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-<div class="col-span-2">Ticket ID</div>
-<div class="col-span-4">Subject</div>
-<div class="col-span-2">Date Created</div>
-<div class="col-span-2">Last Update</div>
-<div class="col-span-2 text-right">Status</div>
-</div>
-<!-- Ticket Items -->
-<div id="tickets_list" class="divide-y divide-surface-container-highest">
-    <!-- Will be populated dynamically -->
-</div>
-<!-- Pagination / Footer -->
-<div class="px-6 py-4 border-t border-surface-container-highest bg-surface-container-low flex items-center justify-between">
-    <span id="showing_tickets_text" class="font-body-md text-body-md text-sm text-on-surface-variant">Showing 1 to 4 of 24 tickets</span>
-    <div class="flex gap-2">
-        <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface disabled:opacity-50" disabled="">
-            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
-        </button>
-        <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface">
-            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
-        </button>
-    </div>
-</div>
-</div>
-</div>
-</main>
+                </div>
+            </div>
+            <!-- List View / Cards Container -->
+            <div
+                class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden border border-surface-container-highest">
+                <!-- Table Header (Desktop only) -->
+                <div
+                    class="hidden md:grid grid-cols-12 gap-4 px-6 py-4 border-b border-surface-container-highest bg-surface-container-low font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                    <div class="col-span-2">Ticket ID</div>
+                    <div class="col-span-4">Subject</div>
+                    <div class="col-span-2">Date Created</div>
+                    <div class="col-span-2">Last Update</div>
+                    <div class="col-span-2 text-right">Status</div>
+                </div>
+                <!-- Ticket Items -->
+                <div id="tickets_list" class="divide-y divide-surface-container-highest">
+                    <!-- Will be populated dynamically -->
+                </div>
+                <!-- Pagination / Footer -->
+                <div
+                    class="px-6 py-4 border-t border-surface-container-highest bg-surface-container-low flex items-center justify-between">
+                    <span id="showing_tickets_text"
+                        class="font-body-md text-body-md text-sm text-on-surface-variant">Showing 1 to 4 of 24
+                        tickets</span>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface disabled:opacity-50"
+                            disabled="">
+                            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                        </button>
+                        <button
+                            class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface">
+                            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<script>
-    let tickets = [];
+    <script>
+        let tickets = [];
 
-    async function loadTickets() {
-        let stored = sessionStorage.getItem("tickets");
-        if (!stored) {
-            try {
-                const res = await fetch("data/tickets.json");
-                const data = await res.json();
-                sessionStorage.setItem("tickets", JSON.stringify(data));
-                stored = JSON.stringify(data);
-            } catch (e) {
-                console.error("Failed to load tickets list", e);
+        async function loadTickets() {
+            let stored = sessionStorage.getItem("tickets");
+            if (!stored) {
+                try {
+                    const res = await fetch("data/tickets.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("tickets", JSON.stringify(data));
+                    stored = JSON.stringify(data);
+                } catch (e) {
+                    console.error("Failed to load tickets list", e);
+                    return;
+                }
+            }
+            tickets = JSON.parse(stored);
+            renderTickets();
+        }
+
+        function renderTickets() {
+            const container = document.getElementById("tickets_list");
+            if (!container) return;
+
+            if (tickets.length === 0) {
+                container.innerHTML = `<p class="py-8 text-center text-sm text-on-surface-variant">No support tickets found</p>`;
+                document.getElementById("showing_tickets_text").textContent = "Showing 0 of 0 tickets";
                 return;
             }
-        }
-        tickets = JSON.parse(stored);
-        renderTickets();
-    }
 
-    function renderTickets() {
-        const container = document.getElementById("tickets_list");
-        if (!container) return;
+            container.innerHTML = tickets.map(t => {
+                let statusBadgeClass = "bg-surface-variant text-on-surface";
+                let dotClass = "bg-outline";
 
-        if (tickets.length === 0) {
-            container.innerHTML = `<p class="py-8 text-center text-sm text-on-surface-variant">No support tickets found</p>`;
-            document.getElementById("showing_tickets_text").textContent = "Showing 0 of 0 tickets";
-            return;
-        }
+                if (t.status === "Open") {
+                    statusBadgeClass = "bg-error-container text-on-error-container";
+                    dotClass = "bg-error";
+                } else if (t.status === "Resolved") {
+                    statusBadgeClass = "bg-secondary-container text-on-secondary-container";
+                    dotClass = "bg-secondary";
+                }
 
-        container.innerHTML = tickets.map(t => {
-            let statusBadgeClass = "bg-surface-variant text-on-surface";
-            let dotClass = "bg-outline";
+                // For resolved tickets, make it slightly opaque to denote complete state
+                const opacityClass = t.status === "Resolved" ? "opacity-75" : "";
 
-            if (t.status === "Open") {
-                statusBadgeClass = "bg-error-container text-on-error-container";
-                dotClass = "bg-error";
-            } else if (t.status === "Resolved") {
-                statusBadgeClass = "bg-secondary-container text-on-secondary-container";
-                dotClass = "bg-secondary";
-            }
-
-            // For resolved tickets, make it slightly opaque to denote complete state
-            const opacityClass = t.status === "Resolved" ? "opacity-75" : "";
-
-            return `
+                return `
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 items-center hover:bg-surface-container-low transition-colors duration-200 cursor-pointer group ${opacityClass}">
                     <div class="col-span-12 md:col-span-2 font-label-md text-label-md text-primary group-hover:text-secondary transition-colors">
                         <span class="md:hidden text-on-surface-variant mr-2">ID:</span>#${t.id}
@@ -226,13 +245,14 @@
                     </div>
                 </div>
             `;
-        }).join("");
+            }).join("");
 
-        document.getElementById("showing_tickets_text").textContent = `Showing 1 to ${tickets.length} of ${tickets.length} tickets`;
-    }
+            document.getElementById("showing_tickets_text").textContent = `Showing 1 to ${tickets.length} of ${tickets.length} tickets`;
+        }
 
-    // Initial load
-    loadTickets();
-</script>
+        // Initial load
+        loadTickets();
+    </script>
 </body>
+
 </html>

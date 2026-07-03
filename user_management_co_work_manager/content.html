@@ -1,22 +1,36 @@
 <!-- Page Header & Toolbar -->
 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 sm:mb-8 gap-4">
     <div>
-        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Member List</h2>
-        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage co-working space members, their access roles, and account status.</p>
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Member List
+        </h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage co-working space members, their access
+            roles, and account status.</p>
     </div>
     <div class="flex items-center gap-3 w-full md:w-auto shrink-0 flex-wrap sm:flex-nowrap">
         <!-- Search -->
         <div class="relative flex-grow md:flex-grow-0">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-            <input id="memberSearch" oninput="handleSearch()" class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Search members..." type="text">
+            <span
+                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">
+                search</span>
+            <input
+                class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                placeholder="Search members..." type="text">
+            <span
+                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+            <input id="memberSearch" oninput="handleSearch()"
+                class="w-full md:w-64 pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                placeholder="Search members..." type="text">
         </div>
         <!-- Filters -->
-        <button class="flex items-center gap-1.5 px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors font-label-md shadow-sm justify-center flex-grow md:flex-grow-0 whitespace-nowrap">
+        <button
+            class="flex items-center gap-1.5 px-4 py-2 border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors font-label-md shadow-sm justify-center flex-grow md:flex-grow-0 whitespace-nowrap">
             <span class="material-symbols-outlined text-[18px]">filter_list</span>
             Filter
         </button>
         <!-- Primary Action -->
-        <button class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-label-md font-bold justify-center flex-grow md:flex-grow-0 whitespace-nowrap" onclick="openRegisterModal()">
+        <button
+            class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-label-md font-bold justify-center flex-grow md:flex-grow-0 whitespace-nowrap"
+            onclick="openRegisterModal()">
             <span class="material-symbols-outlined text-[18px]">person_add</span>
             Add Member
         </button>
@@ -29,14 +43,124 @@
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="bg-surface-container-low border-b border-outline-variant">
-                    <th class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Member Name</th>
-                    <th class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Email Contact</th>
-                    <th class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Role</th>
-                    <th class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
-                    <th class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Join Date</th>
+                    <th
+                        class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                        Member Name</th>
+                    <th
+                        class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                        Email Contact</th>
+                    <th
+                        class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                        Role</th>
+                    <th
+                        class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                        Status</th>
+                    <th
+                        class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                        Join Date</th>
                     <th class="px-md py-sm w-12"></th>
                 </tr>
             </thead>
+            <tbody class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
+                <!-- Row 1 -->
+                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                    onclick="openProfileModal()">
+                    <td class="px-md py-sm">
+                        <div class="flex items-center gap-sm">
+                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc">
+                            <span class="font-label-md text-label-md font-semibold">Sarah Jenkins</span>
+                        </div>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">sarah.j@example.com</td>
+                    <td class="px-md py-sm">End User</td>
+                    <td class="px-md py-sm">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">Oct 12, 2023</td>
+                    <td class="px-md py-sm text-right">
+                        <button
+                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+                    </td>
+                </tr>
+                <!-- Row 2 -->
+                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                    onclick="openProfileModal()">
+                    <td class="px-md py-sm">
+                        <div class="flex items-center gap-sm">
+                            <div
+                                class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">
+                                MR</div>
+                            <span class="font-label-md text-label-md font-semibold">Marcus Reed</span>
+                        </div>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">m.reed@techcorp.io</td>
+                    <td class="px-md py-sm">Admin</td>
+                    <td class="px-md py-sm">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">Aug 05, 2023</td>
+                    <td class="px-md py-sm text-right">
+                        <button
+                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+                    </td>
+                </tr>
+                <!-- Row 3 -->
+                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                    onclick="openProfileModal()">
+                    <td class="px-md py-sm">
+                        <div class="flex items-center gap-sm">
+                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzUHqL2k0j2xNOIkkiq_7sOjlLc5_RXUP-SgGvH479IK6ykn_s4jtfS7PSzCVKyfbOSreBIjjfO-Je_xviI62onBszhSLpyYjtjtEJ3wkNsF6UwxzI_V8PKNVMBloaU-sTGFmD5-RThemF0XtuyxoIjPBwbJv_9ODlerG04x8E--dyp_SIfaUjilPHuDJ43zbucEdCbuy89uOtbDiRoy2dSpsYMWYzxkHFnksFMP9bsKfW2Sn5nArJT2nANEdK2_WQI2BbMWK1Z3Y">
+                            <span class="font-label-md text-label-md font-semibold">David Chen</span>
+                        </div>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">d.chen@freelance.net</td>
+                    <td class="px-md py-sm">Staff</td>
+                    <td class="px-md py-sm">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-error/10 text-error">Past
+                            Due</span>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">Jan 22, 2026</td>
+                    <td class="px-md py-sm text-right">
+                        <button
+                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+                    </td>
+                </tr>
+                <!-- Row 4 -->
+                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                    onclick="openProfileModal()">
+                    <td class="px-md py-sm">
+                        <div class="flex items-center gap-sm">
+                            <div
+                                class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-label-md shrink-0">
+                                AL</div>
+                            <span class="font-label-md text-label-md font-semibold">Anna Lopez</span>
+                        </div>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">anna.l@designstudio.co</td>
+                    <td class="px-md py-sm">End User</td>
+                    <td class="px-md py-sm">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant border border-outline-variant/50">Inactive</span>
+                    </td>
+                    <td class="px-md py-sm text-on-surface-variant">Nov 15, 2022</td>
+                    <td class="px-md py-sm text-right">
+                        <button
+                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+                    </td>
+                </tr>
             <tbody id="members_table_body" class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
                 <!-- Dynamic rows will be injected here -->
             </tbody>
@@ -44,320 +168,435 @@
     </div>
 
     <!-- Pagination Footer -->
-    <div class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 1 to 4 of 48 entries</span>
-        <div id="pagination_container" class="flex gap-xs items-center">
-            <!-- Dynamic pagination buttons will be injected here -->
-        </div>
-    </div>
-</div>
-
-<!-- Member Profile Slide-over (Level 3 Elevation) -->
-<div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300" id="profileScrim" onclick="closeProfileModal()"></div>
-<aside class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant" id="profileModal">
-    <!-- Header -->
-    <div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface">
-        <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Member Profile</h3>
-        <button class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors" onclick="closeProfileModal()">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-    </div>
-    <!-- Scrollable Content -->
-    <div class="flex-1 overflow-y-auto p-lg">
-        <!-- Hero Info -->
-        <div class="flex flex-col items-center text-center mb-xl">
-            <div id="profile_avatar_container" class="mb-md">
-                <!-- Image or Initial will be loaded here -->
-            </div>
-            <h4 id="profile_name" class="font-headline-md text-headline-md text-on-surface"></h4>
-            <p id="profile_email" class="font-body-sm text-on-surface-variant mb-sm"></p>
-            <span id="profile_status" class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold"></span>
-        </div>
-        <!-- Bento Details Grid -->
-        <div class="grid grid-cols-2 gap-sm mb-xl">
-            <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Plan</p>
-                <p id="profile_plan" class="font-label-md text-on-surface font-semibold"></p>
-            </div>
-            <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Join Date</p>
-                <p id="profile_join_date" class="font-label-md text-on-surface font-semibold"></p>
-            </div>
-            <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Company</p>
-                <p id="profile_company" class="font-label-md text-on-surface font-semibold"></p>
-            </div>
-            <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
-                <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Access Level</p>
-                <p id="profile_access_level" class="font-label-md text-on-surface font-semibold"></p>
-            </div>
-        </div>
-        <!-- Recent Activity List -->
-        <div>
-            <h5 class="font-label-md text-on-surface border-b border-outline-variant pb-xs mb-sm font-semibold">Recent Activity</h5>
-            <ul class="space-y-md">
-                <li class="flex items-start gap-sm">
-                    <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[16px] text-primary">login</span>
-                    </div>
-                    <div>
-                        <p class="font-body-sm text-on-surface">Checked in at Main Entrance</p>
-                        <p class="font-label-sm text-on-surface-variant">Today, 08:45 AM</p>
-                    </div>
-                </li>
-                <li class="flex items-start gap-sm">
-                    <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[16px] text-tertiary">meeting_room</span>
-                    </div>
-                    <div>
-                        <p class="font-body-sm text-on-surface">Booked 'Conference Room A'</p>
-                        <p class="font-label-sm text-on-surface-variant">Yesterday, 02:00 PM</p>
-                    </div>
-                </li>
-                <li class="flex items-start gap-sm">
-                    <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[16px] text-secondary">credit_card</span>
-                    </div>
-                    <div>
-                        <p class="font-body-sm text-on-surface">Monthly invoice paid successfully</p>
-                        <p class="font-label-sm text-on-surface-variant">Oct 12, 2024</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Footer Actions -->
-    <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto">
-        <button class="flex-1 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm">Edit Profile</button>
-        <button class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Message</button>
-    </div>
-</aside>
-
-<!-- Register Member Modal (Level 3 Elevation) -->
-<div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300" id="registerScrim" onclick="closeRegisterModal()"></div>
-<div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 sm:p-0 opacity-0 transition-opacity duration-300" id="registerModalWrapper" onclick="closeRegisterModal()">
-    <div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] w-full max-w-[600px] max-h-[90vh] flex flex-col border border-outline-variant transform scale-95 transition-transform duration-300" id="registerModalContent" onclick="event.stopPropagation()">
-        <!-- Header -->
-        <div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface rounded-t-xl shrink-0">
-            <div>
-                <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Register New Member</h3>
-                <p class="font-body-sm text-on-surface-variant mt-1">Add a new member to the co-working space.</p>
-            </div>
-            <button class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors" onclick="closeRegisterModal()">
-                <span class="material-symbols-outlined">close</span>
+    <div
+        class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 1 to 4 of 48
+            entries</span>
+        <div class="flex gap-xs">
+            <button class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50"
+                disabled>
+                <span class="material-symbols-outlined">chevron_left</span>
             </button>
+            <button
+                class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center"
+                onclick="changePage(1, this)">1</button>
+            <button
+                class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center"
+                onclick="changePage(2, this)">2</button>
+            <button
+                class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center"
+                onclick="changePage(3, this)">3</button>
+            <button class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant">
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+            <div
+                class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 1 to 4 of 48
+                    entries</span>
+                <div id="pagination_container" class="flex gap-xs items-center">
+                    <!-- Dynamic pagination buttons will be injected here -->
+                </div>
+            </div>
         </div>
-        
-        <!-- Form Content -->
-        <div class="flex-1 overflow-y-auto p-lg">
-            <form id="registerMemberForm" class="space-y-6">
-                <!-- Basic Info -->
-                <div>
-                    <h4 class="font-label-md font-semibold text-on-surface border-b border-outline-variant pb-xs mb-sm">Basic Information</h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                        <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant">First Name <span class="text-error">*</span></label>
-                            <input id="reg_first_name" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="John">
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant">Last Name <span class="text-error">*</span></label>
-                            <input id="reg_last_name" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="Doe">
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant">Email Address <span class="text-error">*</span></label>
-                            <input id="reg_email" type="email" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="john@example.com">
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant">Phone Number</label>
-                            <input id="reg_phone" type="tel" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="+1 (555) 000-0000">
-                        </div>
-                        <div class="flex flex-col gap-1 sm:col-span-2">
-                            <label class="font-label-sm text-on-surface-variant">User Role <span class="text-error">*</span></label>
-                            <select id="userRoleSelect" onchange="handleRoleChange()" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface">
-                                <option value="end_user" selected>End User</option>
-                                <option value="staff">Staff</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                        <!-- Dynamic: End User Container -->
-                        <div id="endUserContainer" class="flex flex-col gap-3 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 block">
-                            <label class="font-label-sm text-on-surface-variant font-bold text-primary">Company Information</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Company Name</label>
-                                    <input id="reg_company" type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Acme Corp">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Job Title / Designation</label>
-                                    <input id="reg_title" type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Software Engineer">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Company Website</label>
-                                    <input type="url" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="https://www.example.com">
-                                </div>
-                                <div class="flex flex-col gap-1">
-                                    <label class="font-label-sm text-on-surface-variant">Industry</label>
-                                    <input type="text" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" placeholder="e.g. Technology, Real Estate">
-                                </div>
-                                <div class="flex flex-col gap-1 sm:col-span-2">
-                                    <label class="font-label-sm text-on-surface-variant">Company Address</label>
-                                    <textarea class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface" rows="2" placeholder="Full company address"></textarea>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Dynamic: Admin Container -->
-                        <div id="adminContainer" class="flex flex-col gap-1 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 hidden">
-                            <div class="bg-secondary-container/20 text-on-secondary-container p-3 rounded-lg border border-secondary-container flex items-start gap-2">
-                                <span class="material-symbols-outlined text-[20px] text-primary">admin_panel_settings</span>
-                                <span class="font-body-sm">All permissions granted. Admin users have full access to all screens and settings.</span>
-                            </div>
-                        </div>
-
-                        <!-- Dynamic: Staff Permissions Container -->
-                        <div id="staffPermissionsContainer" class="flex flex-col gap-2 sm:col-span-2 hidden mt-2 border-t border-outline-variant pt-3">
-                            <label class="font-label-sm text-on-surface-variant font-bold text-primary">Select Screen Permissions for Staff <span class="text-error">*</span></label>
-                            <div class="grid grid-cols-2 gap-3 mt-1">
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Admin Dashboard</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Reception Dashboard</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">User Management</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Booking Management</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Meeting Rooms</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Visitor Management</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Announcements</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Support Tickets</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Reports & Analytics</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Roles & Permissions</span>
-                                </label>
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="checkbox" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                                    <span class="font-body-sm text-on-surface">Settings</span>
-                                </label>
-                            </div>
-                        </div>
+        <!-- Member Profile Slide-over (Level 3 Elevation) -->
+        <div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300"
+            id="profileScrim" onclick="closeProfileModal()"></div>
+        <aside
+            class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant"
+            id="profileModal">
+            <!-- Header -->
+            <div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface">
+                <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Member Profile</h3>
+                <button
+                    class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors"
+                    onclick="closeProfileModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-lg">
+                <!-- Hero Info -->
+                <div class="flex flex-col items-center text-center mb-xl">
+                    <img alt="Sarah Jenkins Profile"
+                        class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB60-3oK9U3PahU-2LbhIqE0cMOHgR-Pk1UPJpnR59m52GvwxUUcW9npcgOHq9CUpQJ14GVwF8YiP3SMy-BHGkV2_sHKQyBmGm_xVzVzjd0Tly2RG892JKktZBy1oMOxizWorHzxWMswFgSbq4PWYQFZn_XOxDAg5jiiaIqstcCMThBaCzlgl0EAEFE0WWYaIk5IVk5hzkkJRa9CNX81dbkJvuNpb9TxXZzDL-Z6wAcqqIDgUlVCAgiCOkikF9DvlOgLzPu8R7lcdk">
+                    <h4 class="font-headline-md text-headline-md text-on-surface">Sarah Jenkins</h4>
+                    <p class="font-body-sm text-on-surface-variant mb-sm">sarah.j@example.com</p>
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-secondary/10 text-secondary">Active
+                        Member</span>
+                    <div id="profile_avatar_container" class="mb-md">
+                        <!-- Image or Initial will be loaded here -->
+                    </div>
+                    <h4 id="profile_name" class="font-headline-md text-headline-md text-on-surface"></h4>
+                    <p id="profile_email" class="font-body-sm text-on-surface-variant mb-sm"></p>
+                    <span id="profile_status"
+                        class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold"></span>
+                </div>
+                <!-- Bento Details Grid -->
+                <div class="grid grid-cols-2 gap-sm mb-xl">
+                    <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Plan</p>
+                        <p id="profile_plan" class="font-label-md text-on-surface font-semibold"></p>
+                    </div>
+                    <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Join Date</p>
+                        <p id="profile_join_date" class="font-label-md text-on-surface font-semibold"></p>
+                    </div>
+                    <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Company</p>
+                        <p id="profile_company" class="font-label-md text-on-surface font-semibold"></p>
+                    </div>
+                    <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                        <p class="font-label-sm text-on-surface-variant uppercase mb-xs text-xs">Access Level</p>
+                        <p id="profile_access_level" class="font-label-md text-on-surface font-semibold"></p>
                     </div>
                 </div>
-            </form>
+                <!-- Recent Activity List -->
+                <div>
+                    <h5 class="font-label-md text-on-surface border-b border-outline-variant pb-xs mb-sm font-semibold">
+                        Recent
+                        Activity</h5>
+                    <ul class="space-y-md">
+                        <li class="flex items-start gap-sm">
+                            <div
+                                class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[16px] text-primary">login</span>
+                            </div>
+                            <div>
+                                <p class="font-body-sm text-on-surface">Checked in at Main Entrance</p>
+                                <p class="font-label-sm text-on-surface-variant">Today, 08:45 AM</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-sm">
+                            <div
+                                class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[16px] text-tertiary">meeting_room</span>
+                            </div>
+                            <div>
+                                <p class="font-body-sm text-on-surface">Booked 'Conference Room A'</p>
+                                <p class="font-label-sm text-on-surface-variant">Yesterday, 02:00 PM</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-sm">
+                            <div
+                                class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[16px] text-secondary">credit_card</span>
+                            </div>
+                            <div>
+                                <p class="font-body-sm text-on-surface">Monthly invoice paid successfully</p>
+                                <p class="font-label-sm text-on-surface-variant">Oct 12, 2026</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Footer Actions -->
+            <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto">
+                <button
+                    class="flex-1 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm">Edit
+                    Profile</button>
+                <button
+                    class="flex-1 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Message</button>
+            </div>
+        </aside>
+
+        <!-- Register Member Modal (Level 3 Elevation) -->
+        <div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300"
+            id="registerScrim" onclick="closeRegisterModal()"></div>
+        <div class="fixed inset-0 z-[70] hidden items-center justify-center p-4 sm:p-0 opacity-0 transition-opacity duration-300"
+            id="registerModalWrapper" onclick="closeRegisterModal()">
+            <div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] w-full max-w-[600px] max-h-[90vh] flex flex-col border border-outline-variant transform scale-95 transition-transform duration-300"
+                id="registerModalContent" onclick="event.stopPropagation()">
+                <!-- Header -->
+                <div
+                    class="p-md border-b border-outline-variant flex items-center justify-between bg-surface rounded-t-xl shrink-0">
+                    <div>
+                        <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Register New Member
+                        </h3>
+                        <p class="font-body-sm text-on-surface-variant mt-1">Add a new member to the co-working space.
+                        </p>
+                    </div>
+                    <button
+                        class="p-2 hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors"
+                        onclick="closeRegisterModal()">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <!-- Form Content -->
+                <div class="flex-1 overflow-y-auto p-lg">
+                    <form id="registerMemberForm" class="space-y-6">
+                        <!-- Basic Info -->
+                        <div>
+                            <h4
+                                class="font-label-md font-semibold text-on-surface border-b border-outline-variant pb-xs mb-sm">
+                                Basic Information</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                <div class="flex flex-col gap-1">
+                                    <label class="font-label-sm text-on-surface-variant">First Name <span
+                                            class="text-error">*</span></label>
+                                    <input id="reg_first_name" type="text" required
+                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                        placeholder="John">
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="font-label-sm text-on-surface-variant">Last Name <span
+                                            class="text-error">*</span></label>
+                                    <input id="reg_last_name" type="text" required
+                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                        placeholder="Doe">
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="font-label-sm text-on-surface-variant">Email Address <span
+                                            class="text-error">*</span></label>
+                                    <input id="reg_email" type="email" required
+                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                        placeholder="john@example.com">
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <label class="font-label-sm text-on-surface-variant">Phone Number</label>
+                                    <input id="reg_phone" type="tel"
+                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                        placeholder="+1 (555) 000-0000">
+                                </div>
+                                <div class="flex flex-col gap-1 sm:col-span-2">
+                                    <label class="font-label-sm text-on-surface-variant">User Role <span
+                                            class="text-error">*</span></label>
+                                    <select id="userRoleSelect" onchange="handleRoleChange()" required
+                                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface">
+                                        <option value="end_user" selected>End User</option>
+                                        <option value="staff">Staff</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                                <!-- Dynamic: End User Container -->
+                                <div id="endUserContainer"
+                                    class="flex flex-col gap-3 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 block">
+                                    <label class="font-label-sm text-on-surface-variant font-bold text-primary">Company
+                                        Information</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-on-surface-variant">Company Name</label>
+                                            <input type="text"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="e.g. Acme Corp">
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-on-surface-variant">Job Title /
+                                                Designation</label>
+                                            <input type="text"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="e.g. Software Engineer">
+                                            <input id="reg_company" type="text"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="e.g. Acme Corp">
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-on-surface-variant">Job Title /
+                                                Designation</label>
+                                            <input id="reg_title" type="text"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="e.g. Software Engineer">
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-on-surface-variant">Company Website</label>
+                                            <input type="url"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="https://www.example.com">
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-on-surface-variant">Industry</label>
+                                            <input type="text"
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                placeholder="e.g. Technology, Real Estate">
+                                        </div>
+                                        <div class="flex flex-col gap-1 sm:col-span-2">
+                                            <label class="font-label-sm text-on-surface-variant">Company Address</label>
+                                            <textarea
+                                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                                                rows="2" placeholder="Full company address"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic: Admin Container -->
+                                <div id="adminContainer"
+                                    class="flex flex-col gap-1 sm:col-span-2 mt-2 border-t border-outline-variant pt-3 hidden">
+                                    <div
+                                        class="bg-secondary-container/20 text-on-secondary-container p-3 rounded-lg border border-secondary-container flex items-start gap-2">
+                                        <span
+                                            class="material-symbols-outlined text-[20px] text-primary">admin_panel_settings</span>
+                                        <span class="font-body-sm">All permissions granted. Admin users have full access
+                                            to all
+                                            screens and settings.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic: Staff Permissions Container -->
+                                <div id="staffPermissionsContainer"
+                                    class="flex flex-col gap-2 sm:col-span-2 hidden mt-2 border-t border-outline-variant pt-3">
+                                    <label class="font-label-sm text-on-surface-variant font-bold text-primary">Select
+                                        Screen
+                                        Permissions for Staff <span class="text-error">*</span></label>
+                                    <div class="grid grid-cols-2 gap-3 mt-1">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Admin Dashboard</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Reception Dashboard</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">User Management</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Booking Management</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Meeting Rooms</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Visitor Management</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Announcements</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Support Tickets</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Reports & Analytics</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Roles & Permissions</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="checkbox"
+                                                class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
+                                            <span class="font-body-sm text-on-surface">Settings</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer Actions -->
+                <div
+                    class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-b-xl shrink-0">
+                    <button type="button"
+                        class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm"
+                        onclick="closeRegisterModal()">Cancel</button>
+                    <button type="button"
+                        class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm"
+                        onclick="submitRegistration()">Register Member</button>
+                </div>
+            </div>
         </div>
-        
-        <!-- Footer Actions -->
-        <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-b-xl shrink-0">
-            <button type="button" class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm" onclick="closeRegisterModal()">Cancel</button>
-            <button type="button" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm" onclick="submitRegistration()">Register Member</button>
-        </div>
-    </div>
-</div>
 
-<script>
-    let users = [];
-    let filteredUsers = [];
-    let searchQuery = "";
-    let currentPage = 1;
-    const itemsPerPage = 4;
+        <script>
+            let users = [];
+            let filteredUsers = [];
+            let searchQuery = "";
+            let currentPage = 1;
+            const itemsPerPage = 4;
 
-    async function loadUsers() {
-        let stored = sessionStorage.getItem("users");
-        if (!stored) {
-            try {
-                const res = await fetch("../member/data/users.json");
-                const data = await res.json();
-                sessionStorage.setItem("users", JSON.stringify(data));
-                stored = JSON.stringify(data);
-            } catch (e) {
-                console.error("Failed to load users", e);
-                return;
-            }
-        }
-        users = JSON.parse(stored);
-        applyFilters();
-    }
-
-    function applyFilters() {
-        filteredUsers = users.filter(u => {
-            const matchSearch = searchQuery === "" || 
-                u.name.toLowerCase().includes(searchQuery) ||
-                u.email.toLowerCase().includes(searchQuery) ||
-                u.role.toLowerCase().includes(searchQuery);
-            return matchSearch;
-        });
-        currentPage = 1;
-        renderUsers();
-    }
-
-    function handleSearch() {
-        const input = document.getElementById("memberSearch");
-        if (input) {
-            searchQuery = input.value.toLowerCase().trim();
-            applyFilters();
-        }
-    }
-
-    function renderUsers() {
-        const tbody = document.getElementById("members_table_body");
-        if (!tbody) return;
-
-        const totalItems = filteredUsers.length;
-        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
-
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-        const pageUsers = filteredUsers.slice(startIndex, endIndex);
-
-        if (pageUsers.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
-            renderPagination(0, 0, 0);
-            return;
-        }
-
-        tbody.innerHTML = pageUsers.map(u => {
-            let avatarHTML = "";
-            if (u.avatar) {
-                avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
-            } else {
-                const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+            async function loadUsers() {
+                let stored = sessionStorage.getItem("users");
+                if (!stored) {
+                    try {
+                        const res = await fetch("../member/data/users.json");
+                        const data = await res.json();
+                        sessionStorage.setItem("users", JSON.stringify(data));
+                        stored = JSON.stringify(data);
+                    } catch (e) {
+                        console.error("Failed to load users", e);
+                        return;
+                    }
+                }
+                users = JSON.parse(stored);
+                applyFilters();
             }
 
-            let statusBadgeClass = "bg-secondary/10 text-secondary";
-            if (u.status === "Inactive") {
-                statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
-            } else if (u.status === "Past Due") {
-                statusBadgeClass = "bg-error/10 text-error";
+            function applyFilters() {
+                filteredUsers = users.filter(u => {
+                    const matchSearch = searchQuery === "" ||
+                        u.name.toLowerCase().includes(searchQuery) ||
+                        u.email.toLowerCase().includes(searchQuery) ||
+                        u.role.toLowerCase().includes(searchQuery);
+                    return matchSearch;
+                });
+                currentPage = 1;
+                renderUsers();
             }
 
-            return `
+            function handleSearch() {
+                const input = document.getElementById("memberSearch");
+                if (input) {
+                    searchQuery = input.value.toLowerCase().trim();
+                    applyFilters();
+                }
+            }
+
+            function renderUsers() {
+                const tbody = document.getElementById("members_table_body");
+                if (!tbody) return;
+
+                const totalItems = filteredUsers.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+                if (currentPage > totalPages) currentPage = totalPages;
+                if (currentPage < 1) currentPage = 1;
+
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+                const pageUsers = filteredUsers.slice(startIndex, endIndex);
+
+                if (pageUsers.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="px-md py-8 text-center text-sm text-on-surface-variant">No members found</td></tr>`;
+                    renderPagination(0, 0, 0);
+                    return;
+                }
+
+                tbody.innerHTML = pageUsers.map(u => {
+                    let avatarHTML = "";
+                    if (u.avatar) {
+                        avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
+                    } else {
+                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
+                    }
+
+                    let statusBadgeClass = "bg-secondary/10 text-secondary";
+                    if (u.status === "Inactive") {
+                        statusBadgeClass = "bg-surface-variant text-on-surface-variant border border-outline-variant/50";
+                    } else if (u.status === "Past Due") {
+                        statusBadgeClass = "bg-error/10 text-error";
+                    }
+
+                    return `
                 <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group" onclick="viewMemberProfile(${u.id})">
                     <td class="px-md py-sm">
                         <div class="flex items-center gap-sm">
@@ -378,247 +617,244 @@
                     </td>
                 </tr>
             `;
-        }).join("");
+                }).join("");
 
-        renderPagination(startIndex + 1, endIndex, totalItems);
-    }
+                renderPagination(startIndex + 1, endIndex, totalItems);
+            }
 
-    function renderPagination(start, end, total) {
-        const container = document.getElementById("pagination_container");
-        const info = document.getElementById("paginationInfo");
-        if (!container || !info) return;
+            function renderPagination(start, end, total) {
+                const container = document.getElementById("pagination_container");
+                const info = document.getElementById("paginationInfo");
+                if (!container || !info) return;
 
-        info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+                info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
 
-        const totalPages = Math.ceil(total / itemsPerPage) || 1;
-        
-        let html = `
+                const totalPages = Math.ceil(total / itemsPerPage) || 1;
+
+                let html = `
             <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
         `;
 
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === currentPage) {
-                html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
-            } else {
-                html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
-            }
-        }
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === currentPage) {
+                        html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+                    } else {
+                        html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+                    }
+                }
 
-        html += `
+                html += `
             <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
         `;
 
-        container.innerHTML = html;
-    }
-
-    function goToPage(p) {
-        currentPage = p;
-        renderUsers();
-    }
-
-    function viewMemberProfile(id) {
-        const u = users.find(x => x.id === id);
-        if (!u) return;
-
-        // Populate side-over panel elements
-        const nameEl = document.getElementById("profile_name");
-        const emailEl = document.getElementById("profile_email");
-        const statusEl = document.getElementById("profile_status");
-        const planEl = document.getElementById("profile_plan");
-        const joinDateEl = document.getElementById("profile_join_date");
-        const companyEl = document.getElementById("profile_company");
-        const accessEl = document.getElementById("profile_access_level");
-        const avatarContainer = document.getElementById("profile_avatar_container");
-
-        if (nameEl) nameEl.textContent = u.name;
-        if (emailEl) emailEl.textContent = u.email;
-        if (planEl) planEl.textContent = u.plan || "Hot Desk";
-        if (joinDateEl) joinDateEl.textContent = u.joinDate;
-        if (companyEl) companyEl.textContent = u.company || "Independent";
-        if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
-
-        if (statusEl) {
-            statusEl.textContent = u.status + " Member";
-            statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
-            if (u.status === "Active") {
-                statusEl.classList.add("bg-secondary/10", "text-secondary");
-            } else if (u.status === "Inactive") {
-                statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
-            } else if (u.status === "Past Due") {
-                statusEl.classList.add("bg-error/10", "text-error");
+                container.innerHTML = html;
             }
-        }
 
-        if (avatarContainer) {
-            if (u.avatar) {
-                avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
-            } else {
-                const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
+            function goToPage(p) {
+                currentPage = p;
+                renderUsers();
             }
-        }
 
-        openProfileModal();
-    }
+            function viewMemberProfile(id) {
+                const u = users.find(x => x.id === id);
+                if (!u) return;
 
-    function openProfileModal() {
-        const modal = document.getElementById('profileModal');
-        const scrim = document.getElementById('profileScrim');
-        
-        scrim.classList.remove('hidden');
-        setTimeout(() => {
-            scrim.classList.remove('opacity-0');
-            modal.classList.remove('translate-x-full');
-        }, 10);
-        
-        document.body.style.overflow = 'hidden';
-    }
+                // Populate side-over panel elements
+                const nameEl = document.getElementById("profile_name");
+                const emailEl = document.getElementById("profile_email");
+                const statusEl = document.getElementById("profile_status");
+                const planEl = document.getElementById("profile_plan");
+                const joinDateEl = document.getElementById("profile_join_date");
+                const companyEl = document.getElementById("profile_company");
+                const accessEl = document.getElementById("profile_access_level");
+                const avatarContainer = document.getElementById("profile_avatar_container");
 
-    function closeProfileModal() {
-        const modal = document.getElementById('profileModal');
-        const scrim = document.getElementById('profileScrim');
-        
-        modal.classList.add('translate-x-full');
-        scrim.classList.add('opacity-0');
-        
-        setTimeout(() => {
-            scrim.classList.add('hidden');
-            document.body.style.overflow = '';
-        }, 300);
-    }
+                if (nameEl) nameEl.textContent = u.name;
+                if (emailEl) emailEl.textContent = u.email;
+                if (planEl) planEl.textContent = u.plan || "Hot Desk";
+                if (joinDateEl) joinDateEl.textContent = u.joinDate;
+                if (companyEl) companyEl.textContent = u.company || "Independent";
+                if (accessEl) accessEl.textContent = u.accessLevel || "24/7 Standard";
 
-    function openRegisterModal() {
-        const wrapper = document.getElementById('registerModalWrapper');
-        const scrim = document.getElementById('registerScrim');
-        const content = document.getElementById('registerModalContent');
-        
-        scrim.classList.remove('hidden');
-        wrapper.classList.remove('hidden');
-        wrapper.classList.add('flex'); // Used for centering
-        
-        setTimeout(() => {
-            scrim.classList.remove('opacity-0');
-            wrapper.classList.remove('opacity-0');
-            content.classList.remove('scale-95');
-            content.classList.add('scale-100');
-        }, 10);
-        
-        document.body.style.overflow = 'hidden';
-    }
+                if (statusEl) {
+                    statusEl.textContent = u.status + " Member";
+                    statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold";
+                    if (u.status === "Active") {
+                        statusEl.classList.add("bg-secondary/10", "text-secondary");
+                    } else if (u.status === "Inactive") {
+                        statusEl.classList.add("bg-surface-variant", "text-on-surface-variant");
+                    } else if (u.status === "Past Due") {
+                        statusEl.classList.add("bg-error/10", "text-error");
+                    }
+                }
 
-    function closeRegisterModal() {
-        const wrapper = document.getElementById('registerModalWrapper');
-        const scrim = document.getElementById('registerScrim');
-        const content = document.getElementById('registerModalContent');
-        
-        scrim.classList.add('opacity-0');
-        wrapper.classList.add('opacity-0');
-        content.classList.remove('scale-100');
-        content.classList.add('scale-95');
-        
-        setTimeout(() => {
-            scrim.classList.add('hidden');
-            wrapper.classList.add('hidden');
-            wrapper.classList.remove('flex');
-            document.body.style.overflow = '';
-        }, 300);
-    }
-    
-    function submitRegistration() {
-        const form = document.getElementById('registerMemberForm');
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
+                if (avatarContainer) {
+                    if (u.avatar) {
+                        avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
+                    } else {
+                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
+                    }
+                }
 
-        const firstName = document.getElementById("reg_first_name").value.trim();
-        const lastName = document.getElementById("reg_last_name").value.trim();
-        const email = document.getElementById("reg_email").value.trim();
-        const phone = document.getElementById("reg_phone").value.trim();
-        const rawRole = document.getElementById("userRoleSelect").value;
-        const company = document.getElementById("reg_company").value.trim();
-        const title = document.getElementById("reg_title").value.trim();
+                openProfileModal();
+            }
 
-        let displayRole = "End User";
-        let displayAccess = "24/7 Standard";
-        let displayPlan = "Hot Desk";
-        if (rawRole === "admin") {
-            displayRole = "Admin";
-            displayAccess = "Full Access";
-            displayPlan = "Dedicated Desk";
-        } else if (rawRole === "staff") {
-            displayRole = "Staff";
-            displayAccess = "Business Hours";
-            displayPlan = "Hot Desk";
-        }
+            function openProfileModal() {
+                const modal = document.getElementById('profileModal');
+                const scrim = document.getElementById('profileScrim');
 
-        const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-        const options = { month: 'short', day: '2-digit', year: 'numeric' };
-        const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
+                scrim.classList.remove('hidden');
+                setTimeout(() => {
+                    scrim.classList.remove('opacity-0');
+                    modal.classList.remove('translate-x-full');
+                }, 10);
 
-        const newUser = {
-            id: newId,
-            name: `${firstName} ${lastName}`,
-            email: email,
-            role: displayRole,
-            status: "Active",
-            joinDate: formattedDate,
-            avatar: "",
-            company: company || "Independent",
-            accessLevel: displayAccess,
-            plan: displayPlan,
-            phone: phone
-        };
+                document.body.style.overflow = 'hidden';
+            }
 
-        users.unshift(newUser);
-        sessionStorage.setItem("users", JSON.stringify(users));
-        applyFilters();
+            function closeProfileModal() {
+                const modal = document.getElementById('profileModal');
+                const scrim = document.getElementById('profileScrim');
 
-        alert('Member registered successfully!');
-        closeRegisterModal();
-        form.reset();
-    }
+                modal.classList.add('translate-x-full');
+                scrim.classList.add('opacity-0');
 
-    function deleteMember(id) {
-        if (confirm("Are you sure you want to remove this member?")) {
-            users = users.filter(u => u.id !== id);
-            sessionStorage.setItem("users", JSON.stringify(users));
-            applyFilters();
-            alert("Member removed successfully.");
-        }
-    }
+                setTimeout(() => {
+                    scrim.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
 
-    function handleRoleChange() {
-        const roleSelect = document.getElementById('userRoleSelect');
-        const endUserContainer = document.getElementById('endUserContainer');
-        const adminContainer = document.getElementById('adminContainer');
-        const staffContainer = document.getElementById('staffPermissionsContainer');
-        
-        // Hide all first
-        endUserContainer.classList.add('hidden');
-        endUserContainer.classList.remove('block');
-        adminContainer.classList.add('hidden');
-        adminContainer.classList.remove('block');
-        staffContainer.classList.add('hidden');
-        staffContainer.classList.remove('block');
-        
-        // Show based on selection
-        if (roleSelect.value === 'end_user') {
-            endUserContainer.classList.remove('hidden');
-            endUserContainer.classList.add('block');
-        } else if (roleSelect.value === 'admin') {
-            adminContainer.classList.remove('hidden');
-            adminContainer.classList.add('block');
-        } else if (roleSelect.value === 'staff') {
-            staffContainer.classList.remove('hidden');
-            staffContainer.classList.add('block');
-        }
-    }
+            function openRegisterModal() {
+                const wrapper = document.getElementById('registerModalWrapper');
+                const scrim = document.getElementById('registerScrim');
+                const content = document.getElementById('registerModalContent');
 
-    // Initialize page
-    loadUsers();
-</script>
+                scrim.classList.remove('hidden');
+                wrapper.classList.remove('hidden');
+                wrapper.classList.add('flex'); // Used for centering
+
+                setTimeout(() => {
+                    scrim.classList.remove('opacity-0');
+                    wrapper.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                    content.classList.add('scale-100');
+                }, 10);
+
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeRegisterModal() {
+                const wrapper = document.getElementById('registerModalWrapper');
+                const scrim = document.getElementById('registerScrim');
+                const content = document.getElementById('registerModalContent');
+
+                scrim.classList.add('opacity-0');
+                wrapper.classList.add('opacity-0');
+                content.classList.remove('scale-100');
+                content.classList.add('scale-95');
+
+                setTimeout(() => {
+                    scrim.classList.add('hidden');
+                    wrapper.classList.add('hidden');
+                    wrapper.classList.remove('flex');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            function submitRegistration() {
+                const form = document.getElementById('registerMemberForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const firstName = document.getElementById("reg_first_name").value.trim();
+                const lastName = document.getElementById("reg_last_name").value.trim();
+                const email = document.getElementById("reg_email").value.trim();
+                const phone = document.getElementById("reg_phone").value.trim();
+                const rawRole = document.getElementById("userRoleSelect").value;
+                const company = document.getElementById("reg_company").value.trim();
+                const title = document.getElementById("reg_title").value.trim();
+
+                let displayRole = "End User";
+                let displayAccess = "24/7 Standard";
+                let displayPlan = "Hot Desk";
+                if (rawRole === "admin") {
+                    displayRole = "Admin";
+                    displayAccess = "Full Access";
+                    displayPlan = "Dedicated Desk";
+                } else if (rawRole === "staff") {
+                    displayRole = "Staff";
+                    displayAccess = "Business Hours";
+                    displayPlan = "Hot Desk";
+                }
+
+                const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+                const options = { month: 'short', day: '2-digit', year: 'numeric' };
+                const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
+
+                const newUser = {
+                    id: newId,
+                    name: `${firstName} ${lastName}`,
+                    email: email,
+                    role: displayRole,
+                    status: "Active",
+                    joinDate: formattedDate,
+                    avatar: "",
+                    company: company || "Independent",
+                    accessLevel: displayAccess,
+                    plan: displayPlan,
+                    phone: phone
+                };
+
+                users.unshift(newUser);
+                sessionStorage.setItem("users", JSON.stringify(users));
+                applyFilters();
+
+                alert('Member registered successfully!');
+                closeRegisterModal();
+                form.reset();
+            }
+
+            function deleteMember(id) {
+                if (confirm("Are you sure you want to remove this member?")) {
+                    users = users.filter(u => u.id !== id);
+                    sessionStorage.setItem("users", JSON.stringify(users));
+                    applyFilters();
+                    alert("Member removed successfully.");
+                }
+            }
+
+            function handleRoleChange() {
+                const roleSelect = document.getElementById('userRoleSelect');
+                const endUserContainer = document.getElementById('endUserContainer');
+                const adminContainer = document.getElementById('adminContainer');
+                const staffContainer = document.getElementById('staffPermissionsContainer');
+
+                // Hide all first
+                endUserContainer.classList.add('hidden');
+                endUserContainer.classList.remove('block');
+                adminContainer.classList.add('hidden');
+                adminContainer.classList.remove('block');
+                staffContainer.classList.add('hidden');
+                staffContainer.classList.remove('block');
+
+                // Show based on selection
+                if (roleSelect.value === 'end_user') {
+                    endUserContainer.classList.remove('hidden');
+                    endUserContainer.classList.add('block');
+                } else if (roleSelect.value === 'admin') {
+                    adminContainer.classList.remove('hidden');
+                    adminContainer.classList.add('block');
+                } else if (roleSelect.value === 'staff') {
+                    staffContainer.classList.remove('hidden');
+                    staffContainer.classList.add('block');
+                }
+            }
+        </script>

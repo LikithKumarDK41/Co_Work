@@ -165,6 +165,6 @@ All pages share the same shell, padding, and responsive breakpoints so switching
 - Check that app.js is loading (look for navigation in sidebar)
 
 ---
-**Last Updated**: 2024
+**Last Updated**: 2026
 **Version**: 1.0 - Mockup
 # Co_Work
