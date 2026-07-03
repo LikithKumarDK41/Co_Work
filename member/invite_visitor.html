@@ -17,7 +17,7 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .page-layout {
-                @apply flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto w-full;
+                @apply flex-1 md:ml-64 p-4 md:p-8 max-w-[1440px] mx-auto w-full;
             }
 
             .scale-98 { transform: scale(0.98); }
@@ -128,7 +128,7 @@
 
 <body class="bg-background text-on-background font-body-md min-h-screen flex">
     <!-- Main Content Canvas -->
-    <main class="page-layout flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen relative overflow-hidden">
+    <main class="page-layout flex-1 min-h-screen pb-24 pt-6 md:pt-10 px-4 md:px-8 relative overflow-hidden">
         <!-- Decorative Background Blob -->
         <div
             class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-secondary-container rounded-full mix-blend-multiply filter blur-[100px] opacity-40 -z-10">
@@ -136,8 +136,8 @@
         <div
             class="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-surface-container-high rounded-full mix-blend-multiply filter blur-[120px] opacity-50 -z-10">
         </div>
-        <div class="max-w-2xl mx-auto mt-stack-lg">
-            <div class="mb-stack-lg flex items-center justify-between">
+        <div class="max-w-2xl mx-auto mt-6">
+            <div class="mb-6 flex items-center justify-between">
                 <div>
                     <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">Invite Visitor</h2>
                     <p class="font-body-md text-body-md text-on-surface-variant mt-2">Generate a temporary access pass
@@ -149,7 +149,7 @@
                 </button>
             </div>
             <div class="bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] p-8 md:p-10">
-                <form class="space-y-stack-md">
+                <form class="space-y-6">
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-2" for="visitor_name">Visitor
                             Full Name</label>

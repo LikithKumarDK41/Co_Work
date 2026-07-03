@@ -112,116 +112,118 @@
         </div>
 
         <script>
-            let bookings = [];
+            (function() {
+                let bookings = [];
 
-            async function loadBookings() {
-                let stored = sessionStorage.getItem("bookings");
-                if (!stored) {
-                    try {
-                        const res = await fetch("data/bookings.json");
-                        const data = await res.json();
-                        sessionStorage.setItem("bookings", JSON.stringify(data));
-                        stored = JSON.stringify(data);
-                    } catch (e) {
-                        console.error("Failed to load bookings list", e);
+                async function loadBookings() {
+                    let stored = sessionStorage.getItem("bookings");
+                    if (!stored) {
+                        try {
+                            const res = await fetch("data/bookings.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("bookings", JSON.stringify(data));
+                            stored = JSON.stringify(data);
+                        } catch (e) {
+                            console.error("Failed to load bookings list", e);
+                            return;
+                        }
+                    }
+                    bookings = JSON.parse(stored);
+                    renderBookings();
+                }
+
+                function renderBookings() {
+                    const container = document.getElementById("bookings_list");
+                    if (!container) return;
+
+                    if (bookings.length === 0) {
+                        container.innerHTML = `<p class="py-8 text-center text-sm text-slate-500 bg-white rounded-3xl border border-slate-100">No active bookings found</p>`;
                         return;
                     }
-                }
-                bookings = JSON.parse(stored);
-                renderBookings();
-            }
 
-            function renderBookings() {
-                const container = document.getElementById("bookings_list");
-                if (!container) return;
-
-                if (bookings.length === 0) {
-                    container.innerHTML = `<p class="py-8 text-center text-sm text-slate-500 bg-white rounded-3xl border border-slate-100">No active bookings found</p>`;
-                    return;
-                }
-
-                container.innerHTML = bookings.map(b => {
-                    let indicatorBg = "bg-emerald-500";
-                    let badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
-                    let actionButtons = `
-                        <button onclick="rescheduleBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200">
-                            Reschedule
-                        </button>
-                        <button onclick="cancelBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
-                            Cancel
-                        </button>
-                    `;
-
-                    if (b.status === "Waitlist") {
-                        indicatorBg = "bg-slate-300";
-                        badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
-                        actionButtons = `
+                    container.innerHTML = bookings.map(b => {
+                        let indicatorBg = "bg-emerald-500";
+                        let badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                        let actionButtons = `
+                            <button onclick="rescheduleBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200">
+                                Reschedule
+                            </button>
                             <button onclick="cancelBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
-                                Remove Request
+                                Cancel
                             </button>
                         `;
-                    }
 
-                    return `
-                        <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
-                            <div class="absolute top-0 left-0 w-1.5 h-full ${indicatorBg}"></div>
-                            <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
-                                <div class="flex gap-6 items-start flex-1 min-w-0">
-                                    <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
-                                        <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500" alt="${b.title}" src="${b.image}">
-                                    </div>
-                                    <div class="min-w-0">
-                                        <div class="flex items-center gap-3 mb-2 flex-wrap">
-                                            <span class="${badgeClass} px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border">
-                                                ${b.status}
-                                            </span>
-                                            <span class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-                                                ${b.room}
-                                            </span>
+                        if (b.status === "Waitlist") {
+                            indicatorBg = "bg-slate-300";
+                            badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                            actionButtons = `
+                                <button onclick="cancelBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
+                                    Remove Request
+                                </button>
+                            `;
+                        }
+
+                        return `
+                            <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-1.5 h-full ${indicatorBg}"></div>
+                                <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
+                                    <div class="flex gap-6 items-start flex-1 min-w-0">
+                                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
+                                            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500" alt="${b.title}" src="${b.image}">
                                         </div>
-                                        <h3 class="text-xl font-bold text-slate-900 mb-1">
-                                            ${b.title}
-                                        </h3>
-                                        <div class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
-                                            <div class="flex items-center gap-2">
-                                                <span class="material-symbols-outlined text-[18px]">calendar_today</span>
-                                                ${b.date}
+                                        <div class="min-w-0">
+                                            <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                                <span class="${badgeClass} px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border">
+                                                    ${b.status}
+                                                </span>
+                                                <span class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
+                                                    ${b.room}
+                                                </span>
                                             </div>
-                                            <div class="flex items-center gap-2">
-                                                <span class="material-symbols-outlined text-[18px]">schedule</span>
-                                                ${b.time}
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
-                                                ${b.duration}
+                                            <h3 class="text-xl font-bold text-slate-900 mb-1">
+                                                ${b.title}
+                                            </h3>
+                                            <div class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
+                                                <div class="flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                                    ${b.date}
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                                                    ${b.time}
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+                                                    ${b.duration}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-row md:flex-col gap-3 justify-end items-end md:items-stretch border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 shrink-0">
-                                    ${actionButtons}
+                                    <div class="flex flex-row md:flex-col gap-3 justify-end items-end md:items-stretch border-t md:border-t-0 md:border-l border-slate-100 pt-4 md:pt-0 md:pl-6 shrink-0">
+                                        ${actionButtons}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                }).join("");
-            }
-
-            function rescheduleBooking(id) {
-                alert("Reschedule dialog coming soon for booking #" + id);
-            }
-
-            function cancelBooking(id) {
-                if (confirm("Are you sure you want to cancel this booking/request?")) {
-                    bookings = bookings.filter(b => b.id !== id);
-                    sessionStorage.setItem("bookings", JSON.stringify(bookings));
-                    renderBookings();
-                    alert("Booking cancelled successfully.");
+                        `;
+                    }).join("");
                 }
-            }
 
-            // Initial load
-            loadBookings();
+                window.rescheduleBooking = function(id) {
+                    alert("Reschedule dialog coming soon for booking #" + id);
+                };
+
+                window.cancelBooking = function(id) {
+                    if (confirm("Are you sure you want to cancel this booking/request?")) {
+                        bookings = bookings.filter(b => b.id !== id);
+                        sessionStorage.setItem("bookings", JSON.stringify(bookings));
+                        renderBookings();
+                        alert("Booking cancelled successfully.");
+                    }
+                };
+
+                // Initial load
+                loadBookings();
+            })();
         </script>
     </main>
 </body>

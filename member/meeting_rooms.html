@@ -233,107 +233,108 @@
         </div>
 
         <script>
-            let workspaces = [];
+            (function() {
+                let workspaces = [];
 
-            async function loadWorkspaces() {
-                let stored = sessionStorage.getItem("workspaces");
-                if (!stored) {
-                    try {
-                        const res = await fetch("data/workspaces.json");
-                        const data = await res.json();
-                        sessionStorage.setItem("workspaces", JSON.stringify(data));
-                        stored = JSON.stringify(data);
-                    } catch (e) {
-                        console.error("Failed to load workspaces list", e);
+                async function loadWorkspaces() {
+                    let stored = sessionStorage.getItem("workspaces");
+                    if (!stored) {
+                        try {
+                            const res = await fetch("data/workspaces.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("workspaces", JSON.stringify(data));
+                            stored = JSON.stringify(data);
+                        } catch (e) {
+                            console.error("Failed to load workspaces list", e);
+                            return;
+                        }
+                    }
+                    workspaces = JSON.parse(stored);
+                    renderWorkspaces();
+                }
+
+                function renderWorkspaces() {
+                    const grid = document.getElementById("rooms_grid");
+                    if (!grid) return;
+
+                    if (workspaces.length === 0) {
+                        grid.innerHTML = `<p class="col-span-3 py-8 text-center text-sm text-slate-500">No meeting rooms found</p>`;
                         return;
                     }
-                }
-                workspaces = JSON.parse(stored);
-                renderWorkspaces();
-            }
 
-            function renderWorkspaces() {
-                const grid = document.getElementById("rooms_grid");
-                if (!grid) return;
+                    grid.innerHTML = workspaces.map(w => {
+                        let statusBadgeClass = "bg-secondary-container text-on-secondary-container";
+                        let dotClass = "bg-secondary";
+                        if (w.status !== "Available") {
+                            statusBadgeClass = "bg-surface-variant text-on-surface-variant";
+                            dotClass = "bg-outline";
+                        }
 
-                if (workspaces.length === 0) {
-                    grid.innerHTML = `<p class="col-span-3 py-8 text-center text-sm text-slate-500">No meeting rooms found</p>`;
-                    return;
-                }
+                        const amenitiesHTML = w.amenities.map(a => {
+                            let icon = "tv";
+                            if (a.toLowerCase().includes("wifi")) icon = "wifi";
+                            else if (a.toLowerCase().includes("whiteboard")) icon = "edit";
+                            else if (a.toLowerCase().includes("soundproof")) icon = "volume_off";
+                            else if (a.toLowerCase().includes("phone")) icon = "call";
 
-                grid.innerHTML = workspaces.map(w => {
-                    let statusBadgeClass = "bg-secondary-container text-on-secondary-container";
-                    let dotClass = "bg-secondary";
-                    if (w.status !== "Available") {
-                        statusBadgeClass = "bg-surface-variant text-on-surface-variant";
-                        dotClass = "bg-outline";
-                    }
+                            return `
+                                <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">${icon}</span>
+                                    ${a}
+                                </span>
+                            `;
+                        }).join("");
 
-                    const amenitiesHTML = w.amenities.map(a => {
-                        let icon = "tv";
-                        if (a.toLowerCase().includes("wifi")) icon = "wifi";
-                        else if (a.toLowerCase().includes("whiteboard")) icon = "edit";
-                        else if (a.toLowerCase().includes("soundproof")) icon = "volume_off";
-                        else if (a.toLowerCase().includes("phone")) icon = "call";
+                        const buttonHTML = w.status === "Available" ? `
+                            <button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
+                                Book
+                            </button>
+                        ` : `
+                            <button class="w-full bg-surface text-primary border border-surface-variant font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-colors">
+                                View Schedule
+                            </button>
+                        `;
 
                         return `
-                            <span class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-surface-container-highest flex items-center gap-1">
-                                <span class="material-symbols-outlined text-[14px]">${icon}</span>
-                                ${a}
-                            </span>
+                            <div class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
+                                <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
+                                    <img alt="${w.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${w.image}">
+                                    <div class="absolute top-3 right-3 ${statusBadgeClass} font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
+                                        <span class="w-2 h-2 rounded-full ${dotClass}"></span>
+                                        ${w.status}
+                                    </div>
+                                </div>
+                                <div class="p-5 flex-1 flex flex-col">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h3 class="font-headline-md text-headline-md text-primary" style="font-size: 20px; line-height: 28px;">
+                                            ${w.name}
+                                        </h3>
+                                        <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-sm">group</span>
+                                            ${w.capacity}
+                                        </span>
+                                    </div>
+                                    <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
+                                        ${w.location}
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        ${amenitiesHTML}
+                                    </div>
+                                    <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
+                                        <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
+                                            <span>Next available:</span>
+                                            <strong class="text-primary text-right">${w.nextAvailable}</strong>
+                                        </div>
+                                        ${buttonHTML}
+                                    </div>
+                                </div>
+                            </div>
                         `;
                     }).join("");
+                }
 
-                    const buttonHTML = w.status === "Available" ? `
-                        <button class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:opacity-90 transition-opacity">
-                            Book
-                        </button>
-                    ` : `
-                        <button class="w-full bg-surface text-primary border border-surface-variant font-label-md text-label-md py-2.5 rounded-lg hover:bg-surface-container-low transition-colors">
-                            View Schedule
-                        </button>
-                    `;
-
-                    return `
-                        <div class="bg-surface rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] group hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col">
-                            <div class="h-48 w-full relative overflow-hidden bg-surface-container-highest">
-                                <img alt="${w.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${w.image}">
-                                <div class="absolute top-3 right-3 ${statusBadgeClass} font-label-sm text-label-sm px-2 py-1 rounded-md flex items-center gap-1 shadow-sm">
-                                    <span class="w-2 h-2 rounded-full ${dotClass}"></span>
-                                    ${w.status}
-                                </div>
-                            </div>
-                            <div class="p-5 flex-1 flex flex-col">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-headline-md text-headline-md text-primary" style="font-size: 20px; line-height: 28px;">
-                                        ${w.name}
-                                    </h3>
-                                    <span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
-                                        <span class="material-symbols-outlined text-sm">group</span>
-                                        ${w.capacity}
-                                    </span>
-                                </div>
-                                <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">
-                                    ${w.location}
-                                </p>
-                                <div class="flex flex-wrap gap-2 mb-6">
-                                    ${amenitiesHTML}
-                                </div>
-                                <div class="mt-auto pt-4 border-t border-surface-container-low flex flex-col gap-3">
-                                    <div class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider flex justify-between items-center w-full">
-                                        <span>Next available:</span>
-                                        <strong class="text-primary text-right">${w.nextAvailable}</strong>
-                                    </div>
-                                    ${buttonHTML}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }).join("");
-            }
-
-            // Initial load
-            loadWorkspaces();
+                loadWorkspaces();
+            })();
         </script>
     </main>
 </body>
