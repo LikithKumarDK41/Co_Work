@@ -11,7 +11,7 @@ const tailwindConfig = match[1];
 const htmlContent = `<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Member Dashboard - SB Telecom</title>
+<title>Member Dashboard -Nichi-In</title>
 <link href="layout.css" rel="stylesheet">
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@ ${tailwindConfig}
     <div class="min-w-0">
         <p class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Tuesday, October 24</p>
         <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Good morning, Alex.</h2>
-        <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day at SB Telecom. Your next meeting is in 45 minutes.</p>
+        <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day atNichi-In. Your next meeting is in 45 minutes.</p>
     </div>
 </div>
 <!-- Bento Grid Layout -->

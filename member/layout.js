@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="sidebar-brand">
             <h1 class="sidebar-brand-title">
                 <span class="material-symbols-outlined icon-fill">domain</span>
-                <span class="truncate">SB Telecom</span>
+                <span class="truncate">Nichi-In</span>
             </h1>
             <p class="sidebar-brand-tagline">Member Portal</p>
         </div>
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <button id="layout-drawer-toggle" class="mobile-icon-btn" aria-label="Open menu">
                 <span class="material-symbols-outlined" style="font-size:22px;">menu</span>
             </button>
-            <span class="mobile-brand-text">SB Telecom</span>
+            <span class="mobile-brand-text">Nichi-In</span>
         </div>
 
         <div class="mobile-header-right">
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="sidebar-brand">
                 <h1 class="sidebar-brand-title">
                     <span class="material-symbols-outlined icon-fill">domain</span>
-                    <span class="truncate">SB Telecom</span>
+                    <span class="truncate">Nichi-In</span>
                 </h1>
                 <p class="sidebar-brand-tagline">Member Portal</p>
             </div>
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const footer = document.createElement("footer");
     footer.className = "layout-footer";
     footer.innerHTML = `
-        <p>© 2026 SB Telecom. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        <p>© 2026Nichi-In. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
     `;
 
     // Append footer to content containers

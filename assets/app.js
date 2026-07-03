@@ -64,7 +64,8 @@ const APP_CONFIG = {
     }
 };
 
-const NAV_ORDER = ['dashboard', 'users', 'rooms', 'visitors', 'bookings', 'tickets', 'announcements', 'reports', 'reception'];
+const TOP_NAV_ORDER = ['dashboard', 'bookings', 'visitors', 'users'];
+const DROPDOWN_NAV_ORDER = ['rooms','roles', 'tickets', 'announcements', 'reports', 'reception'];
 
 let currentPageKey = null;
 let sidebarOpen = false;
@@ -116,6 +117,13 @@ async function loadLayoutPartials() {
 
 function initializeApp() {
     document.addEventListener('click', function (e) {
+        const dropdownToggle = e.target.closest('.nav-dropdown-toggle');
+        if (dropdownToggle) {
+            e.preventDefault();
+            toggleMasterSettingsDropdown();
+            return;
+        }
+
         const navItem = e.target.closest('.nav-item');
         if (navItem) {
             const pageKey = navItem.dataset.page;
@@ -134,7 +142,8 @@ function renderNavigation() {
 
     mainNav.innerHTML = '';
 
-    NAV_ORDER.forEach(pageKey => {
+    // Render top-level navigation items
+    TOP_NAV_ORDER.forEach(pageKey => {
         if (!APP_CONFIG.pages[pageKey]) return;
 
         const page = APP_CONFIG.pages[pageKey];
@@ -149,6 +158,49 @@ function renderNavigation() {
 
         mainNav.appendChild(navItem);
     });
+
+    // Create collapsible Master Settings Dropdown container
+    const dropdownWrapper = document.createElement('div');
+    dropdownWrapper.className = 'flex flex-col gap-1 mt-2';
+
+    // Dropdown Toggler Button
+    const dropdownToggle = document.createElement('button');
+    dropdownToggle.id = 'masterSettingsToggle';
+    dropdownToggle.className = 'nav-dropdown-toggle nav-item w-full flex items-center justify-between text-on-surface-variant hover:text-primary transition-all duration-200';
+    dropdownToggle.setAttribute('aria-expanded', 'false');
+    dropdownToggle.innerHTML = `
+        <span class="flex items-center gap-3">
+            <span class="material-symbols-outlined flex-shrink-0">tune</span>
+            <span class="truncate font-medium">Master Settings</span>
+        </span>
+        <span id="masterSettingsArrow" class="material-symbols-outlined dropdown-arrow text-[18px]">expand_more</span>
+    `;
+
+    // Dropdown Content Panel
+    const dropdownContent = document.createElement('div');
+    dropdownContent.id = 'masterSettingsContent';
+    dropdownContent.className = 'flex flex-col gap-1 pl-2 border-l border-outline-variant/40 ml-6 mt-1';
+
+    // Render sub-navigation items inside the dropdown
+    DROPDOWN_NAV_ORDER.forEach(pageKey => {
+        if (!APP_CONFIG.pages[pageKey]) return;
+
+        const page = APP_CONFIG.pages[pageKey];
+        const navItem = document.createElement('a');
+        navItem.className = 'nav-item sub-nav-item';
+        navItem.dataset.page = pageKey;
+        navItem.href = '#';
+        navItem.innerHTML = `
+            <span class="material-symbols-outlined flex-shrink-0 text-[18px]">${page.icon}</span>
+            <span class="truncate">${page.title}</span>
+        `;
+
+        dropdownContent.appendChild(navItem);
+    });
+
+    dropdownWrapper.appendChild(dropdownToggle);
+    dropdownWrapper.appendChild(dropdownContent);
+    mainNav.appendChild(dropdownWrapper);
 }
 
 function navigateTo(pageKey, options = {}) {
@@ -167,6 +219,16 @@ function navigateTo(pageKey, options = {}) {
     document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.toggle('active', item.dataset.page === pageKey);
     });
+
+    // Check if current page is inside the Master Settings dropdown
+    const isSubPage = DROPDOWN_NAV_ORDER.includes(pageKey);
+    const dropdownToggle = document.getElementById('masterSettingsToggle');
+    if (isSubPage) {
+        toggleMasterSettingsDropdown(true);
+        if (dropdownToggle) dropdownToggle.classList.add('child-active');
+    } else {
+        if (dropdownToggle) dropdownToggle.classList.remove('child-active');
+    }
 
     loadPageContent(page.path, page.title);
 
@@ -319,6 +381,25 @@ function logout() {
     }
 }
 
+function toggleMasterSettingsDropdown(shouldOpen) {
+    const content = document.getElementById('masterSettingsContent');
+    const arrow = document.getElementById('masterSettingsArrow');
+    const toggle = document.getElementById('masterSettingsToggle');
+    if (!content || !arrow || !toggle) return;
+
+    const isOpen = shouldOpen !== undefined ? shouldOpen : !content.classList.contains('open');
+
+    if (isOpen) {
+        content.classList.add('open');
+        arrow.classList.add('rotated');
+        toggle.setAttribute('aria-expanded', 'true');
+    } else {
+        content.classList.remove('open');
+        arrow.classList.remove('rotated');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+}
+
 function showBootstrapError() {
     const mainContent = document.getElementById('mainContent');
     if (mainContent) {
@@ -351,3 +432,4 @@ window.navigateTo = navigateTo;
 window.toggleSidebar = toggleSidebar;
 window.closeSidebar = closeSidebar;
 window.logout = logout;
+window.toggleMasterSettingsDropdown = toggleMasterSettingsDropdown;
