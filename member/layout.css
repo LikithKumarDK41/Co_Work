@@ -286,7 +286,7 @@ body {
 
 .sidebar-footer {
     flex-shrink: 0;
-    padding: 10px 12px 14px;
+    padding: 10px 12px 8px;
     border-top: 1px solid rgba(196,199,199,0.45);
     display: grid;
     grid-template-columns: 1fr 1fr;

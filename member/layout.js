@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sidebar = document.createElement("aside");
     sidebar.id = "layout-sidebar";
-    sidebar.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col py-4 sm:py-6";
+    sidebar.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col pt-4 pb-0 sm:pt-6 sm:pb-0";
     sidebar.innerHTML = `
         <div class="px-4 sm:px-lg flex flex-col gap-1">
             <h1 class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ${navLinksHTML()}
         </nav>
 
-        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-4 pb-2 flex items-center gap-2 sidebar-footer mb-2">
+        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-3 pb-3 flex items-center gap-2 sidebar-footer">
             ${footerLinksHTML}
         </div>
     `;
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const drawer = document.createElement("nav");
     drawer.id = "layout-drawer";
-    drawer.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col py-4 sm:py-6";
+    drawer.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col pt-4 pb-0 sm:pt-6 sm:pb-0";
     drawer.innerHTML = `
         <div class="drawer-brand-row flex justify-between items-center px-4 sm:px-lg mb-6 sm:mb-8">
             <div class="flex flex-col gap-1">
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ${navLinksHTML()}
         </div>
 
-        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-4 pb-2 flex items-center gap-2 sidebar-footer mb-2">
+        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-3 pb-3 flex items-center gap-2 sidebar-footer">
             ${footerLinksHTML.replace('id="settings-btn"', 'id="drawer-settings-btn"')}
         </div>
     `;
