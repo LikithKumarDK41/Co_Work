@@ -330,6 +330,15 @@
 
                     async function loadRooms() {
                         let stored = sessionStorage.getItem("rooms_list");
+                        if (stored) {
+                            try {
+                                const parsed = JSON.parse(stored);
+                                if (parsed.some(r => r.image && r.image.includes("podcast_studio.png"))) {
+                                    sessionStorage.removeItem("rooms_list");
+                                    stored = null;
+                                }
+                            } catch(e) {}
+                        }
                         if (!stored) {
                             try {
                                 const res = await fetch("data/rooms.json");
@@ -342,8 +351,7 @@
                             }
                         }
                         const allList = JSON.parse(stored);
-                        // Filter to only show External client rooms
-                        rooms = allList.filter(r => r.name.toLowerCase().includes("(ext)"));
+                        rooms = allList;
                         renderRooms(rooms);
                     }
 
@@ -697,8 +705,8 @@
                         const r = rooms.find(x => x.id === selectedRoomId);
                         if (!r) return;
 
-                        const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Alex Rivera"}');
-                        const booker = profile.name || "Alex Rivera";
+                        const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Narendra Kumar"}');
+                        const booker = profile.name || "Narendra Kumar";
 
                         let dateRangeStr = "";
                         let timeRangeStr = "";

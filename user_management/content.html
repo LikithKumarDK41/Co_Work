@@ -231,14 +231,6 @@
             <div class="flex-1 overflow-y-auto p-lg">
                 <!-- Hero Info -->
                 <div class="flex flex-col items-center text-center mb-xl">
-                    <img alt="Sarah Jenkins Profile"
-                        class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB60-3oK9U3PahU-2LbhIqE0cMOHgR-Pk1UPJpnR59m52GvwxUUcW9npcgOHq9CUpQJ14GVwF8YiP3SMy-BHGkV2_sHKQyBmGm_xVzVzjd0Tly2RG892JKktZBy1oMOxizWorHzxWMswFgSbq4PWYQFZn_XOxDAg5jiiaIqstcCMThBaCzlgl0EAEFE0WWYaIk5IVk5hzkkJRa9CNX81dbkJvuNpb9TxXZzDL-Z6wAcqqIDgUlVCAgiCOkikF9DvlOgLzPu8R7lcdk">
-                    <h4 class="font-headline-md text-headline-md text-on-surface">Sarah Jenkins</h4>
-                    <p class="font-body-sm text-on-surface-variant mb-sm">sarah.j@example.com</p>
-                    <span
-                        class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-secondary/10 text-secondary">Active
-                        Member</span>
                     <div id="profile_avatar_container" class="mb-md">
                         <!-- Image or Initial will be loaded here -->
                     </div>
@@ -610,13 +602,10 @@
                     }
 
                     tbody.innerHTML = pageUsers.map(u => {
-                        let avatarHTML = "";
-                        if (u.avatar) {
-                            avatarHTML = `<img alt="${u.name}" class="w-8 h-8 rounded-full object-cover shrink-0" src="${u.avatar}">`;
-                        } else {
-                            const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                            avatarHTML = `<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
-                        }
+                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        const bgClasses = ['bg-primary-container text-on-primary-container', 'bg-tertiary-container text-on-tertiary-container', 'bg-secondary-container text-on-secondary-container'];
+                        const bgClass = bgClasses[u.id % bgClasses.length];
+                        const avatarHTML = `<div class="w-8 h-8 rounded-full ${bgClass} flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
 
                         let statusBadgeClass = "bg-secondary/10 text-secondary";
                         if (u.status === "Inactive") {
@@ -722,12 +711,8 @@
                     }
 
                     if (avatarContainer) {
-                        if (u.avatar) {
-                            avatarContainer.innerHTML = `<img id="profile_avatar" alt="${u.name}" class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm mx-auto" src="${u.avatar}">`;
-                        } else {
-                            const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
-                            avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md">${initials}</div>`;
-                        }
+                        const initials = u.name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase();
+                        avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto mb-md border-2 border-surface-container">${initials}</div>`;
                     }
 
                     openProfileModal();

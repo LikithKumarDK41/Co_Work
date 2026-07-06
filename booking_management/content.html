@@ -344,7 +344,8 @@
             const parsed = JSON.parse(stored);
             const hasOldRooms = parsed.some(b => b.room.includes("Boardroom") || b.room.includes("Creative Hub") || b.room.includes("Podcast") || b.room.includes("Focus Pod"));
             const hasOverlap = parsed.some(b => b.booker === "Matthew Johnson" && b.time === "09:00 AM - 11:00 AM");
-            if (hasOldRooms || hasOverlap || !parsed.some(b => b.date === todayFormatted)) {
+            const hasWaitlist = parsed.some(b => b.booker === "Harish Kumar R" && b.status === "Waitlist");
+            if (hasOldRooms || hasOverlap || !hasWaitlist || !parsed.some(b => b.date === todayFormatted)) {
                 sessionStorage.removeItem("bookings");
                 stored = null;
             }
@@ -356,26 +357,14 @@
                 const data = await res.json();
                 
                 const seedBookings = data.map((b, idx) => {
-                    let booker = "Alex Rivera";
-                    if (idx === 0) booker = "Sarah Jenkins";
-                    if (idx === 1) booker = "Marcus Reed";
-                    if (idx === 2) booker = "David Chen";
                     return { 
                         ...b, 
-                        booker: b.booker || booker,
+                        booker: b.booker,
                         term: b.term || "Hourly",
                         date: todayFormatted,
                         recurring: b.recurring || "None"
                     };
                 });
-
-                if (seedBookings.length < 5) {
-                    seedBookings.push(
-                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Meeting Corner 1 (Int)", date: todayFormatted, time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" },
-                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "Conference Room 1 (Int)", date: todayFormatted, time: "02:00 PM - 04:00 PM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Confirmed", image: "" },
-                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Meeting Room 1 (Int)", date: todayFormatted, time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" }
-                    );
-                }
 
                 sessionStorage.setItem("bookings", JSON.stringify(seedBookings));
                 stored = JSON.stringify(seedBookings);

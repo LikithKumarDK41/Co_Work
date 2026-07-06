@@ -22,7 +22,7 @@ const APP_CONFIG = {
             path: '../meeting_room_management/content.html'
         },
         meeting_rooms: {
-            title: 'MR',
+            title: 'Meeting Rooms',
             icon: 'meeting_room',
             path: '../meeting_room_settings/content.html'
         },
@@ -70,7 +70,7 @@ const APP_CONFIG = {
 };
 
 const TOP_NAV_ORDER = ['dashboard', 'schedule', 'bookings', 'visitors', 'users', 'reception'];
-const DROPDOWN_NAV_ORDER = ['rooms', 'meeting_rooms', 'tickets', 'announcements', 'reports'];
+const DROPDOWN_NAV_ORDER = ['rooms', 'meeting_rooms', 'tickets', 'announcements'];
 
 let currentPageKey = null;
 let sidebarOpen = false;
@@ -107,7 +107,8 @@ async function ensureMockDatabaseInitialized() {
     if (db) {
         try {
             const parsed = JSON.parse(db);
-            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 45 && parsed.bookings && parsed.bookings.some(b => b.roomName && (b.roomName.includes("(Int)") || b.roomName.includes("(Ext)")))) {
+            const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 12 && parsed.visitors.some(v => v.name === "Amit Sharma") && parsed.bookings && parsed.bookings.some(b => b.memberName === "Narendra Kumar" && b.roomName === "Meeting Room 1" && b.date === todayFormatted)) {
                 return parsed;
             }
         } catch (e) {
@@ -116,19 +117,21 @@ async function ensureMockDatabaseInitialized() {
     }
 
     try {
-        const [usersRes, visitorsRes, roomsRes] = await Promise.all([
+        const [usersRes, visitorsRes, roomsRes, bookingsRes] = await Promise.all([
             fetch('../member/data/users.json'),
             fetch('../member/data/visitors.json'),
-            fetch('../member/data/rooms.json')
+            fetch('../member/data/rooms.json'),
+            fetch('../member/data/bookings.json')
         ]);
 
-        if (!usersRes.ok || !visitorsRes.ok || !roomsRes.ok) {
+        if (!usersRes.ok || !visitorsRes.ok || !roomsRes.ok || !bookingsRes.ok) {
             throw new Error('Failed to fetch JSON database files');
         }
 
         const members = await usersRes.json();
         let visitors = await visitorsRes.json();
         const roomsList = await roomsRes.json();
+        const bookingsList = await bookingsRes.json();
 
         // Normalize visitor structure for Admin panel integration
         visitors = visitors.map(v => {
@@ -138,31 +141,28 @@ async function ensureMockDatabaseInitialized() {
                 companyName: v.company || 'Independent',
                 hostName: v.hostName || 'Marcus Reed',
                 expectedArrival: v.time || '10:00 AM',
-                status: v.status === 'Registered' || v.status === 'Confirmed' ? 'Expected' : 
+                status: v.status === 'Registered' || v.status === 'Confirmed' || v.status === 'Pending' ? 'Expected' : 
                         v.status === 'Checked-In' ? 'Checked-In' : 'Checked-Out',
                 shuffled: true
             };
         });
 
-        const bookings = [];
-        const today = new Date().toISOString().split('T')[0];
-        for (let i = 1; i <= 15; i++) {
-            const member = members[Math.floor(Math.random() * members.length)];
-            const room = roomsList[Math.floor(Math.random() * roomsList.length)];
-            const startHour = 9 + Math.floor(Math.random() * 8);
-            const duration = 1 + Math.floor(Math.random() * 2);
-            const endHour = startHour + duration;
-            
-            bookings.push({
-                id: i,
-                memberName: member.name,
-                companyName: member.company,
-                roomName: room.name,
-                date: today,
-                timeSlot: `${startHour}:00 ${startHour >= 12 ? 'PM' : 'AM'} - ${endHour}:00 ${endHour >= 12 ? 'PM' : 'AM'}`,
-                status: Math.random() > 0.2 ? 'Approved' : 'Pending'
-            });
-        }
+        // Load bookings directly from bookings.json
+        const bookings = bookingsList.map(b => {
+            const member = members.find(m => m.name === b.booker);
+            const today = new Date();
+            const todayFormatted = today.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            return {
+                id: b.id,
+                memberName: b.booker,
+                companyName: member ? member.company : 'Nichi-In Software Solutions Pvt. Ltd.',
+                roomName: b.room,
+                date: todayFormatted,
+                timeSlot: b.time,
+                status: b.status === 'Confirmed' ? 'Approved' : 'Pending',
+                title: b.title || 'Meeting Room Booking'
+            };
+        });
 
         const newDb = { members, bookings, visitors };
         localStorage.setItem('coworkMockDatabase', JSON.stringify(newDb));
@@ -649,15 +649,10 @@ function renderMembersTable(db) {
             statusBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant border border-outline-variant/50">Inactive</span>`;
         }
 
-        let avatarHTML = '';
-        if (m.avatar) {
-            avatarHTML = `<img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0" src="${m.avatar}">`;
-        } else {
-            const initials = m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-            const bgClasses = ['bg-primary-container text-on-primary-container', 'bg-tertiary-container text-on-tertiary-container', 'bg-secondary-container text-on-secondary-container'];
-            const bgClass = bgClasses[m.id % bgClasses.length];
-            avatarHTML = `<div class="w-8 h-8 rounded-full ${bgClass} flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
-        }
+        const initials = m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        const bgClasses = ['bg-primary-container text-on-primary-container', 'bg-tertiary-container text-on-tertiary-container', 'bg-secondary-container text-on-secondary-container'];
+        const bgClass = bgClasses[m.id % bgClasses.length];
+        const avatarHTML = `<div class="w-8 h-8 rounded-full ${bgClass} flex items-center justify-center font-bold text-label-md shrink-0">${initials}</div>`;
 
         tr.innerHTML = `
             <td class="px-md py-sm">
@@ -743,15 +738,20 @@ function showMemberProfile(member) {
     const modal = document.getElementById('profileModal');
     if (!modal) return;
 
-    const img = modal.querySelector('img');
-    if (img) {
-        if (member.avatar) {
-            img.src = member.avatar;
-            img.classList.remove('hidden');
-        } else {
-            img.src = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZCcT7H-bQ61oRgCHVcahYF1YmF_ZcSFEVrhDbsRCVaSAdLFk3UsZLGh81Tpg9uhRmfB1wmYVWXtgW7LobGRURnS9tlzIHC7roVPb9BVNGf_kWv_R-Ln7DZVppJgcPNbqJ6pJHeluMPaCjqR9_BCuSHB5I0d4i23pK0_-0Qtw3jSM5_uK2JAyQ81XKdWXZki1TMr_glpZw17OqilwoYqo2F8OtzYadCSaPm1Aw1IF9a-7AvKcTkswMe5i4e6GfWe0_UH1hAhpyRkY';
+    let avatarContainer = modal.querySelector('#profile_avatar_container');
+    if (!avatarContainer) {
+        const img = modal.querySelector('img');
+        if (img) {
+            img.style.display = 'none';
+            avatarContainer = document.createElement('div');
+            avatarContainer.id = 'profile_avatar_container';
+            avatarContainer.className = 'mb-md';
+            img.parentNode.insertBefore(avatarContainer, img);
         }
-        img.alt = `${member.name} Profile`;
+    }
+    if (avatarContainer) {
+        const initials = member.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-3xl shadow-sm mx-auto border-2 border-surface-container">${initials}</div>`;
     }
 
     const nameEl = modal.querySelector('h4');

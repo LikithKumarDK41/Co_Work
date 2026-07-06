@@ -542,6 +542,13 @@
 
                                         // Load bookings if missing
                                         let bookingsStored = sessionStorage.getItem("bookings");
+                                        if (bookingsStored) {
+                                                const parsed = JSON.parse(bookingsStored);
+                                                if (!parsed.some(b => b.title === "SB Telecom Alignment")) {
+                                                        sessionStorage.removeItem("bookings");
+                                                        bookingsStored = null;
+                                                }
+                                        }
                                         if (!bookingsStored) {
                                                 try {
                                                         const res = await fetch("data/bookings.json");
@@ -553,21 +560,24 @@
 
                                         // Load workspace bookings if missing
                                         let workspaceBookingsStored = sessionStorage.getItem("workspace_bookings");
-                                        if (!workspaceBookingsStored) {
-                                                const seedWorkspaceBookings = [
-                                                        { id: 100, booker: "Alex Rivera", workspace: "Nichi-In Workspace 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                                                        { id: 1, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                                                        { id: 2, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Monthly", period: "Jun 01, 2026 - Jun 30, 2026", bookingScope: "Entire", seatsBooked: 15, recurring: "None", status: "Confirmed" },
-                                                        { id: 3, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "May 15, 2026 - May 18, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                                                        { id: 4, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - May 31, 2026", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                                                        { id: 5, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Nov 02, 2026 - Nov 08, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                                                        { id: 6, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                                                        { id: 7, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "Nov 15, 2026 - Nov 15, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
-                                                        { id: 8, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - Dec 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
-                                                ];
-                                                sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
-                                                workspaceBookingsStored = JSON.stringify(seedWorkspaceBookings);
+                                        if (workspaceBookingsStored) {
+                                                const parsed = JSON.parse(workspaceBookingsStored);
+                                                if (!parsed.some(b => b.booker === "Narendra Kumar" && b.id === 101)) {
+                                                        sessionStorage.removeItem("workspace_bookings");
+                                                        workspaceBookingsStored = null;
+                                                }
                                         }
+                                        if (!workspaceBookingsStored) {
+                                                try {
+                                                        const res = await fetch("data/workspace_bookings.json");
+                                                        const data = await res.json();
+                                                        sessionStorage.setItem("workspace_bookings", JSON.stringify(data));
+                                                        workspaceBookingsStored = JSON.stringify(data);
+                                                } catch(e){}
+                                        }
+
+                                        const profile = await window.getLoggedInUser();
+                                        const profileName = profile.name;
 
                                         let bookings = [];
                                         try { bookings = JSON.parse(bookingsStored || "[]"); } catch(e){}
@@ -580,8 +590,8 @@
 
                                         let notifications = [];
 
-                                        // Filter room bookings to active External (Ext) rooms only
-                                        const cleanBookings = bookings.filter(b => b.room.includes("(Ext)") && b.status !== "Denied" && b.status !== "Cancelled");
+                                        // Filter room bookings to active rooms only for this member
+                                        const cleanBookings = bookings.filter(b => b.booker === profileName && b.status !== "Denied" && b.status !== "Cancelled");
                                         cleanBookings.slice(0, 1).forEach((b, idx) => {
                                                 notifications.push({
                                                         title: "Room Booking Confirmed",
@@ -593,8 +603,8 @@
                                                 });
                                         });
 
-                                        // Filter workspace bookings to active External (Ext) workspaces only
-                                        const cleanWorkspace = workspaceBookings.filter(w => w.workspace.includes("(Ext)") && w.status !== "Denied" && w.status !== "Cancelled");
+                                        // Filter workspace bookings to active workspaces only for this member
+                                        const cleanWorkspace = workspaceBookings.filter(w => w.booker === profileName && w.status !== "Denied" && w.status !== "Cancelled");
                                         cleanWorkspace.slice(0, 1).forEach((w, idx) => {
                                                 notifications.push({
                                                         title: "Workspace Reserved",
@@ -606,8 +616,8 @@
                                                 });
                                         });
 
-                                        // Filter visitors hosted by James Scott, Andrew Thompson, or others from the client demo
-                                        const activeVisitors = visitors.filter(v => v.status === "Checked-In" || v.status === "Registered");
+                                        // Filter visitors hosted by this member
+                                        const activeVisitors = visitors.filter(v => v.hostName === profileName && (v.status === "Checked-In" || v.status === "Registered"));
                                         activeVisitors.slice(0, 2).forEach((v, idx) => {
                                                 const isArrived = v.status === "Checked-In";
                                                 notifications.push({

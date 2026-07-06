@@ -1,10 +1,13 @@
 <div class="flex flex-col gap-6 sm:gap-8 mb-6 sm:mb-8">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
         <div>
-            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Workspace Bookings</h2>
-            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage member workspace desk reservations, terms, seat capacities, and approvals.</p>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Workspace
+                Bookings</h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage member workspace desk reservations,
+                terms, seat capacities, and approvals.</p>
         </div>
-        <button onclick="openNewBookingModal()" class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm self-start">
+        <button onclick="openNewBookingModal()"
+            class="flex items-center gap-2 bg-primary text-on-primary px-4 py-2.5 rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm self-start">
             <span class="material-symbols-outlined text-[18px]">add</span> New Booking
         </button>
     </div>
@@ -44,21 +47,27 @@
 
 <!-- Table & Filter card -->
 <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden">
-    <div class="p-4 sm:p-lg border-b border-outline-variant bg-surface-bright flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div
+        class="p-4 sm:p-lg border-b border-outline-variant bg-surface-bright flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center gap-2">
             <span class="font-headline-sm text-headline-sm font-bold text-on-surface">Reservations List</span>
-            <span id="bookingCountBadge" class="bg-primary/10 text-primary font-bold text-[11px] px-2.5 py-0.5 rounded-full">0 Total</span>
+            <span id="bookingCountBadge"
+                class="bg-primary/10 text-primary font-bold text-[11px] px-2.5 py-0.5 rounded-full">0 Total</span>
         </div>
-        
+
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <!-- Search bar -->
             <div class="relative flex-1 sm:w-64">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-                <input id="searchBookings" oninput="handleSearch()" type="text" placeholder="Search booker or workspace..." class="w-full pl-9 pr-4 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                <input id="searchBookings" oninput="handleSearch()" type="text"
+                    placeholder="Search booker or workspace..."
+                    class="w-full pl-9 pr-4 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
             </div>
 
             <!-- Term Filter -->
-            <select id="termFilter" onchange="applyFilters()" class="pl-3 pr-8 py-2 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface outline-none cursor-pointer">
+            <select id="termFilter" onchange="applyFilters()"
+                class="pl-3 pr-8 py-2 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface outline-none cursor-pointer">
                 <option value="all">All Terms</option>
                 <option value="Daily">Daily</option>
                 <option value="Weekly">Weekly</option>
@@ -67,7 +76,8 @@
             </select>
 
             <!-- Status Filter -->
-            <select id="statusFilter" onchange="applyFilters()" class="pl-3 pr-8 py-2 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface outline-none cursor-pointer">
+            <select id="statusFilter" onchange="applyFilters()"
+                class="pl-3 pr-8 py-2 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface outline-none cursor-pointer">
                 <option value="all">All Statuses</option>
                 <option value="Waitlist">Pending</option>
                 <option value="Confirmed">Approved</option>
@@ -80,14 +90,15 @@
     <div class="table-responsive">
         <table class="w-full text-left border-collapse">
             <thead>
-                <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80 whitespace-nowrap">
+                <tr
+                    class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80 whitespace-nowrap">
                     <th class="px-md py-sm font-semibold">Booker</th>
                     <th class="px-md py-sm font-semibold">Workspace</th>
                     <th class="px-md py-sm font-semibold">Scope</th>
                     <th class="px-md py-sm font-semibold">Seats</th>
                     <th class="px-md py-sm font-semibold">Term</th>
                     <th class="px-md py-sm font-semibold">Booking Period</th>
-                    <th class="px-md py-sm font-semibold">Recurring</th>
+                    <th class="px-md py-sm font-semibold">Subscription</th>
                     <th class="px-md py-sm font-semibold">Status</th>
                     <th class="px-md py-sm font-semibold text-right">Actions</th>
                 </tr>
@@ -99,8 +110,10 @@
     </div>
 
     <!-- Table Footer Pagination -->
-    <div class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 0 to 0 of 0 entries</span>
+    <div
+        class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 0 to 0 of 0
+            entries</span>
         <div id="pagination_container" class="flex gap-xs items-center">
             <!-- Dynamic buttons injected here -->
         </div>
@@ -109,21 +122,32 @@
 
 <!-- New Workspace Booking Modal Drawer -->
 <div id="newBookingModal" class="hidden fixed inset-0 z-50 flex justify-end">
-    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeNewBookingModal()"></div>
-    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300"
+        onclick="closeNewBookingModal()"></div>
+    <div
+        class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center shrink-0">
             <h3 class="font-headline-sm font-bold text-on-surface">New Workspace Booking</h3>
-            <button onclick="closeNewBookingModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+            <button onclick="closeNewBookingModal()"
+                class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span
+                    class="material-symbols-outlined">close</span></button>
         </div>
-        <form id="newBookingForm" onsubmit="submitNewBooking(event)" class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-surface-container-lowest pb-10">
+        <form id="newBookingForm" onsubmit="submitNewBooking(event)"
+            class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-surface-container-lowest pb-10">
             <!-- Searchable Member -->
             <div class="flex flex-col gap-1 relative">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Member Name <span class="text-error">*</span></label>
+                <label class="font-label-sm text-on-surface-variant font-semibold">Member Name <span
+                        class="text-error">*</span></label>
                 <div class="relative">
-                    <input id="book_member_name" type="text" autocomplete="off" required onfocus="showMemberDropdown()" oninput="filterMemberDropdown()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="Search and select member...">
-                    <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-[20px]">expand_more</span>
+                    <input id="book_member_name" type="text" autocomplete="off" required onfocus="showMemberDropdown()"
+                        oninput="filterMemberDropdown()"
+                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm"
+                        placeholder="Search and select member...">
+                    <span
+                        class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-[20px]">expand_more</span>
                 </div>
-                <div id="member_options_list" class="hidden absolute top-full left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-outline-variant bg-surface-container-lowest rounded-lg shadow-lg z-50 divide-y divide-outline-variant/30">
+                <div id="member_options_list"
+                    class="hidden absolute top-full left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-outline-variant bg-surface-container-lowest rounded-lg shadow-lg z-50 divide-y divide-outline-variant/30">
                     <!-- Dynamic searchable members list will be injected here -->
                 </div>
             </div>
@@ -131,64 +155,60 @@
             <!-- Date Range picker (Moved up to check availabilities dynamically) -->
             <div class="flex gap-2">
                 <div class="flex-1 flex flex-col gap-1">
-                    <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span class="text-error">*</span></label>
-                    <input id="book_start_date" type="date" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span
+                            class="text-error">*</span></label>
+                    <input id="book_start_date" type="date" required onchange="handleFormDateOrWorkspaceChange()"
+                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
                 </div>
                 <div class="flex-1 flex flex-col gap-1">
-                    <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span class="text-error">*</span></label>
-                    <input id="book_end_date" type="date" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span
+                            class="text-error">*</span></label>
+                    <input id="book_end_date" type="date" required onchange="handleFormDateOrWorkspaceChange()"
+                        class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
                 </div>
-            </div>
-
-            <!-- Term/Billing Cycle -->
-            <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Term / Cycle <span class="text-error">*</span></label>
-                <select id="book_term" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                    <option value="Daily">Daily</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Yearly">Yearly</option>
-                </select>
             </div>
 
             <!-- Client Category (Internal vs External) -->
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
-                <select id="book_client_category" required onchange="handleClientCategoryChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span
+                        class="text-error">*</span></label>
+                <select id="book_client_category" required onchange="handleClientCategoryChange()"
+                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
                     <option value="Internal">Internal (Building 812)</option>
                     <option value="External">External (Building 813)</option>
                 </select>
             </div>
 
-            <!-- Select Parent Workspace / Zone -->
+            <!-- Select Workspace Heading -->
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Select Building Zone / Parent Workspace <span class="text-error">*</span></label>
-                <select id="book_parent_workspace" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                    <option value="">Select a Parent Zone...</option>
-                </select>
+                <label class="font-label-sm text-on-surface-variant font-semibold">Select Workspace <span class="text-error">*</span></label>
             </div>
 
-            <!-- Dynamic Sub-spaces Selection List -->
+            <!-- Workspaces Container -->
             <div id="selectedWorkspacesContainer" class="flex flex-col gap-4">
                 <!-- Row instances populated dynamically -->
             </div>
 
-            <button type="button" onclick="addNewSpaceRow()" style="display: none;" class="mt-1 text-primary font-bold flex items-center gap-1 hover:text-primary/80 transition-colors self-start text-xs border border-primary/20 px-3 py-1.5 rounded-lg bg-primary/5">
-                <span class="material-symbols-outlined text-[16px]">add_circle</span> Add Another Sub-space
+            <button type="button" onclick="addNewSpaceRow()" id="addWorkspaceRowBtn" style="display: none;"
+                class="mt-2 text-primary font-bold flex items-center gap-1.5 hover:text-primary/95 transition-colors self-start text-xs border border-primary/30 px-3.5 py-2 rounded-lg bg-primary/5 shadow-xs">
+                <span class="material-symbols-outlined text-[16px]">add_circle</span> Select one more workspace
             </button>
 
-            <!-- Recurring option -->
+            <!-- Subscription Plan -->
             <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
-                <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                    <option value="None">None</option>
-                    <option value="Daily">Daily Recurring</option>
-                    <option value="Weekly">Weekly Recurring</option>
-                    <option value="Monthly">Monthly Recurring</option>
+                <label class="font-label-sm text-on-surface-variant font-semibold">Subscription Plan</label>
+                <select id="book_recurring" onchange="handleFormDateOrWorkspaceChange()"
+                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="None">One-time Booking</option>
+                    <option value="Daily">Daily Subscription</option>
+                    <option value="Weekly">Weekly Subscription</option>
+                    <option value="Monthly">Monthly Subscription</option>
                 </select>
             </div>
 
-            <button type="submit" class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:bg-primary/90 mt-2 shrink-0 transition-colors">Book Workspace</button>
+            <button type="submit"
+                class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:bg-primary/90 mt-2 shrink-0 transition-colors">Book
+                Workspace</button>
         </form>
     </div>
 </div>
@@ -196,214 +216,210 @@
 <!-- Workspace Booking Details Drawer Modal -->
 <div id="workspaceDetailsModal" class="hidden fixed inset-0 z-50 flex justify-end">
     <!-- Backdrop overlay -->
-    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeWorkspaceDetailsModal()"></div>
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300"
+        onclick="closeWorkspaceDetailsModal()"></div>
     <!-- Drawer Panel -->
-    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+    <div
+        class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
         <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
             <h3 class="font-headline-sm font-bold text-on-surface">Workspace Booking Details</h3>
-            <button onclick="closeWorkspaceDetailsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+            <button onclick="closeWorkspaceDetailsModal()"
+                class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span
+                    class="material-symbols-outlined">close</span></button>
         </div>
-        <div id="workspaceDetailsContent" class="flex-1 p-6 flex flex-col gap-lg overflow-y-auto bg-surface-container-lowest">
+        <div id="workspaceDetailsContent"
+            class="flex-1 p-6 flex flex-col gap-lg overflow-y-auto bg-surface-container-lowest">
             <!-- Dynamic workspace details injected here -->
         </div>
     </div>
 </div>
 
 <script>
-(function() {
-    let workspaceBookings = [];
-    let filteredBookings = [];
-    let searchQuery = "";
-    let termFilter = "all";
-    let statusFilter = "all";
-    let currentPage = 1;
-    const itemsPerPage = 8;
+    (function () {
+        let workspaceBookings = [];
+        let filteredBookings = [];
+        const subscriptionLabelMap = {
+            "None": "One-time",
+            "Daily": "Daily Subscription",
+            "Weekly": "Weekly Subscription",
+            "Monthly": "Monthly Subscription"
+        };
+        let searchQuery = "";
+        let termFilter = "all";
+        let statusFilter = "all";
+        let currentPage = 1;
+        const itemsPerPage = 8;
 
-    async function ensureWorkspacesLoaded() {
-        let stored = sessionStorage.getItem("workspaces");
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            if (!parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
-                stored = null;
+        async function ensureWorkspacesLoaded() {
+            let stored = sessionStorage.getItem("workspaces");
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (!parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
+                    stored = null;
+                }
             }
-        }
-        if (!stored) {
-            try {
-                const res = await fetch("../member/data/workspaces.json");
-                const data = await res.json();
-                sessionStorage.setItem("workspaces", JSON.stringify(data));
-            } catch (e) {
-                console.error("Failed to seed workspaces in bookings context", e);
-            }
-        }
-    }
-
-    async function populateParentWorkspaceOptions() {
-        await ensureWorkspacesLoaded();
-        const stored = sessionStorage.getItem("workspaces");
-        if (!stored) return;
-
-        const wList = JSON.parse(stored);
-        const select = document.getElementById("book_parent_workspace");
-        if (!select) return;
-
-        const categorySelect = document.getElementById("book_client_category");
-        const category = categorySelect ? categorySelect.value : "Internal";
-
-        const val = select.value;
-        // Filter only parent workspaces matching selected clientType
-        const parents = wList.filter(w => w.status === "Active" && !w.parentWorkspace && w.clientType === category);
-        
-        select.innerHTML = `<option value="">Select a Parent Zone...</option>` +
-            parents.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
-                   .join("");
-
-        if (val) select.value = val;
-    }
-
-    function handleClientCategoryChange() {
-        populateParentWorkspaceOptions();
-        // Clear sub-space & parent workspace dropdown selections to prevent mix-ups
-        const parentSelect = document.getElementById("book_parent_workspace");
-        if (parentSelect) parentSelect.value = "";
-        handleFormDateOrWorkspaceChange();
-    }
-
-    async function loadWorkspaceBookings() {
-        await ensureWorkspacesLoaded();
-        populateParentWorkspaceOptions();
-
-        let stored = sessionStorage.getItem("workspace_bookings");
-        if (stored) {
-            const parsed = JSON.parse(stored);
-            if (!parsed.some(b => b.workspace === "Nichi-In Workspace 1 (Int)")) {
-                sessionStorage.removeItem("workspace_bookings");
-                stored = null;
+            if (!stored) {
+                try {
+                    const res = await fetch("../member/data/workspaces.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("workspaces", JSON.stringify(data));
+                } catch (e) {
+                    console.error("Failed to seed workspaces in bookings context", e);
+                }
             }
         }
 
-        if (!stored) {
-            const seedWorkspaceBookings = [
-                { id: 100, booker: "Operational Manager", workspace: "Nichi-In Workspace 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                { id: 2, booker: "Marcus Reed", workspace: "Server Room", type: "Shared Space", term: "Monthly", period: "Oct 01, 2026 - Oct 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                { id: 3, booker: "David Chen", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 24, 2026 - Oct 24, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                { id: 4, booker: "Matthew Johnson", workspace: "Library (Int)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2027 - Dec 31, 2027", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                { id: 5, booker: "Anna Lopez", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 30, 2026 - Nov 05, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                { id: 6, booker: "Ronald Rodriguez", workspace: "Library (Int)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                { id: 7, booker: "Matthew Johnson", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 25, 2026 - Oct 25, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
-                { id: 8, booker: "Jessica Taylor", workspace: "Server Room", type: "Shared Space", term: "Yearly", period: "Nov 01, 2026 - Oct 31, 2027", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
-            ];
-            sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
-            stored = JSON.stringify(seedWorkspaceBookings);
+        function handleClientCategoryChange() {
+            const container = document.getElementById("selectedWorkspacesContainer");
+            if (container) container.innerHTML = "";
+            addNewSpaceRow(true); // Add first row (fixed)
+            updateAddSpaceButtonVisibility();
         }
-        workspaceBookings = JSON.parse(stored);
-        applyFilters();
-    }
 
-    function applyFilters() {
-        const termSelect = document.getElementById("termFilter");
-        const statusSelect = document.getElementById("statusFilter");
-        
-        if (termSelect) termFilter = termSelect.value;
-        if (statusSelect) statusFilter = statusSelect.value;
+        function handleFormDateOrWorkspaceChange() {
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+            
+            rows.forEach(row => {
+                const select = row.querySelector(".subspace-select");
+                const val = select.value;
+                populateRowSubspaces(row);
+                select.value = val;
+                updateRowAvailableSeats(select);
+            });
+            updateAddSpaceButtonVisibility();
+        }
 
-        filteredBookings = workspaceBookings.filter(b => {
-            const matchSearch = searchQuery === "" || 
-                (b.booker && b.booker.toLowerCase().includes(searchQuery)) ||
-                (b.workspace && b.workspace.toLowerCase().includes(searchQuery));
+        async function loadWorkspaceBookings() {
+            await ensureWorkspacesLoaded();
+            handleClientCategoryChange();
 
-            const matchTerm = termFilter === "all" || b.term === termFilter;
-            const matchStatus = statusFilter === "all" || b.status === statusFilter;
+            let stored = sessionStorage.getItem("workspace_bookings");
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (!parsed.some(b => b.booker === "Rajendra Patnashetty")) {
+                    sessionStorage.removeItem("workspace_bookings");
+                    stored = null;
+                }
+            }
 
-            return matchSearch && matchTerm && matchStatus;
-        });
-
-        currentPage = 1;
-        renderBookingsTable();
-        calculateStats();
-    }
-
-    function handleSearch() {
-        const input = document.getElementById("searchBookings");
-        if (input) {
-            searchQuery = input.value.toLowerCase().trim();
+            if (!stored) {
+                try {
+                    const res = await fetch("../member/data/workspace_bookings.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("workspace_bookings", JSON.stringify(data));
+                    stored = JSON.stringify(data);
+                } catch (e) {
+                    console.error("Failed to fetch workspace bookings seed JSON", e);
+                    stored = "[]";
+                }
+            }
+            workspaceBookings = JSON.parse(stored);
             applyFilters();
         }
-    }
 
-    function calculateStats() {
-        const counts = { Daily: 0, Weekly: 0, Monthly: 0, Yearly: 0 };
-        workspaceBookings.forEach(b => {
-            if (b.status === "Confirmed" && counts[b.term] !== undefined) {
-                counts[b.term]++;
-            }
-        });
+        function applyFilters() {
+            const termSelect = document.getElementById("termFilter");
+            const statusSelect = document.getElementById("statusFilter");
 
-        document.getElementById("statDailyCount").textContent = counts.Daily;
-        document.getElementById("statWeeklyCount").textContent = counts.Weekly;
-        document.getElementById("statMonthlyCount").textContent = counts.Monthly;
-        document.getElementById("statYearlyCount").textContent = counts.Yearly;
-    }
+            if (termSelect) termFilter = termSelect.value;
+            if (statusSelect) statusFilter = statusSelect.value;
 
-    function renderBookingsTable() {
-        const tbody = document.getElementById("bookings_table_body");
-        if (!tbody) return;
+            filteredBookings = workspaceBookings.filter(b => {
+                const matchSearch = searchQuery === "" ||
+                    (b.booker && b.booker.toLowerCase().includes(searchQuery)) ||
+                    (b.workspace && b.workspace.toLowerCase().includes(searchQuery));
 
-        const totalItems = filteredBookings.length;
-        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+                const matchTerm = termFilter === "all" || b.term === termFilter;
+                const matchStatus = statusFilter === "all" || b.status === statusFilter;
 
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
+                return matchSearch && matchTerm && matchStatus;
+            });
 
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-        const pageBookings = filteredBookings.slice(startIndex, endIndex);
-
-        const countBadge = document.getElementById("bookingCountBadge");
-        if (countBadge) {
-            countBadge.textContent = `${totalItems} Total`;
+            currentPage = 1;
+            renderBookingsTable();
+            calculateStats();
         }
 
-        if (pageBookings.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" class="px-md py-8 text-center text-sm text-on-surface-variant">No workspace bookings found</td></tr>`;
-            renderPagination(0, 0, 0);
-            return;
+        function handleSearch() {
+            const input = document.getElementById("searchBookings");
+            if (input) {
+                searchQuery = input.value.toLowerCase().trim();
+                applyFilters();
+            }
         }
 
-        tbody.innerHTML = pageBookings.map(b => {
-            let statusBadgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
-            let statusLabel = "Approved";
+        function calculateStats() {
+            const counts = { Daily: 0, Weekly: 0, Monthly: 0, Yearly: 0 };
+            workspaceBookings.forEach(b => {
+                if (b.status === "Confirmed" && counts[b.term] !== undefined) {
+                    counts[b.term]++;
+                }
+            });
 
-            if (b.status === "Waitlist") {
-                statusBadgeClass = "bg-amber-50 text-amber-800 border-amber-200";
-                statusLabel = "Pending";
-            } else if (b.status === "Denied") {
-                statusBadgeClass = "bg-error/10 text-error border-error-container";
-                statusLabel = "Denied";
+            document.getElementById("statDailyCount").textContent = counts.Daily;
+            document.getElementById("statWeeklyCount").textContent = counts.Weekly;
+            document.getElementById("statMonthlyCount").textContent = counts.Monthly;
+            document.getElementById("statYearlyCount").textContent = counts.Yearly;
+        }
+
+        function renderBookingsTable() {
+            const tbody = document.getElementById("bookings_table_body");
+            if (!tbody) return;
+
+            const totalItems = filteredBookings.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+            const pageBookings = filteredBookings.slice(startIndex, endIndex);
+
+            const countBadge = document.getElementById("bookingCountBadge");
+            if (countBadge) {
+                countBadge.textContent = `${totalItems} Total`;
             }
 
-            let actionHTML = `<div class="flex gap-1 justify-end items-center">`;
-            if (b.status === "Waitlist") {
-                actionHTML += `
+            if (pageBookings.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="px-md py-8 text-center text-sm text-on-surface-variant">No workspace bookings found</td></tr>`;
+                renderPagination(0, 0, 0);
+                return;
+            }
+
+            tbody.innerHTML = pageBookings.map(b => {
+                let statusBadgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                let statusLabel = "Approved";
+
+                if (b.status === "Waitlist") {
+                    statusBadgeClass = "bg-amber-50 text-amber-800 border-amber-200";
+                    statusLabel = "Pending";
+                } else if (b.status === "Denied") {
+                    statusBadgeClass = "bg-error/10 text-error border-error-container";
+                    statusLabel = "Denied";
+                }
+
+                let actionHTML = `<div class="flex gap-1 justify-end items-center">`;
+                if (b.status === "Waitlist") {
+                    actionHTML += `
                     <button onclick="approveBooking(${b.id})" class="bg-emerald-600 text-white hover:bg-emerald-700 px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Approve</button>
                     <button onclick="denyBooking(${b.id})" class="border border-outline-variant text-on-surface-variant hover:bg-surface-container-low px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Deny</button>
                 `;
-            } else {
-                actionHTML += `
+                } else {
+                    actionHTML += `
                     <button onclick="deleteBooking(${b.id})" class="text-error hover:bg-error/10 p-1.5 rounded transition-colors" title="Delete Booking">
                         <span class="material-symbols-outlined text-[18px]">delete</span>
                     </button>
                 `;
-            }
-            actionHTML += `
+                }
+                actionHTML += `
                 <button onclick="viewWorkspaceDetails(${b.id})" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded transition-colors inline-flex items-center justify-center" title="View Details">
                     <span class="material-symbols-outlined text-[18px]">visibility</span>
                 </button>
             `;
-            actionHTML += `</div>`;
+                actionHTML += `</div>`;
 
-            return `
+                return `
                 <tr class="hover:bg-surface-container-low/30 transition-colors whitespace-nowrap">
                     <td class="px-md py-sm font-semibold">${b.booker}</td>
                     <td class="px-md py-sm text-on-surface font-semibold">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</td>
@@ -412,7 +428,7 @@
                     <td class="px-md py-sm text-on-surface-variant font-bold">${b.term}</td>
                     <td class="px-md py-sm text-on-surface-variant font-medium">${b.period}</td>
                     <td class="px-md py-sm text-on-surface-variant font-medium text-xs">
-                        <span class="px-2 py-0.5 rounded ${b.recurring && b.recurring !== "None" ? 'bg-secondary-container text-on-secondary-container font-semibold' : 'text-on-surface-variant'}">${b.recurring || "None"}</span>
+                        <span class="px-2 py-0.5 rounded ${b.recurring && b.recurring !== "None" ? 'bg-secondary-container text-on-secondary-container font-semibold' : 'text-on-surface-variant'}">${subscriptionLabelMap[b.recurring] || b.recurring || "One-time"}</span>
                     </td>
                     <td class="px-md py-sm">
                         <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${statusBadgeClass}">
@@ -422,544 +438,572 @@
                     <td class="px-md py-sm text-right">${actionHTML}</td>
                 </tr>
             `;
-        }).join("");
+            }).join("");
 
-        renderPagination(startIndex + 1, endIndex, totalItems);
-    }
+            renderPagination(startIndex + 1, endIndex, totalItems);
+        }
 
-    function renderPagination(start, end, total) {
-        const container = document.getElementById("pagination_container");
-        const info = document.getElementById("paginationInfo");
-        if (!container || !info) return;
+        function renderPagination(start, end, total) {
+            const container = document.getElementById("pagination_container");
+            const info = document.getElementById("paginationInfo");
+            if (!container || !info) return;
 
-        info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
-        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+            info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+            const totalPages = Math.ceil(total / itemsPerPage) || 1;
 
-        let html = `
+            let html = `
             <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_left</span>
             </button>
         `;
 
-        for (let i = 1; i <= totalPages; i++) {
-            if (i === currentPage) {
-                html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
-            } else {
-                html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+                } else {
+                    html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+                }
             }
-        }
 
-        html += `
+            html += `
             <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
                 <span class="material-symbols-outlined">chevron_right</span>
             </button>
         `;
 
-        container.innerHTML = html;
-    }
-
-    function goToPage(p) {
-        currentPage = p;
-        renderBookingsTable();
-    }
-
-    function approveBooking(id) {
-        const idx = workspaceBookings.findIndex(x => x.id === id);
-        if (idx !== -1) {
-            workspaceBookings[idx].status = "Confirmed";
-            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
-            applyFilters();
-            alert("Workspace booking approved successfully.");
+            container.innerHTML = html;
         }
-    }
 
-    function denyBooking(id) {
-        const idx = workspaceBookings.findIndex(x => x.id === id);
-        if (idx !== -1) {
-            workspaceBookings[idx].status = "Denied";
-            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
-            applyFilters();
-            alert("Workspace booking request denied.");
+        function goToPage(p) {
+            currentPage = p;
+            renderBookingsTable();
         }
-    }
 
-    function deleteBooking(id) {
-        if (confirm("Are you sure you want to remove this workspace booking?")) {
-            workspaceBookings = workspaceBookings.filter(b => b.id !== id);
-            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
-            applyFilters();
-            alert("Workspace booking deleted successfully.");
-        }
-    }
-
-    let usersList = [];
-    async function ensureUsersLoaded() {
-        if (usersList.length > 0) return;
-        let stored = sessionStorage.getItem("users");
-        if (!stored) {
-            try {
-                const res = await fetch("../member/data/users.json");
-                const data = await res.json();
-                sessionStorage.setItem("users", JSON.stringify(data));
-                stored = JSON.stringify(data);
-            } catch (e) {
-                console.error("Failed to load users list", e);
-                return;
+        function approveBooking(id) {
+            const idx = workspaceBookings.findIndex(x => x.id === id);
+            if (idx !== -1) {
+                workspaceBookings[idx].status = "Confirmed";
+                sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                applyFilters();
+                alert("Workspace booking approved successfully.");
             }
         }
-        usersList = JSON.parse(stored);
-    }
 
-    async function showMemberDropdown() {
-        await ensureUsersLoaded();
-        const list = document.getElementById("member_options_list");
-        if (list) {
-            list.classList.remove("hidden");
-            filterMemberDropdown();
-        }
-    }
-
-    function filterMemberDropdown() {
-        const input = document.getElementById("book_member_name");
-        const list = document.getElementById("member_options_list");
-        if (!input || !list) return;
-
-        const val = input.value.toLowerCase().trim();
-        const filtered = usersList.filter(u => u.name.toLowerCase().includes(val) || u.email.toLowerCase().includes(val));
-
-        if (filtered.length === 0) {
-            list.innerHTML = `<div class="px-3 py-2 text-xs text-on-surface-variant italic">No members found</div>`;
-            return;
+        function denyBooking(id) {
+            const idx = workspaceBookings.findIndex(x => x.id === id);
+            if (idx !== -1) {
+                workspaceBookings[idx].status = "Denied";
+                sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                applyFilters();
+                alert("Workspace booking request denied.");
+            }
         }
 
-        list.innerHTML = filtered.map(u => `
+        function deleteBooking(id) {
+            if (confirm("Are you sure you want to remove this workspace booking?")) {
+                workspaceBookings = workspaceBookings.filter(b => b.id !== id);
+                sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                applyFilters();
+                alert("Workspace booking deleted successfully.");
+            }
+        }
+
+        let usersList = [];
+        async function ensureUsersLoaded() {
+            if (usersList.length > 0) return;
+            let stored = sessionStorage.getItem("users");
+            if (!stored) {
+                try {
+                    const res = await fetch("../member/data/users.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("users", JSON.stringify(data));
+                    stored = JSON.stringify(data);
+                } catch (e) {
+                    console.error("Failed to load users list", e);
+                    return;
+                }
+            }
+            usersList = JSON.parse(stored);
+        }
+
+        async function showMemberDropdown() {
+            await ensureUsersLoaded();
+            const list = document.getElementById("member_options_list");
+            if (list) {
+                list.classList.remove("hidden");
+                filterMemberDropdown();
+            }
+        }
+
+        function filterMemberDropdown() {
+            const input = document.getElementById("book_member_name");
+            const list = document.getElementById("member_options_list");
+            if (!input || !list) return;
+
+            const val = input.value.toLowerCase().trim();
+            const filtered = usersList.filter(u => u.name.toLowerCase().includes(val) || u.email.toLowerCase().includes(val));
+
+            if (filtered.length === 0) {
+                list.innerHTML = `<div class="px-3 py-2 text-xs text-on-surface-variant italic">No members found</div>`;
+                return;
+            }
+
+            list.innerHTML = filtered.map(u => `
             <div onclick="selectMember('${u.name.replace(/'/g, "\\'")}')" class="px-3 py-2 cursor-pointer hover:bg-primary/5 transition-colors text-body-sm text-on-surface flex flex-col">
                 <span class="font-semibold text-sm">${u.name}</span>
                 <span class="text-xs text-on-surface-variant">${u.email} • ${u.company}</span>
             </div>
         `).join("");
-    }
-
-    function selectMember(name) {
-        const input = document.getElementById("book_member_name");
-        const list = document.getElementById("member_options_list");
-        if (input) input.value = name;
-        if (list) list.classList.add("hidden");
-    }
-
-    window.addEventListener("click", function(e) {
-        const list = document.getElementById("member_options_list");
-        const input = document.getElementById("book_member_name");
-        if (list && input && e.target !== input && !list.contains(e.target)) {
-            list.classList.add("hidden");
         }
-    });
 
-    function openNewBookingModal() {
-        populateParentWorkspaceOptions();
-        document.getElementById('newBookingModal').classList.remove('hidden');
-        document.getElementById("book_parent_workspace").value = "";
-        document.getElementById("book_entire_parent").checked = false;
-        document.getElementById("book_recurring").value = "None";
-        
-        handleFormDateOrWorkspaceChange();
-    }
-
-    function closeNewBookingModal() {
-        document.getElementById('newBookingModal').classList.add('hidden');
-        document.getElementById('newBookingForm').reset();
-        const list = document.getElementById("member_options_list");
-        if (list) list.classList.add("hidden");
-    }
-
-    function parsePeriod(periodStr) {
-        const parts = periodStr.split(" - ");
-        if (parts.length === 2) {
-            return {
-                start: new Date(parts[0] + "T00:00:00"),
-                end: new Date(parts[1] + "T23:59:59")
-            };
+        function selectMember(name) {
+            const input = document.getElementById("book_member_name");
+            const list = document.getElementById("member_options_list");
+            if (input) input.value = name;
+            if (list) list.classList.add("hidden");
         }
-        const d = new Date(periodStr + "T00:00:00");
-        return { start: d, end: new Date(periodStr + "T23:59:59") };
-    }
 
-    function matchesRecurrence(dateObj, baseDate, recurType) {
-        if (recurType === "None" || recurType === "" || !recurType) return true;
-        if (recurType === "Daily") return true;
-        if (recurType === "Weekly") {
-            return dateObj.getDay() === baseDate.getDay();
-        }
-        if (recurType === "Monthly") {
-            return dateObj.getDate() === baseDate.getDate();
-        }
-        return false;
-    }
+        window.addEventListener("click", function (e) {
+            const list = document.getElementById("member_options_list");
+            const input = document.getElementById("book_member_name");
+            if (list && input && e.target !== input && !list.contains(e.target)) {
+                list.classList.add("hidden");
+            }
+        });
 
-    function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
-        if (Math.max(start1, start2) > Math.min(end1, end2)) {
+        function openNewBookingModal() {
+            document.getElementById('newBookingModal').classList.remove('hidden');
+            document.getElementById("book_recurring").value = "None";
+            handleClientCategoryChange();
+        }
+
+        function closeNewBookingModal() {
+            document.getElementById('newBookingModal').classList.add('hidden');
+            document.getElementById('newBookingForm').reset();
+            const list = document.getElementById("member_options_list");
+            if (list) list.classList.add("hidden");
+        }
+
+        function parsePeriod(periodStr) {
+            const parts = periodStr.split(" - ");
+            if (parts.length === 2) {
+                return {
+                    start: new Date(parts[0] + "T00:00:00"),
+                    end: new Date(parts[1] + "T23:59:59")
+                };
+            }
+            const d = new Date(periodStr + "T00:00:00");
+            return { start: d, end: new Date(periodStr + "T23:59:59") };
+        }
+
+        function matchesRecurrence(dateObj, baseDate, recurType) {
+            if (recurType === "None" || recurType === "" || !recurType) return true;
+            if (recurType === "Daily") return true;
+            if (recurType === "Weekly") {
+                return dateObj.getDay() === baseDate.getDay();
+            }
+            if (recurType === "Monthly") {
+                return dateObj.getDate() === baseDate.getDate();
+            }
             return false;
         }
-        if (recur1 === "None" && recur2 === "None") {
-            return true;
-        }
 
-        let curr = new Date(Math.max(start1, start2));
-        let boundary = new Date(Math.min(end1, end2));
-        while (curr <= boundary) {
-            if (matchesRecurrence(curr, new Date(start1), recur1) && 
-                matchesRecurrence(curr, new Date(start2), recur2)) {
+        function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
+            if (Math.max(start1, start2) > Math.min(end1, end2)) {
+                return false;
+            }
+            if (recur1 === "None" && recur2 === "None") {
                 return true;
             }
-            curr.setDate(curr.getDate() + 1);
-        }
-        return false;
-    }
 
-    function getHierarchy(name) {
-        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-        let rooms = [];
-        try {
-            rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
-        } catch(e){}
-        
-        const wMatch = workspaces.find(w => w.name === name);
-        const isParent = wMatch && !wMatch.parentWorkspace;
-        
-        let parent = null;
-        let childrenWorkspaces = [];
-        let childrenRooms = [];
-        
-        if (isParent) {
-            parent = name;
-            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
-            childrenRooms = rooms.filter(r => r.parentWorkspace === name).map(r => r.name);
-        } else {
-            if (wMatch && wMatch.parentWorkspace) {
-                parent = wMatch.parentWorkspace;
+            let curr = new Date(Math.max(start1, start2));
+            let boundary = new Date(Math.min(end1, end2));
+            while (curr <= boundary) {
+                if (matchesRecurrence(curr, new Date(start1), recur1) &&
+                    matchesRecurrence(curr, new Date(start2), recur2)) {
+                    return true;
+                }
+                curr.setDate(curr.getDate() + 1);
+            }
+            return false;
+        }
+
+        function getHierarchy(name) {
+            const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+            let rooms = [];
+            try {
+                rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+            } catch (e) { }
+
+            const wMatch = workspaces.find(w => w.name === name);
+            const isParent = wMatch && !wMatch.parentWorkspace;
+
+            let parent = null;
+            let childrenWorkspaces = [];
+            let childrenRooms = [];
+
+            if (isParent) {
+                parent = name;
+                childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
+                childrenRooms = rooms.filter(r => r.parentWorkspace === name).map(r => r.name);
             } else {
-                const rMatch = rooms.find(r => r.name === name);
-                if (rMatch && rMatch.parentWorkspace) {
-                    parent = rMatch.parentWorkspace;
+                if (wMatch && wMatch.parentWorkspace) {
+                    parent = wMatch.parentWorkspace;
+                } else {
+                    const rMatch = rooms.find(r => r.name === name);
+                    if (rMatch && rMatch.parentWorkspace) {
+                        parent = rMatch.parentWorkspace;
+                    }
+                }
+                if (parent) {
+                    childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
+                    childrenRooms = rooms.filter(r => r.parentWorkspace === parent).map(r => r.name);
                 }
             }
-            if (parent) {
-                childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
-                childrenRooms = rooms.filter(r => r.parentWorkspace === parent).map(r => r.name);
+            return { parent, childrenWorkspaces, childrenRooms };
+        }        function getWorkspaceAvailability(workspaceName, totalCapacity) {
+            const startVal = document.getElementById("book_start_date").value;
+            const endVal = document.getElementById("book_end_date").value;
+            const recurring = document.getElementById("book_recurring").value;
+
+            if (!startVal || !endVal) {
+                return totalCapacity;
             }
-        }
-        return { parent, childrenWorkspaces, childrenRooms };
-    }    // Handles date changes or parent workspace dropdown adjustments dynamically
-    function handleFormDateOrWorkspaceChange() {
-        const parentSelect = document.getElementById("book_parent_workspace");
-        const selectedContainer = document.getElementById("selectedWorkspacesContainer");
-        
-        if (!parentSelect || parentSelect.value === "") {
-            selectedContainer.innerHTML = "";
-            updateAddSpaceButtonVisibility();
-            return;
+
+            const reqStart = new Date(startVal + "T00:00:00");
+            const reqEnd = new Date(endVal + "T23:59:59");
+
+            let peakOccupied = 0;
+            let curr = new Date(reqStart);
+
+            while (curr <= reqEnd) {
+                if (matchesRecurrence(curr, reqStart, recurring)) {
+                    let countToday = 0;
+                    workspaceBookings.forEach(o => {
+                        if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                        const period = parsePeriod(o.period);
+                        if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
+                            if (o.bookingScope === "Entire") {
+                                countToday = totalCapacity;
+                            } else {
+                                countToday += parseInt(o.seatsBooked || 1);
+                            }
+                        }
+                    });
+                    if (countToday > peakOccupied) {
+                        peakOccupied = countToday;
+                    }
+                }
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            return Math.max(0, totalCapacity - peakOccupied);
         }
 
-        const rows = selectedContainer.querySelectorAll(".space-row");
-        if (rows.length === 0) {
-            addNewSpaceRow();
-        } else {
+        function updateAddSpaceButtonVisibility() {
+            const addBtn = document.getElementById("addWorkspaceRowBtn");
+            if (!addBtn) return;
+
+            const categorySelect = document.getElementById("book_client_category");
+            const category = categorySelect ? categorySelect.value : "Internal";
+
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+            if (rows.length === 0) {
+                addBtn.style.display = "none";
+                return;
+            }
+
+            let allValid = true;
+            let selectedNames = [];
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const select = row.querySelector(".subspace-select");
+                const badge = row.querySelector(".available-badge");
+
+                if (!select || !select.value) {
+                    allValid = false;
+                    break;
+                }
+
+                selectedNames.push(select.value);
+
+                const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 0;
+                if (avail < 0) {
+                    allValid = false;
+                    break;
+                }
+            }
+
+            const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+            const allActiveWorkspaces = workspaces.filter(w => w.status === "Active" && w.clientType === category);
+            const remainingWorkspaces = allActiveWorkspaces.filter(w => !selectedNames.includes(w.name));
+
+            if (allValid && remainingWorkspaces.length > 0) {
+                addBtn.style.display = "flex";
+            } else {
+                addBtn.style.display = "none";
+            }
+        }
+
+        function updateWorkspaceRowNumbers() {
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+            rows.forEach((row, index) => {
+                let numLabel = row.querySelector(".row-number-label");
+                if (!numLabel) {
+                    numLabel = document.createElement("div");
+                    numLabel.className = "row-number-label font-label-sm text-primary font-bold mb-1 flex items-center gap-1.5";
+                    row.prepend(numLabel);
+                }
+                numLabel.innerHTML = `<span class="bg-primary text-on-primary w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black">${index + 1}</span> Workspace ${index + 1}`;
+            });
+        }
+
+        function addNewSpaceRow(isFirstRow = false) {
+            const container = document.getElementById("selectedWorkspacesContainer");
+            const rowDiv = document.createElement("div");
+            rowDiv.className = "space-row border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low flex flex-col gap-3 relative";
+
+            let closeBtn = "";
+            if (!isFirstRow) {
+                closeBtn = `
+                    <button type="button" onclick="removeSpaceRow(this)" class="absolute top-3 right-3 text-on-surface-variant hover:text-error transition-colors flex items-center justify-center p-1 rounded-full hover:bg-error/10">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                `;
+            }
+
+            rowDiv.innerHTML = `
+                ${closeBtn}
+                <div class="flex flex-col gap-1">
+                    <select class="subspace-select w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" onchange="handleRowSubspaceChange(this)">
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+                
+                <div class="row-scope-container hidden flex flex-col gap-3">
+                    <div class="seats-count-wrapper flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Select seat count <span class="text-error">*</span></label>
+                        <div class="flex items-center gap-2">
+                            <input type="number" min="1" value="1" class="seats-input w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" oninput="updateRowAvailableSeats(this)">
+                            <span class="available-badge text-xs text-on-surface-variant font-semibold bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available: -- / Total: --</span>
+                        </div>
+                    </div>
+
+                    <label class="flex items-center gap-2 cursor-pointer mt-1">
+                        <input type="checkbox" class="reserve-all-checkbox rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" onchange="handleReserveAllChange(this)">
+                        <span class="font-body-sm font-semibold text-on-surface">Select all seats</span>
+                    </label>
+                </div>
+            `;
+
+            container.appendChild(rowDiv);
+            populateRowSubspaces(rowDiv);
+            updateWorkspaceRowNumbers();
+            updateAddSpaceButtonVisibility();
+        }
+
+        function removeSpaceRow(btn) {
+            const row = btn.closest(".space-row");
+            const container = document.getElementById("selectedWorkspacesContainer");
+            if (container.querySelectorAll(".space-row").length <= 1) {
+                alert("At least one workspace must be selected.");
+                return;
+            }
+            row.remove();
+            updateWorkspaceRowNumbers();
+            updateAllRowsSubspaceOptions();
+            updateAddSpaceButtonVisibility();
+        }
+
+        function updateAllRowsSubspaceOptions() {
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
             rows.forEach(row => {
                 const select = row.querySelector(".subspace-select");
                 const val = select.value;
-                populateRowSubspaces(row, parentSelect.value);
+                populateRowSubspaces(row);
                 select.value = val;
-                updateRowAvailableSeats(select);
             });
         }
-        updateAddSpaceButtonVisibility();
-    }
 
-    function updateAddSpaceButtonVisibility() {
-        const addBtn = document.querySelector("button[onclick='addNewSpaceRow()']");
-        if (!addBtn) return;
-
-        const parentSelect = document.getElementById("book_parent_workspace");
-        if (!parentSelect || !parentSelect.value) {
-            addBtn.style.display = "none";
-            return;
-        }
-
-        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
-        if (rows.length === 0) {
-            addBtn.style.display = "none";
-            return;
-        }
-
-        let allValid = true;
-        let selectedNames = [];
-
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
+        function populateRowSubspaces(row) {
             const select = row.querySelector(".subspace-select");
+            const categorySelect = document.getElementById("book_client_category");
+            const category = categorySelect ? categorySelect.value : "Internal";
+            
+            const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+            const children = workspaces.filter(w => w.status === "Active" && w.clientType === category);
+
+            const otherSelected = [];
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+            rows.forEach(r => {
+                if (r !== row) {
+                    const s = r.querySelector(".subspace-select");
+                    if (s && s.value) {
+                        otherSelected.push(s.value);
+                    }
+                }
+            });
+
+            const val = select.value;
+            const availableChildren = children.filter(w => w.name === val || !otherSelected.includes(w.name));
+
+            select.innerHTML = `<option value="">Select a Workspace...</option>` +
+                availableChildren.map(w => {
+                    const avail = getWorkspaceAvailability(w.name, w.capacity);
+                    return `<option value="${w.name}" data-capacity="${w.capacity}" data-available="${avail}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")} (Available: ${avail} / Total: ${w.capacity})</option>`;
+                }).join("");
+            if (val) select.value = val;
+        }
+
+        function handleRowSubspaceChange(select) {
+            const row = select.closest(".space-row");
+            const scopeContainer = row.querySelector(".row-scope-container");
+            if (!select.value) {
+                scopeContainer.classList.add("hidden");
+                updateAddSpaceButtonVisibility();
+                return;
+            }
+            scopeContainer.classList.remove("hidden");
+            updateRowAvailableSeats(select);
+            updateAllRowsSubspaceOptions();
+            updateAddSpaceButtonVisibility();
+        }
+
+        function handleReserveAllChange(checkbox) {
+            const row = checkbox.closest(".space-row");
+            const seatsInput = row.querySelector(".seats-input");
             const badge = row.querySelector(".available-badge");
 
-            if (!select || !select.value) {
-                allValid = false;
-                break;
+            if (checkbox.checked) {
+                seatsInput.disabled = true;
+                const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
+                seatsInput.value = avail;
+            } else {
+                seatsInput.disabled = false;
+                seatsInput.value = 1;
             }
-
-            selectedNames.push(select.value);
-
-            const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 0;
-            if (avail <= 0) {
-                allValid = false;
-                break;
-            }
-        }
-
-        // Also check if there are other active subspaces under this parent not yet selected
-        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-        const allParentSubspaces = workspaces.filter(w => w.parentWorkspace === parentSelect.value && w.status === "Active");
-        const remainingSubspaces = allParentSubspaces.filter(w => !selectedNames.includes(w.name));
-
-        if (allValid && remainingSubspaces.length > 0) {
-            addBtn.style.display = "flex";
-        } else {
-            addBtn.style.display = "none";
-        }
-    }
-
-    function addNewSpaceRow() {
-        const container = document.getElementById("selectedWorkspacesContainer");
-        const parentSelect = document.getElementById("book_parent_workspace");
-        if (!parentSelect || !parentSelect.value) {
-            alert("Please select a building zone first.");
-            return;
-        }
-
-        const rowDiv = document.createElement("div");
-        rowDiv.className = "space-row border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low flex flex-col gap-3 relative";
-
-        rowDiv.innerHTML = `
-            <button type="button" onclick="removeSpaceRow(this)" class="absolute top-2 right-2 text-on-surface-variant hover:text-error transition-colors flex items-center justify-center p-1 rounded-full hover:bg-error/10">
-                <span class="material-symbols-outlined text-[18px]">close</span>
-            </button>
-            
-            <div class="flex flex-col gap-1">
-                <label class="font-label-sm text-on-surface-variant font-semibold">Select Sub-space / Zone <span class="text-error">*</span></label>
-                <select class="subspace-select w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" onchange="handleRowSubspaceChange(this)">
-                    <!-- Loaded dynamically -->
-                </select>
-            </div>
-            
-            <div class="row-scope-container hidden flex flex-col gap-3">
-                <label class="flex items-center gap-2 cursor-pointer mt-1">
-                    <input type="checkbox" class="reserve-all-checkbox rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" onchange="handleReserveAllChange(this)">
-                    <span class="font-body-sm font-semibold text-on-surface">Reserve all seats in this space</span>
-                </label>
-                
-                <div class="seats-count-wrapper flex flex-col gap-1">
-                    <label class="font-label-sm text-on-surface-variant font-semibold">Number of Seats to Book <span class="text-error">*</span></label>
-                    <div class="flex items-center gap-2">
-                        <input type="number" min="1" value="1" class="seats-input w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" oninput="updateRowAvailableSeats(this)">
-                        <span class="available-badge text-xs text-on-surface-variant font-medium bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available Seats: --</span>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        container.appendChild(rowDiv);
-        populateRowSubspaces(rowDiv, parentSelect.value);
-        updateAddSpaceButtonVisibility();
-    }
-
-    function removeSpaceRow(btn) {
-        const row = btn.closest(".space-row");
-        const container = document.getElementById("selectedWorkspacesContainer");
-        if (container.querySelectorAll(".space-row").length <= 1) {
-            alert("At least one sub-space must be selected.");
-            return;
-        }
-        row.remove();
-        updateAllRowsSubspaceOptions();
-        updateAddSpaceButtonVisibility();
-    }
-
-    function updateAllRowsSubspaceOptions() {
-        const parentSelect = document.getElementById("book_parent_workspace");
-        if (!parentSelect || !parentSelect.value) return;
-        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
-        rows.forEach(row => {
-            const select = row.querySelector(".subspace-select");
-            const val = select.value;
-            populateRowSubspaces(row, parentSelect.value);
-            select.value = val;
-        });
-    }
-
-    function populateRowSubspaces(row, parentName) {
-        const select = row.querySelector(".subspace-select");
-        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-        const children = workspaces.filter(w => w.parentWorkspace === parentName && w.status === "Active");
-
-        const otherSelected = [];
-        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
-        rows.forEach(r => {
-            if (r !== row) {
-                const s = r.querySelector(".subspace-select");
-                if (s && s.value) {
-                    otherSelected.push(s.value);
-                }
-            }
-        });
-
-        const val = select.value;
-        const availableChildren = children.filter(w => w.name === val || !otherSelected.includes(w.name));
-
-        select.innerHTML = `<option value="">Select a Sub-space...</option>` +
-            availableChildren.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`).join("");
-        if (val) select.value = val;
-    }
-
-    function handleRowSubspaceChange(select) {
-        const row = select.closest(".space-row");
-        const scopeContainer = row.querySelector(".row-scope-container");
-        if (!select.value) {
-            scopeContainer.classList.add("hidden");
             updateAddSpaceButtonVisibility();
-            return;
-        }
-        scopeContainer.classList.remove("hidden");
-        updateRowAvailableSeats(select);
-        updateAllRowsSubspaceOptions();
-        updateAddSpaceButtonVisibility();
-    }
-
-    function handleReserveAllChange(checkbox) {
-        const row = checkbox.closest(".space-row");
-        const seatsInput = row.querySelector(".seats-input");
-        const badge = row.querySelector(".available-badge");
-
-        if (checkbox.checked) {
-            seatsInput.disabled = true;
-            const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
-            seatsInput.value = avail;
-        } else {
-            seatsInput.disabled = false;
-            seatsInput.value = 1;
-        }
-        updateAddSpaceButtonVisibility();
-    }
-
-    function updateRowAvailableSeats(element) {
-        const row = element.closest(".space-row");
-        const select = row.querySelector(".subspace-select");
-        const badge = row.querySelector(".available-badge");
-        const startVal = document.getElementById("book_start_date").value;
-        const endVal = document.getElementById("book_end_date").value;
-        const recurring = document.getElementById("book_recurring").value;
-
-        if (!select || !badge) return;
-        const opt = select.options[select.selectedIndex];
-        if (!opt || opt.value === "") {
-            badge.textContent = "Available: --";
-            return;
         }
 
-        const workspaceName = opt.value;
-        const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
+        function updateRowAvailableSeats(element) {
+            const row = element.closest(".space-row");
+            const select = row.querySelector(".subspace-select");
+            const badge = row.querySelector(".available-badge");
+            const startVal = document.getElementById("book_start_date").value;
+            const endVal = document.getElementById("book_end_date").value;
+            const recurring = document.getElementById("book_recurring").value;
 
-        if (!startVal || !endVal) {
-            badge.textContent = `Available Now: ${totalCapacity} • Total Seats: ${totalCapacity}`;
-            badge.dataset.available = totalCapacity;
-            return;
-        }
-
-        const reqStart = new Date(startVal + "T00:00:00");
-        const reqEnd = new Date(endVal + "T23:59:59");
-
-        let peakOccupied = 0;
-        let curr = new Date(reqStart);
-
-        while (curr <= reqEnd) {
-            if (matchesRecurrence(curr, reqStart, recurring)) {
-                let countToday = 0;
-                workspaceBookings.forEach(o => {
-                    if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
-                    const period = parsePeriod(o.period);
-                    if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
-                        if (o.bookingScope === "Entire") {
-                            countToday = totalCapacity;
-                        } else {
-                            countToday += parseInt(o.seatsBooked || 1);
-                        }
-                    }
-                });
-                if (countToday > peakOccupied) {
-                    peakOccupied = countToday;
-                }
+            if (!select || !badge) return;
+            const opt = select.options[select.selectedIndex];
+            if (!opt || opt.value === "") {
+                badge.textContent = "Available: -- / Total: --";
+                return;
             }
-            curr.setDate(curr.getDate() + 1);
+
+            const workspaceName = opt.value;
+            const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
+
+            if (!startVal || !endVal) {
+                badge.textContent = `Available: ${totalCapacity} / Total: ${totalCapacity}`;
+                badge.dataset.available = totalCapacity;
+                const seatsInput = row.querySelector(".seats-input");
+                const checkbox = row.querySelector(".reserve-all-checkbox");
+                if (checkbox && checkbox.checked && seatsInput) {
+                    seatsInput.value = totalCapacity;
+                }
+                return;
+            }
+
+            const reqStart = new Date(startVal + "T00:00:00");
+            const reqEnd = new Date(endVal + "T23:59:59");
+
+            let peakOccupied = 0;
+            let curr = new Date(reqStart);
+
+            while (curr <= reqEnd) {
+                if (matchesRecurrence(curr, reqStart, recurring)) {
+                    let countToday = 0;
+                    workspaceBookings.forEach(o => {
+                        if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                        const period = parsePeriod(o.period);
+                        if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
+                            if (o.bookingScope === "Entire") {
+                                countToday = totalCapacity;
+                            } else {
+                                countToday += parseInt(o.seatsBooked || 1);
+                            }
+                        }
+                    });
+                    if (countToday > peakOccupied) {
+                        peakOccupied = countToday;
+                    }
+                }
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            const available = Math.max(0, totalCapacity - peakOccupied);
+            badge.textContent = `Available: ${available} / Total: ${totalCapacity}`;
+            badge.dataset.available = available;
+
+            const checkbox = row.querySelector(".reserve-all-checkbox");
+            const seatsInput = row.querySelector(".seats-input");
+            if (checkbox && checkbox.checked && seatsInput) {
+                seatsInput.value = available;
+            }
+            updateAddSpaceButtonVisibility();
         }
 
-        const available = Math.max(0, totalCapacity - peakOccupied);
-        badge.textContent = `Available Now: ${available} • Total Seats: ${totalCapacity}`;
-        badge.dataset.available = available;
-
-        const checkbox = row.querySelector(".reserve-all-checkbox");
-        const seatsInput = row.querySelector(".seats-input");
-        if (checkbox && checkbox.checked && seatsInput) {
-            seatsInput.value = available;
-        }
-        updateAddSpaceButtonVisibility();
-    }
-
-    const spaceDetailsLookup = {
-        "Workspace 1": { capacity: 18, location: "Level 1 • North Wing", amenities: ["WiFi", "Power Outlets", "TV", "Whiteboard"] },
-        "Workspace 2": { capacity: 12, location: "Level 1 • East Wing", amenities: ["WiFi", "Power Outlets", "Whiteboard"] },
-        "Workspace 3": { capacity: 14, location: "Level 1 • West Wing", amenities: ["WiFi", "Power Outlets", "Natural Light"] },
-        "eBay 1": { capacity: 10, location: "Level 1 • North Wing", amenities: ["TV", "Whiteboard", "Power Outlets", "High-Speed WiFi"] },
-        "eBay 2": { capacity: 8, location: "Level 1 • North Wing", amenities: ["Whiteboard", "Power Outlets", "High-Speed WiFi"] },
-        "Server Room": { capacity: 2, location: "Level 1 • East Wing", amenities: ["High-Speed WiFi", "Power Outlets"] },
-        "Library": { capacity: 12, location: "Level 1 • West Wing", amenities: ["High-Speed WiFi", "Whiteboard", "Natural Light"] }
-    };
-
-    function getMockBookerDetails(name) {
-        const fallback = {
-            role: "Member",
-            email: name.toLowerCase().replace(/[^a-z]/g, "") + "@coworkspace.com",
-            phone: "+1 (555) 345-6789",
-            company: "CoWork Resident",
-            plan: "Hot Desk Plan"
+        const spaceDetailsLookup = {
+            "Workspace 1": { capacity: 18, location: "Level 1 • North Wing", amenities: ["WiFi", "Power Outlets", "TV", "Whiteboard"] },
+            "Workspace 2": { capacity: 12, location: "Level 1 • East Wing", amenities: ["WiFi", "Power Outlets", "Whiteboard"] },
+            "Workspace 3": { capacity: 14, location: "Level 1 • West Wing", amenities: ["WiFi", "Power Outlets", "Natural Light"] },
+            "eBay 1": { capacity: 10, location: "Level 1 • North Wing", amenities: ["TV", "Whiteboard", "Power Outlets", "High-Speed WiFi"] },
+            "eBay 2": { capacity: 8, location: "Level 1 • North Wing", amenities: ["Whiteboard", "Power Outlets", "High-Speed WiFi"] },
+            "Server Room": { capacity: 2, location: "Level 1 • East Wing", amenities: ["High-Speed WiFi", "Power Outlets"] },
+            "Library": { capacity: 12, location: "Level 1 • West Wing", amenities: ["High-Speed WiFi", "Whiteboard", "Natural Light"] }
         };
 
-        if (usersList && usersList.length > 0) {
-            const matched = usersList.find(u => u.name.toLowerCase() === name.toLowerCase());
-            if (matched) {
-                return {
-                    role: matched.role || "Member",
-                    email: matched.email || fallback.email,
-                    phone: matched.phone || fallback.phone,
-                    company: matched.company || fallback.company,
-                    plan: matched.plan || "Hot Desk Plan"
-                };
+        function getMockBookerDetails(name) {
+            const fallback = {
+                role: "Member",
+                email: name.toLowerCase().replace(/[^a-z]/g, "") + "@coworkspace.com",
+                phone: "+1 (555) 345-6789",
+                company: "CoWork Resident",
+                plan: "Hot Desk Plan"
+            };
+
+            if (usersList && usersList.length > 0) {
+                const matched = usersList.find(u => u.name.toLowerCase() === name.toLowerCase());
+                if (matched) {
+                    return {
+                        role: matched.role || "Member",
+                        email: matched.email || fallback.email,
+                        phone: matched.phone || fallback.phone,
+                        company: matched.company || fallback.company,
+                        plan: matched.plan || "Hot Desk Plan"
+                    };
+                }
             }
+            return fallback;
         }
-        return fallback;
-    }
 
-    async function viewWorkspaceDetails(id) {
-        await ensureUsersLoaded();
-        const b = workspaceBookings.find(x => x.id === id);
-        if (!b) return;
+        async function viewWorkspaceDetails(id) {
+            await ensureUsersLoaded();
+            const b = workspaceBookings.find(x => x.id === id);
+            if (!b) return;
 
-        const space = spaceDetailsLookup[b.workspace.trim()] || { capacity: 10, location: "Level 1 • Open Plan", amenities: ["Comfortable Seat", "WiFi"] };
-        const bookerInfo = getMockBookerDetails(b.booker);
+            const space = spaceDetailsLookup[b.workspace.trim()] || { capacity: 10, location: "Level 1 • Open Plan", amenities: ["Comfortable Seat", "WiFi"] };
+            const bookerInfo = getMockBookerDetails(b.booker);
 
-        let statusColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
-        if (b.status === "Waitlist") statusColor = "bg-amber-50 text-amber-800 border-amber-200";
-        else if (b.status === "Denied") statusColor = "bg-error/10 text-error border-error-container";
+            let statusColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
+            if (b.status === "Waitlist") statusColor = "bg-amber-50 text-amber-800 border-amber-200";
+            else if (b.status === "Denied") statusColor = "bg-error/10 text-error border-error-container";
 
-        const contentDiv = document.getElementById("workspaceDetailsContent");
-        const initials = b.booker ? b.booker.split(" ").map(n=>n[0]).join("").toUpperCase().substring(0,2) : "MB";
+            const contentDiv = document.getElementById("workspaceDetailsContent");
+            const initials = b.booker ? b.booker.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2) : "MB";
 
-        contentDiv.innerHTML = `
+            contentDiv.innerHTML = `
             <div class="flex flex-col gap-6 w-full pb-10">
                 <div class="flex items-start gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant/35">
                     <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg shrink-0">
@@ -986,22 +1030,22 @@
                             <span class="text-xs uppercase font-bold tracking-wider text-primary">Workspace Desk Resource</span>
                             <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
                                 <h4 class="text-lg font-bold text-on-surface">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</h4>
-                                <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function(){
-                                    let ct = "Internal";
-                                    try {
-                                        const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-                                        const wObj = wList.find(w => w.name === b.workspace);
-                                        if (wObj) {
-                                            if (wObj.parentWorkspace) {
-                                                const parent = wList.find(w => w.name === wObj.parentWorkspace);
-                                                if (parent) ct = parent.clientType;
-                                            } else {
-                                                ct = wObj.clientType;
-                                            }
-                                        }
-                                    } catch(e){}
-                                    return ct;
-                                })()}</span>
+                                <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function () {
+                    let ct = "Internal";
+                    try {
+                        const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                        const wObj = wList.find(w => w.name === b.workspace);
+                        if (wObj) {
+                            if (wObj.parentWorkspace) {
+                                const parent = wList.find(w => w.name === wObj.parentWorkspace);
+                                if (parent) ct = parent.clientType;
+                            } else {
+                                ct = wObj.clientType;
+                            }
+                        }
+                    } catch (e) { }
+                    return ct;
+                })()}</span>
                             </div>
                         </div>
                         <span class="px-3 py-1 text-xs font-bold rounded-full border ${statusColor}">
@@ -1025,8 +1069,8 @@
                         <span class="font-bold text-on-surface">${b.period}</span>
                     </div>
                     <div>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Recurrence</span>
-                        <span class="font-bold text-on-surface">${b.recurring || "None"}</span>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Subscription</span>
+                        <span class="font-bold text-on-surface">${subscriptionLabelMap[b.recurring] || b.recurring || "One-time"}</span>
                     </div>
                 </div>
 
@@ -1039,117 +1083,129 @@
             </div>
         `;
 
-        document.getElementById("workspaceDetailsModal").classList.remove("hidden");
-    }
-
-    function closeWorkspaceDetailsModal() {
-        document.getElementById("workspaceDetailsModal").classList.add("hidden");
-    }
-
-    function submitNewBooking(e) {
-        e.preventDefault();
-
-        const booker = document.getElementById("book_member_name").value.trim();
-        const parentSelect = document.getElementById("book_parent_workspace");
-        const parentWorkspace = parentSelect.value;
-        const term = document.getElementById("book_term").value;
-        const rawStart = document.getElementById("book_start_date").value;
-        const rawEnd = document.getElementById("book_end_date").value;
-        const recurring = document.getElementById("book_recurring").value;
-
-        if (!booker || !parentWorkspace || !term || !rawStart || !rawEnd) {
-            alert("Please fill in all fields.");
-            return;
+            document.getElementById("workspaceDetailsModal").classList.remove("hidden");
         }
 
-        const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
-        if (rows.length === 0) {
-            alert("Please select at least one sub-space.");
-            return;
+        function closeWorkspaceDetailsModal() {
+            document.getElementById("workspaceDetailsModal").classList.add("hidden");
         }
 
-        let bookingsToCreate = [];
+        function submitNewBooking(e) {
+            e.preventDefault();
 
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            const subSelect = row.querySelector(".subspace-select");
-            if (!subSelect.value) {
-                alert(`Please select a sub-space for row ${i + 1}.`);
+            const booker = document.getElementById("book_member_name").value.trim();
+            const rawStart = document.getElementById("book_start_date").value;
+            const rawEnd = document.getElementById("book_end_date").value;
+            const recurring = document.getElementById("book_recurring").value;
+
+            if (!booker || !rawStart || !rawEnd) {
+                alert("Please fill in all fields.");
                 return;
             }
 
-            const checkbox = row.querySelector(".reserve-all-checkbox");
-            const seatsInput = row.querySelector(".seats-input");
-            const badge = row.querySelector(".available-badge");
+            let term = "Weekly";
+            if (rawStart && rawEnd) {
+                const diffTime = Math.abs(new Date(rawStart + "T00:00:00") - new Date(rawEnd + "T00:00:00"));
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                if (diffDays === 1) {
+                    term = "Daily";
+                } else if (diffDays <= 7) {
+                    term = "Weekly";
+                } else if (diffDays <= 31) {
+                    term = "Monthly";
+                } else {
+                    term = "Yearly";
+                }
+            }
 
-            const seatsToBook = parseInt(seatsInput.value) || 1;
-            const available = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
-
-            if (seatsToBook > available) {
-                alert(`Booking failed! Row ${i + 1}: only ${available} seats are available in ${subSelect.value.replace(/\s*\((Int|Ext)\)/i, "")}.`);
+            const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+            if (rows.length === 0) {
+                alert("Please select at least one workspace.");
                 return;
             }
 
-            bookingsToCreate.push({
-                workspace: subSelect.value,
-                bookingScope: checkbox.checked ? "Entire" : "Seats",
-                seatsBooked: seatsToBook
+            let bookingsToCreate = [];
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const subSelect = row.querySelector(".subspace-select");
+                if (!subSelect.value) {
+                    alert(`Please select a workspace for row ${i + 1}.`);
+                    return;
+                }
+
+                const checkbox = row.querySelector(".reserve-all-checkbox");
+                const seatsInput = row.querySelector(".seats-input");
+                const badge = row.querySelector(".available-badge");
+
+                const seatsToBook = parseInt(seatsInput.value) || 1;
+                const available = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
+
+                if (seatsToBook > available) {
+                    alert(`Booking failed! Row ${i + 1}: only ${available} seats are available in ${subSelect.value.replace(/\s*\((Int|Ext)\)/i, "")}.`);
+                    return;
+                }
+
+                bookingsToCreate.push({
+                    workspace: subSelect.value,
+                    bookingScope: checkbox.checked ? "Entire" : "Seats",
+                    seatsBooked: seatsToBook
+                });
+            }
+
+            // Format dates
+            const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+            const startFormatted = new Date(rawStart + "T00:00:00").toLocaleDateString('en-US', dateOptions);
+            const endFormatted = new Date(rawEnd + "T00:00:00").toLocaleDateString('en-US', dateOptions);
+            const periodStr = `${startFormatted} - ${endFormatted}`;
+
+            bookingsToCreate.forEach(b => {
+                const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
+                workspaceBookings.unshift({
+                    id: newId,
+                    booker: booker,
+                    workspace: b.workspace,
+                    type: "Shared Space",
+                    term: term,
+                    period: periodStr,
+                    bookingScope: b.bookingScope,
+                    seatsBooked: b.seatsBooked,
+                    recurring: recurring,
+                    status: "Confirmed"
+                });
             });
+
+            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+            applyFilters();
+
+            alert("Workspace bookings created successfully.");
+            closeNewBookingModal();
         }
 
-        // Format dates
-        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
-        const startFormatted = new Date(rawStart + "T00:00:00").toLocaleDateString('en-US', dateOptions);
-        const endFormatted = new Date(rawEnd + "T00:00:00").toLocaleDateString('en-US', dateOptions);
-        const periodStr = `${startFormatted} - ${endFormatted}`;
+        // Initial Load
+        loadWorkspaceBookings();
 
-        bookingsToCreate.forEach(b => {
-            const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
-            workspaceBookings.unshift({
-                id: newId,
-                booker: booker,
-                workspace: b.workspace,
-                type: "Shared Space",
-                term: term,
-                period: periodStr,
-                bookingScope: b.bookingScope,
-                seatsBooked: b.seatsBooked,
-                recurring: recurring,
-                status: "Confirmed"
-            });
-        });
-
-        sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
-        applyFilters();
-
-        alert("Workspace bookings created successfully.");
-        closeNewBookingModal();
-    }
-
-    // Initial Load
-    loadWorkspaceBookings();
-
-    // Expose functions globally for SPA inline event handlers
-    window.closeWorkspaceDetailsModal = closeWorkspaceDetailsModal;
-    window.closeNewBookingModal = closeNewBookingModal;
-    window.openNewBookingModal = openNewBookingModal;
-    window.viewWorkspaceDetails = viewWorkspaceDetails;
-    window.approveBooking = approveBooking;
-    window.denyBooking = denyBooking;
-    window.deleteBooking = deleteBooking;
-    window.selectMember = selectMember;
-    window.submitNewBooking = submitNewBooking;
-    window.filterMemberDropdown = filterMemberDropdown;
-    window.showMemberDropdown = showMemberDropdown;
-    window.goToPage = goToPage;
-    window.applyFilters = applyFilters;
-    window.handleSearch = handleSearch;
-    window.handleFormDateOrWorkspaceChange = handleFormDateOrWorkspaceChange;
-    window.addNewSpaceRow = addNewSpaceRow;
-    window.removeSpaceRow = removeSpaceRow;
-    window.handleRowSubspaceChange = handleRowSubspaceChange;
-    window.handleReserveAllChange = handleReserveAllChange;
-    window.updateRowAvailableSeats = updateRowAvailableSeats;
-    window.handleClientCategoryChange = handleClientCategoryChange;
-})();
+        // Expose functions globally for SPA inline event handlers
+        window.closeWorkspaceDetailsModal = closeWorkspaceDetailsModal;
+        window.closeNewBookingModal = closeNewBookingModal;
+        window.openNewBookingModal = openNewBookingModal;
+        window.viewWorkspaceDetails = viewWorkspaceDetails;
+        window.approveBooking = approveBooking;
+        window.denyBooking = denyBooking;
+        window.deleteBooking = deleteBooking;
+        window.selectMember = selectMember;
+        window.submitNewBooking = submitNewBooking;
+        window.filterMemberDropdown = filterMemberDropdown;
+        window.showMemberDropdown = showMemberDropdown;
+        window.goToPage = goToPage;
+        window.applyFilters = applyFilters;
+        window.handleSearch = handleSearch;
+        window.handleFormDateOrWorkspaceChange = handleFormDateOrWorkspaceChange;
+        window.addNewSpaceRow = addNewSpaceRow;
+        window.removeSpaceRow = removeSpaceRow;
+        window.handleRowSubspaceChange = handleRowSubspaceChange;
+        window.handleReserveAllChange = handleReserveAllChange;
+        window.updateRowAvailableSeats = updateRowAvailableSeats;
+        window.handleClientCategoryChange = handleClientCategoryChange;
+    })();
 </script>

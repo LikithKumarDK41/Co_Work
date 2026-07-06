@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Murugami",
+    "name": "Arun Kumar",
     "company": "Telenet",
-    "date": "Jul 3, 2026",
+    "date": "Jul 06, 2026",
     "time": "10:00 AM",
     "purpose": "Proposal Discussion",
     "status": "Completed",
@@ -11,43 +11,112 @@
   },
   {
     "id": 2,
-    "name": "yamada",
+    "name": "Mahesh Bhat",
     "company": "Chancery",
-    "date": "Jul 3, 2026",
-    "time": "3:30 PM",
+    "date": "Jul 06, 2026",
+    "time": "03:30 PM",
     "purpose": "Technical Interview",
     "status": "Registered",
     "hostName": "Narendra Kumar"
   },
   {
     "id": 3,
-    "name": "Harish ranjan",
+    "name": "Harish Ranjan",
     "company": "Simbus",
-    "date": "Jul 3, 2026",
-    "time": "4:00 PM",
+    "date": "Jul 06, 2026",
+    "time": "04:00 PM",
     "purpose": "Project Kickoff",
     "status": "Completed",
     "hostName": "Narendra Kumar"
   },
   {
     "id": 4,
-    "name": "Ebina Meriko",
+    "name": "Rajesh Gowda",
     "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "4:00 PM",
+    "date": "Jul 06, 2026",
+    "time": "04:00 PM",
     "purpose": "Contracting Work",
     "status": "Completed",
     "hostName": "Narendra Kumar"
   },
   {
     "id": 5,
-    "name": "Pnakaj",
+    "name": "Pankaj Sharma",
     "company": "Nichirrin Imperial",
     "date": "Jul 10, 2026",
-    "time": "9:00 AM",
+    "time": "09:00 AM",
     "purpose": "Meeting",
     "status": "Pending",
     "hostName": "Narendra Kumar"
+  },
+  {
+    "id": 6,
+    "name": "Amit Sharma",
+    "company": "Infosys",
+    "date": "Jul 06, 2026",
+    "time": "11:00 AM",
+    "purpose": "Client Review",
+    "status": "Completed",
+    "hostName": "Rajendra Patnashetty"
+  },
+  {
+    "id": 7,
+    "name": "Kiran Patil",
+    "company": "Wipro",
+    "date": "Jul 06, 2026",
+    "time": "01:30 PM",
+    "purpose": "Partner Sync",
+    "status": "Completed",
+    "hostName": "Yeshwanth I. N."
+  },
+  {
+    "id": 8,
+    "name": "Pooja Hegde",
+    "company": "Tata Consultancy",
+    "date": "Jul 06, 2026",
+    "time": "02:00 PM",
+    "purpose": "Interview",
+    "status": "Registered",
+    "hostName": "Harish Kumar R"
+  },
+  {
+    "id": 9,
+    "name": "Sanjay Rao",
+    "company": "Reliance Industries",
+    "date": "Jul 06, 2026",
+    "time": "03:00 PM",
+    "purpose": "Business Meeting",
+    "status": "Completed",
+    "hostName": "Chaithra Rani H. B"
+  },
+  {
+    "id": 10,
+    "name": "Deepak Joshi",
+    "company": "HDFC Bank",
+    "date": "Jul 06, 2026",
+    "time": "11:30 AM",
+    "purpose": "Financial Audit",
+    "status": "Registered",
+    "hostName": "Venugopal D R"
+  },
+  {
+    "id": 11,
+    "name": "Rohan Mehta",
+    "company": "ICICI Bank",
+    "date": "Jul 06, 2026",
+    "time": "04:30 PM",
+    "purpose": "Product Demo",
+    "status": "Registered",
+    "hostName": "Abhishek B O"
+  },
+  {
+    "id": 12,
+    "name": "Ananya Sen",
+    "company": "Tech Mahindra",
+    "date": "Jul 06, 2026",
+    "time": "05:00 PM",
+    "purpose": "Technical Support",
+    "status": "Registered",
+    "hostName": "Abhishek K"
   }
-  
 ]

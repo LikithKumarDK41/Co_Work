@@ -293,80 +293,107 @@
     </style>
 
     <script>
-        const MOCK_SCHEDULE_DATA = {
-            'today': [
-                { room: 'the-boardroom', title: 'Acme Corp Pitch', booker: 'John Doe', start: '09:30', end: '11:30', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                { room: 'the-boardroom', title: 'Internal Review', booker: 'Marcus J.', start: '13:00', end: '14:30', bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50', icon: 'lock', checkedIn: true },
-                { room: 'the-boardroom', title: 'Client Sync', booker: 'Elena S.', start: '15:00', end: '17:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                
-                { room: 'creative-hub-a', title: 'Brainstorm', booker: 'Alex P.', start: '08:00', end: '10:00', bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-l-4 border-orange-500 border-y border-r border-orange-200/50', checkedIn: false },
-                { room: 'creative-hub-a', title: 'Sync up', booker: '', start: '13:00', end: '14:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                { room: 'creative-hub-a', title: 'Design Sprint', booker: 'Sarah L.', start: '14:30', end: '17:30', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: true },
-                
-                { room: 'podcast-studio', title: 'Morning Show', booker: 'Host Team', start: '08:30', end: '09:30', bg: 'bg-red-50/80', text: 'text-red-700', border: 'border-l-4 border-red-500 border-y border-r border-red-200/50', checkedIn: false },
-                { room: 'podcast-studio', title: 'Design Sprint (Internal)', booker: '', start: '10:00', end: '15:00', bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50', icon: 'lock', checkedIn: false },
-                { room: 'podcast-studio', title: 'Guest Interview', booker: 'Host Team', start: '16:00', end: '17:30', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                
-                { room: 'focus-pod', title: 'Deep Work', booker: 'Jessica T.', start: '09:00', end: '12:00', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false },
-                { room: 'focus-pod', title: 'Coding Session', booker: 'David K.', start: '13:00', end: '17:00', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false },
-                
-                { room: 'studio-b', title: 'Setup & Prep', booker: 'Prod Team', start: '10:00', end: '13:00', bg: 'bg-yellow-50/80', text: 'text-yellow-700', border: 'border-l-4 border-yellow-500 border-y border-r border-yellow-200/50', checkedIn: true },
-                { room: 'studio-b', title: 'Video Shoot', booker: 'Prod Team', start: '15:00', end: '18:00', bg: 'bg-indigo-50/80', text: 'text-indigo-700', border: 'border-l-4 border-indigo-500 border-y border-r border-indigo-200/50', checkedIn: false },
-                
-                { room: 'executive-suite', title: 'Investor Meeting', booker: 'CEO', start: '09:00', end: '11:00', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                { room: 'executive-suite', title: 'Board Lunch', booker: 'CEO', start: '11:30', end: '13:30', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                { room: 'executive-suite', title: 'Q3 Review', booker: 'VP Sales', start: '14:00', end: '16:00', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                
-                { room: 'conf-a', title: 'Engineering Sync', booker: 'Dev Team', start: '08:30', end: '10:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                { room: 'conf-a', title: 'Design Review', booker: 'UI Team', start: '11:00', end: '12:00', bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50', checkedIn: false },
-                { room: 'conf-a', title: 'All Hands Prep', booker: 'HR', start: '14:00', end: '15:00', bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-l-4 border-orange-500 border-y border-r border-orange-200/50', checkedIn: false },
-                
-                { room: 'conf-b', title: 'Marketing Sync', booker: 'Sarah L.', start: '09:30', end: '11:30', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                { room: 'conf-b', title: 'Budget Planning', booker: 'Finance', start: '13:00', end: '15:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                
-                { room: 'training-room', title: 'New Hire Onboarding', booker: 'HR Dept', start: '09:00', end: '16:00', bg: 'bg-indigo-50/80', text: 'text-indigo-700', border: 'border-l-4 border-indigo-500 border-y border-r border-indigo-200/50', checkedIn: false },
-                
-                { room: 'phone-booth-1', title: 'Client Call', booker: 'Marcus J.', start: '11:00', end: '11:30', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false },
-                { room: 'phone-booth-1', title: '1-on-1', booker: 'Alex P.', start: '14:00', end: '15:00', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false },
-                
-                { room: 'phone-booth-2', title: 'Vendor Call', booker: 'Elena S.', start: '10:00', end: '11:00', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false },
-                { room: 'phone-booth-2', title: 'Quick Sync', booker: 'John Doe', start: '15:30', end: '16:00', bg: 'bg-gray-100', text: 'text-gray-700', border: 'border-l-4 border-gray-500 border-y border-r border-gray-300', checkedIn: false }
-            ],
-            'tomorrow': [
-                { room: 'the-boardroom', title: 'Board Meeting', booker: 'CEO', start: '09:00', end: '12:00', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                { room: 'the-boardroom', title: 'Partnership Call', booker: 'Marcus J.', start: '14:00', end: '16:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                { room: 'creative-hub-a', title: 'Design Sprint', booker: 'Design Team', start: '10:00', end: '16:00', bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50', checkedIn: false },
-                { room: 'executive-suite', title: 'Interviews', booker: 'HR', start: '11:00', end: '15:00', bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-l-4 border-orange-500 border-y border-r border-orange-200/50', checkedIn: false },
-                { room: 'training-room', title: 'Leadership Training', booker: 'HR Dept', start: '08:30', end: '17:30', bg: 'bg-indigo-50/80', text: 'text-indigo-700', border: 'border-l-4 border-indigo-500 border-y border-r border-indigo-200/50', checkedIn: false },
-                { room: 'studio-b', title: 'Photo Shoot', booker: 'Marketing', start: '12:00', end: '17:00', bg: 'bg-yellow-50/80', text: 'text-yellow-700', border: 'border-l-4 border-yellow-500 border-y border-r border-yellow-200/50', checkedIn: false }
-            ],
-            'other': [
-                { room: 'the-boardroom', title: 'Weekly Sync', booker: 'Marcus J.', start: '10:00', end: '11:00', bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50', checkedIn: false },
-                { room: 'creative-hub-a', title: 'Planning Session', booker: 'Alex P.', start: '13:00', end: '15:00', bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50', checkedIn: false },
-                { room: 'conf-a', title: 'Retrospective', booker: 'Dev Team', start: '15:00', end: '16:30', bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50', checkedIn: false }
-            ]
-        };
+        let globalMembersList = [];
+        let roomsList = [];
 
-        function getMockDetails(booker) {
+        async function getScheduleDatabase() {
+            let db = localStorage.getItem('coworkMockDatabase');
+            if (db) {
+                try {
+                    return JSON.parse(db);
+                } catch(e){}
+            }
+            // Fallback to fetch
+            try {
+                const [usersRes, visitorsRes, roomsRes, bookingsRes] = await Promise.all([
+                    fetch('member/data/users.json'),
+                    fetch('member/data/visitors.json'),
+                    fetch('member/data/rooms.json'),
+                    fetch('member/data/bookings.json')
+                ]);
+                const members = await usersRes.json();
+                const visitors = await visitorsRes.json();
+                const rooms = await roomsRes.json();
+                const bookingsList = await bookingsRes.json();
+                const today = new Date();
+                const todayFormatted = today.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+                const bookings = bookingsList.map(b => {
+                    const member = members.find(m => m.name === b.booker);
+                    return {
+                        id: b.id,
+                        memberName: b.booker,
+                        companyName: member ? member.company : 'Nichi-In Software Solutions Pvt. Ltd.',
+                        roomName: b.room,
+                        date: todayFormatted,
+                        timeSlot: b.time,
+                        status: b.status === 'Confirmed' ? 'Approved' : 'Pending',
+                        title: b.title || 'Meeting Room Booking'
+                    };
+                });
+                return { members, bookings, visitors };
+            } catch(e) {
+                return { members: [], bookings: [], visitors: [] };
+            }
+        }
+
+        function parseTimeSlot(timeSlot) {
+            const parts = timeSlot.split(" - ");
+            if (parts.length !== 2) return { start: "09:00", end: "10:00" };
+            
+            function convertTo24h(timeStr) {
+                const [time, modifier] = timeStr.trim().split(" ");
+                let [hours, minutes] = time.split(":");
+                if (hours === "12") {
+                    hours = "00";
+                }
+                if (modifier === "PM") {
+                    hours = parseInt(hours, 10) + 12;
+                }
+                return `${String(hours).padStart(2, '0')}:${minutes}`;
+            }
+            return {
+                start: convertTo24h(parts[0]),
+                end: convertTo24h(parts[1])
+            };
+        }
+
+        function formatDateToMatch(datePickerVal) {
+            const [y, m, d] = datePickerVal.split("-");
+            const date = new Date(y, m - 1, d);
+            return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+        }
+
+        function getMockDetails(booker, membersList = []) {
             const b = booker || "Anonymous";
+            const memberObj = membersList.find(m => m.name === b);
+            if (memberObj) {
+                return {
+                    role: memberObj.role || 'Member',
+                    email: memberObj.email,
+                    phone: memberObj.phone || '+91 98765 43210',
+                    company: memberObj.company || 'Nichi-In Software Solutions Pvt. Ltd.',
+                    industry: 'Technology'
+                };
+            }
             const companyMap = {
+                'Narendra Kumar': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Rajendra Patnashetty': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Yeshwanth I. N.': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Harish Kumar R': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Chaithra Rani H. B': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Venugopal D R': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Abhishek B O': 'Nichi-In Software Solutions Pvt. Ltd.',
+                'Abhishek K': 'Nichi-In Software Solutions Pvt. Ltd.',
                 'John Doe': 'Acme Corp', 'Marcus J.': 'Tech Innovators', 'Elena S.': 'Global Solutions',
-                'Alex P.': 'Creative Agency', 'Sarah L.': 'Marketing Pros', 'Host Team': 'Podcast Network',
-                'Jessica T.': 'Freelance', 'David K.': 'DevStudio', 'Prod Team': 'Media Group',
-                'CEO': 'Executive Board', 'VP Sales': 'Sales Dept', 'Dev Team': 'Engineering',
-                'UI Team': 'Design Ops', 'HR': 'Human Resources', 'HR Dept': 'Human Resources',
-                'Finance': 'Finance Dept', 'Design Team': 'Design Ops', 'Marketing': 'Marketing Dept',
+                'Alex P.': 'Creative Agency', 'Sarah L.': 'Marketing Pros', 'Host Team': 'Podcast Network'
             };
             const company = companyMap[b] || 'Independent';
-            
             return {
-                role: b.includes('Team') || b.includes('Dept') || b.includes('HR') || b.includes('Finance') || b.includes('Marketing') ? 'Group/Department' : 'Member',
-                email: b.toLowerCase().replace(/[^a-z]/g, '') + '@' + company.toLowerCase().replace(/[^a-z]/g, '') + '.com',
-                phone: '+1 ' + Math.floor(200 + Math.random() * 800) + '-' + Math.floor(100 + Math.random() * 900) + '-' + Math.floor(1000 + Math.random() * 9000),
+                role: 'Member',
+                email: b.toLowerCase().replace(/[^a-z]/g, '') + '@cowork.com',
+                phone: '+91 98765 ' + Math.floor(10000 + Math.random() * 90000),
                 company: company,
-                industry: company.includes('Tech') || company.includes('Dev') || company.includes('Engineering') ? 'Technology' : 
-                          company.includes('Media') || company.includes('Podcast') ? 'Media & Entertainment' :
-                          company.includes('Design') || company.includes('Creative') ? 'Design' : 'Corporate Services'
+                industry: 'Technology'
             };
         }
 
@@ -374,35 +401,22 @@
 
         function openEventModal(evt) {
             currentActiveEvent = evt;
-            
-            // Populate basic details
             document.getElementById('modal-title').textContent = evt.title;
-            
-            // Re-format room name for display
-            const targetRoomKey = ROOM_MAPPING[evt.room] || evt.room;
-            const matchedRoomObj = roomsList.find(r => r.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") === targetRoomKey);
-            const roomNameDisplay = matchedRoomObj ? matchedRoomObj.name.replace(/\s*\((Int|Ext)\)/i, "") : evt.room.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-            document.getElementById('modal-room').textContent = roomNameDisplay;
-            
+            document.getElementById('modal-room').textContent = evt.roomName;
             document.getElementById('modal-time').textContent = formatAmPm(evt.start) + ' - ' + formatAmPm(evt.end);
             
             const bookerName = evt.booker || "Anonymous";
             document.getElementById('modal-booker').textContent = bookerName;
             document.getElementById('modal-initials').textContent = getInitials(bookerName) || "?";
             
-            // Get mock details
-            const details = getMockDetails(bookerName);
+            const details = getMockDetails(bookerName, globalMembersList);
             document.getElementById('modal-role').textContent = details.role;
             document.getElementById('modal-email').textContent = details.email;
             document.getElementById('modal-phone').textContent = details.phone;
             document.getElementById('modal-company').textContent = details.company;
             document.getElementById('modal-industry').textContent = details.industry;
             
-            // Set action button state
-            const actionBtn = document.getElementById('modal-action-btn');
             updateActionButtonState();
-
-            // Show modal
             document.getElementById('event-modal').classList.remove('hidden');
         }
 
@@ -426,7 +440,6 @@
 
         function handleCheckIn() {
             if (currentActiveEvent) {
-                // Open Scanner Modal
                 document.getElementById('qr_evt_title').textContent = currentActiveEvent.title;
                 document.getElementById('qr_evt_booker').textContent = currentActiveEvent.booker || 'Anonymous';
                 
@@ -455,9 +468,17 @@
             }, 300);
         }
 
-        function confirmQrCheckIn() {
+        async function confirmQrCheckIn() {
             if (currentActiveEvent) {
                 currentActiveEvent.checkedIn = true;
+                
+                const db = await getScheduleDatabase();
+                const booking = db.bookings.find(b => b.id === currentActiveEvent.bookingId);
+                if (booking) {
+                    booking.status = 'Approved';
+                }
+                localStorage.setItem('coworkMockDatabase', JSON.stringify(db));
+
                 updateActionButtonState();
                 const datePicker = document.getElementById('schedule-date-picker');
                 renderEvents(datePicker.value);
@@ -466,10 +487,18 @@
             }
         }
 
-        function handleCheckOut() {
+        async function handleCheckOut() {
             if (currentActiveEvent) {
                 if (confirm(`Are you sure you want to checkout the visitor for "${currentActiveEvent.title}"?`)) {
                     currentActiveEvent.checkedIn = false;
+                    
+                    const db = await getScheduleDatabase();
+                    const booking = db.bookings.find(b => b.id === currentActiveEvent.bookingId);
+                    if (booking) {
+                        booking.status = 'Checked-Out';
+                    }
+                    localStorage.setItem('coworkMockDatabase', JSON.stringify(db));
+
                     updateActionButtonState();
                     const datePicker = document.getElementById('schedule-date-picker');
                     renderEvents(datePicker.value);
@@ -514,25 +543,20 @@
             return name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
         }
 
-        function renderEvents(dateStr) {
+        async function renderEvents(dateStr) {
             document.querySelectorAll('.events-container').forEach(container => {
                 container.innerHTML = '';
             });
 
-            const today = new Date();
-            const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-            const tomorrowStr = getTomorrowsDateStr();
-            
-            let dataKey = 'other';
-            if (dateStr === todayStr) dataKey = 'today';
-            else if (dateStr === tomorrowStr) dataKey = 'tomorrow';
+            const db = await getScheduleDatabase();
+            const targetDateStr = formatDateToMatch(dateStr);
+            const dayBookings = db.bookings.filter(b => b.date === targetDateStr && b.status !== 'Cancelled' && b.status !== 'Denied' && b.status !== 'Checked-Out');
 
-            const events = MOCK_SCHEDULE_DATA[dataKey] || MOCK_SCHEDULE_DATA['other'];
-
-            events.forEach(evt => {
-                const targetRoomKey = ROOM_MAPPING[evt.room] || evt.room;
-                const row = document.querySelector(`.room-row[data-room="${targetRoomKey}"]`);
+            dayBookings.forEach((b, idx) => {
+                const roomKey = b.roomName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+                const row = document.querySelector(`.room-row[data-room="${roomKey}"]`);
                 if (!row) return;
+                
                 let container = row.querySelector('.events-container');
                 if (!container) {
                     const grid = row.querySelector('.flex-1.relative');
@@ -541,34 +565,55 @@
                     grid.appendChild(container);
                 }
                 
-                const left = timeToPercentage(evt.start);
-                const right = timeToPercentage(evt.end);
+                const timeRange = parseTimeSlot(b.timeSlot);
+                const left = timeToPercentage(timeRange.start);
+                const right = timeToPercentage(timeRange.end);
                 const width = right - left;
                 
-                const timeLabel = formatAmPm(evt.start) + ' - ' + formatAmPm(evt.end);
-                const initials = getInitials(evt.booker);
+                const initials = getInitials(b.memberName);
+                
+                const colors = [
+                    { bg: 'bg-blue-50/80', text: 'text-blue-700', border: 'border-l-4 border-blue-600 border-y border-r border-blue-200/50' },
+                    { bg: 'bg-purple-50/80', text: 'text-purple-700', border: 'border-l-4 border-purple-500 border-y border-r border-purple-200/50' },
+                    { bg: 'bg-teal-50/80', text: 'text-teal-700', border: 'border-l-4 border-teal-600 border-y border-r border-teal-200/50' },
+                    { bg: 'bg-orange-50/80', text: 'text-orange-700', border: 'border-l-4 border-orange-500 border-y border-r border-orange-200/50' },
+                    { bg: 'bg-indigo-50/80', text: 'text-indigo-700', border: 'border-l-4 border-indigo-500 border-y border-r border-indigo-200/50' }
+                ];
+                const color = colors[idx % colors.length];
 
                 const el = document.createElement('div');
+                const isApproved = b.status === 'Approved';
+                let checkedInStyle = isApproved ? 'ring-2 ring-primary ring-offset-1' : '';
                 
-                // If checked in, we could change the appearance slightly, e.g. adding a checkmark or ring.
-                let checkedInStyle = evt.checkedIn ? 'ring-2 ring-primary ring-offset-1' : '';
-                
-                el.className = `absolute top-2 bottom-2 ${evt.bg} ${evt.text} ${evt.border || ''} ${checkedInStyle} rounded-r-md rounded-l-[3px] p-1.5 md:p-3 flex justify-between items-start shadow-sm z-10 cursor-pointer hover:brightness-95 hover:shadow-md hover:z-[60] transition-all group pointer-events-auto`;
+                el.className = `absolute top-2 bottom-2 ${color.bg} ${color.text} ${color.border} ${checkedInStyle} rounded-r-md rounded-l-[3px] p-1.5 md:p-3 flex justify-between items-start shadow-sm z-10 cursor-pointer hover:brightness-95 hover:shadow-md hover:z-[60] transition-all group pointer-events-auto`;
                 el.style.left = left + '%';
                 el.style.width = width + '%';
                 
-                // Add click listener
-                el.addEventListener('click', () => openEventModal(evt));
+                const evtObj = {
+                    room: roomKey,
+                    roomName: b.roomName,
+                    title: b.title || "Meeting Room Booking",
+                    booker: b.memberName,
+                    start: timeRange.start,
+                    end: timeRange.end,
+                    bg: color.bg,
+                    text: color.text,
+                    border: color.border,
+                    checkedIn: isApproved,
+                    bookingId: b.id
+                };
+
+                el.addEventListener('click', () => openEventModal(evtObj));
                 
-                let iconHtml = evt.icon === 'lock' ? `<svg class="w-3 h-3 inline-block mr-1 opacity-70" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>` : '';
-                if(evt.checkedIn) {
+                let iconHtml = '';
+                if (isApproved) {
                     iconHtml += `<svg class="w-3 h-3 inline-block mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
                 }
 
                 let innerHtml = `
                     <div class="flex flex-col overflow-hidden">
-                        <div class="text-[10px] md:text-[13px] font-bold truncate leading-tight">${iconHtml}${evt.title}</div>
-                        <div class="text-[8px] md:text-[11px] opacity-70 truncate leading-tight mt-1">${timeLabel}</div>
+                        <div class="text-[10px] md:text-[13px] font-bold truncate leading-tight">${iconHtml}${evtObj.title}</div>
+                        <div class="text-[8px] md:text-[11px] opacity-70 truncate leading-tight mt-1">${b.timeSlot}</div>
                     </div>
                 `;
                 
@@ -580,7 +625,6 @@
                     `;
                 }
                 
-                // Smart tooltip positioning to prevent off-screen tooltips
                 let tooltipPosClass = "left-1/2 -translate-x-1/2";
                 if (left > 75) {
                     tooltipPosClass = "right-0";
@@ -590,10 +634,10 @@
 
                 innerHtml += `
                     <div class="hidden group-hover:block absolute top-full ${tooltipPosClass} mt-2 w-48 bg-gray-900 text-white text-[11px] rounded p-2 z-50 shadow-lg text-left whitespace-normal font-normal">
-                        <strong>${evt.title}</strong><br>
-                        ${evt.booker ? `Booked by: ${evt.booker}<br>` : ''}
-                        Time: ${timeLabel}<br>
-                        ${evt.checkedIn ? '<span class="text-green-400 font-bold">Checked In</span>' : ''}
+                        <strong>${evtObj.title}</strong><br>
+                        Booked by: ${evtObj.booker}<br>
+                        Time: ${b.timeSlot}<br>
+                        ${isApproved ? '<span class="text-green-400 font-bold">Approved</span>' : '<span class="text-yellow-400 font-bold">Pending</span>'}
                     </div>
                 `;
                 
@@ -635,25 +679,14 @@
             updateCurrentTimeIndicator();
         }
 
-        const ROOM_MAPPING = {
-            'the-boardroom': 'conference-room-1-int',
-            'creative-hub-a': 'meeting-room-1-int',
-            'podcast-studio': 'meeting-corner-1-int',
-            'focus-pod': 'meeting-corner-2-int',
-            'studio-b': 'meeting-corner-1-ext',
-            'executive-suite': 'meeting-room-1-ext',
-            'conf-a': 'conference-room-1-ext',
-            'conf-b': 'meeting-corner-2-ext',
-            'training-room': 'meeting-corner-3-ext'
-        };
-
-        let roomsList = [];
-
         async function initRooms() {
+            const db = await getScheduleDatabase();
+            globalMembersList = db.members;
+
             let stored = sessionStorage.getItem("rooms_list");
             if (stored) {
                 const parsed = JSON.parse(stored);
-                if (parsed.some(r => r.name.includes("Boardroom") || r.name.includes("Creative Hub") || r.name.includes("Podcast") || r.name.includes("Focus Pod"))) {
+                if (parsed.some(r => r.name.toLowerCase().includes("boardroom") || r.name.toLowerCase().includes("creative hub") || r.name.toLowerCase().includes("podcast") || r.name.toLowerCase().includes("focus pod"))) {
                     stored = null;
                 }
             }
@@ -669,7 +702,6 @@
             }
             roomsList = JSON.parse(stored || "[]").filter(r => r.status === "Active");
 
-            // Populate room selector dropdown
             const selector = document.getElementById("room-selector");
             if (selector) {
                 selector.innerHTML = `<option value="all" selected>All Rooms</option>` + 
@@ -689,12 +721,13 @@
                     const displayName = room.name.replace(/\s*\((Int|Ext)\)/i, "");
                     const suffix = room.name.includes("(Int)") ? "Internal" : room.name.includes("(Ext)") ? "External" : "";
                     const badgeBg = suffix === "Internal" ? "bg-blue-100 text-blue-800 border-blue-200" : "bg-purple-100 text-purple-800 border-purple-200";
+                    const suffixHtml = suffix ? `<span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeBg}">${suffix}</span>` : "";
                     return `
                         <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="${roomKey}">
                             <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
                                 <div class="flex items-center gap-1.5 flex-wrap">
                                     <span class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">${displayName}</span>
-                                    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeBg}">${suffix}</span>
+                                    ${suffixHtml}
                                 </div>
                                 <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: ${room.capacity} &bull; ${room.location.split("•")[2] || room.location.split("•")[1] || "Level 1"}</div>
                             </div>
@@ -739,32 +772,24 @@
 
         let selectedBookingSlot = null;
 
-        function handleGridClick(event, roomKey) {
-            // Check if user clicked an existing event card
+        async function handleGridClick(event, roomKey) {
             if (event.target.closest('.events-container > div')) {
-                return; // Let the event details modal run normally
+                return;
             }
 
             const roomObj = roomsList.find(r => r.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") === roomKey);
             if (!roomObj) return;
 
-            // Populate room details in booking modal
             document.getElementById('booking-room-name').textContent = roomObj.name.replace(/\s*\((Int|Ext)\)/i, "");
             document.getElementById('booking-room-meta').textContent = `Cap: ${roomObj.capacity} • ${roomObj.location}`;
 
-            // Calculate free slots
             const datePickerValue = document.getElementById('schedule-date-picker').value;
-            const today = new Date();
-            const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-            const tomorrowStr = getTomorrowsDateStr();
-            let dataKey = 'other';
-            if (datePickerValue === todayStr) dataKey = 'today';
-            else if (datePickerValue === tomorrowStr) dataKey = 'tomorrow';
+            const targetDateStr = formatDateToMatch(datePickerValue);
 
-            const events = MOCK_SCHEDULE_DATA[dataKey] || MOCK_SCHEDULE_DATA['other'];
-            const roomEvents = events.filter(evt => {
-                const targetKey = ROOM_MAPPING[evt.room] || evt.room;
-                return targetKey === roomKey;
+            const db = await getScheduleDatabase();
+            const roomEvents = db.bookings.filter(b => {
+                const cleanRoomKey = b.roomName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+                return cleanRoomKey === roomKey && b.date === targetDateStr && b.status !== 'Cancelled' && b.status !== 'Denied' && b.status !== 'Checked-Out';
             });
 
             function parseTimeToMinutes(timeStr) {
@@ -772,20 +797,23 @@
                 return h * 60 + m;
             }
 
-            const busyIntervals = roomEvents.map(evt => ({
-                start: parseTimeToMinutes(evt.start),
-                end: parseTimeToMinutes(evt.end)
-            })).sort((a, b) => a.start - b.start);
+            const busyIntervals = roomEvents.map(evt => {
+                const timeRange = parseTimeSlot(evt.timeSlot);
+                return {
+                    start: parseTimeToMinutes(timeRange.start),
+                    end: parseTimeToMinutes(timeRange.end)
+                };
+            }).sort((a, b) => a.start - b.start);
 
             const freeIntervals = [];
-            let currentStart = 480; // 08:00 AM
+            let currentStart = 480; 
             for (const interval of busyIntervals) {
                 if (interval.start > currentStart) {
                     freeIntervals.push({ start: currentStart, end: interval.start });
                 }
                 currentStart = Math.max(currentStart, interval.end);
             }
-            if (currentStart < 1080) { // 06:00 PM
+            if (currentStart < 1080) { 
                 freeIntervals.push({ start: currentStart, end: 1080 });
             }
 
@@ -806,41 +834,33 @@
                     return `
                         <div class="border border-gray-200 hover:border-primary hover:bg-blue-50/50 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer transition-all slot-option font-medium" 
                              onclick="selectSlot(this, '${roomKey}', '${datePickerValue}', '${startStr}', '${endStr}')">
-                            <span class="font-bold text-gray-800 text-sm">${label}</span>
-                            <span class="text-xs text-green-600 font-semibold mt-1 flex items-center gap-1">
-                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Available
-                            </span>
-                        </div>
+                             <span class="font-bold text-gray-800 text-sm">${label}</span>
+                             <span class="text-xs text-green-600 font-semibold mt-1 flex items-center gap-1">
+                                 <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Available
+                             </span>
+                         </div>
                     `;
                 }).join("");
             }
 
-            // Reset selected state and input fields
             selectedBookingSlot = null;
             document.getElementById('booking-title').value = '';
             
-            // Show Step 1, hide Step 2
             document.getElementById('booking-step-1').classList.remove('hidden');
             document.getElementById('booking-step-2').classList.add('hidden');
             
-            // Set up button handlers
             const nextBtn = document.getElementById('booking-next-btn');
             nextBtn.textContent = 'Proceed to Book';
             nextBtn.onclick = () => goToStep2();
 
-            // Open booking modal
             document.getElementById('booking-modal').classList.remove('hidden');
         }
 
         function selectSlot(element, roomKey, date, start, end) {
-            // Remove selection active styling from all slots
             document.querySelectorAll('.slot-option').forEach(el => {
                 el.classList.remove('border-primary', 'bg-blue-50', 'ring-2', 'ring-primary', 'ring-offset-1');
             });
-            
-            // Add selection active styling to this slot
             element.classList.add('border-primary', 'bg-blue-50', 'ring-2', 'ring-primary', 'ring-offset-1');
-
             selectedBookingSlot = { roomKey, date, start, end };
         }
 
@@ -853,17 +873,15 @@
             const titleInput = document.getElementById('booking-title').value.trim();
             selectedBookingSlot.title = titleInput || "Workspace Reservation";
 
-            // Switch steps
             document.getElementById('booking-step-1').classList.add('hidden');
             document.getElementById('booking-step-2').classList.remove('hidden');
 
-            // Update footer button
             const nextBtn = document.getElementById('booking-next-btn');
             nextBtn.textContent = 'Confirm & Book';
             nextBtn.onclick = () => confirmBooking();
         }
 
-        function confirmBooking() {
+        async function confirmBooking() {
             const email = document.getElementById('auth-email').value.trim();
             const password = document.getElementById('auth-password').value.trim();
 
@@ -872,37 +890,52 @@
                 return;
             }
 
-            // Add the event booking to MOCK_SCHEDULE_DATA
-            const datePickerValue = document.getElementById('schedule-date-picker').value;
-            const today = new Date();
-            const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-            const tomorrowStr = getTomorrowsDateStr();
-            let dataKey = 'other';
-            if (datePickerValue === todayStr) dataKey = 'today';
-            else if (datePickerValue === tomorrowStr) dataKey = 'tomorrow';
-
-            if (!MOCK_SCHEDULE_DATA[dataKey]) {
-                MOCK_SCHEDULE_DATA[dataKey] = [];
+            const db = await getScheduleDatabase();
+            const memberObj = db.members.find(m => m.email.toLowerCase() === email.toLowerCase());
+            if (!memberObj) {
+                alert("Invalid member email.");
+                return;
             }
 
-            const newEvent = {
-                room: selectedBookingSlot.roomKey,
-                title: selectedBookingSlot.title,
-                booker: 'Alex Rivera',
-                start: selectedBookingSlot.start,
-                end: selectedBookingSlot.end,
-                bg: 'bg-green-50/80',
-                text: 'text-green-700',
-                border: 'border-l-4 border-green-600 border-y border-r border-green-200/50',
-                checkedIn: false
+            const datePickerValue = document.getElementById('schedule-date-picker').value;
+            const targetDateStr = formatDateToMatch(datePickerValue);
+
+            const startFormatted = formatAmPm(selectedBookingSlot.start);
+            const endFormatted = formatAmPm(selectedBookingSlot.end);
+            const timeSlotStr = `${startFormatted} - ${endFormatted}`;
+
+            const newBooking = {
+                id: db.bookings.length ? Math.max(...db.bookings.map(b => b.id)) + 1 : 1,
+                memberName: memberObj.name,
+                companyName: memberObj.company || 'Independent',
+                roomName: document.getElementById('booking-room-name').textContent.trim(),
+                date: targetDateStr,
+                timeSlot: timeSlotStr,
+                status: 'Approved',
+                title: selectedBookingSlot.title
             };
 
-            MOCK_SCHEDULE_DATA[dataKey].push(newEvent);
+            db.bookings.push(newBooking);
+            localStorage.setItem('coworkMockDatabase', JSON.stringify(db));
 
-            // Re-render schedule events immediately
+            let cachedBookings = sessionStorage.getItem("bookings");
+            if (cachedBookings) {
+                const parsed = JSON.parse(cachedBookings);
+                parsed.push({
+                    id: newBooking.id,
+                    booker: newBooking.memberName,
+                    title: newBooking.title,
+                    room: newBooking.roomName,
+                    date: newBooking.date,
+                    time: newBooking.timeSlot,
+                    duration: "1.5 Hours",
+                    status: "Confirmed"
+                });
+                sessionStorage.setItem("bookings", JSON.stringify(parsed));
+            }
+
             renderEvents(datePickerValue);
 
-            // Show success screen in body
             const bodyContainer = document.getElementById('booking-modal-body');
             bodyContainer.innerHTML = `
                 <div class="text-center py-8 space-y-4">
@@ -916,21 +949,20 @@
                     <div class="bg-gray-50 border border-gray-150 rounded-xl p-4 max-w-sm mx-auto text-left space-y-2 mt-4">
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-500 font-semibold uppercase">Room:</span>
-                            <span class="text-gray-900 font-bold">${document.getElementById('booking-room-name').textContent}</span>
+                            <span class="text-gray-900 font-bold">${newBooking.roomName}</span>
                         </div>
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-500 font-semibold uppercase">Time:</span>
-                            <span class="text-gray-900 font-bold">${formatAmPm(selectedBookingSlot.start)} - ${formatAmPm(selectedBookingSlot.end)}</span>
+                            <span class="text-gray-900 font-bold">${newBooking.timeSlot}</span>
                         </div>
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-500 font-semibold uppercase">Member:</span>
-                            <span class="text-gray-900 font-bold">Alex Rivera</span>
+                            <span class="text-gray-900 font-bold">${newBooking.memberName}</span>
                         </div>
                     </div>
                 </div>
             `;
 
-            // Update button to close
             const nextBtn = document.getElementById('booking-next-btn');
             nextBtn.textContent = 'Close';
             nextBtn.onclick = () => closeBookingModal();
@@ -939,14 +971,11 @@
         function closeBookingModal() {
             document.getElementById('booking-modal').classList.add('hidden');
             
-            // Restore modal body structure for next click
             setTimeout(() => {
                 const bodyContainer = document.getElementById('booking-modal-body');
                 if (bodyContainer) {
                     bodyContainer.innerHTML = `
-                        <!-- Step 1: Details & Slot selection -->
                         <div id="booking-step-1" class="space-y-6">
-                            <!-- Room Info Card -->
                             <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-4 items-start">
                                 <span class="material-symbols-outlined text-primary text-[32px]">meeting_room</span>
                                 <div>
@@ -954,23 +983,16 @@
                                     <p class="text-sm text-gray-600 mt-1" id="booking-room-meta">Cap: 12 &bull; Building 812 • Level 2</p>
                                 </div>
                             </div>
-                            
-                            <!-- Available Slots Selector -->
                             <div>
                                 <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Available Time Slots Today</label>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="booking-slots-list">
-                                    <!-- Rendered by JS -->
                                 </div>
                             </div>
-
-                            <!-- Custom Title -->
                             <div>
                                 <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Meeting Title</label>
                                 <input type="text" id="booking-title" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g. Design Review">
                             </div>
                         </div>
-                        
-                        <!-- Step 2: Member Authentication -->
                         <div id="booking-step-2" class="hidden space-y-6">
                             <div class="text-center">
                                 <span class="material-symbols-outlined text-primary text-[48px] animate-pulse">lock_person</span>

@@ -384,6 +384,22 @@
                     let sessionAdditions = JSON.parse(sessionStorage.getItem("visitors_additions") || "[]");
 
                     async function loadVisitors() {
+                        let stored = sessionStorage.getItem("visitors");
+                        if (stored) {
+                            try {
+                                const parsed = JSON.parse(stored);
+                                if (!parsed.some(v => v.name === "Amit Sharma")) {
+                                    sessionStorage.removeItem("visitors");
+                                    sessionStorage.removeItem("visitors_deletions");
+                                    sessionStorage.removeItem("visitors_edits");
+                                    sessionStorage.removeItem("visitors_additions");
+                                    sessionDeletions = [];
+                                    sessionEdits = [];
+                                    sessionAdditions = [];
+                                }
+                            } catch(e){}
+                        }
+
                         try {
                             const res = await fetch("data/visitors.json");
                             let fileData = await res.json();
@@ -418,6 +434,10 @@
                         const dateFilter = document.getElementById("visitor_date_filter") ? document.getElementById("visitor_date_filter").value : "all";
 
                         const filtered = visitors.filter(v => {
+                            const loggedInUserName = document.querySelector('.profile-name')?.textContent?.trim() || "Narendra Kumar";
+                            const matchesHost = v.hostName === loggedInUserName;
+                            if (!matchesHost) return false;
+
                             const matchesSearch = (v.name && v.name.toLowerCase().includes(searchQuery)) || 
                                                    (v.company && v.company.toLowerCase().includes(searchQuery)) ||
                                                    (v.purpose && v.purpose.toLowerCase().includes(searchQuery));
@@ -688,7 +708,8 @@
                                 date: dateStr,
                                 time: timeStr,
                                 purpose: purpose,
-                                status: "Registered"
+                                status: "Registered",
+                                hostName: document.querySelector('.profile-name')?.textContent?.trim() || "Narendra Kumar"
                             };
                             visitors.unshift(newVisitor);
                             sessionAdditions.unshift(newVisitor);

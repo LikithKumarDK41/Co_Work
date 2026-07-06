@@ -290,7 +290,7 @@
             }
         });
 
-        loginForm?.addEventListener('submit', (e) => {
+        loginForm?.addEventListener('submit', async (e) => {
             e.preventDefault();
             let isValid = true;
 
@@ -313,6 +313,26 @@
             }
 
             if (isValid) {
+                const searchVal = usernameInput.value.trim().toLowerCase();
+                try {
+                    const res = await fetch("data/users.json");
+                    const users = await res.json();
+                    let foundUser = users.find(u => 
+                        u.name.toLowerCase().includes(searchVal) || 
+                        u.email.toLowerCase().includes(searchVal)
+                    );
+                    if (!foundUser) {
+                        foundUser = users[Math.floor(Math.random() * users.length)];
+                    }
+                    const profileData = {
+                        name: foundUser.name,
+                        role: foundUser.role || "Dedicated Desk",
+                        avatar: foundUser.avatar || "https://lh3.googleusercontent.com/aida-public/AB6AXuCMcxjiNxxKH9JboiNEy6xCaBkCW9AcbWgp1y7nFDgc6o2aO0wHh7tprbtjptkG5B3UZ7VHvuuw7rznDVSipybakmC-UIw1z7LGDM-WWPLE86rmNPbAw2Tvu2gPNwBLr8Sk9HStV0G-YylVMiW92Ih4zHlDZuMcngmlTHkz6ZL3dUUsfB9SICT8XusoFT17eYD-LVynZ5dK30uhC2n8Pa4nSonGfsx2bmLE_eccK4jfMgkS6k5_RVf5VJSQz6j2H5DhqbRTHqE0yiMl"
+                    };
+                    sessionStorage.setItem("profile", JSON.stringify(profileData));
+                } catch(err) {
+                    console.error("Failed to match user in login:", err);
+                }
                 window.location.href = "dashboard.html";
             }
         });

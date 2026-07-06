@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Dynamic stylesheet is loaded statically in <head> to prevent layout shifts.
 
-    const avatarSrc = "https://lh3.googleusercontent.com/aida-public/AB6AXuCMcxjiNxxKH9JboiNEy6xCaBkCW9AcbWgp1y7nFDgc6o2aO0wHh7tprbtjptkG5B3UZ7VHvuuw7rznDVSipybakmC-UIw1z7LGDM-WWPLE86rmNPbAw2Tvu2gPNwBLr8Sk9HStV0G-YylVMiW92Ih4zHlDZuMcngmlTHkz6ZL3dUUsfB9SICT8XusoFT17eYD-LVynZ5dK30uhC2n8Pa4nSonGfsx2bmLE_eccK4jfMgkS6k5_RVf5VJSQz6j2H5DhqbRTHqE0yiMl";
+    const avatarSrc = "https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc";
 
     const footerLinksHTML = `
         <a id="settings-btn" class="sidebar-footer-link flex-1 justify-center text-on-surface-variant hover:text-primary transition-all duration-200 border border-outline-variant/30 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low" href="settings.html" title="Settings">
@@ -61,10 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <a class="sidebar-profile mx-3 mb-6 p-3 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-center gap-3 no-underline border border-outline-variant/20" href="settings.html">
-            <img class="profile-avatar w-9 h-9 rounded-full object-cover border border-outline-variant/30" src="${avatarSrc}" alt="Alex Rivera">
+            <div class="profile-avatar w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shrink-0 border border-outline-variant/30">NK</div>
             <div>
-                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Alex Rivera</div>
-                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Premium Member</div>
+                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Narendra Kumar</div>
+                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Dedicated Desk</div>
             </div>
         </a>
 
@@ -94,8 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span style="position:absolute;top:8px;right:8px;width:7px;height:7px;background:#ba1a1a;border-radius:50%;border:1.5px solid #fff;"></span>
             </button>
 
-            <a href="settings.html" class="mobile-profile-avatar">
-                <img class="profile-avatar" src="${avatarSrc}" alt="Profile">
+            <a href="settings.html" class="mobile-profile-avatar block">
+                <div class="profile-avatar w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-outline-variant/30">NK</div>
             </a>
         </div>
     `;
@@ -124,10 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
 
         <a class="sidebar-profile mx-3 mb-6 p-3 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-center gap-3 no-underline border border-outline-variant/20" href="settings.html">
-            <img class="profile-avatar w-9 h-9 rounded-full object-cover border border-outline-variant/30" src="${avatarSrc}" alt="Alex Rivera">
+            <div class="profile-avatar w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shrink-0 border border-outline-variant/30">NK</div>
             <div>
-                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Alex Rivera</div>
-                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Premium Member</div>
+                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Narendra Kumar</div>
+                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Dedicated Desk</div>
             </div>
         </a>
 
@@ -145,19 +145,36 @@ document.addEventListener("DOMContentLoaded", () => {
         let profile = sessionStorage.getItem("profile");
         if (profile) return JSON.parse(profile);
         try {
-            const res = await fetch("data/profile.json");
-            const data = await res.json();
+            const res = await fetch("data/users.json");
+            const users = await res.json();
+            const randomUser = users[Math.floor(Math.random() * users.length)];
+            const data = {
+                name: randomUser.name,
+                role: randomUser.role || "Dedicated Desk",
+                avatar: randomUser.avatar || "https://lh3.googleusercontent.com/aida-public/AB6AXuCMcxjiNxxKH9JboiNEy6xCaBkCW9AcbWgp1y7nFDgc6o2aO0wHh7tprbtjptkG5B3UZ7VHvuuw7rznDVSipybakmC-UIw1z7LGDM-WWPLE86rmNPbAw2Tvu2gPNwBLr8Sk9HStV0G-YylVMiW92Ih4zHlDZuMcngmlTHkz6ZL3dUUsfB9SICT8XusoFT17eYD-LVynZ5dK30uhC2n8Pa4nSonGfsx2bmLE_eccK4jfMgkS6k5_RVf5VJSQz6j2H5DhqbRTHqE0yiMl"
+            };
             sessionStorage.setItem("profile", JSON.stringify(data));
             return data;
         } catch (e) {
-            console.error("Failed to load profile.json", e);
-            return null;
+            console.error("Failed to load users.json for profile", e);
+            return {
+                name: "Narendra Kumar",
+                role: "Dedicated Desk",
+                avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc"
+            };
         }
     }
 
+    window.getLoggedInUser = async function() {
+        return await loadProfile();
+    };
+
     loadProfile().then(profile => {
         if (profile) {
-            document.querySelectorAll(".profile-avatar").forEach(img => img.src = profile.avatar);
+            const initials = profile.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            document.querySelectorAll(".profile-avatar").forEach(el => {
+                el.textContent = initials;
+            });
             document.querySelectorAll(".profile-name").forEach(el => el.textContent = profile.name);
             document.querySelectorAll(".profile-role").forEach(el => el.textContent = profile.role);
         }

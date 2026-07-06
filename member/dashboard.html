@@ -233,18 +233,18 @@
                     await ensureDataLoaded();
 
                     // 1. Greet user using profile name
-                    const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Alex"}');
-                    const firstName = (profile.name || "Alex").split(" ")[0];
+                    const profile = await window.getLoggedInUser();
+                    const firstName = (profile.name || "Narendra").split(" ")[0];
                     const greetingEl = document.querySelector("h2.text-3xl");
                     if (greetingEl) {
                         greetingEl.innerText = `Good morning, ${firstName}.`;
                     }
 
                     // 2. Load Expected Visitors
-                    loadExpectedVisitors();
+                    loadExpectedVisitors(profile.name);
 
                     // 3. Load Upcoming Bookings
-                    loadUpcomingBookings();
+                    loadUpcomingBookings(profile.name);
 
                     // 4. Load Recent Activity
                     loadRecentActivity();
@@ -261,7 +261,14 @@
                     }
 
                     let bookings = sessionStorage.getItem("bookings");
-                    if (!bookings || JSON.parse(bookings).length < 6) {
+                    if (bookings) {
+                        const parsed = JSON.parse(bookings);
+                        if (!parsed.some(b => b.title === "SB Telecom Alignment")) {
+                            sessionStorage.removeItem("bookings");
+                            bookings = null;
+                        }
+                    }
+                    if (!bookings) {
                         try {
                             const res = await fetch("data/bookings.json");
                             const data = await res.json();
@@ -270,31 +277,33 @@
                     }
 
                     let workspaceBookings = sessionStorage.getItem("workspace_bookings");
+                    if (workspaceBookings) {
+                        const parsed = JSON.parse(workspaceBookings);
+                        if (!parsed.some(b => b.booker === "Narendra Kumar" && b.id === 101)) {
+                            sessionStorage.removeItem("workspace_bookings");
+                            workspaceBookings = null;
+                        }
+                    }
                     if (!workspaceBookings) {
-                        const seedWorkspaceBookings = [
-                            { id: 100, booker: "Alex Rivera", workspace: "Nichi-In Workspace 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                            { id: 1, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                            { id: 2, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Monthly", period: "Jun 01, 2026 - Jun 30, 2026", bookingScope: "Entire", seatsBooked: 15, recurring: "None", status: "Confirmed" },
-                            { id: 3, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "May 15, 2026 - May 18, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                            { id: 4, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - May 31, 2026", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                            { id: 5, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Nov 02, 2026 - Nov 08, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                            { id: 6, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                            { id: 7, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "Nov 15, 2026 - Nov 15, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
-                            { id: 8, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - Dec 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
-                        ];
-                        sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
+                        try {
+                            const res = await fetch("data/workspace_bookings.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("workspace_bookings", JSON.stringify(data));
+                        } catch(e){}
                     }
                 }
 
-                function loadExpectedVisitors() {
+                function loadExpectedVisitors(hostName) {
                     const visitorsStored = sessionStorage.getItem("visitors") || "[]";
                     const visitorList = JSON.parse(visitorsStored);
 
                     const expected = visitorList.filter(v =>
-                        v.status === "Registered" ||
+                        v.hostName === hostName &&
+                        (v.status === "Registered" ||
                         v.status === "Confirmed" ||
-                        v.status === "Checked-In"
-                    ).slice(0, 3);
+                        v.status === "Checked-In" ||
+                        v.status === "Pending")
+                    ).slice(0, 5);
 
                     const container = document.getElementById("expected_visitors_list");
                     if (!container) return;
@@ -341,7 +350,7 @@
                     container.scrollTop = 0;
                 }
 
-                function loadUpcomingBookings() {
+                function loadUpcomingBookings(bookerName) {
                     const container = document.getElementById("upcoming_bookings_list");
                     if (!container) return;
 
@@ -351,7 +360,7 @@
                     const bookings = JSON.parse(bookingsStored);
                     const workspaceBookings = JSON.parse(workspaceBookingsStored);
 
-                    const mappedRooms = bookings.filter(b => b.room.includes("(Ext)") && b.status !== "Denied" && b.status !== "Cancelled").map(b => ({
+                    const mappedRooms = bookings.filter(b => b.booker === bookerName && b.status !== "Denied" && b.status !== "Cancelled").map(b => ({
                         id: b.id,
                         name: b.room.replace(/\s*\((Int|Ext)\)/i, ""),
                         details: `${b.time} &bull; ${b.title}`,
@@ -360,7 +369,7 @@
                         type: "Room"
                     }));
 
-                    const mappedWorkspaces = workspaceBookings.filter(w => w.workspace.includes("(Ext)") && w.status !== "Denied" && w.status !== "Cancelled").map(w => ({
+                    const mappedWorkspaces = workspaceBookings.filter(w => w.booker === bookerName && w.status !== "Denied" && w.status !== "Cancelled").map(w => ({
                         id: w.id,
                         name: w.workspace.replace(/\s*\((Int|Ext)\)/i, ""),
                         details: `${w.period} &bull; ${w.term} cycle`,
@@ -417,7 +426,7 @@
                     container.scrollTop = 0;
                 }
 
-                function loadRecentActivity() {
+                function loadRecentActivity(profileName) {
                     const container = document.getElementById("recent_activity_list");
                     if (!container) return;
 
@@ -428,7 +437,7 @@
                     let activities = [];
 
                     // Room bookings
-                    bookings.filter(b => b.room.includes("(Ext)")).slice(0, 1).forEach(b => {
+                    bookings.filter(b => b.booker === profileName).slice(0, 1).forEach(b => {
                         activities.push({
                             body: `Booking for room "${b.room.replace(/\s*\((Int|Ext)\)/i, "")}" is confirmed.`,
                             time: "Just now",
@@ -438,7 +447,7 @@
                     });
 
                     // Workspace bookings
-                    workspaceBookings.filter(w => w.workspace.includes("(Ext)")).slice(0, 1).forEach(w => {
+                    workspaceBookings.filter(w => w.booker === profileName).slice(0, 1).forEach(w => {
                         activities.push({
                             body: `Workspace reservation for "${w.workspace.replace(/\s*\((Int|Ext)\)/i, "")}" is active.`,
                             time: "2 hours ago",
@@ -448,7 +457,7 @@
                     });
 
                     // Visitor arrivals
-                    visitors.filter(v => v.status === "Checked-In").slice(0, 1).forEach(v => {
+                    visitors.filter(v => v.hostName === profileName && v.status === "Checked-In").slice(0, 1).forEach(v => {
                         activities.push({
                             body: `Your visitor ${v.name} (${v.company}) arrived at reception.`,
                             time: "Yesterday, 3:15 PM",

@@ -272,21 +272,30 @@
                 async function loadBookings() {
                     await loadResources();
 
-                    // Check and clear outdated cached bookings with (Int) or 2023 entries
+                    const user = await window.getLoggedInUser();
+                    const loggedInUserName = user.name;
+
+                    // Check and clear outdated cached bookings
                     let storedRoom = sessionStorage.getItem("bookings");
-                    if (storedRoom && (storedRoom.includes("(Int)") || storedRoom.includes("2023"))) {
-                        sessionStorage.removeItem("bookings");
-                        storedRoom = null;
+                    if (storedRoom) {
+                        const parsed = JSON.parse(storedRoom);
+                        if (!parsed.some(b => b.booker === "Rajendra Patnashetty")) {
+                            sessionStorage.removeItem("bookings");
+                            storedRoom = null;
+                        }
                     }
                     let storedWorkspace = sessionStorage.getItem("workspace_bookings");
-                    if (storedWorkspace && (storedWorkspace.includes("(Int)") || storedWorkspace.includes("2023"))) {
-                        sessionStorage.removeItem("workspace_bookings");
-                        storedWorkspace = null;
+                    if (storedWorkspace) {
+                        const parsed = JSON.parse(storedWorkspace);
+                        if (!parsed.some(b => b.booker === "Rajendra Patnashetty")) {
+                            sessionStorage.removeItem("workspace_bookings");
+                            storedWorkspace = null;
+                        }
                     }
 
                     // 1. Load Room Bookings
                     let roomBookings = [];
-                    if (!storedRoom || JSON.parse(storedRoom).length < 6) {
+                    if (!storedRoom) {
                         try {
                             const res = await fetch("data/bookings.json");
                             const data = await res.json();
@@ -302,25 +311,24 @@
                     // 2. Load Workspace Bookings
                     let workspaceBookings = [];
                     if (!storedWorkspace) {
-                        // Seed data matching meeting_rooms.html (Ext) using 2026 dates (Upcoming / Past)
-                        workspaceBookings = [
-                            { id: 100, booker: "Alex Rivera", workspace: "Nichi-In Workspace 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                            { id: 1, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                            { id: 2, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Monthly", period: "Jun 01, 2026 - Jun 30, 2026", bookingScope: "Entire", seatsBooked: 15, recurring: "None", status: "Confirmed" },
-                            { id: 3, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "May 15, 2026 - May 18, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                            { id: 4, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - May 31, 2026", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                            { id: 5, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Nov 02, 2026 - Nov 08, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                            { id: 6, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                            { id: 7, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "Nov 15, 2026 - Nov 15, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
-                            { id: 8, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - Dec 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
-                        ];
-                        sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                        try {
+                            const res = await fetch("data/workspace_bookings.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("workspace_bookings", JSON.stringify(data));
+                            workspaceBookings = data;
+                        } catch (e) {
+                            console.error("Failed to load workspace bookings", e);
+                        }
                     } else {
                         workspaceBookings = JSON.parse(storedWorkspace);
                     }
 
+                    // Filter to only this member's bookings
+                    const myRoomBookings = roomBookings.filter(b => b.booker === loggedInUserName);
+                    const myWorkspaceBookings = workspaceBookings.filter(b => b.booker === loggedInUserName);
+
                     // 3. Map Room Bookings to Uniform Structure
-                    const mappedRooms = roomBookings.map(b => ({
+                    const mappedRooms = myRoomBookings.map(b => ({
                         id: b.id,
                         room: b.room,
                         title: b.title,
@@ -333,7 +341,7 @@
                     }));
 
                     // 4. Map Workspace Bookings to Uniform Structure
-                    const mappedWorkspaces = workspaceBookings.map(b => ({
+                    const mappedWorkspaces = myWorkspaceBookings.map(b => ({
                         id: b.id,
                         room: b.workspace,
                         title: b.title || `${b.bookingScope} Booking - ${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}`,
@@ -345,22 +353,8 @@
                         bookingType: "Workspace"
                     }));
 
-                    // Filter mapped rooms and workspaces to only those shown in the client demo (External)
-                    const activeRooms = (window.roomsList || []).filter(r => r.name.toLowerCase().includes("(ext)")).map(r => r.name);
-                    const activeWorkspaces = (window.workspacesList || []).filter(w => {
-                        if (w.clientType === "External") return true;
-                        if (w.parentWorkspace) {
-                            const p = (window.workspacesList || []).find(x => x.name === w.parentWorkspace);
-                            return p && p.clientType === "External";
-                        }
-                        return false;
-                    }).map(w => w.name);
-
-                    const filteredRooms = mappedRooms.filter(b => activeRooms.includes(b.room));
-                    const filteredWorkspaces = mappedWorkspaces.filter(b => activeWorkspaces.includes(b.room));
-
-                    // 5. Combine lists (excluding Denied bookings)
-                    allBookings = [...filteredRooms, ...filteredWorkspaces].filter(b => b.status !== "Denied" && b.status !== "Cancelled");
+                    // Combine lists (excluding Denied bookings)
+                    allBookings = [...mappedRooms, ...mappedWorkspaces].filter(b => b.status !== "Denied" && b.status !== "Cancelled");
                     
                     renderBookings();
                 }
