@@ -56,7 +56,7 @@ body {
     font-weight: 600;
 }
 
-.nav-item:hover:not(.active) {
+.nav-item:hover:not(.active):not(.text-error) {
     color: #004ac6;
     background-color: #f0f4ff;
 }
@@ -355,6 +355,16 @@ body {
     border-color: #004ac6;
     background-color: #dce9ff;
     color: #004ac6;
+}
+.sidebar-footer .nav-item.danger {
+    color: #ba1a1a !important;
+    background-color: rgba(186, 26, 26, 0.06) !important;
+    border-color: rgba(186, 26, 26, 0.25) !important;
+}
+.sidebar-footer .nav-item.danger:hover {
+    color: #ba1a1a !important;
+    background-color: rgba(186, 26, 26, 0.12) !important;
+    border-color: rgba(186, 26, 26, 0.4) !important;
 }
 
 /* Notification Pulse Animation */

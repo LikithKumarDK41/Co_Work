@@ -15,33 +15,41 @@
     <!-- Quick Stats Cards -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-xs">
-            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Daily Plans</span>
+            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Total Seats Capacity</span>
             <div class="flex items-baseline gap-2 mt-2">
-                <span id="statDailyCount" class="text-2xl font-bold text-on-surface">0</span>
-                <span class="text-xs text-primary font-semibold">Active</span>
+                <span id="statTotalCapacity" class="text-2xl font-bold text-on-surface">0</span>
+                <span class="text-xs text-primary font-semibold">Desks</span>
             </div>
         </div>
         <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-xs">
-            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Weekly Plans</span>
+            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Utilized Seats</span>
             <div class="flex items-baseline gap-2 mt-2">
-                <span id="statWeeklyCount" class="text-2xl font-bold text-on-surface">0</span>
-                <span class="text-xs text-primary font-semibold">Active</span>
+                <span id="statUtilizedSeats" class="text-2xl font-bold text-on-surface">0</span>
+                <span class="text-xs text-error font-semibold">Reserved</span>
             </div>
         </div>
         <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-xs">
-            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Monthly Plans</span>
+            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Available Seats</span>
             <div class="flex items-baseline gap-2 mt-2">
-                <span id="statMonthlyCount" class="text-2xl font-bold text-on-surface">0</span>
-                <span class="text-xs text-primary font-semibold">Active</span>
+                <span id="statAvailableSeats" class="text-2xl font-bold text-on-surface">0</span>
+                <span class="text-xs text-secondary font-semibold">Remaining</span>
             </div>
         </div>
         <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-xs">
-            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Yearly Plans</span>
+            <span class="text-xs text-on-surface-variant uppercase font-bold tracking-wider">Overall Utilization</span>
             <div class="flex items-baseline gap-2 mt-2">
-                <span id="statYearlyCount" class="text-2xl font-bold text-on-surface">0</span>
-                <span class="text-xs text-primary font-semibold">Active</span>
+                <span id="statUtilizationRate" class="text-2xl font-bold text-on-surface">0%</span>
+                <span class="text-xs text-tertiary font-semibold">Occupancy</span>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Workspace Space Utilizations Section -->
+<div class="mb-6 sm:mb-8">
+    <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-4">Workspace Utilization Overview</h3>
+    <div id="workspace-utilization-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in">
+        <!-- Dynamic utilization cards injected here -->
     </div>
 </div>
 
@@ -250,11 +258,35 @@
         let currentPage = 1;
         const itemsPerPage = 8;
 
+        function mapBookingToWorkspaceName(bookingName) {
+            if (!bookingName) return "";
+            const clean = bookingName.toLowerCase();
+            if (clean.includes("workspace 1") || clean.includes("dept 1 - bay 1")) {
+                return "Nichi-In Dept 1 - Bay 1";
+            }
+            if (clean.includes("ebay 1") || clean.includes("dept 4 - bay 1")) {
+                return "Nichi-In Dept 4 - Bay 1";
+            }
+            if (clean.includes("library") || clean.includes("dept 1 - bay 2")) {
+                return "Nichi-In Dept 1 - Bay 2";
+            }
+            if (clean.includes("classroom") || clean.includes("dept 2 - bay 1")) {
+                return "Nichi-In Dept 2 - Bay 1";
+            }
+            if (clean.includes("server room") || clean.includes("dept 2 - bay 2")) {
+                return "Nichi-In Dept 2 - Bay 2";
+            }
+            if (clean.includes("ebay 2") || clean.includes("dept 4 - bay 3")) {
+                return "Nichi-In Dept 4 - Bay 3";
+            }
+            return bookingName;
+        }
+
         async function ensureWorkspacesLoaded() {
             let stored = sessionStorage.getItem("workspaces");
             if (stored) {
                 const parsed = JSON.parse(stored);
-                if (!parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
+                if (!parsed.some(w => w.name === "Nichi-In Dept 1 - Bay 1")) {
                     stored = null;
                 }
             }
@@ -338,6 +370,7 @@
             currentPage = 1;
             renderBookingsTable();
             calculateStats();
+            renderWorkspaceUtilizations();
         }
 
         function handleSearch() {
@@ -349,17 +382,116 @@
         }
 
         function calculateStats() {
-            const counts = { Daily: 0, Weekly: 0, Monthly: 0, Yearly: 0 };
-            workspaceBookings.forEach(b => {
-                if (b.status === "Confirmed" && counts[b.term] !== undefined) {
-                    counts[b.term]++;
+            const workspacesStored = sessionStorage.getItem("workspaces");
+            const workspacesList = workspacesStored ? JSON.parse(workspacesStored) : [];
+
+            let totalCapacity = 0;
+            let totalOccupied = 0;
+
+            workspacesList.forEach(ws => {
+                const capacity = parseInt(ws.capacity || 0, 10);
+                if (capacity > 0) {
+                    totalCapacity += capacity;
+                    
+                    const activeBookings = workspaceBookings.filter(b => mapBookingToWorkspaceName(b.workspace) === ws.name && b.status === "Confirmed");
+                    let occupied = 0;
+                    activeBookings.forEach(b => {
+                        if (b.bookingScope === "Entire") {
+                            occupied = capacity;
+                        } else {
+                            occupied += parseInt(b.seatsBooked || 1, 10);
+                        }
+                    });
+                    totalOccupied += Math.min(capacity, occupied);
                 }
             });
 
-            document.getElementById("statDailyCount").textContent = counts.Daily;
-            document.getElementById("statWeeklyCount").textContent = counts.Weekly;
-            document.getElementById("statMonthlyCount").textContent = counts.Monthly;
-            document.getElementById("statYearlyCount").textContent = counts.Yearly;
+            if (totalCapacity === 0) totalCapacity = 145;
+            const totalAvailable = Math.max(0, totalCapacity - totalOccupied);
+            const utilizationPct = Math.round((totalOccupied / totalCapacity) * 100);
+
+            const elTotal = document.getElementById("statTotalCapacity");
+            const elUtilized = document.getElementById("statUtilizedSeats");
+            const elAvailable = document.getElementById("statAvailableSeats");
+            const elRate = document.getElementById("statUtilizationRate");
+
+            if (elTotal) elTotal.textContent = totalCapacity.toLocaleString();
+            if (elUtilized) elUtilized.textContent = totalOccupied.toLocaleString();
+            if (elAvailable) elAvailable.textContent = totalAvailable.toLocaleString();
+            if (elRate) elRate.textContent = `${utilizationPct}%`;
+        }
+
+        function renderWorkspaceUtilizations() {
+            const container = document.getElementById("workspace-utilization-grid");
+            if (!container) return;
+
+            const workspacesStored = sessionStorage.getItem("workspaces");
+            const workspacesList = workspacesStored ? JSON.parse(workspacesStored) : [];
+
+            if (workspacesList.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center text-sm text-on-surface-variant py-4">No workspace data available.</div>`;
+                return;
+            }
+
+            container.innerHTML = workspacesList.map(ws => {
+                const capacity = parseInt(ws.capacity || 0, 10);
+                if (capacity <= 0) return "";
+
+                // Find confirmed/active bookings for this workspace
+                const activeBookings = workspaceBookings.filter(b => mapBookingToWorkspaceName(b.workspace) === ws.name && b.status === "Confirmed");
+                
+                let occupied = 0;
+                activeBookings.forEach(b => {
+                    if (b.bookingScope === "Entire") {
+                        occupied = capacity;
+                    } else {
+                        occupied += parseInt(b.seatsBooked || 1, 10);
+                    }
+                });
+                
+                occupied = Math.min(capacity, occupied);
+                const utilizationPct = Math.round((occupied / capacity) * 100);
+
+                let progressColorClass = "bg-primary";
+                let badgeClass = "bg-primary/10 text-primary";
+                let statusText = "Available";
+
+                if (utilizationPct === 100) {
+                    progressColorClass = "bg-error";
+                    badgeClass = "bg-error/10 text-error";
+                    statusText = "Fully Booked";
+                } else if (utilizationPct >= 75) {
+                    progressColorClass = "bg-tertiary";
+                    badgeClass = "bg-tertiary/10 text-tertiary";
+                    statusText = "High Demand";
+                } else if (utilizationPct > 0) {
+                    progressColorClass = "bg-secondary";
+                    badgeClass = "bg-secondary/10 text-secondary";
+                    statusText = "Occupied";
+                }
+
+                const cleanName = ws.name.replace(/\s*\((Int|Ext)\)/i, "");
+
+                return `
+                    <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl shadow-xs flex flex-col justify-between min-h-[120px] transition-all hover:shadow-sm">
+                        <div class="flex justify-between items-start mb-2 gap-2">
+                            <span class="font-bold text-on-surface text-sm truncate" title="${cleanName}">${cleanName}</span>
+                            <span class="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${badgeClass} shrink-0">
+                                ${statusText}
+                            </span>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-xs text-on-surface-variant mb-1 font-semibold">
+                                <span>Seats: ${occupied} / ${capacity}</span>
+                                <span>${utilizationPct}%</span>
+                            </div>
+                            <div class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden">
+                                <div class="${progressColorClass} h-2 rounded-full" style="width: ${utilizationPct}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
         }
 
         function renderBookingsTable() {
@@ -422,7 +554,7 @@
                 return `
                 <tr class="hover:bg-surface-container-low/30 transition-colors whitespace-nowrap">
                     <td class="px-md py-sm font-semibold">${b.booker}</td>
-                    <td class="px-md py-sm text-on-surface font-semibold">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</td>
+                    <td class="px-md py-sm text-on-surface font-semibold">${mapBookingToWorkspaceName(b.workspace).replace(/\s*\((Int|Ext)\)/i, "")}</td>
                     <td class="px-md py-sm text-on-surface-variant font-medium">${b.bookingScope || "Seats"}</td>
                     <td class="px-md py-sm text-on-surface-variant font-bold">${b.seatsBooked || 1}</td>
                     <td class="px-md py-sm text-on-surface-variant font-bold">${b.term}</td>
@@ -680,7 +812,7 @@
                 if (matchesRecurrence(curr, reqStart, recurring)) {
                     let countToday = 0;
                     workspaceBookings.forEach(o => {
-                        if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                        if (o.status !== "Confirmed" || mapBookingToWorkspaceName(o.workspace) !== workspaceName) return;
                         const period = parsePeriod(o.period);
                         if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
                             if (o.bookingScope === "Entire") {
@@ -925,7 +1057,7 @@
                 if (matchesRecurrence(curr, reqStart, recurring)) {
                     let countToday = 0;
                     workspaceBookings.forEach(o => {
-                        if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                        if (o.status !== "Confirmed" || mapBookingToWorkspaceName(o.workspace) !== workspaceName) return;
                         const period = parsePeriod(o.period);
                         if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
                             if (o.bookingScope === "Entire") {
@@ -993,7 +1125,19 @@
             const b = workspaceBookings.find(x => x.id === id);
             if (!b) return;
 
-            const space = spaceDetailsLookup[b.workspace.trim()] || { capacity: 10, location: "Level 1 • Open Plan", amenities: ["Comfortable Seat", "WiFi"] };
+            let space = { capacity: 10, location: "Level 1 • Open Plan", amenities: ["Comfortable Seat", "WiFi"] };
+            try {
+                const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                const mappedName = mapBookingToWorkspaceName(b.workspace);
+                const wObj = wList.find(w => w.name === mappedName);
+                if (wObj) {
+                    space = {
+                        capacity: wObj.capacity,
+                        location: wObj.location,
+                        amenities: wObj.amenities || ["Comfortable Seat", "WiFi"]
+                    };
+                }
+            } catch (e) {}
             const bookerInfo = getMockBookerDetails(b.booker);
 
             let statusColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
@@ -1029,12 +1173,12 @@
                         <div>
                             <span class="text-xs uppercase font-bold tracking-wider text-primary">Workspace Desk Resource</span>
                             <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
-                                <h4 class="text-lg font-bold text-on-surface">${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}</h4>
+                                <h4 class="text-lg font-bold text-on-surface">${mapBookingToWorkspaceName(b.workspace).replace(/\s*\((Int|Ext)\)/i, "")}</h4>
                                 <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function () {
                     let ct = "Internal";
                     try {
                         const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-                        const wObj = wList.find(w => w.name === b.workspace);
+                        const wObj = wList.find(w => w.name === mapBookingToWorkspaceName(b.workspace));
                         if (wObj) {
                             if (wObj.parentWorkspace) {
                                 const parent = wList.find(w => w.name === wObj.parentWorkspace);

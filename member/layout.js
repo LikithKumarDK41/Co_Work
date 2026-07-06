@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <span class="text-xs font-semibold">Settings</span>
         </a>
 
-        <a class="sidebar-footer-link danger flex-1 justify-center text-on-surface-variant hover:text-error hover:bg-error/10 hover:border-error/20 transition-all duration-200 border border-outline-variant/30 rounded-xl bg-surface-container-lowest hover:bg-error/5" href="login.html" title="Logout">
+        <a class="sidebar-footer-link danger flex-1 justify-center transition-all duration-200 border rounded-xl" href="login.html" title="Logout">
             <span class="nav-icon material-symbols-outlined">logout</span>
             <span class="text-xs font-semibold">Logout</span>
         </a>

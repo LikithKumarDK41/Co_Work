@@ -70,7 +70,7 @@ const APP_CONFIG = {
 };
 
 const TOP_NAV_ORDER = ['dashboard', 'schedule', 'bookings', 'visitors', 'users', 'reception'];
-const DROPDOWN_NAV_ORDER = ['rooms', 'meeting_rooms', 'tickets', 'announcements'];
+const DROPDOWN_NAV_ORDER = ['rooms', 'meeting_rooms', 'tickets', 'announcements', 'reports'];
 
 let currentPageKey = null;
 let sidebarOpen = false;
@@ -529,6 +529,8 @@ function getOrInitializeMockDatabase() {
 
 let membersCurrentPage = 1;
 let membersSearchQuery = '';
+let membersStatusFilter = 'all';
+let membersRoleFilter = 'all';
 let visitorsCurrentPage = 1;
 let visitorsSearchQuery = '';
 let visitorsActiveTab = 'all';
@@ -560,12 +562,32 @@ function initializePageMockData(pageKey) {
     } else if (pageKey === 'users') {
         membersCurrentPage = 1;
         membersSearchQuery = '';
+        membersStatusFilter = 'all';
+        membersRoleFilter = 'all';
         renderMembersTable(db);
 
-        const searchInput = document.querySelector('input[placeholder="Search members..."]');
+        const searchInput = document.getElementById('memberSearch');
         if (searchInput) {
-            searchInput.onkeyup = (e) => {
-                membersSearchQuery = e.target.value;
+            searchInput.oninput = (e) => {
+                membersSearchQuery = e.target.value.toLowerCase().trim();
+                membersCurrentPage = 1;
+                renderMembersTable(db);
+            };
+        }
+
+        const statusSelect = document.getElementById('statusFilter');
+        if (statusSelect) {
+            statusSelect.onchange = (e) => {
+                membersStatusFilter = e.target.value;
+                membersCurrentPage = 1;
+                renderMembersTable(db);
+            };
+        }
+
+        const roleSelect = document.getElementById('roleFilter');
+        if (roleSelect) {
+            roleSelect.onchange = (e) => {
+                membersRoleFilter = e.target.value;
                 membersCurrentPage = 1;
                 renderMembersTable(db);
             };
@@ -610,21 +632,29 @@ function initializePageMockData(pageKey) {
 }
 
 function renderMembersTable(db) {
-    const tbody = document.querySelector('table tbody');
+    const tbody = document.getElementById('members_table_body');
     if (!tbody) return;
 
     tbody.innerHTML = '';
 
     const filteredMembers = db.members.filter(m => {
         const q = membersSearchQuery.toLowerCase();
-        return m.name.toLowerCase().includes(q) || 
-               m.email.toLowerCase().includes(q) || 
-               m.company.toLowerCase().includes(q) ||
-               m.role.toLowerCase().includes(q);
+        const matchesSearch = m.name.toLowerCase().includes(q) || 
+                              m.email.toLowerCase().includes(q) || 
+                              m.company.toLowerCase().includes(q) ||
+                              m.role.toLowerCase().includes(q);
+        const matchesStatus = membersStatusFilter === 'all' || m.status === membersStatusFilter;
+        const matchesRole = membersRoleFilter === 'all' || m.role === membersRoleFilter;
+        return matchesSearch && matchesStatus && matchesRole;
     });
 
     const itemsPerPage = 8;
     const totalItems = filteredMembers.length;
+
+    const badge = document.getElementById("memberCountBadge");
+    if (badge) {
+        badge.textContent = `${totalItems} Total`;
+    }
     const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
     
     if (membersCurrentPage > totalPages) membersCurrentPage = totalPages;

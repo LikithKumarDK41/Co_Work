@@ -31,18 +31,18 @@
             <div class="relative flex-grow md:flex-grow-0">
                 <span
                     class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-                <input id="memberSearch" oninput="handleSearch()"
+                <input id="memberSearch"
                     class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all"
                     placeholder="Search members..." type="text">
             </div>
-            <select id="statusFilter" onchange="handleStatusFilterChange(this.value)"
+            <select id="statusFilter"
                 class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
                 <option value="all">All Statuses</option>
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
                 <option value="Past Due">Past Due</option>
             </select>
-            <select id="roleFilter" onchange="handleRoleFilterChange(this.value)"
+            <select id="roleFilter"
                 class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
                 <option value="all">All Roles</option>
                 <option value="Admin">Admin</option>
@@ -74,106 +74,6 @@
                     <th class="px-md py-sm w-12"></th>
                 </tr>
             </thead>
-            <tbody class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
-                <!-- Row 1 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
-                    onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc">
-                            <span class="font-label-md text-label-md font-semibold">Sarah Jenkins</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">sarah.j@example.com</td>
-                    <td class="px-md py-sm">End User</td>
-                    <td class="px-md py-sm">
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Oct 12, 2026</td>
-                    <td class="px-md py-sm text-right">
-                        <button
-                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 2 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
-                    onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <div
-                                class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md shrink-0">
-                                MR</div>
-                            <span class="font-label-md text-label-md font-semibold">Marcus Reed</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">m.reed@techcorp.io</td>
-                    <td class="px-md py-sm">Admin</td>
-                    <td class="px-md py-sm">
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Aug 05, 2026</td>
-                    <td class="px-md py-sm text-right">
-                        <button
-                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 3 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
-                    onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <img alt="Avatar" class="w-8 h-8 rounded-full object-cover shrink-0"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzUHqL2k0j2xNOIkkiq_7sOjlLc5_RXUP-SgGvH479IK6ykn_s4jtfS7PSzCVKyfbOSreBIjjfO-Je_xviI62onBszhSLpyYjtjtEJ3wkNsF6UwxzI_V8PKNVMBloaU-sTGFmD5-RThemF0XtuyxoIjPBwbJv_9ODlerG04x8E--dyp_SIfaUjilPHuDJ43zbucEdCbuy89uOtbDiRoy2dSpsYMWYzxkHFnksFMP9bsKfW2Sn5nArJT2nANEdK2_WQI2BbMWK1Z3Y">
-                            <span class="font-label-md text-label-md font-semibold">David Chen</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">d.chen@freelance.net</td>
-                    <td class="px-md py-sm">Staff</td>
-                    <td class="px-md py-sm">
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-error/10 text-error">Past
-                            Due</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Jan 22, 2026</td>
-                    <td class="px-md py-sm text-right">
-                        <button
-                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
-                <!-- Row 4 -->
-                <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
-                    onclick="openProfileModal()">
-                    <td class="px-md py-sm">
-                        <div class="flex items-center gap-sm">
-                            <div
-                                class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-label-md shrink-0">
-                                AL</div>
-                            <span class="font-label-md text-label-md font-semibold">Anna Lopez</span>
-                        </div>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">anna.l@designstudio.co</td>
-                    <td class="px-md py-sm">End User</td>
-                    <td class="px-md py-sm">
-                        <span
-                            class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant border border-outline-variant/50">Inactive</span>
-                    </td>
-                    <td class="px-md py-sm text-on-surface-variant">Nov 15, 2026</td>
-                    <td class="px-md py-sm text-right">
-                        <button
-                            class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
-                        </button>
-                    </td>
-                </tr>
             <tbody id="members_table_body" class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
                 <!-- Dynamic rows will be injected here -->
             </tbody>

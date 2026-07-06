@@ -330,12 +330,15 @@ body {
 }
 
 .sidebar-footer-link.danger {
-    color: #6b4a4a;
+    color: #ba1a1a !important;
+    background-color: rgba(186, 26, 26, 0.06) !important;
+    border: 1px solid rgba(186, 26, 26, 0.25) !important;
 }
 
 .sidebar-footer-link.danger:hover {
-    background: #ffdad6;
-    color: #ba1a1a;
+    color: #ba1a1a !important;
+    background-color: rgba(186, 26, 26, 0.12) !important;
+    border-color: rgba(186, 26, 26, 0.4) !important;
 }
 
 .sidebar-footer-link .nav-icon {

@@ -190,7 +190,7 @@
         let stored = sessionStorage.getItem("workspaces");
         if (stored) {
             const parsed = JSON.parse(stored);
-            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
+            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Dept 1 - Bay 1")) {
                 sessionStorage.removeItem("workspaces");
                 stored = null;
             }

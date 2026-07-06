@@ -173,12 +173,12 @@
                 </p>
             </div>
             <div class="relative w-full md:w-80 shrink-0">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+                <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg select-none pointer-events-none">
                     search
                 </span>
                 <input id="roomSearchInput" oninput="handleSearch()"
-                    class="w-full bg-surface-container-low border border-surface-variant rounded-lg pl-10 pr-4 py-2.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-on-surface-variant/70"
-                    placeholder="Search workspace name or location..." type="text">
+                    class="w-full bg-surface-container-lowest border border-outline-variant/60 rounded-full pl-11 pr-4 py-2.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 placeholder:text-on-surface-variant/50 hover:border-outline-variant hover:shadow-sm"
+                    placeholder="Search workspace..." type="text">
             </div>
         </div>
 
@@ -370,7 +370,7 @@
                     if (stored) {
                         try {
                             const parsed = JSON.parse(stored);
-                            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Workspace 1 (Int)")) {
+                            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Dept 1 - Bay 1")) {
                                 sessionStorage.removeItem("workspaces");
                                 stored = null;
                             }

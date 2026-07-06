@@ -632,15 +632,7 @@
                                                 });
                                         });
 
-                                        // Community Event
-                                        notifications.push({
-                                                title: "Community Mixer",
-                                                icon: "campaign",
-                                                iconBg: "bg-purple-50 text-purple-600 border-purple-100",
-                                                body: "Join us for the monthly networking mixer this Friday at 5 PM in the main lounge.",
-                                                time: "Yesterday",
-                                                unread: false
-                                        });
+                                        // Render notifications list
 
                                         container.innerHTML = notifications.map(n => {
                                                 const borderClass = n.unread ? "border-l-4 border-primary bg-surface-container-lowest" : "border border-surface-variant bg-surface-container-lowest opacity-95";
