@@ -1,452 +1,53 @@
 [
   {
     "id": 1,
-    "name": "Elena Smith",
-    "company": "Quantum Labs",
+    "name": "Murugami",
+    "company": "Telenet",
     "date": "Jul 3, 2026",
     "time": "10:00 AM",
-    "purpose": "Portfolio Pitch",
+    "purpose": "Proposal Discussion",
     "status": "Completed",
-    "hostName": "James Scott"
+    "hostName": "Narendra Kumar"
   },
   {
     "id": 2,
-    "name": "James Rodriguez",
-    "company": "Freelancer",
+    "name": "yamada",
+    "company": "Chancery",
     "date": "Jul 3, 2026",
     "time": "3:30 PM",
     "purpose": "Technical Interview",
     "status": "Registered",
-    "hostName": "Andrew Thompson"
+    "hostName": "Narendra Kumar"
   },
   {
     "id": 3,
-    "name": "Alice Johnson",
-    "company": "Nexus Enterprise",
+    "name": "Harish ranjan",
+    "company": "Simbus",
     "date": "Jul 3, 2026",
     "time": "4:00 PM",
     "purpose": "Project Kickoff",
     "status": "Completed",
-    "hostName": "Thomas Hernandez"
+    "hostName": "Narendra Kumar"
   },
   {
     "id": 4,
-    "name": "Robert Taylor",
+    "name": "Ebina Meriko",
     "company": "SB Telecom",
     "date": "Jul 3, 2026",
     "time": "4:00 PM",
     "purpose": "Contracting Work",
     "status": "Completed",
-    "hostName": "Michael Rodriguez"
+    "hostName": "Narendra Kumar"
   },
   {
     "id": 5,
-    "name": "Michael Davis",
-    "company": "TechCorp Inc.",
-    "date": "Jul 3, 2026",
+    "name": "Pnakaj",
+    "company": "Nichirrin Imperial",
+    "date": "Jul 10, 2026",
     "time": "9:00 AM",
     "purpose": "Meeting",
-    "status": "Checked-In",
-    "hostName": "Justin Williams"
-  },
-  {
-    "id": 6,
-    "name": "Jessica Miller",
-    "company": "Apex Media",
-    "date": "Jul 3, 2026",
-    "time": "4:00 PM",
-    "purpose": "Consultation",
-    "status": "Registered",
-    "hostName": "Megan Martin"
-  },
-  {
-    "id": 7,
-    "name": "William Wilson",
-    "company": "Apex Media",
-    "date": "Jul 3, 2026",
-    "time": "10:00 AM",
-    "purpose": "Client Sync",
-    "status": "Completed",
-    "hostName": "James Martinez"
-  },
-  {
-    "id": 8,
-    "name": "Linda Martinez",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "3:00 PM",
-    "purpose": "Partner Discussion",
-    "status": "Completed",
-    "hostName": "William Smith"
-  },
-  {
-    "id": 9,
-    "name": "David Anderson",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "2:30 PM",
-    "purpose": "Quarterly Strategy Review",
-    "status": "Completed",
-    "hostName": "Brandon Scott"
-  },
-  {
-    "id": 10,
-    "name": "Sarah Thomas",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "10:30 AM",
-    "purpose": "Portfolio Pitch",
-    "status": "Checked-In",
-    "hostName": "Alex Reed"
-  },
-  {
-    "id": 11,
-    "name": "John Jackson",
-    "company": "Quantum Labs",
-    "date": "Jul 3, 2026",
-    "time": "9:00 AM",
-    "purpose": "Technical Interview",
-    "status": "Completed",
-    "hostName": "David Chen"
-  },
-  {
-    "id": 12,
-    "name": "Emily White",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "9:30 AM",
-    "purpose": "Project Kickoff",
-    "status": "Completed",
-    "hostName": "Kevin Garcia"
-  },
-  {
-    "id": 13,
-    "name": "Patricia Taylor",
-    "company": "Apex Media",
-    "date": "Jul 3, 2026",
-    "time": "4:30 PM",
-    "purpose": "Contracting Work",
-    "status": "Completed",
-    "hostName": "Justin Clark"
-  },
-  {
-    "id": 14,
-    "name": "Charles Harris",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "12:00 PM",
-    "purpose": "Meeting",
-    "status": "Completed",
-    "hostName": "Michael Rodriguez"
-  },
-  {
-    "id": 15,
-    "name": "Barbara Martin",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "1:30 PM",
-    "purpose": "Consultation",
-    "status": "Completed",
-    "hostName": "Brian Brown"
-  },
-  {
-    "id": 16,
-    "name": "Matthew Clark",
-    "company": "Quantum Labs",
-    "date": "Jul 3, 2026",
-    "time": "2:30 PM",
-    "purpose": "Client Sync",
-    "status": "Completed",
-    "hostName": "Elizabeth Smith"
-  },
-  {
-    "id": 17,
-    "name": "Elizabeth Lewis",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "2:00 PM",
-    "purpose": "Partner Discussion",
-    "status": "Completed",
-    "hostName": "Rachel Johnson"
-  },
-  {
-    "id": 18,
-    "name": "Daniel Walker",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "2:30 PM",
-    "purpose": "Quarterly Strategy Review",
-    "status": "Completed",
-    "hostName": "Jessica Chen"
-  },
-  {
-    "id": 19,
-    "name": "Jennifer Hall",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "12:30 PM",
-    "purpose": "Portfolio Pitch",
-    "status": "Checked-In",
-    "hostName": "Thomas Hernandez"
-  },
-  {
-    "id": 20,
-    "name": "Mark Allen",
-    "company": "Quantum Labs",
-    "date": "Jul 3, 2026",
-    "time": "2:30 PM",
-    "purpose": "Technical Interview",
-    "status": "Completed",
-    "hostName": "Gary Davis"
-  },
-  {
-    "id": 21,
-    "name": "Maria Young",
-    "company": "Apex Media",
-    "date": "Jul 3, 2026",
-    "time": "12:30 PM",
-    "purpose": "Project Kickoff",
-    "status": "Completed",
-    "hostName": "Ashley Jenkins"
-  },
-  {
-    "id": 22,
-    "name": "Donald King",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "4:00 PM",
-    "purpose": "Contracting Work",
-    "status": "Registered",
-    "hostName": "William Smith"
-  },
-  {
-    "id": 23,
-    "name": "Susan Wright",
-    "company": "TechCorp Inc.",
-    "date": "Jul 3, 2026",
-    "time": "3:00 PM",
-    "purpose": "Meeting",
-    "status": "Registered",
-    "hostName": "Marcus Reed"
-  },
-  {
-    "id": 24,
-    "name": "Steven Hill",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "12:00 PM",
-    "purpose": "Consultation",
-    "status": "Completed",
-    "hostName": "Brian Lopez"
-  },
-  {
-    "id": 25,
-    "name": "Margaret Scott",
-    "company": "DesignStudio",
-    "date": "Jul 3, 2026",
-    "time": "2:00 PM",
-    "purpose": "Client Sync",
-    "status": "Registered",
-    "hostName": "Daniel Sanchez"
-  },
-  {
-    "id": 26,
-    "name": "Paul Green",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "10:30 AM",
-    "purpose": "Partner Discussion",
-    "status": "Registered",
-    "hostName": "Ryan Adams"
-  },
-  {
-    "id": 27,
-    "name": "Dorothy Adams",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "4:30 PM",
-    "purpose": "Quarterly Strategy Review",
-    "status": "Checked-In",
-    "hostName": "Marcus Thompson"
-  },
-  {
-    "id": 28,
-    "name": "Andrew Baker",
-    "company": "DesignStudio",
-    "date": "Jul 3, 2026",
-    "time": "10:30 AM",
-    "purpose": "Portfolio Pitch",
-    "status": "Completed",
-    "hostName": "Justin Wright"
-  },
-  {
-    "id": 29,
-    "name": "Lisa Gonzalez",
-    "company": "TechCorp Inc.",
-    "date": "Jul 3, 2026",
-    "time": "12:30 PM",
-    "purpose": "Technical Interview",
-    "status": "Completed",
-    "hostName": "Brandon Wilson"
-  },
-  {
-    "id": 30,
-    "name": "Joshua Nelson",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "11:30 AM",
-    "purpose": "Project Kickoff",
-    "status": "Completed",
-    "hostName": "Steven Lopez"
-  },
-  {
-    "id": 31,
-    "name": "Nancy Carter",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "4:00 PM",
-    "purpose": "Contracting Work",
-    "status": "Completed",
-    "hostName": "Michael Rodriguez"
-  },
-  {
-    "id": 32,
-    "name": "Kenneth Mitchell",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "1:30 PM",
-    "purpose": "Meeting",
-    "status": "Completed",
-    "hostName": "Ryan Adams"
-  },
-  {
-    "id": 33,
-    "name": "Karen Perez",
-    "company": "DesignStudio",
-    "date": "Jul 3, 2026",
-    "time": "2:30 PM",
-    "purpose": "Consultation",
-    "status": "Completed",
-    "hostName": "Ashley Jackson"
-  },
-  {
-    "id": 34,
-    "name": "Kevin Roberts",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "1:30 PM",
-    "purpose": "Client Sync",
-    "status": "Registered",
-    "hostName": "Alex Johnson"
-  },
-  {
-    "id": 35,
-    "name": "Betty Turner",
-    "company": "Vortex Systems",
-    "date": "Jul 3, 2026",
-    "time": "11:00 AM",
-    "purpose": "Partner Discussion",
-    "status": "Registered",
-    "hostName": "Amanda Watson"
-  },
-  {
-    "id": 36,
-    "name": "Brian Phillips",
-    "company": "Quantum Labs",
-    "date": "Jul 3, 2026",
-    "time": "12:00 PM",
-    "purpose": "Quarterly Strategy Review",
-    "status": "Checked-In",
-    "hostName": "James Scott"
-  },
-  {
-    "id": 37,
-    "name": "Helen Campbell",
-    "company": "Vortex Systems",
-    "date": "Jul 3, 2026",
-    "time": "1:30 PM",
-    "purpose": "Portfolio Pitch",
-    "status": "Completed",
-    "hostName": "Karen Adams"
-  },
-  {
-    "id": 38,
-    "name": "George Parker",
-    "company": "SB Telecom",
-    "date": "Jul 3, 2026",
-    "time": "3:30 PM",
-    "purpose": "Technical Interview",
-    "status": "Completed",
-    "hostName": "Michael Rodriguez"
-  },
-  {
-    "id": 39,
-    "name": "Sandra Evans",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "3:30 PM",
-    "purpose": "Project Kickoff",
-    "status": "Registered",
-    "hostName": "Alex Miller"
-  },
-  {
-    "id": 40,
-    "name": "Edward Edwards",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "12:00 PM",
-    "purpose": "Contracting Work",
-    "status": "Registered",
-    "hostName": "Brandon Jones"
-  },
-  {
-    "id": 41,
-    "name": "Donna Collins",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "12:00 PM",
-    "purpose": "Meeting",
-    "status": "Completed",
-    "hostName": "Amanda Anderson"
-  },
-  {
-    "id": 42,
-    "name": "Ronald Stewart",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "1:30 PM",
-    "purpose": "Consultation",
-    "status": "Registered",
-    "hostName": "Robert White"
-  },
-  {
-    "id": 43,
-    "name": "Carol Morris",
-    "company": "Nexus Enterprise",
-    "date": "Jul 3, 2026",
-    "time": "10:00 AM",
-    "purpose": "Client Sync",
-    "status": "Registered",
-    "hostName": "Robert White"
-  },
-  {
-    "id": 44,
-    "name": "Timothy Rogers",
-    "company": "Apex Media",
-    "date": "Jul 3, 2026",
-    "time": "9:30 AM",
-    "purpose": "Partner Discussion",
-    "status": "Completed",
-    "hostName": "Olivia Scott"
-  },
-  {
-    "id": 45,
-    "name": "Ruth Reed",
-    "company": "Freelancer",
-    "date": "Jul 3, 2026",
-    "time": "3:00 PM",
-    "purpose": "Quarterly Strategy Review",
-    "status": "Completed",
-    "hostName": "Andrew Thompson"
+    "status": "Pending",
+    "hostName": "Narendra Kumar"
   }
+  
 ]

@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "booker": "Alex Rivera",
+    "booker": "Narendra Kumar",
     "title": "Executive Strategy Session",
-    "room": "Conference Room 1 (Int)",
-    "date": "Oct 24, 2026",
+    "room": "Conference Room 1",
+    "date": "July 10, 2026",
     "time": "10:00 AM - 12:00 PM",
     "duration": "2 Hours",
     "status": "Confirmed",
@@ -12,24 +12,25 @@
   },
   {
     "id": 2,
-    "booker": "Marcus Reed",
-    "title": "Deep Work Block",
-    "room": "Meeting Corner 2 (Int)",
-    "date": "Oct 26, 2026",
-    "time": "1:00 PM - 5:00 PM",
-    "duration": "4 Hours",
+    "booker": "Rajendra Patnashetty",
+    "title": "Weekly Sync Meeting",
+    "room": "Meeting Room 4",
+    "date": "July 24, 2026",
+    "time": "10:00 AM - 11:00 AM",
+    "duration": "1 Hour",
     "status": "Confirmed",
     "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 3,
-    "booker": "David Chen",
-    "title": "Open Seating Request",
-    "room": "Meeting Room 1 (Int)",
-    "date": "Oct 28, 2026",
-    "time": "09:00 AM - 06:00 PM",
-    "duration": "9 Hours",
-    "status": "Waitlist",
+    "booker": "Yeshwanth I. N.",
+    "title": "Client Presentation & Pitch",
+    "room": "Conference Room 2",
+    "date": "July 18, 2026",
+    "time": "02:00 PM - 03:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
     "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
   }
+  
 ]

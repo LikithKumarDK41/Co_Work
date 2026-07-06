@@ -22,7 +22,7 @@ const APP_CONFIG = {
             path: '../meeting_room_management/content.html'
         },
         meeting_rooms: {
-            title: 'Rooms',
+            title: 'MR',
             icon: 'meeting_room',
             path: '../meeting_room_settings/content.html'
         },
@@ -32,7 +32,7 @@ const APP_CONFIG = {
             path: '../visitor_management/content.html'
         },
         bookings: {
-            title: 'Room Bookings',
+            title: 'MR Bookings',
             icon: 'event_available',
             path: '../booking_management/content.html'
         },
