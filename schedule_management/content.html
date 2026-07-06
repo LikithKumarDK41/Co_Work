@@ -285,14 +285,14 @@
         if (!stored) {
             const seedWorkspaceBookings = [
                 { id: 100, booker: "Operational Manager", workspace: "Nichi-In Workspace 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
-                { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2023 - Oct 29, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                { id: 2, booker: "Marcus Reed", workspace: "Server Room", type: "Shared Space", term: "Monthly", period: "Oct 01, 2023 - Oct 31, 2023", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Confirmed" },
-                { id: 3, booker: "David Chen", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 24, 2023 - Oct 24, 2023", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
-                { id: 4, booker: "Matthew Johnson", workspace: "Library (Int)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2023 - Dec 31, 2023", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
-                { id: 5, booker: "Anna Lopez", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 30, 2023 - Nov 05, 2023", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
-                { id: 6, booker: "Ronald Rodriguez", workspace: "Library (Int)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2023 - Nov 30, 2023", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
-                { id: 7, booker: "Matthew Johnson", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 25, 2023 - Oct 25, 2023", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
-                { id: 8, booker: "Jessica Taylor", workspace: "Server Room", type: "Shared Space", term: "Yearly", period: "Nov 01, 2023 - Oct 31, 2024", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
+                { id: 1, booker: "Sarah Jenkins", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                { id: 2, booker: "Marcus Reed", workspace: "Server Room", type: "Shared Space", term: "Monthly", period: "Oct 01, 2026 - Oct 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                { id: 3, booker: "David Chen", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 24, 2026 - Oct 24, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
+                { id: 4, booker: "Matthew Johnson", workspace: "Library (Int)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2027 - Dec 31, 2027", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
+                { id: 5, booker: "Anna Lopez", workspace: "eBay 1 (Int)", type: "Shared Space", term: "Weekly", period: "Oct 30, 2026 - Nov 05, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
+                { id: 6, booker: "Ronald Rodriguez", workspace: "Library (Int)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
+                { id: 7, booker: "Matthew Johnson", workspace: "eBay 2 (Int)", type: "Shared Space", term: "Daily", period: "Oct 25, 2026 - Oct 25, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
+                { id: 8, booker: "Jessica Taylor", workspace: "Server Room", type: "Shared Space", term: "Yearly", period: "Nov 01, 2026 - Oct 31, 2027", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
             ];
             sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
             stored = JSON.stringify(seedWorkspaceBookings);

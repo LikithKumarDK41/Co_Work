@@ -91,7 +91,7 @@
                         <span
                             class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
                     </td>
-                    <td class="px-md py-sm text-on-surface-variant">Oct 12, 2023</td>
+                    <td class="px-md py-sm text-on-surface-variant">Oct 12, 2026</td>
                     <td class="px-md py-sm text-right">
                         <button
                             class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
@@ -116,7 +116,7 @@
                         <span
                             class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
                     </td>
-                    <td class="px-md py-sm text-on-surface-variant">Aug 05, 2023</td>
+                    <td class="px-md py-sm text-on-surface-variant">Aug 05, 2026</td>
                     <td class="px-md py-sm text-right">
                         <button
                             class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
@@ -166,7 +166,7 @@
                         <span
                             class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant border border-outline-variant/50">Inactive</span>
                     </td>
-                    <td class="px-md py-sm text-on-surface-variant">Nov 15, 2022</td>
+                    <td class="px-md py-sm text-on-surface-variant">Nov 15, 2026</td>
                     <td class="px-md py-sm text-right">
                         <button
                             class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded-md">
@@ -818,7 +818,7 @@
 
                     const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
                     const options = { month: 'short', day: '2-digit', year: 'numeric' };
-                    const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2023"
+                    const formattedDate = new Date().toLocaleDateString('en-US', options); // e.g., "Oct 12, 2026"
 
                     const newUser = {
                         id: newId,
