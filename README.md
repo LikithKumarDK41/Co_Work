@@ -36,26 +36,26 @@ This is a fully integrated, template-based mockup system for the CoWork Manager 
 - `assets/partials/footer.html` - Footer template partial
 - `assets/css/app.css` - Shared responsive layout styles
 - `assets/app.js` - SPA routing, partial loading, and navigation logic
-- `login_co_work_manager_1/code.html` - Login interface with session setup
+- `login_v1/code.html` - Login interface with session setup
 
 ### Content Files
 Each module has a `content.html` file that contains only the page-specific content (without layout elements):
-- `admin_dashboard_co_work_manager/content.html`
-- `user_management_co_work_manager/content.html`
-- `meeting_room_management_co_work_manager/content.html`
-- `visitor_management_co_work_manager/content.html`
-- `booking_management_co_work_manager/content.html`
-- `support_tickets_co_work_manager/content.html`
-- `announcements_co_work_manager/content.html`
-- `reports_analytics_co_work_manager/content.html`
-- `reception_dashboard_co_work_manager/content.html`
-- `roles_permissions_co_work_manager/content.html`
-- `settings_co_work_manager/content.html`
+- `admin_dashboard/content.html`
+- `user_management/content.html`
+- `meeting_room_management/content.html`
+- `visitor_management/content.html`
+- `booking_management/content.html`
+- `support_tickets/content.html`
+- `announcements/content.html`
+- `reports_analytics/content.html`
+- `reception_dashboard/content.html`
+- `roles_permissions/content.html`
+- `settings/content.html`
 
 ## How to Extend/Customize
 
 ### Adding a New Page
-1. Create a new folder: `new_module_co_work_manager/`
+1. Create a new folder: `new_module/`
 2. Create `content.html` inside with your page content
 3. Update `assets/app.js` - Add entry to `APP_CONFIG.pages`:
    ```javascript

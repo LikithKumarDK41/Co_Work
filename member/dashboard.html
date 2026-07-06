@@ -129,7 +129,7 @@
 
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex antialiased">
     <main class="page-layout flex-1 min-h-screen pb-24 pt-6 md:pt-8 px-4 md:px-8">
-        <div class="max-w-[1440px] mx-auto w-full">
+        <div class="max-w-[1440px] mx-auto w-full mb-12">
             <!-- Hero Section -->
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-6 sm:mb-8">
                 <div class="min-w-0">
@@ -177,14 +177,43 @@
                     </a>
                 </div>
 
-                <!-- Recent Activity (Span 6) -->
+                <!-- Recent Activity (Span 5) -->
                 <div
-                    class="col-span-12 lg:col-span-6 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col">
+                    class="col-span-12 lg:col-span-5 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col">
                     <div class="flex justify-between items-center mb-4 border-b border-slate-50 pb-4">
                         <h3 class="text-xl font-bold text-slate-900 tracking-tight">Recent Activity</h3>
                     </div>
                     <div class="space-y-0 overflow-y-auto pr-2 flex-1" id="recent_activity_list">
                         <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Premium Workspaces Perks (Span 7) -->
+                <div
+                    class="col-span-12 lg:col-span-7 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col sm:flex-row gap-6 justify-between items-center overflow-hidden">
+                    <div class="flex-1 flex flex-col justify-between h-full min-w-0">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider">COWORK PERKS</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 tracking-tight mt-4 mb-2">Premium Workspaces</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed font-normal">
+                                Unlock access to modern shared desks, high-end meeting rooms, soundproof phone booths, and premium amenities designed to help you do your best work.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <a class="flex-1 sm:flex-none text-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5 no-underline" href="meeting_rooms.html">
+                                <span>Book Space</span>
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                            </a>
+                            <a class="flex-1 sm:flex-none text-center bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center justify-center no-underline" href="rooms.html">
+                                <span>Explore Rooms</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="w-full sm:w-2/5 h-40 sm:h-full rounded-2xl overflow-hidden shrink-0 relative bg-slate-100 border border-slate-100">
+                        <img class="w-full h-full object-cover" alt="Premium Coworking Workspace" src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent"></div>
                     </div>
                 </div>
 
@@ -232,7 +261,7 @@
                     }
 
                     let bookings = sessionStorage.getItem("bookings");
-                    if (!bookings) {
+                    if (!bookings || JSON.parse(bookings).length < 6) {
                         try {
                             const res = await fetch("data/bookings.json");
                             const data = await res.json();
@@ -347,7 +376,7 @@
                     const upcoming = all.filter(item => {
                         const d = parseDate(item.dateStr);
                         return d >= today;
-                    }).sort((a, b) => parseDate(a.dateStr) - parseDate(b.dateStr)).slice(0, 3);
+                    }).sort((a, b) => parseDate(a.dateStr) - parseDate(b.dateStr)).slice(0, 5);
 
                     if (upcoming.length === 0) {
                         container.innerHTML = `

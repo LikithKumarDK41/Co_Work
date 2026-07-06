@@ -143,6 +143,31 @@
     </div>
 </div>
 
+<!-- View Room Detail Modal -->
+<div id="roomDetailOverlay" class="fixed inset-0 bg-surface-variant/85 backdrop-blur-xs z-[100] hidden opacity-0 transition-opacity duration-300" onclick="closeRoomDetail()"></div>
+<div id="roomDetailModal" class="fixed inset-y-0 right-0 w-full sm:w-[500px] bg-surface-container-lowest shadow-level-5 z-[101] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full rounded-l-2xl border-l border-outline-variant">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between p-lg border-b border-outline-variant shrink-0 bg-surface-bright">
+        <div>
+            <h3 class="font-headline-md font-bold text-on-surface">Room Details</h3>
+            <p class="font-body-sm text-on-surface-variant mt-1">Full specifications and configuration</p>
+        </div>
+        <button onclick="closeRoomDetail()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors" aria-label="Close modal">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-lg overflow-y-auto flex-1 bg-surface-container-lowest space-y-6" id="roomDetailContent">
+        <!-- Will be populated dynamically -->
+    </div>
+
+    <!-- Footer Actions -->
+    <div class="p-md border-t border-outline-variant bg-surface flex gap-sm mt-auto justify-end rounded-bl-2xl shrink-0">
+        <button type="button" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm" onclick="closeRoomDetail()">Close</button>
+    </div>
+</div>
+
 <script>
 (function() {
     let rooms = [];
@@ -230,6 +255,9 @@
                         </div>
                     </div>
                     <div class="border-t border-outline-variant/40 bg-surface-bright/50 px-6 py-3 flex justify-end gap-2 shrink-0">
+                        <button onclick="viewRoomDetail(${r.id})" class="flex items-center gap-1 text-blue-600 hover:bg-blue-50 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm mr-auto">
+                            <span class="material-symbols-outlined text-[18px]">info</span> Detail
+                        </button>
                         <button onclick="openRoomModal(${r.id})" class="flex items-center gap-1 text-primary hover:bg-primary/10 transition-colors px-3 py-1.5 rounded-lg font-label-md text-sm">
                             <span class="material-symbols-outlined text-[18px]">edit</span> Edit
                         </button>
@@ -382,6 +410,93 @@
         }
     }
 
+    function viewRoomDetail(id) {
+        const r = rooms.find(x => x.id === id);
+        if (!r) return;
+
+        const content = document.getElementById("roomDetailContent");
+        if (!content) return;
+
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        const parent = workspaces.find(w => w.name === r.parentWorkspace);
+        const clientType = parent ? parent.clientType : "Internal";
+
+        const imgUrl = r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
+
+        content.innerHTML = `
+            <div class="w-full h-48 rounded-xl overflow-hidden bg-slate-100 border border-outline-variant relative shrink-0 mb-6">
+                <img src="${imgUrl}" alt="${r.name}" class="w-full h-full object-cover">
+                <div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 rounded-lg font-label-sm text-xs shadow-sm font-semibold uppercase tracking-wider">${clientType}</div>
+                <div class="absolute top-4 right-4 bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-label-sm text-xs font-semibold shadow-sm">${r.status}</div>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Room Name</h4>
+                    <p class="text-lg font-bold text-slate-800 mt-1">${r.name.replace(/\s*\((Int|Ext)\)/i, "")}</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Parent Workspace Zone</h4>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">${r.parentWorkspace.replace(/\s*\((Int|Ext)\)/i, "")}</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Location</h4>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">${r.location}</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Capacity</h4>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">${r.capacity} People</p>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Size</h4>
+                        <p class="text-sm font-semibold text-slate-700 mt-1">${r.size || 150} sq ft</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Amenities</h4>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${r.amenities && r.amenities.length > 0 
+                            ? r.amenities.map(a => `<span class="bg-slate-100 text-slate-700 border border-slate-200 text-xs px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")
+                            : `<span class="text-xs italic text-slate-400">No amenities listed</span>`
+                        }
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const modal = document.getElementById('roomDetailModal');
+        const overlay = document.getElementById('roomDetailOverlay');
+        if (modal && overlay) {
+            modal.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+            // Force reflow
+            void modal.offsetWidth;
+            modal.classList.remove('translate-x-full');
+            overlay.classList.remove('opacity-0');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeRoomDetail() {
+        const modal = document.getElementById('roomDetailModal');
+        const overlay = document.getElementById('roomDetailOverlay');
+        if (modal && overlay) {
+            modal.classList.add('translate-x-full');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+
     // Initialize Page
     loadRooms();
 
@@ -391,5 +506,7 @@
     window.saveRoom = saveRoom;
     window.deleteRoom = deleteRoom;
     window.triggerRoomFormSubmit = triggerRoomFormSubmit;
+    window.viewRoomDetail = viewRoomDetail;
+    window.closeRoomDetail = closeRoomDetail;
 })();
 </script>

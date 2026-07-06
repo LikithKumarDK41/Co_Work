@@ -243,28 +243,8 @@
             <p class="font-body-sm text-on-surface-variant mb-6">Enhance your co-working space by connecting external tools and services.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Slack Integration -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
-                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack" class="w-6 h-6">
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-label-lg font-bold text-on-surface">Slack</h4>
-                                <p class="text-xs text-on-surface-variant mt-1">Send booking and visitor notifications to Slack channels.</p>
-                            </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="toggle-slack" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="toggle-slack"></label>
-                            </div>
-                        </div>
-                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Configure Channels</button>
-                    </div>
-                </div>
-
-                <!-- Google Workspace -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
+                <!-- Google Calendar -->
+                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4 animate-fade-in">
                     <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" alt="Google Calendar" class="w-6 h-6">
                     </div>
@@ -274,32 +254,32 @@
                                 <h4 class="font-label-lg font-bold text-on-surface">Google Calendar</h4>
                                 <p class="text-xs text-on-surface-variant mt-1">Two-way sync for meeting room bookings.</p>
                             </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="toggle-gcal" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="toggle-gcal"></label>
-                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer ml-2">
+                                <input id="toggle-gcal" type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
                         </div>
                         <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Account</button>
                     </div>
                 </div>
 
-                <!-- Kisi Access Control -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
-                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg border border-primary/20 flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[24px]">key</span>
+                <!-- Outlook Calendar -->
+                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4 animate-fade-in">
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
+                        <img src="https://img.icons8.com/color/96/microsoft-outlook-2019.png" alt="Outlook Calendar" class="w-6 h-6">
                     </div>
                     <div class="flex-1">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="font-label-lg font-bold text-on-surface">Access Control (Kisi)</h4>
-                                <p class="text-xs text-on-surface-variant mt-1">Automatically grant physical door access to members.</p>
+                                <h4 class="font-label-lg font-bold text-on-surface">Outlook Calendar</h4>
+                                <p class="text-xs text-on-surface-variant mt-1">Sync room bookings and schedules directly with Outlook accounts.</p>
                             </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="toggle-kisi" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="toggle-kisi"></label>
-                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer ml-2">
+                                <input id="toggle-outlook" type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
                         </div>
-                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Integration</button>
+                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Account</button>
                     </div>
                 </div>
             </div>
@@ -317,10 +297,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Booking Confirmations</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Send an email receipt when a room or desk is booked.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="notif-1" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="notif-1"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-1" type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                     
                     <div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg">
@@ -328,10 +308,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Visitor Arrival Alert</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Notify the host via Email/SMS when their visitor checks in.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="notif-2" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="notif-2"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-2" type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                     
                     <div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg">
@@ -339,10 +319,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Upcoming Booking Reminder</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Send a reminder 15 minutes before a meeting starts.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="notif-3" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="notif-3"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-3" type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                 </div>
             </div>

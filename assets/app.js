@@ -9,62 +9,62 @@ const APP_CONFIG = {
         dashboard: {
             title: 'Dashboard',
             icon: 'dashboard',
-            path: '../admin_dashboard_co_work_manager/content.html'
+            path: '../admin_dashboard/content.html'
         },
         users: {
             title: 'User Management',
             icon: 'group',
-            path: '../user_management_co_work_manager/content.html'
+            path: '../user_management/content.html'
         },
         rooms: {
             title: 'Workspace',
             icon: 'grid_view',
-            path: '../meeting_room_management_co_work_manager/content.html'
+            path: '../meeting_room_management/content.html'
         },
         meeting_rooms: {
             title: 'Rooms',
             icon: 'meeting_room',
-            path: '../meeting_room_settings_co_work_manager/content.html'
+            path: '../meeting_room_settings/content.html'
         },
         visitors: {
             title: 'Visitor Management',
             icon: 'person_add',
-            path: '../visitor_management_co_work_manager/content.html'
+            path: '../visitor_management/content.html'
         },
         bookings: {
             title: 'Room Bookings',
             icon: 'event_available',
-            path: '../booking_management_co_work_manager/content.html'
+            path: '../booking_management/content.html'
         },
         schedule: {
             title: 'Workspace Bookings',
             icon: 'calendar_month',
-            path: '../schedule_management_co_work_manager/content.html'
+            path: '../schedule_management/content.html'
         },
         tickets: {
             title: 'Support Tickets',
             icon: 'confirmation_number',
-            path: '../support_tickets_co_work_manager/content.html'
+            path: '../support_tickets/content.html'
         },
         announcements: {
             title: 'Announcements',
             icon: 'campaign',
-            path: '../announcements_co_work_manager/content.html'
+            path: '../announcements/content.html'
         },
         reports: {
             title: 'Reports & Analytics',
             icon: 'assessment',
-            path: '../reports_analytics_co_work_manager/content.html'
+            path: '../reports_analytics/content.html'
         },
         reception: {
             title: 'Reception Dashboard',
             icon: 'badge',
-            path: '../reception_dashboard_co_work_manager/content.html'
+            path: '../reception_dashboard/content.html'
         },
         settings: {
             title: 'Settings',
             icon: 'settings',
-            path: '../settings_co_work_manager/content.html'
+            path: '../settings/content.html'
         }
     }
 };
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function bootstrapApp() {
     if (!localStorage.getItem('coworkUserLoggedIn')) {
-        window.location.href = '../login_co_work_manager_1/code.html';
+        window.location.href = '../login_v1/code.html';
         return;
     }
 

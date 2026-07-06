@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const dashboardPath = "d:\\\\Nichi-In\\\\Experimental\\\\SP_Telecom\\\\Member\\\\dashboard.html";
-const adminCode = "d:\\\\Nichi-In\\\\Experimental\\\\SP_Telecom\\\\stitch_sb_telecom_co_work_space_management_admin\\\\admin_dashboard_co_work_manager\\\\code.html";
+const adminCode = "d:\\\\Nichi-In\\\\Experimental\\\\SP_Telecom\\\\stitch_sb_telecom_co_work_space_management_admin\\\\admin_dashboard\\\\code.html";
 
 // read tailwind config from admin code
 const adminHtml = fs.readFileSync(adminCode, 'utf8');

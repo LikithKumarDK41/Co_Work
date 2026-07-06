@@ -1,7 +1,7 @@
 import os
 import re
 
-admin_file = r"admin_dashboard_co_work_manager\code.html"
+admin_file = r"admin_dashboard\code.html"
 member_dir = r"..\Member"
 
 with open(admin_file, 'r', encoding='utf-8') as f:

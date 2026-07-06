@@ -31,5 +31,38 @@
     "duration": "1.5 Hours",
     "status": "Confirmed",
     "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 4,
+    "booker": "Alex Rivera",
+    "title": "Project Kickoff",
+    "room": "Meeting Room 1 (Ext)",
+    "date": "Jul 15, 2026",
+    "time": "11:00 AM - 12:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 5,
+    "booker": "Alex Rivera",
+    "title": "Sprint Planning",
+    "room": "Meeting Corner 1 (Ext)",
+    "date": "Aug 03, 2026",
+    "time": "09:00 AM - 10:30 AM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 6,
+    "booker": "Alex Rivera",
+    "title": "Product Design Review",
+    "room": "Conference Room 1 (Ext)",
+    "date": "Sep 12, 2026",
+    "time": "03:00 PM - 04:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Waitlist",
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
   }
 ]

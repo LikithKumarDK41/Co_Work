@@ -2,7 +2,7 @@ import os
 import re
 
 dashboard_path = r"d:\Nichi-In\Experimental\SP_Telecom\Member\dashboard.html"
-admin_code = r"d:\Nichi-In\Experimental\SP_Telecom\stitch_sb_telecom_co_work_space_management_admin\admin_dashboard_co_work_manager\code.html"
+admin_code = r"d:\Nichi-In\Experimental\SP_Telecom\stitch_sb_telecom_co_work_space_management_admin\admin_dashboard\code.html"
 
 # read tailwind config from admin code
 with open(admin_code, 'r', encoding='utf-8') as f:
