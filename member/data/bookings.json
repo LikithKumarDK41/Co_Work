@@ -1,32 +1,68 @@
 [
   {
     "id": 1,
+    "booker": "Alex Rivera",
     "title": "Executive Strategy Session",
-    "room": "Boardroom A",
-    "date": "Oct 24, 2023",
+    "room": "Conference Room 1 (Ext)",
+    "date": "Oct 24, 2026",
     "time": "10:00 AM - 12:00 PM",
     "duration": "2 Hours",
     "status": "Confirmed",
-    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuD1IQlQlcof7FDUPAxnbovOUNP-9BOCt8fnlKgcIMdKrcobkd8O_CTI9HxCcrytE_xilohPaaNrIS1-IyO3kqixxCKyhBMbQbZCHtdw5cHQ0fuzsPgAo7aK3vsEqmG8Kn_mkLd3biwnwZfKT47l7tYEYclvlVdxMMJK-6NsT8hQqlLWAikgMehyCXBbjsszUMx_ZWMHdQBq3ZDVvF3_S4ezCjcfP8K76XIRymUaYljqtubjXeXDjI-gYcA1yQiBFUzzGwqDUJZg7lCu"
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 2,
-    "title": "Deep Work Block",
-    "room": "Focus Pod 04",
-    "date": "Oct 26, 2023",
-    "time": "1:00 PM - 5:00 PM",
-    "duration": "4 Hours",
+    "booker": "Alex Rivera",
+    "title": "Weekly Sync Meeting",
+    "room": "Meeting Room 1 (Ext)",
+    "date": "Jun 24, 2026",
+    "time": "10:00 AM - 11:00 AM",
+    "duration": "1 Hour",
     "status": "Confirmed",
-    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA1qxSfvpP6ACYTYKCCkX554gl8YKP6UYnUHcpHLFdYUSj7_tKhoJSSbJBkTWKnWIJ-LqzxW225rx57Z8m5Hx4Km4IYF2CsTDcDPX2pz3nbDEnhwk04m65WAEH4UjTD4rxKEZk5FsaX3M8jZJTxQF7aM6LUd8Pl7T3gfGTwUncd48DrjnbgKlU0XZlpkc1E-Utj83BwksIus_W8Pi_b92mcWyOTJzZzL_jyd0xlJyCYBlw_TcVAt-HdKZOsEHe2ywuBUQl_V_SPNtaa"
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 3,
-    "title": "Open Seating Request",
-    "room": "Hot Desk Area",
-    "date": "Oct 28, 2023",
-    "time": "09:00 AM - 06:00 PM",
-    "duration": "9 Hours",
+    "booker": "Alex Rivera",
+    "title": "Client Presentation & Pitch",
+    "room": "Meeting Corner 2 (Ext)",
+    "date": "Jun 18, 2026",
+    "time": "02:00 PM - 03:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 4,
+    "booker": "Alex Rivera",
+    "title": "Project Kickoff",
+    "room": "Meeting Room 1 (Ext)",
+    "date": "Jul 15, 2026",
+    "time": "11:00 AM - 12:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 5,
+    "booker": "Alex Rivera",
+    "title": "Sprint Planning",
+    "room": "Meeting Corner 1 (Ext)",
+    "date": "Aug 03, 2026",
+    "time": "09:00 AM - 10:30 AM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 6,
+    "booker": "Alex Rivera",
+    "title": "Product Design Review",
+    "room": "Conference Room 1 (Ext)",
+    "date": "Sep 12, 2026",
+    "time": "03:00 PM - 04:30 PM",
+    "duration": "1.5 Hours",
     "status": "Waitlist",
-    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBLdgiFJt208cZcwnraljyaxgL8PWzf71eyhA8SF6clJSjMptpEjkM3q9g3e1SQ4bC7IVf8eCAstc3O-AoIXOljFioUqeZ8Y2N_z88UB2AE4DMWB7qDMBalO9z3owb63i1GSNpYmiqDCRgWugDDH-STPuVIiLr96NqJtmi3Fmi376KIImr95smYajfZHWUOR-6_ZYT6gYD9cEcz0h1_IB9gNjItzNqUqDopRdVNhhc5O4_qPDwPorcg8NO5Pzc7Mj1KFYAWBgWJOTrI"
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
   }
 ]

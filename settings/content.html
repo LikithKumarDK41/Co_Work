@@ -9,9 +9,6 @@
         <button id="nav-workspace" onclick="switchSettingsTab('workspace')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">chair_alt</span> Workspace & Resources
         </button>
-        <button id="nav-roles" onclick="switchSettingsTab('roles')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
-            <span class="material-symbols-outlined text-[20px]">manage_accounts</span> Roles & Permissions
-        </button>
         <button id="nav-billing" onclick="switchSettingsTab('billing')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">credit_card</span> Billing & Payments
         </button>
@@ -20,6 +17,9 @@
         </button>
         <button id="nav-notifications" onclick="switchSettingsTab('notifications')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">notifications_active</span> Notifications
+        </button>
+        <button id="nav-security" onclick="switchSettingsTab('security')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined text-[20px]">security</span> Security & Password
         </button>
     </div>
 
@@ -190,67 +190,6 @@
             </div>
         </div>
 
-        <!-- Panel: Roles & Permissions -->
-        <div id="panel-roles" class="settings-panel hidden animate-fade-in space-y-6">
-            <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
-                <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-                    <div>
-                        <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Team Management</h3>
-                        <p class="font-body-sm text-on-surface-variant mt-1">Manage staff access and their roles in the system.</p>
-                    </div>
-                    <button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md flex items-center gap-2 hover:bg-primary/90 transition-colors">
-                        <span class="material-symbols-outlined text-[18px]">person_add</span> Invite User
-                    </button>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-surface-container-low border-b border-outline-variant">
-                                <th class="p-4 font-label-sm text-on-surface-variant">User</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Role</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Status</th>
-                                <th class="p-4 font-label-sm text-on-surface-variant">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-outline-variant">
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="p-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">AL</div>
-                                        <div>
-                                            <p class="font-label-md text-on-surface">Alice Lee</p>
-                                            <p class="text-xs text-on-surface-variant">alice@acmecoworking.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4"><span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded font-label-sm text-xs border border-secondary/20">Admin</span></td>
-                                <td class="p-4"><span class="text-primary text-sm font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
-                                <td class="p-4 text-on-surface-variant">
-                                    <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-surface-container-low transition-colors">
-                                <td class="p-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-full bg-tertiary/20 text-tertiary flex items-center justify-center font-bold">BM</div>
-                                        <div>
-                                            <p class="font-label-md text-on-surface">Bob Miller</p>
-                                            <p class="text-xs text-on-surface-variant">bob@acmecoworking.com</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="p-4"><span class="px-2 py-1 bg-surface-variant text-on-surface-variant rounded font-label-sm text-xs border border-outline-variant">Receptionist</span></td>
-                                <td class="p-4"><span class="text-primary text-sm font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Active</span></td>
-                                <td class="p-4 text-on-surface-variant">
-                                    <button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]">edit</span></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
         <!-- Panel: Billing & Payments -->
         <div id="panel-billing" class="settings-panel hidden animate-fade-in space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -304,28 +243,8 @@
             <p class="font-body-sm text-on-surface-variant mb-6">Enhance your co-working space by connecting external tools and services.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Slack Integration -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
-                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack" class="w-6 h-6">
-                    </div>
-                    <div class="flex-1">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="font-label-lg font-bold text-on-surface">Slack</h4>
-                                <p class="text-xs text-on-surface-variant mt-1">Send booking and visitor notifications to Slack channels.</p>
-                            </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="toggle-slack" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="toggle-slack"></label>
-                            </div>
-                        </div>
-                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Configure Channels</button>
-                    </div>
-                </div>
-
-                <!-- Google Workspace -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
+                <!-- Google Calendar -->
+                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4 animate-fade-in">
                     <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg" alt="Google Calendar" class="w-6 h-6">
                     </div>
@@ -335,32 +254,32 @@
                                 <h4 class="font-label-lg font-bold text-on-surface">Google Calendar</h4>
                                 <p class="text-xs text-on-surface-variant mt-1">Two-way sync for meeting room bookings.</p>
                             </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="toggle-gcal" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="toggle-gcal"></label>
-                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer ml-2">
+                                <input id="toggle-gcal" type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
                         </div>
                         <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Account</button>
                     </div>
                 </div>
 
-                <!-- Kisi Access Control -->
-                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4">
-                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-lg border border-primary/20 flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-[24px]">key</span>
+                <!-- Outlook Calendar -->
+                <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex items-start gap-4 animate-fade-in">
+                    <div class="w-12 h-12 bg-white rounded-lg shadow-sm border border-outline-variant flex items-center justify-center shrink-0">
+                        <img src="https://img.icons8.com/color/96/microsoft-outlook-2019.png" alt="Outlook Calendar" class="w-6 h-6">
                     </div>
                     <div class="flex-1">
                         <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="font-label-lg font-bold text-on-surface">Access Control (Kisi)</h4>
-                                <p class="text-xs text-on-surface-variant mt-1">Automatically grant physical door access to members.</p>
+                                <h4 class="font-label-lg font-bold text-on-surface">Outlook Calendar</h4>
+                                <p class="text-xs text-on-surface-variant mt-1">Sync room bookings and schedules directly with Outlook accounts.</p>
                             </div>
-                            <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                                <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="toggle-kisi" type="checkbox">
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="toggle-kisi"></label>
-                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer ml-2">
+                                <input id="toggle-outlook" type="checkbox" class="sr-only peer">
+                                <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                            </label>
                         </div>
-                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Integration</button>
+                        <button class="mt-3 text-primary font-label-sm hover:underline text-xs">Connect Account</button>
                     </div>
                 </div>
             </div>
@@ -378,10 +297,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Booking Confirmations</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Send an email receipt when a room or desk is booked.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="notif-1" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="notif-1"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-1" type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                     
                     <div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg">
@@ -389,10 +308,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Visitor Arrival Alert</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Notify the host via Email/SMS when their visitor checks in.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-on-primary border-4 appearance-none cursor-pointer border-primary top-0.5 left-5" id="notif-2" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-primary cursor-pointer" for="notif-2"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-2" type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                     
                     <div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg">
@@ -400,10 +319,10 @@
                             <h4 class="font-label-md font-bold text-on-surface">Upcoming Booking Reminder</h4>
                             <p class="text-xs text-on-surface-variant mt-1">Send a reminder 15 minutes before a meeting starts.</p>
                         </div>
-                        <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in ml-2">
-                            <input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-outline border-4 appearance-none cursor-pointer border-outline-variant top-0.5 left-0.5" id="notif-3" type="checkbox">
-                            <label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant border border-outline-variant cursor-pointer" for="notif-3"></label>
-                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input id="notif-3" type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:bg-primary after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -411,10 +330,124 @@
                 <button class="px-6 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm">Save Preferences</button>
             </div>
         </div>
+
+        <!-- Panel: Security & Password -->
+        <div id="panel-security" class="settings-panel hidden animate-fade-in space-y-6">
+            <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+                <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface mb-4 border-b border-outline-variant pb-2">Security Settings</h3>
+                <div class="space-y-4 max-w-md">
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Update your login password to ensure security of your manager account access.</p>
+                    <button onclick="openChangePasswordModal()" class="px-6 py-2.5 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">lock_reset</span> Change Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <!-- Backdrop overlay -->
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeChangePasswordModal()"></div>
+    <!-- Panel -->
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md relative z-10 flex flex-col h-full overflow-hidden">
+        <div class="flex items-center justify-between bg-surface-bright p-lg border-b border-outline-variant shrink-0">
+            <div>
+                <h3 class="font-headline-md font-bold text-on-surface">Change Password</h3>
+                <p class="font-body-sm text-on-surface-variant mt-1">Update your account password settings</p>
+            </div>
+            <button onclick="closeChangePasswordModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form id="changePasswordForm" onsubmit="event.preventDefault(); submitChangePassword();" class="flex-1 overflow-y-auto flex flex-col h-full bg-surface-container-lowest">
+            <div class="p-lg flex-1 flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-old-password">Old Password *</label>
+                    <div class="relative">
+                        <input id="modal-old-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-old-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-new-password">New Password *</label>
+                    <div class="relative">
+                        <input id="modal-new-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-new-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-confirm-password">Confirm Password *</label>
+                    <div class="relative">
+                        <input id="modal-confirm-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-confirm-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                    <p id="modal-pass-error" class="hidden text-error text-[11px] mt-1 font-medium">New passwords do not match.</p>
+                </div>
+            </div>
+
+            <div class="p-md border-t border-outline-variant bg-surface flex gap-2 mt-auto justify-end shrink-0">
+                <button type="button" class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm" onclick="closeChangePasswordModal()">Cancel</button>
+                <button type="submit" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Save Password</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
+    function openChangePasswordModal() {
+        document.getElementById('changePasswordForm').reset();
+        document.getElementById('modal-pass-error').classList.add('hidden');
+        document.getElementById('changePasswordModal').classList.remove('hidden');
+    }
+
+    function closeChangePasswordModal() {
+        document.getElementById('changePasswordModal').classList.add('hidden');
+    }
+
+    function togglePasswordVisibility(fieldId, button) {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        button.querySelector('span').textContent = isPassword ? 'visibility_off' : 'visibility';
+    }
+
+    function submitChangePassword() {
+        const oldPass = document.getElementById('modal-old-password').value;
+        const newPass = document.getElementById('modal-new-password').value;
+        const confirmPass = document.getElementById('modal-confirm-password').value;
+        const error = document.getElementById('modal-pass-error');
+
+        if (newPass !== confirmPass) {
+            error.textContent = "New passwords do not match.";
+            error.classList.remove('hidden');
+            return;
+        }
+
+        if (oldPass === newPass) {
+            error.textContent = "New password must be different from old password.";
+            error.classList.remove('hidden');
+            return;
+        }
+
+        error.classList.add('hidden');
+        alert("Password updated successfully!");
+        closeChangePasswordModal();
+    }
+
     function switchSettingsTab(tabId) {
         // Reset all navigation buttons
         document.querySelectorAll('.settings-nav-btn').forEach(btn => {

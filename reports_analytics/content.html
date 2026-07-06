@@ -1,0 +1,377 @@
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
+    <div>
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Reports Dashboard</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Analyze space utilization and member metrics.</p>
+    </div>
+    <div class="flex items-center gap-sm self-stretch sm:self-auto">
+        <!-- Date Picker Mock -->
+        <div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-on-surface-variant font-label-md text-label-md shadow-sm flex-1 sm:flex-initial justify-between sm:justify-start">
+            <span class="flex items-center"><span class="material-symbols-outlined text-[18px] mr-2">calendar_month</span> Last 30 Days</span>
+            <span class="material-symbols-outlined text-[18px] ml-2">expand_more</span>
+        </div>
+        <div class="flex gap-2">
+            <button class="flex items-center justify-center gap-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">download</span> PDF
+            </button>
+            <button class="flex items-center justify-center gap-1 bg-surface-container-lowest border border-outline-variant text-on-surface px-3 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">table_chart</span> CSV
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Metric Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-gutter mb-6 sm:mb-xl">
+    <!-- Card 1 -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant relative overflow-hidden flex flex-col justify-between min-h-[120px]">
+        <div class="flex justify-between items-start mb-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Bookings</span>
+            <span class="material-symbols-outlined text-primary text-[20px]">event_available</span>
+        </div>
+        <div>
+            <div id="report_total_bookings" class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">1,248</div>
+            <div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm mt-1">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                <span>12% vs last month</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-primary/30 to-transparent"></div>
+    </div>
+    <!-- Card 2 -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant relative overflow-hidden flex flex-col justify-between min-h-[120px]">
+        <div class="flex justify-between items-start mb-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Avg Resolution Time</span>
+            <span class="material-symbols-outlined text-tertiary text-[20px]">timer</span>
+        </div>
+        <div>
+            <div id="report_avg_resolution" class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">2.4h</div>
+            <div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm mt-1">
+                <span class="material-symbols-outlined text-[14px]">trending_down</span>
+                <span>-0.5h vs last month</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-tertiary/30 to-transparent"></div>
+    </div>
+    <!-- Card 3 -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant relative overflow-hidden flex flex-col justify-between min-h-[120px]">
+        <div class="flex justify-between items-start mb-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Unique Visitors</span>
+            <span class="material-symbols-outlined text-secondary text-[20px]">group</span>
+        </div>
+        <div>
+            <div id="report_unique_visitors" class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">8,405</div>
+            <div class="flex items-center gap-1 text-secondary font-label-sm text-label-sm mt-1">
+                <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                <span>8% vs last month</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-secondary/30 to-transparent"></div>
+    </div>
+    <!-- Card 4 -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant relative overflow-hidden flex flex-col justify-between min-h-[120px]">
+        <div class="flex justify-between items-start mb-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Occupancy Rate</span>
+            <span class="material-symbols-outlined text-primary text-[20px]">meeting_room</span>
+        </div>
+        <div>
+            <div id="report_occupancy_rate" class="font-headline-lg text-headline-lg text-on-surface font-bold leading-tight">76%</div>
+            <div class="flex items-center gap-1 text-error font-label-sm text-label-sm mt-1">
+                <span class="material-symbols-outlined text-[14px]">trending_down</span>
+                <span>-2% vs last month</span>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-8 opacity-20 bg-gradient-to-t from-error/30 to-transparent"></div>
+    </div>
+</div>
+
+<!-- Charts Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+    <!-- Booking Analytics (Line Chart) -->
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-4 sm:p-6 lg:col-span-2 flex flex-col justify-between h-[380px]">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Booking Volume Trends</h3>
+            <button class="text-on-surface-variant hover:text-primary" aria-label="Options">
+                <span class="material-symbols-outlined">more_vert</span>
+            </button>
+        </div>
+        <div class="w-full flex-1 relative min-h-[250px]">
+            <canvas id="bookingLineChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Support Resolution (Doughnut Chart) -->
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-4 sm:p-6 flex flex-col justify-between h-[380px]">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Tickets by Priority</h3>
+            <button class="text-on-surface-variant hover:text-primary" aria-label="Options">
+                <span class="material-symbols-outlined">more_vert</span>
+            </button>
+        </div>
+        <div class="w-full flex-1 relative flex justify-center items-center min-h-[160px]">
+            <canvas id="supportPieChart"></canvas>
+        </div>
+        <div class="mt-4 flex flex-col gap-2">
+            <div class="flex items-center justify-between font-label-sm text-label-sm">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-error"></span> High</div>
+                <span class="text-on-surface-variant font-medium">15%</span>
+            </div>
+            <div class="flex items-center justify-between font-label-sm text-label-sm">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-tertiary"></span> Medium</div>
+                <span class="text-on-surface-variant font-medium">45%</span>
+            </div>
+            <div class="flex items-center justify-between font-label-sm text-label-sm">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-primary-fixed-dim"></span> Low</div>
+                <span class="text-on-surface-variant font-medium">40%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visitor Analytics (Bar Chart) -->
+    <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant p-4 sm:p-6 lg:col-span-3 flex flex-col justify-between h-[380px]">
+        <div class="flex justify-between items-center mb-4 gap-4">
+            <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Visitor Traffic: Peak Hours</h3>
+            <div class="flex gap-2">
+                <button class="px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm border border-primary/20">Today</button>
+                <button class="px-3 py-1 rounded-full text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container-low border border-transparent transition-colors">Week</button>
+            </div>
+        </div>
+        <div class="w-full flex-1 relative min-h-[250px]">
+            <canvas id="visitorBarChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Get live mock database
+        function getDb() {
+            let db = localStorage.getItem('coworkMockDatabase');
+            if (db) {
+                try {
+                    return JSON.parse(db);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            return { members: [], bookings: [], visitors: [] };
+        }
+
+        const db = getDb();
+        const bookings = db.bookings || [];
+        const visitors = db.visitors || [];
+        const membersCount = db.members ? db.members.length : 145;
+
+        // 1. Update Metrics Cards
+        const totalBookingsVal = bookings.length * 48 + 528;
+        const uniqueVisitorsVal = visitors.length * 6 + 120;
+        const occupancyRateVal = Math.min(98, Math.max(45, Math.round((bookings.length / 20) * 100))) || 76;
+
+        document.getElementById('report_total_bookings').textContent = totalBookingsVal.toLocaleString();
+        document.getElementById('report_unique_visitors').textContent = uniqueVisitorsVal.toLocaleString();
+        document.getElementById('report_occupancy_rate').textContent = `${occupancyRateVal}%`;
+        document.getElementById('report_avg_resolution').textContent = '2.4h';
+
+        // 2. Common Chart.js Configuration
+        if (window.Chart) {
+            Chart.defaults.font.family = 'Inter, sans-serif';
+            Chart.defaults.color = '#737686';
+            const gridColor = '#e2e8f0';
+
+            // Booking Trends Calculation
+            const todayCount = bookings.length;
+            const meetingRoomTrend = [
+                Math.round(todayCount * 0.7) || 12,
+                Math.round(todayCount * 0.9) || 15,
+                Math.round(todayCount * 1.1) || 18,
+                Math.round(todayCount * 0.8) || 14,
+                Math.round(todayCount * 1.0) || 16,
+                Math.round(todayCount * 0.4) || 6,
+                Math.round(todayCount * 0.3) || 4
+            ];
+            const deskTrend = [
+                Math.round(membersCount * 0.45) || 65,
+                Math.round(membersCount * 0.54) || 78,
+                Math.round(membersCount * 0.62) || 90,
+                Math.round(membersCount * 0.56) || 81,
+                Math.round(membersCount * 0.39) || 56,
+                Math.round(membersCount * 0.21) || 30,
+                Math.round(membersCount * 0.14) || 20
+            ];
+
+            // 1. Line Chart: Booking Analytics
+            const ctxLine = document.getElementById('bookingLineChart').getContext('2d');
+            new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Desks',
+                            data: deskTrend,
+                            borderColor: '#004ac6',
+                            backgroundColor: 'rgba(0, 74, 198, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#004ac6',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Meeting Rooms',
+                            data: meetingRoomTrend,
+                            borderColor: '#006b5f',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            borderDash: [5, 5],
+                            pointBackgroundColor: '#006b5f',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            align: 'end',
+                            labels: { usePointStyle: true, boxWidth: 8 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor, drawBorder: false },
+                            border: { display: false }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // 2. Pie Chart: Support Tickets
+            const ctxPie = document.getElementById('supportPieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High', 'Medium', 'Low'],
+                    datasets: [{
+                        data: [15, 45, 40],
+                        backgroundColor: [
+                            '#ba1a1a',
+                            '#3e3fcc',
+                            '#b4c5ff'
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            padding: 12,
+                            cornerRadius: 4
+                        }
+                    }
+                }
+            });
+
+            // Visitor Peaks Calculation
+            const hourBuckets = {
+                '8am': 0, '9am': 0, '10am': 0, '11am': 0, '12pm': 0,
+                '1pm': 0, '2pm': 0, '3pm': 0, '4pm': 0, '5pm': 0, '6pm': 0
+            };
+            visitors.forEach(v => {
+                const timeStr = v.expectedArrival || v.time;
+                if (!timeStr) return;
+                const parts = timeStr.toLowerCase().match(/(\d+):(\d+)\s*(am|pm)/);
+                if (parts) {
+                    let hr = parseInt(parts[1], 10);
+                    const ampm = parts[3];
+                    if (ampm === 'pm' && hr < 12) hr += 12;
+                    if (ampm === 'am' && hr === 12) hr = 0;
+                    
+                    if (hr >= 8 && hr <= 18) {
+                        const label = hr === 12 ? '12pm' : hr > 12 ? `${hr - 12}pm` : `${hr}am`;
+                        if (hourBuckets[label] !== undefined) {
+                            hourBuckets[label]++;
+                        }
+                    }
+                }
+            });
+            const visitorPeakData = [
+                hourBuckets['8am'] * 3 + 12,
+                hourBuckets['9am'] * 3 + 45,
+                hourBuckets['10am'] * 3 + 85,
+                hourBuckets['11am'] * 3 + 110,
+                hourBuckets['12pm'] * 3 + 95,
+                hourBuckets['1pm'] * 3 + 120,
+                hourBuckets['2pm'] * 3 + 80,
+                hourBuckets['3pm'] * 3 + 65,
+                hourBuckets['4pm'] * 3 + 40,
+                hourBuckets['5pm'] * 3 + 20,
+                hourBuckets['6pm'] * 3 + 5
+            ];
+
+            // 3. Bar Chart: Visitor Peak Times
+            const ctxBar = document.getElementById('visitorBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'],
+                    datasets: [{
+                        label: 'Visitors',
+                        data: visitorPeakData,
+                        backgroundColor: '#dce9ff',
+                        hoverBackgroundColor: '#004ac6',
+                        borderRadius: 4,
+                        barThickness: 'flex',
+                        maxBarThickness: 32
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#213145',
+                            padding: 12,
+                            cornerRadius: 4,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: gridColor, drawBorder: false },
+                            border: { display: false }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+    })();
+</script>

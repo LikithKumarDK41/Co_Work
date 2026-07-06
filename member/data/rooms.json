@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "name": "Conference Room 1 (Int)",
+    "parentWorkspace": "Nichi-In Workspace 1 (Int)",
+    "capacity": 12,
+    "location": "Building 812 • Level 2 • North Wing",
+    "size": 400,
+    "amenities": ["TV", "Whiteboard", "Phone", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA4XLONVI4yXpZu_zL78_DnYecij3NfsVE1EdBRLiqqrgfxcstMl4pumV_b-6NZ15XX85v3VCCYa5UHd1YYe2VIXhgfSJ-HbZtp7hiyt4J5vBFoynoW-lRGEsirmJj8PltzUtikNeRBxpzUbs3mws_yzU5e4dJ3ryFDV48PtYasswobUSn2AL_N6hSB-4ChM4AlQWVVvgEKpX9uRn3bBtmZ3KIlJOBxvv3-r9wjmTTo19Pp8sBIdjMbPo70aJGJXeuqrDJZjV_NbAPS"
+  },
+  {
+    "id": 2,
+    "name": "Meeting Room 1 (Int)",
+    "parentWorkspace": "Nichi-In Workspace 2 (Int)",
+    "capacity": 6,
+    "location": "Building 812 • Level 1 • East Wing",
+    "size": 150,
+    "amenities": ["Whiteboard", "TV", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAI5dRmzIMDogwIt9r-fE62hI_0Pr0kDJ4ekQsmOTK-lCT9WcK_7ASMSGaldSU0Md66inBMrnYOS6slU9FuWSmcQdM3CqdQZahyuZMZTeIeoysM8SS2q3zIAfLC5_DiZQbVPSqdUHwn74fcLV-Bo9XViSfIu8kStWHn5WWxDGinK4k-ZU8GZlK2mC_ncFMzeCRtBGfa7zLnn6Bl_QYUtkpREIq6Lv3dGbJ-TYAN9lcdpR7nGuubP7AEXP_k96XVLBskSZmvJGWgy_po"
+  },
+  {
+    "id": 3,
+    "name": "Meeting Corner 1 (Int)",
+    "parentWorkspace": "Nichi-In Workspace 2 (Int)",
+    "capacity": 4,
+    "location": "Building 812 • Level 2 • South Wing",
+    "size": 100,
+    "amenities": ["Comfortable Chairs", "Power Outlets", "High-Speed WiFi"],
+    "status": "Active",
+    "image": "images/podcast_studio.png"
+  },
+  {
+    "id": 4,
+    "name": "Meeting Corner 2 (Int)",
+    "parentWorkspace": "Nichi-In Workspace 3 (Int)",
+    "capacity": 2,
+    "location": "Building 812 • Level 2 • Central Hub",
+    "size": 60,
+    "amenities": ["High-Speed WiFi", "Power Outlets"],
+    "status": "Active",
+    "image": ""
+  },
+  {
+    "id": 5,
+    "name": "Conference Room 1 (Ext)",
+    "parentWorkspace": "Nichi-In Workspace 1 (Ext)",
+    "capacity": 12,
+    "location": "Building 813 • Level 2 • North Wing",
+    "size": 400,
+    "amenities": ["TV", "Whiteboard", "Phone", "High-Speed WiFi"],
+    "status": "Active",
+    "image": ""
+  },
+  {
+    "id": 6,
+    "name": "Meeting Corner 1 (Ext)",
+    "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
+    "capacity": 3,
+    "location": "Building 813 • Level 1 • East Wing",
+    "size": 80,
+    "amenities": ["Comfortable Chairs", "Power Outlets", "High-Speed WiFi"],
+    "status": "Active",
+    "image": ""
+  },
+  {
+    "id": 7,
+    "name": "Meeting Room 1 (Ext)",
+    "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
+    "capacity": 6,
+    "location": "Building 813 • Level 1 • East Wing",
+    "size": 150,
+    "amenities": ["Whiteboard", "TV", "High-Speed WiFi"],
+    "status": "Active",
+    "image": ""
+  },
+  {
+    "id": 8,
+    "name": "Meeting Corner 2 (Ext)",
+    "parentWorkspace": "Nichi-In Workspace 2 (Ext)",
+    "capacity": 4,
+    "location": "Building 813 • Level 2 • South Wing",
+    "size": 100,
+    "amenities": ["Comfortable Chairs", "Power Outlets", "High-Speed WiFi"],
+    "status": "Active",
+    "image": ""
+  },
+  {
+    "id": 9,
+    "name": "Meeting Corner 3 (Ext)",
+    "parentWorkspace": "Nichi-In Workspace 3 (Ext)",
+    "capacity": 2,
+    "location": "Building 813 • Level 2 • Central Hub",
+    "size": 60,
+    "amenities": ["High-Speed WiFi", "Power Outlets"],
+    "status": "Active",
+    "image": ""
+  }
+]

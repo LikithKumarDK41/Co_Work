@@ -2,7 +2,7 @@ import os
 import re
 
 dashboard_path = r"d:\Nichi-In\Experimental\SP_Telecom\Member\dashboard.html"
-admin_code = r"d:\Nichi-In\Experimental\SP_Telecom\stitch_sb_telecom_co_work_space_management_admin\admin_dashboard_co_work_manager\code.html"
+admin_code = r"d:\Nichi-In\Experimental\SP_Telecom\stitch_sb_telecom_co_work_space_management_admin\admin_dashboard\code.html"
 
 # read tailwind config from admin code
 with open(admin_code, 'r', encoding='utf-8') as f:
@@ -14,7 +14,7 @@ tailwind_config = match.group(1)
 html_content = f"""<!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Member Dashboard - SB Telecom</title>
+<title>Member Dashboard -Nichi-In</title>
 <link href="layout.css" rel="stylesheet">
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -43,7 +43,7 @@ html_content = f"""<!DOCTYPE html><html lang="en"><head>
     <div class="min-w-0">
         <p class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Tuesday, October 24</p>
         <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Good morning, Alex.</h2>
-        <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day at SB Telecom. Your next meeting is in 45 minutes.</p>
+        <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day atNichi-In. Your next meeting is in 45 minutes.</p>
     </div>
 </div>
 <!-- Bento Grid Layout -->

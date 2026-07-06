@@ -1,15 +1,22 @@
-<!DOCTYPE html><html class="light" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Booking Confirmation - SB Telecom</title>
-<link href="layout.css" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect">
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Booking Confirmation -Nichi-In</title>
+    <link href="layout.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -109,97 +116,125 @@
             }
         }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 400,
-          'GRAD' 0,
-          'opsz' 24
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
         }
     </style>
     <script src="layout.js" defer></script>
 </head>
+
 <body class="bg-background text-on-background font-body-md antialiased min-h-screen flex">
-<!-- Main Content Area -->
-<main class="page-layout flex-1 w-full flex justify-center items-center p-margin-mobile md:p-margin-desktop min-h-screen">
-<div class="max-w-2xl w-full bg-surface-container-lowest shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-xl p-8 md:p-12 text-center animate-[fadeIn_0.5s_ease-out]">
-<!-- Success Icon & Header -->
-<div class="flex flex-col items-center gap-stack-md mb-stack-lg">
-<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-stack-sm shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
-<span class="material-symbols-outlined text-on-secondary-container" style="font-size: 32px; font-variation-settings: 'FILL' 1;">check_circle</span>
-</div>
-<h1 class="font-headline-lg text-headline-lg md:text-headline-lg text-primary tracking-tight">Booking Confirmed!</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Your meeting space is ready.</p>
-</div>
-<!-- Divider -->
-<hr class="border-t border-surface-container-highest my-stack-lg w-full">
-<!-- Booking Details Bento Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md text-left mb-stack-lg">
-<!-- Room Detail -->
-<div class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
-<span class="material-symbols-outlined text-on-surface-variant mt-1">meeting_room</span>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Room</p>
-<p class="font-body-md text-body-md text-on-surface font-medium">The Boardroom</p>
-</div>
-</div>
-<!-- Date Detail -->
-<div class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
-<span class="material-symbols-outlined text-on-surface-variant mt-1">event</span>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Date</p>
-<p class="font-body-md text-body-md text-on-surface font-medium">Oct 24, 2023</p>
-</div>
-</div>
-<!-- Time Detail -->
-<div class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
-<span class="material-symbols-outlined text-on-surface-variant mt-1">schedule</span>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Time</p>
-<p class="font-body-md text-body-md text-on-surface font-medium">1:00 PM - 2:00 PM</p>
-</div>
-</div>
-<!-- Location Detail -->
-<div class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
-<span class="material-symbols-outlined text-on-surface-variant mt-1">location_on</span>
-<div>
-<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">Location</p>
-<p class="font-body-md text-body-md text-on-surface font-medium">Floor 4, North Wing</p>
-</div>
-</div>
-</div>
-<!-- Divider -->
-<hr class="border-t border-surface-container-highest my-stack-lg w-full">
-<!-- QR Code Section -->
-<div class="flex flex-col items-center gap-stack-md mb-stack-lg">
-<div class="bg-surface-container-lowest p-stack-sm rounded-xl border border-surface-container-highest shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
-<img alt="Check-in QR Code" class="w-48 h-48 object-contain rounded-lg mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpyi3PtPpd8A1itSyLfv4W-MedFjOtG8X1Uu15OAd3ljL5tJuvisQGeQt6eFxrMIsB53HZ0SXgYM_6do1MFYrZPiasOcJK1WYQFvq0je-Nw0ML19s4_A2h3VcOuEjwEyyxdRXQ8Ec654HIQvUuXMt7ERku3tCDqT19MN37cCcSv0mosCZP-MPmWt4BqUW9JdUJAGdg_CHPIS4B5btD_v7NPlyWmbeVYnm3HFqrdMYDKtCgdelVaMuqApxnLaQRc7ypRpe_dIU3O-C9">
-</div>
-<p class="font-label-md text-label-md text-primary font-medium tracking-wide">Scan to Check-in</p>
-<p class="font-body-sm text-[14px] text-on-surface-variant">Present this code at the reception desk.</p>
-</div>
-<!-- Action Buttons -->
-<div class="flex flex-col sm:flex-row gap-stack-md justify-center mt-stack-lg">
-<button class="font-label-md text-label-md bg-surface-container-lowest text-primary border border-outline-variant px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-low hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-200">
-<span class="material-symbols-outlined text-[20px]">calendar_add_on</span>
+    <!-- Main Content Area -->
+    <main
+        class="page-layout flex-1 w-full flex justify-center items-center p-margin-mobile md:p-margin-desktop min-h-screen">
+        <div
+            class="max-w-2xl w-full bg-surface-container-lowest shadow-[0_4px_20px_rgba(0,0,0,0.04)] rounded-xl p-8 md:p-12 text-center animate-[fadeIn_0.5s_ease-out]">
+            <!-- Success Icon & Header -->
+            <div class="flex flex-col items-center gap-stack-md mb-stack-lg">
+                <div
+                    class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center mb-stack-sm shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+                    <span class="material-symbols-outlined text-on-secondary-container"
+                        style="font-size: 32px; font-variation-settings: 'FILL' 1;">check_circle</span>
+                </div>
+                <h1 class="font-headline-lg text-headline-lg md:text-headline-lg text-primary tracking-tight">Booking
+                    Confirmed!</h1>
+                <p class="font-body-md text-body-md text-on-surface-variant">Your meeting space is ready.</p>
+            </div>
+            <!-- Divider -->
+            <hr class="border-t border-surface-container-highest my-stack-lg w-full">
+            <!-- Booking Details Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md text-left mb-stack-lg">
+                <!-- Room Detail -->
+                <div
+                    class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant mt-1">meeting_room</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">
+                            Room</p>
+                        <p class="font-body-md text-body-md text-on-surface font-medium">The Boardroom</p>
+                    </div>
+                </div>
+                <!-- Date Detail -->
+                <div
+                    class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant mt-1">event</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">
+                            Date</p>
+                        <p class="font-body-md text-body-md text-on-surface font-medium">Oct 24, 2023</p>
+                    </div>
+                </div>
+                <!-- Time Detail -->
+                <div
+                    class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant mt-1">schedule</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">
+                            Time</p>
+                        <p class="font-body-md text-body-md text-on-surface font-medium">1:00 PM - 2:00 PM</p>
+                    </div>
+                </div>
+                <!-- Location Detail -->
+                <div
+                    class="bg-surface-container-low p-stack-md rounded-lg flex items-start gap-stack-sm hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-200">
+                    <span class="material-symbols-outlined text-on-surface-variant mt-1">location_on</span>
+                    <div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mb-1">
+                            Location</p>
+                        <p class="font-body-md text-body-md text-on-surface font-medium">Floor 4, North Wing</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Divider -->
+            <hr class="border-t border-surface-container-highest my-stack-lg w-full">
+            <!-- QR Code Section -->
+            <div class="flex flex-col items-center gap-stack-md mb-stack-lg">
+                <div
+                    class="bg-surface-container-lowest p-stack-sm rounded-xl border border-surface-container-highest shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
+                    <img alt="Check-in QR Code" class="w-48 h-48 object-contain rounded-lg mix-blend-multiply"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpyi3PtPpd8A1itSyLfv4W-MedFjOtG8X1Uu15OAd3ljL5tJuvisQGeQt6eFxrMIsB53HZ0SXgYM_6do1MFYrZPiasOcJK1WYQFvq0je-Nw0ML19s4_A2h3VcOuEjwEyyxdRXQ8Ec654HIQvUuXMt7ERku3tCDqT19MN37cCcSv0mosCZP-MPmWt4BqUW9JdUJAGdg_CHPIS4B5btD_v7NPlyWmbeVYnm3HFqrdMYDKtCgdelVaMuqApxnLaQRc7ypRpe_dIU3O-C9">
+                </div>
+                <p class="font-label-md text-label-md text-primary font-medium tracking-wide">Scan to Check-in</p>
+                <p class="font-body-sm text-[14px] text-on-surface-variant">Present this code at the reception desk.</p>
+            </div>
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-stack-md justify-center mt-stack-lg">
+                <button
+                    class="font-label-md text-label-md bg-surface-container-lowest text-primary border border-outline-variant px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-low hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px]">calendar_add_on</span>
                     Add to Calendar
                 </button>
-<a class="font-label-md text-label-md bg-primary text-on-primary px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-200" href="my_booking.html">
-<span class="material-symbols-outlined text-[20px]">list_alt</span>
+                <a class="font-label-md text-label-md bg-primary text-on-primary px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-200"
+                    href="my_booking.html">
+                    <span class="material-symbols-outlined text-[20px]">list_alt</span>
                     View My Bookings
                 </a>
-<a class="font-label-md text-label-md bg-transparent text-on-surface-variant px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-200" href="dashboard.html">
-<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                <a class="font-label-md text-label-md bg-transparent text-on-surface-variant px-6 py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-200"
+                    href="dashboard.html">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>
                     Back to Dashboard
                 </a>
-</div>
-</div>
-</main>
-<style>
+            </div>
+        </div>
+    </main>
+    <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
-</body></html>
+</body>
+
+</html>

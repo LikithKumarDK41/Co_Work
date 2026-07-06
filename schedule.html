@@ -49,20 +49,7 @@
             <div class="flex flex-col md:flex-row gap-4 items-center w-full lg:w-auto">
                 <div class="relative w-full md:w-auto md:min-w-[200px]">
                     <select id="room-selector" class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 pr-10 text-on-surface font-label-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm cursor-pointer" onchange="filterRooms(this.value)">
-                                                <option value="all" selected>All Rooms</option>
-                        <option value="the-boardroom">The Boardroom</option>
-                        <option value="creative-hub-a">Creative Hub A</option>
-                        <option value="podcast-studio">Podcast Studio</option>
-                        <option value="focus-pod">Focus Pod</option>
-                        <option value="studio-b">Studio B</option>
-                        <option value="executive-suite">Executive Suite</option>
-                        <option value="conf-a">Conference Room A</option>
-                        <option value="conf-b">Conference Room B</option>
-                        <option value="training-room">Training Room</option>
-                        <option value="phone-booth-1">Phone Booth 1</option>
-                        <option value="phone-booth-2">Phone Booth 2</option>
-                        <option value="edit-bay-1">Edit Bay 1</option>
-                        <option value="edit-bay-2">Edit Bay 2</option>
+                        <option value="all" selected>All Rooms</option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-on-surface-variant">
                         <span class="material-symbols-outlined text-[20px]">expand_more</span>
@@ -98,306 +85,7 @@
                         </div>
                     </div>
 
-                                        <!-- Room: The Boardroom -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="the-boardroom">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">The Boardroom</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 12 &bull; Screen</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Creative Hub A -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="creative-hub-a">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Creative Hub A</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 4 &bull; Whiteboard</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Podcast Studio -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="podcast-studio">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Podcast Studio</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 2 &bull; A/V</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Focus Pod -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="focus-pod">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Focus Pod</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 1 &bull; None</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Studio B -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="studio-b">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Studio B</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 8 &bull; Mic</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Executive Suite -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="executive-suite">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Executive Suite</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 10 &bull; Screen</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Conference Room A -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="conf-a">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Conference Room A</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 6 &bull; Screen</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Conference Room B -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="conf-b">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Conference Room B</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 6 &bull; Screen</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Training Room -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="training-room">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Training Room</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 20 &bull; Projector</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Phone Booth 1 -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="phone-booth-1">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Phone Booth 1</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 1</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Phone Booth 2 -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="phone-booth-2">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Phone Booth 2</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 1</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Edit Bay 1 -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="edit-bay-1">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Edit Bay 1</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 2 &bull; Mac Pro</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>                    <!-- Room: Edit Bay 2 -->
-                    <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="edit-bay-2">
-                        <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
-                            <div class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">Edit Bay 2</div>
-                            <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: 2 &bull; Mac Pro</div>
-                        </div>
-                        <div class="flex-1 relative">
-                            <!-- Background Grid -->
-                            <div class="absolute inset-0 flex pointer-events-none">
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
-                                <div class="w-[10%] shrink-0"></div>
-                            </div>
-                            <!-- Events Container -->
-                            <div class="events-container absolute inset-0 pointer-events-none"></div>
-                        </div>
-                    </div>
+                    <div id="schedule-rows-container"></div>
                 </div>
             </div>
         </div>
@@ -524,6 +212,76 @@
         </div>
     </div>
 
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
+        <div class="bg-white text-gray-900 rounded-2xl shadow-2xl w-full max-w-lg md:max-w-xl mx-4 overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div class="p-5 md:p-6 border-b border-gray-200 flex justify-between items-center bg-white shrink-0">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900 tracking-tight" id="booking-modal-title">Book a Room</h2>
+                <button onclick="closeBookingModal()" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <!-- Body Container -->
+            <div id="booking-modal-body" class="p-6 overflow-y-auto flex-1 space-y-6">
+                <!-- Step 1: Details & Slot selection -->
+                <div id="booking-step-1" class="space-y-6">
+                    <!-- Room Info Card -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-4 items-start">
+                        <span class="material-symbols-outlined text-primary text-[32px]">meeting_room</span>
+                        <div>
+                            <h4 class="font-bold text-lg text-primary" id="booking-room-name">Conference Room 1 (Int)</h4>
+                            <p class="text-sm text-gray-600 mt-1" id="booking-room-meta">Cap: 12 &bull; Building 812 • Level 2</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Available Slots Selector -->
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Available Time Slots Today</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="booking-slots-list">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Custom Title -->
+                    <div>
+                        <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Meeting Title</label>
+                        <input type="text" id="booking-title" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g. Design Review">
+                    </div>
+                </div>
+                
+                <!-- Step 2: Member Authentication -->
+                <div id="booking-step-2" class="hidden space-y-6">
+                    <div class="text-center">
+                        <span class="material-symbols-outlined text-primary text-[48px] animate-pulse">lock_person</span>
+                        <h3 class="font-bold text-xl mt-2 text-gray-900">Member Authentication</h3>
+                        <p class="text-sm text-gray-500 mt-1">Please log in to confirm your room reservation.</p>
+                    </div>
+                    <div class="space-y-4 max-w-sm mx-auto">
+                        <div>
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1.5">Email Address</label>
+                            <input type="email" id="auth-email" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="alex.rivera@cowork.com" value="alex.rivera@cowork.com">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1.5">Password</label>
+                            <input type="password" id="auth-password" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="••••••••" value="password123">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="p-5 md:p-6 border-t border-gray-200 bg-gray-50 flex justify-end gap-3 shrink-0">
+                <button onclick="closeBookingModal()" class="px-5 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium text-sm">
+                    Cancel
+                </button>
+                <button id="booking-next-btn" class="px-6 py-2.5 bg-primary text-white rounded-lg hover:opacity-90 shadow-sm transition-all font-semibold text-sm tracking-wide">
+                    Proceed to Book
+                </button>
+            </div>
+        </div>
+    </div>
+
     <style>
         @keyframes scan {
             0% { transform: translateY(-100%); }
@@ -621,7 +379,9 @@
             document.getElementById('modal-title').textContent = evt.title;
             
             // Re-format room name for display
-            const roomNameDisplay = evt.room.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            const targetRoomKey = ROOM_MAPPING[evt.room] || evt.room;
+            const matchedRoomObj = roomsList.find(r => r.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") === targetRoomKey);
+            const roomNameDisplay = matchedRoomObj ? matchedRoomObj.name.replace(/\s*\((Int|Ext)\)/i, "") : evt.room.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
             document.getElementById('modal-room').textContent = roomNameDisplay;
             
             document.getElementById('modal-time').textContent = formatAmPm(evt.start) + ' - ' + formatAmPm(evt.end);
@@ -770,7 +530,8 @@
             const events = MOCK_SCHEDULE_DATA[dataKey] || MOCK_SCHEDULE_DATA['other'];
 
             events.forEach(evt => {
-                const row = document.querySelector(`.room-row[data-room="${evt.room}"]`);
+                const targetRoomKey = ROOM_MAPPING[evt.room] || evt.room;
+                const row = document.querySelector(`.room-row[data-room="${targetRoomKey}"]`);
                 if (!row) return;
                 let container = row.querySelector('.events-container');
                 if (!container) {
@@ -874,7 +635,94 @@
             updateCurrentTimeIndicator();
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        const ROOM_MAPPING = {
+            'the-boardroom': 'conference-room-1-int',
+            'creative-hub-a': 'meeting-room-1-int',
+            'podcast-studio': 'meeting-corner-1-int',
+            'focus-pod': 'meeting-corner-2-int',
+            'studio-b': 'meeting-corner-1-ext',
+            'executive-suite': 'meeting-room-1-ext',
+            'conf-a': 'conference-room-1-ext',
+            'conf-b': 'meeting-corner-2-ext',
+            'training-room': 'meeting-corner-3-ext'
+        };
+
+        let roomsList = [];
+
+        async function initRooms() {
+            let stored = sessionStorage.getItem("rooms_list");
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (parsed.some(r => r.name.includes("Boardroom") || r.name.includes("Creative Hub") || r.name.includes("Podcast") || r.name.includes("Focus Pod"))) {
+                    stored = null;
+                }
+            }
+            if (!stored) {
+                try {
+                    const res = await fetch("member/data/rooms.json");
+                    const data = await res.json();
+                    sessionStorage.setItem("rooms_list", JSON.stringify(data));
+                    stored = JSON.stringify(data);
+                } catch(e) {
+                    console.error("Failed to fetch rooms master", e);
+                }
+            }
+            roomsList = JSON.parse(stored || "[]").filter(r => r.status === "Active");
+
+            // Populate room selector dropdown
+            const selector = document.getElementById("room-selector");
+            if (selector) {
+                selector.innerHTML = `<option value="all" selected>All Rooms</option>` + 
+                    roomsList.map(r => {
+                        const roomKey = r.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+                        const displayName = r.name.replace(/\s*\((Int|Ext)\)/i, "");
+                        const suffix = r.name.includes("(Int)") ? " (Internal)" : r.name.includes("(Ext)") ? " (External)" : "";
+                        return `<option value="${roomKey}">${displayName}${suffix}</option>`;
+                    }).join("");
+            }
+
+            // Render room rows
+            const rowsContainer = document.getElementById("schedule-rows-container");
+            if (rowsContainer) {
+                rowsContainer.innerHTML = roomsList.map(room => {
+                    const roomKey = room.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "");
+                    const displayName = room.name.replace(/\s*\((Int|Ext)\)/i, "");
+                    const suffix = room.name.includes("(Int)") ? "Internal" : room.name.includes("(Ext)") ? "External" : "";
+                    const badgeBg = suffix === "Internal" ? "bg-blue-100 text-blue-800 border-blue-200" : "bg-purple-100 text-purple-800 border-purple-200";
+                    return `
+                        <div class="flex border-b border-outline-variant/50 group hover:bg-surface-container-lowest transition-colors relative min-h-[80px] room-row" data-room="${roomKey}">
+                            <div class="w-24 md:w-64 shrink-0 p-2 md:p-4 border-r border-outline-variant flex flex-col justify-center bg-surface-container-lowest group-hover:bg-surface-container-low transition-colors sticky left-0 z-20 overflow-hidden">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="font-label-md text-on-surface font-bold text-xs md:text-sm truncate">${displayName}</span>
+                                    <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeBg}">${suffix}</span>
+                                </div>
+                                <div class="text-[9px] md:text-[12px] text-on-surface-variant truncate">Cap: ${room.capacity} &bull; ${room.location.split("•")[2] || room.location.split("•")[1] || "Level 1"}</div>
+                            </div>
+                            <div class="flex-1 relative cursor-pointer" onclick="handleGridClick(event, '${roomKey}')">
+                                <!-- Background Grid -->
+                                <div class="absolute inset-0 flex pointer-events-none">
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0 border-r border-outline-variant/30"></div>
+                                    <div class="w-[10%] shrink-0"></div>
+                                </div>
+                                <!-- Events Container -->
+                                <div class="events-container absolute inset-0 pointer-events-none"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initRooms();
             const datePicker = document.getElementById('schedule-date-picker');
             datePicker.addEventListener('change', (e) => handleDateChange(e.target.value));
             
@@ -888,6 +736,262 @@
                 }
             });
         });
+
+        let selectedBookingSlot = null;
+
+        function handleGridClick(event, roomKey) {
+            // Check if user clicked an existing event card
+            if (event.target.closest('.events-container > div')) {
+                return; // Let the event details modal run normally
+            }
+
+            const roomObj = roomsList.find(r => r.name.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "") === roomKey);
+            if (!roomObj) return;
+
+            // Populate room details in booking modal
+            document.getElementById('booking-room-name').textContent = roomObj.name.replace(/\s*\((Int|Ext)\)/i, "");
+            document.getElementById('booking-room-meta').textContent = `Cap: ${roomObj.capacity} • ${roomObj.location}`;
+
+            // Calculate free slots
+            const datePickerValue = document.getElementById('schedule-date-picker').value;
+            const today = new Date();
+            const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+            const tomorrowStr = getTomorrowsDateStr();
+            let dataKey = 'other';
+            if (datePickerValue === todayStr) dataKey = 'today';
+            else if (datePickerValue === tomorrowStr) dataKey = 'tomorrow';
+
+            const events = MOCK_SCHEDULE_DATA[dataKey] || MOCK_SCHEDULE_DATA['other'];
+            const roomEvents = events.filter(evt => {
+                const targetKey = ROOM_MAPPING[evt.room] || evt.room;
+                return targetKey === roomKey;
+            });
+
+            function parseTimeToMinutes(timeStr) {
+                const [h, m] = timeStr.split(':').map(Number);
+                return h * 60 + m;
+            }
+
+            const busyIntervals = roomEvents.map(evt => ({
+                start: parseTimeToMinutes(evt.start),
+                end: parseTimeToMinutes(evt.end)
+            })).sort((a, b) => a.start - b.start);
+
+            const freeIntervals = [];
+            let currentStart = 480; // 08:00 AM
+            for (const interval of busyIntervals) {
+                if (interval.start > currentStart) {
+                    freeIntervals.push({ start: currentStart, end: interval.start });
+                }
+                currentStart = Math.max(currentStart, interval.end);
+            }
+            if (currentStart < 1080) { // 06:00 PM
+                freeIntervals.push({ start: currentStart, end: 1080 });
+            }
+
+            function minutesToTimeStr(mins) {
+                const h = Math.floor(mins / 60);
+                const m = mins % 60;
+                return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+            }
+
+            const slotsListContainer = document.getElementById('booking-slots-list');
+            if (freeIntervals.length === 0) {
+                slotsListContainer.innerHTML = `<div class="col-span-2 text-center text-sm text-gray-500 py-4">No slots available for this room today.</div>`;
+            } else {
+                slotsListContainer.innerHTML = freeIntervals.map((interval, idx) => {
+                    const startStr = minutesToTimeStr(interval.start);
+                    const endStr = minutesToTimeStr(interval.end);
+                    const label = formatAmPm(startStr) + ' - ' + formatAmPm(endStr);
+                    return `
+                        <div class="border border-gray-200 hover:border-primary hover:bg-blue-50/50 rounded-xl p-3 flex flex-col items-center justify-center cursor-pointer transition-all slot-option font-medium" 
+                             onclick="selectSlot(this, '${roomKey}', '${datePickerValue}', '${startStr}', '${endStr}')">
+                            <span class="font-bold text-gray-800 text-sm">${label}</span>
+                            <span class="text-xs text-green-600 font-semibold mt-1 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Available
+                            </span>
+                        </div>
+                    `;
+                }).join("");
+            }
+
+            // Reset selected state and input fields
+            selectedBookingSlot = null;
+            document.getElementById('booking-title').value = '';
+            
+            // Show Step 1, hide Step 2
+            document.getElementById('booking-step-1').classList.remove('hidden');
+            document.getElementById('booking-step-2').classList.add('hidden');
+            
+            // Set up button handlers
+            const nextBtn = document.getElementById('booking-next-btn');
+            nextBtn.textContent = 'Proceed to Book';
+            nextBtn.onclick = () => goToStep2();
+
+            // Open booking modal
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function selectSlot(element, roomKey, date, start, end) {
+            // Remove selection active styling from all slots
+            document.querySelectorAll('.slot-option').forEach(el => {
+                el.classList.remove('border-primary', 'bg-blue-50', 'ring-2', 'ring-primary', 'ring-offset-1');
+            });
+            
+            // Add selection active styling to this slot
+            element.classList.add('border-primary', 'bg-blue-50', 'ring-2', 'ring-primary', 'ring-offset-1');
+
+            selectedBookingSlot = { roomKey, date, start, end };
+        }
+
+        function goToStep2() {
+            if (!selectedBookingSlot) {
+                alert("Please select an available time slot first.");
+                return;
+            }
+            
+            const titleInput = document.getElementById('booking-title').value.trim();
+            selectedBookingSlot.title = titleInput || "Workspace Reservation";
+
+            // Switch steps
+            document.getElementById('booking-step-1').classList.add('hidden');
+            document.getElementById('booking-step-2').classList.remove('hidden');
+
+            // Update footer button
+            const nextBtn = document.getElementById('booking-next-btn');
+            nextBtn.textContent = 'Confirm & Book';
+            nextBtn.onclick = () => confirmBooking();
+        }
+
+        function confirmBooking() {
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value.trim();
+
+            if (!email || !password) {
+                alert("Please enter member credentials.");
+                return;
+            }
+
+            // Add the event booking to MOCK_SCHEDULE_DATA
+            const datePickerValue = document.getElementById('schedule-date-picker').value;
+            const today = new Date();
+            const todayStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+            const tomorrowStr = getTomorrowsDateStr();
+            let dataKey = 'other';
+            if (datePickerValue === todayStr) dataKey = 'today';
+            else if (datePickerValue === tomorrowStr) dataKey = 'tomorrow';
+
+            if (!MOCK_SCHEDULE_DATA[dataKey]) {
+                MOCK_SCHEDULE_DATA[dataKey] = [];
+            }
+
+            const newEvent = {
+                room: selectedBookingSlot.roomKey,
+                title: selectedBookingSlot.title,
+                booker: 'Alex Rivera',
+                start: selectedBookingSlot.start,
+                end: selectedBookingSlot.end,
+                bg: 'bg-green-50/80',
+                text: 'text-green-700',
+                border: 'border-l-4 border-green-600 border-y border-r border-green-200/50',
+                checkedIn: false
+            };
+
+            MOCK_SCHEDULE_DATA[dataKey].push(newEvent);
+
+            // Re-render schedule events immediately
+            renderEvents(datePickerValue);
+
+            // Show success screen in body
+            const bodyContainer = document.getElementById('booking-modal-body');
+            bodyContainer.innerHTML = `
+                <div class="text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+                        <span class="material-symbols-outlined text-[36px] font-bold">check_circle</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl text-gray-900">Room Booked Successfully!</h3>
+                        <p class="text-sm text-gray-500 mt-1">Your reservation has been confirmed and added to the schedule timeline.</p>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-150 rounded-xl p-4 max-w-sm mx-auto text-left space-y-2 mt-4">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-500 font-semibold uppercase">Room:</span>
+                            <span class="text-gray-900 font-bold">${document.getElementById('booking-room-name').textContent}</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-500 font-semibold uppercase">Time:</span>
+                            <span class="text-gray-900 font-bold">${formatAmPm(selectedBookingSlot.start)} - ${formatAmPm(selectedBookingSlot.end)}</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-500 font-semibold uppercase">Member:</span>
+                            <span class="text-gray-900 font-bold">Alex Rivera</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Update button to close
+            const nextBtn = document.getElementById('booking-next-btn');
+            nextBtn.textContent = 'Close';
+            nextBtn.onclick = () => closeBookingModal();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+            
+            // Restore modal body structure for next click
+            setTimeout(() => {
+                const bodyContainer = document.getElementById('booking-modal-body');
+                if (bodyContainer) {
+                    bodyContainer.innerHTML = `
+                        <!-- Step 1: Details & Slot selection -->
+                        <div id="booking-step-1" class="space-y-6">
+                            <!-- Room Info Card -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex gap-4 items-start">
+                                <span class="material-symbols-outlined text-primary text-[32px]">meeting_room</span>
+                                <div>
+                                    <h4 class="font-bold text-lg text-primary" id="booking-room-name">Conference Room 1 (Int)</h4>
+                                    <p class="text-sm text-gray-600 mt-1" id="booking-room-meta">Cap: 12 &bull; Building 812 • Level 2</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Available Slots Selector -->
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Available Time Slots Today</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="booking-slots-list">
+                                    <!-- Rendered by JS -->
+                                </div>
+                            </div>
+
+                            <!-- Custom Title -->
+                            <div>
+                                <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-2">Meeting Title</label>
+                                <input type="text" id="booking-title" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="e.g. Design Review">
+                            </div>
+                        </div>
+                        
+                        <!-- Step 2: Member Authentication -->
+                        <div id="booking-step-2" class="hidden space-y-6">
+                            <div class="text-center">
+                                <span class="material-symbols-outlined text-primary text-[48px] animate-pulse">lock_person</span>
+                                <h3 class="font-bold text-xl mt-2 text-gray-900">Member Authentication</h3>
+                                <p class="text-sm text-gray-500 mt-1">Please log in to confirm your room reservation.</p>
+                            </div>
+                            <div class="space-y-4 max-w-sm mx-auto">
+                                <div>
+                                    <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1.5">Email Address</label>
+                                    <input type="email" id="auth-email" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="alex.rivera@cowork.com" value="alex.rivera@cowork.com">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider block mb-1.5">Password</label>
+                                    <input type="password" id="auth-password" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="••••••••" value="password123">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 300);
+        }
 
         function filterRooms(selectedRoom) {
             const rows = document.querySelectorAll('.room-row');

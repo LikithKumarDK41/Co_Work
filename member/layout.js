@@ -10,12 +10,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const navItems = [
         { label: "Dashboard", icon: "dashboard", href: "dashboard.html", activePatterns: ["dashboard.html"] },
         { label: "Workspaces", icon: "meeting_room", href: "meeting_rooms.html", activePatterns: ["meeting_rooms.html", "book_rooms.html", "book_meeting_room.html", "booking_confirm.html"] },
+        { label: "Rooms", icon: "grid_view", href: "rooms.html", activePatterns: ["rooms.html"] },
         { label: "My Bookings", icon: "event_available", href: "my_booking.html", activePatterns: ["my_booking.html"] },
         { label: "Visitors", icon: "group", href: "visitor_history.html", activePatterns: ["visitor_history.html", "invite_visitor.html", "visitor_checkin.html"] },
         { label: "Support", icon: "help_center", href: "help_center.html", activePatterns: ["help_center.html", "raise_support.html", "ticket_history.html", "ticket_detail.html"] }
     ];
 
-    const isActive = (item) => item.activePatterns.some(p => filename.includes(p));
+    const isActive = (item) => item.activePatterns.some(p => {
+        const cleanFile = filename.split('?')[0].split('#')[0];
+        return cleanFile === p;
+    });
 
     const navLinksHTML = () => navItems.map(item => {
         const active = isActive(item);
@@ -33,41 +37,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const avatarSrc = "https://lh3.googleusercontent.com/aida-public/AB6AXuCMcxjiNxxKH9JboiNEy6xCaBkCW9AcbWgp1y7nFDgc6o2aO0wHh7tprbtjptkG5B3UZ7VHvuuw7rznDVSipybakmC-UIw1z7LGDM-WWPLE86rmNPbAw2Tvu2gPNwBLr8Sk9HStV0G-YylVMiW92Ih4zHlDZuMcngmlTHkz6ZL3dUUsfB9SICT8XusoFT17eYD-LVynZ5dK30uhC2n8Pa4nSonGfsx2bmLE_eccK4jfMgkS6k5_RVf5VJSQz6j2H5DhqbRTHqE0yiMl";
 
     const footerLinksHTML = `
-        <a id="settings-btn" href="settings.html" class="sidebar-footer-link">
+        <a id="settings-btn" class="sidebar-footer-link flex-1 justify-center text-on-surface-variant hover:text-primary transition-all duration-200 border border-outline-variant/30 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low" href="settings.html" title="Settings">
             <span class="nav-icon material-symbols-outlined">settings</span>
-            <span>Settings</span>
+            <span class="text-xs font-semibold">Settings</span>
         </a>
 
-        <a href="login.html" class="sidebar-footer-link danger">
+        <a class="sidebar-footer-link danger flex-1 justify-center text-on-surface-variant hover:text-error hover:bg-error/10 hover:border-error/20 transition-all duration-200 border border-outline-variant/30 rounded-xl bg-surface-container-lowest hover:bg-error/5" href="login.html" title="Logout">
             <span class="nav-icon material-symbols-outlined">logout</span>
-            <span>Logout</span>
+            <span class="text-xs font-semibold">Logout</span>
         </a>
     `;
 
-    const sidebar = document.createElement("nav");
+    const sidebar = document.createElement("aside");
     sidebar.id = "layout-sidebar";
+    sidebar.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col pt-4 pb-0 sm:pt-6 sm:pb-0";
     sidebar.innerHTML = `
-        <div class="sidebar-brand">
-            <h1 class="sidebar-brand-title">
-                <span class="material-symbols-outlined icon-fill">domain</span>
-                <span class="truncate">SB Telecom</span>
+        <div class="px-4 sm:px-lg flex flex-col gap-1">
+            <h1 class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
+                <span class="material-symbols-outlined icon-fill text-primary">domain</span>
+                <span class="truncate">CoWork</span>
             </h1>
-            <p class="sidebar-brand-tagline">Member Portal</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Member Portal</p>
         </div>
 
-        <a class="sidebar-profile" href="profile.html">
-            <img class="profile-avatar" src="${avatarSrc}" alt="Alex Rivera">
+        <a class="sidebar-profile mx-3 mb-6 p-3 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-center gap-3 no-underline border border-outline-variant/20" href="settings.html">
+            <img class="profile-avatar w-9 h-9 rounded-full object-cover border border-outline-variant/30" src="${avatarSrc}" alt="Alex Rivera">
             <div>
-                <div class="sidebar-profile-name profile-name">Alex Rivera</div>
-                <div class="sidebar-profile-role profile-role">Premium Member</div>
+                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Alex Rivera</div>
+                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Premium Member</div>
             </div>
         </a>
 
-        <div class="sidebar-nav">
+        <nav class="flex-1 overflow-y-auto px-2 sm:px-sm flex flex-col gap-1 pb-6" aria-label="Main navigation">
             ${navLinksHTML()}
-        </div>
+        </nav>
 
-        <div class="sidebar-footer">
+        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-3 pb-3 flex items-center gap-2 sidebar-footer">
             ${footerLinksHTML}
         </div>
     `;
@@ -80,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <button id="layout-drawer-toggle" class="mobile-icon-btn" aria-label="Open menu">
                 <span class="material-symbols-outlined" style="font-size:22px;">menu</span>
             </button>
-            <span class="mobile-brand-text">SB Telecom</span>
+            <span class="mobile-brand-text">CoWork</span>
         </div>
 
         <div class="mobile-header-right">
@@ -89,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span style="position:absolute;top:8px;right:8px;width:7px;height:7px;background:#ba1a1a;border-radius:50%;border:1.5px solid #fff;"></span>
             </button>
 
-            <a href="profile.html" class="mobile-profile-avatar">
+            <a href="settings.html" class="mobile-profile-avatar">
                 <img class="profile-avatar" src="${avatarSrc}" alt="Profile">
             </a>
         </div>
@@ -102,14 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const drawer = document.createElement("nav");
     drawer.id = "layout-drawer";
+    drawer.className = "bg-surface-container-lowest border-r border-outline-variant shadow-sm flex flex-col pt-4 pb-0 sm:pt-6 sm:pb-0";
     drawer.innerHTML = `
-        <div class="drawer-brand-row">
-            <div class="sidebar-brand">
-                <h1 class="sidebar-brand-title">
-                    <span class="material-symbols-outlined icon-fill">domain</span>
-                    <span class="truncate">SB Telecom</span>
+        <div class="drawer-brand-row flex justify-between items-center px-4 sm:px-lg mb-6 sm:mb-8">
+            <div class="flex flex-col gap-1">
+                <h1 class="font-headline-sm text-headline-sm font-bold text-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined icon-fill text-primary">domain</span>
+                    <span class="truncate">CoWork</span>
                 </h1>
-                <p class="sidebar-brand-tagline">Member Portal</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">Member Portal</p>
             </div>
 
             <button id="layout-drawer-close" class="mobile-icon-btn">
@@ -117,19 +123,19 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
         </div>
 
-        <a class="sidebar-profile" href="profile.html" style="margin:14px 10px 12px;">
-            <img class="profile-avatar" src="${avatarSrc}" alt="Alex Rivera">
+        <a class="sidebar-profile mx-3 mb-6 p-3 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-center gap-3 no-underline border border-outline-variant/20" href="settings.html">
+            <img class="profile-avatar w-9 h-9 rounded-full object-cover border border-outline-variant/30" src="${avatarSrc}" alt="Alex Rivera">
             <div>
-                <div class="sidebar-profile-name profile-name">Alex Rivera</div>
-                <div class="sidebar-profile-role profile-role">Premium Member</div>
+                <div class="sidebar-profile-name profile-name text-sm font-bold text-on-surface">Alex Rivera</div>
+                <div class="sidebar-profile-role profile-role text-[10px] font-bold text-primary tracking-wider uppercase mt-0.5">Premium Member</div>
             </div>
         </a>
 
-        <div class="drawer-nav">
+        <div class="flex-1 overflow-y-auto px-2 sm:px-sm flex flex-col gap-1 pb-6">
             ${navLinksHTML()}
         </div>
 
-        <div class="sidebar-footer">
+        <div class="px-3 sm:px-4 mt-auto border-t border-outline-variant/60 pt-3 pb-3 flex items-center gap-2 sidebar-footer">
             ${footerLinksHTML.replace('id="settings-btn"', 'id="drawer-settings-btn"')}
         </div>
     `;
@@ -176,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Array.from(document.body.children).forEach(el => {
         if (injectedIds.has(el.id)) return;
+        if (el.tagName === "SCRIPT" || el.tagName === "NOSCRIPT") return;
 
         if (!el.classList.contains("page-layout")) {
             el.classList.add("layout-content");
@@ -186,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const footer = document.createElement("footer");
     footer.className = "layout-footer";
     footer.innerHTML = `
-        <p>© 2026 SB Telecom. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        <p>© 2026 Nichi-In. All Rights Reserved. </p>
     `;
 
     // Append footer to content containers
@@ -319,11 +326,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateActiveLink(url) {
         const filename = url.substring(url.lastIndexOf("/") + 1) || "dashboard.html";
+        const cleanFile = filename.split('?')[0].split('#')[0];
         document.querySelectorAll(".nav-link").forEach(link => {
             const href = link.getAttribute("href");
             const item = navItems.find(i => i.href === href);
             if (item) {
-                const active = item.activePatterns.some(p => filename.includes(p));
+                const active = item.activePatterns.some(p => cleanFile === p);
                 if (active) {
                     link.classList.add("nav-link--active");
                     const icon = link.querySelector(".nav-icon");

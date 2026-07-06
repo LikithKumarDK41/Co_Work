@@ -1,0 +1,1433 @@
+<div class="flex flex-col gap-lg">
+    <!-- Header & Controls -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-2">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface">Room Bookings</h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Review, approve, deny, and monitor meeting rooms and conference room reservations.</p>
+        </div>
+        <div class="flex items-center gap-sm">
+            <button onclick="openNewBookingModal()" class="flex items-center gap-1.5 bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md shadow-sm hover:bg-primary/90 transition-colors">
+                <span class="material-symbols-outlined text-[18px]">add</span> New Booking
+            </button>
+        </div>
+    </div>
+
+    <!-- Utilization Cards Section -->
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mb-4">
+            <h3 class="font-headline-sm text-[16px] font-semibold text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-[20px]">analytics</span>
+                Daily Room Utilization
+            </h3>
+            <div class="flex items-center gap-2">
+                <label class="font-label-sm text-on-surface-variant font-semibold text-sm">Select Date:</label>
+                <select id="utilizationDateSelect" onchange="calculateUtilization()" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none cursor-pointer">
+                    <!-- Dynamic date options will be injected here -->
+                </select>
+            </div>
+        </div>
+        <div id="utilization_cards_container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-sm">
+            <!-- Dynamic room utilization cards will be injected here -->
+        </div>
+    </div>
+
+    <!-- Segmented Tab Control -->
+    <div class="flex items-center bg-surface-container-low p-1 rounded-xl self-start mb-2 border border-outline-variant/60 shadow-xs">
+        <button id="tabListBtn" onclick="switchBookingTab('list')" class="px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30">
+            <span class="material-symbols-outlined text-[16px]">list</span> Reservations List
+        </button>
+        <button id="tabTimelineBtn" onclick="switchBookingTab('timeline')" class="px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">calendar_view_day</span> Room Availability Timeline
+        </button>
+    </div>
+
+    <!-- Reservations List View -->
+    <div id="bookingsListContainer" class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+        <!-- Table Toolbar -->
+        <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-2">
+            <div class="flex items-center gap-2">
+                <span class="font-label-md font-bold text-on-surface text-[16px]">All Reservations</span>
+                <span id="bookingCountBadge" class="bg-primary/10 text-primary font-label-sm text-[11px] px-2 py-0.5 rounded-full font-bold">0 Total</span>
+            </div>
+            <div class="flex items-center gap-sm w-full md:w-auto">
+                <div class="relative flex-1 md:flex-initial">
+                    <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                    <input id="searchBookings" oninput="handleSearch()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search bookings..." type="text"/>
+                </div>
+                <select id="statusFilter" onchange="applyFilters()" class="pl-3 pr-8 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none outline-none">
+                    <option value="all">All Statuses</option>
+                    <option value="Waitlist">Pending</option>
+                    <option value="Confirmed">Approved</option>
+                    <option value="Denied">Denied</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Bookings Table -->
+        <div class="table-responsive">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] uppercase tracking-wider border-b border-outline-variant/80 whitespace-nowrap">
+                        <th class="px-md py-sm font-semibold">Booker</th>
+                        <th class="px-md py-sm font-semibold">Room</th>
+                        <th class="px-md py-sm font-semibold">Meeting Title</th>
+                        <th class="px-md py-sm font-semibold">Term</th>
+                        <th class="px-md py-sm font-semibold">Period / Date</th>
+                        <th class="px-md py-sm font-semibold">Time Slot</th>
+                        <th class="px-md py-sm font-semibold">Recurring</th>
+                        <th class="px-md py-sm font-semibold">Status</th>
+                        <th class="px-md py-sm font-semibold text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="bookings_table_body" class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
+                    <!-- Dynamic rows will be injected here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Table Footer Pagination -->
+        <div class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span id="paginationInfo" class="font-body-sm text-on-surface-variant text-sm">Showing 0 to 0 of 0 entries</span>
+            <div id="pagination_container" class="flex gap-xs items-center">
+                <!-- Dynamic buttons injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Availability Timeline View -->
+    <div id="bookingsTimelineContainer" class="hidden bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden flex flex-col">
+        <!-- Timeline Toolbar -->
+        <div class="px-md py-sm border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between bg-surface-bright gap-4">
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="adjustTimelineDate(-1)" class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                </button>
+                <div class="relative flex items-center shrink-0">
+                    <span class="material-symbols-outlined text-primary text-[18px] absolute left-3 pointer-events-none">calendar_today</span>
+                    <input type="date" id="timelineDateInput" onchange="handleTimelineDateChange()" class="pl-9 pr-3 py-1.5 text-xs font-bold rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none cursor-pointer w-40">
+                </div>
+                <button type="button" onclick="adjustTimelineDate(1)" class="w-8 h-8 rounded-lg border border-outline-variant hover:bg-surface-container-low transition-colors flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                </button>
+            </div>
+            <div class="flex items-center gap-sm w-full md:w-auto">
+                <div class="relative flex-1 md:flex-initial">
+                    <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+                    <input id="searchTimelineRooms" oninput="renderTimelineGrid()" class="pl-8 pr-3 py-1.5 text-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none w-full md:w-64 transition-all" placeholder="Search rooms..." type="text"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrollable Timeline Grid -->
+        <div class="overflow-x-auto w-full relative">
+            <div class="min-w-[960px] flex flex-col relative">
+                <!-- Header row with hours -->
+                <div class="flex border-b border-outline-variant/60 bg-surface-container-low text-xs text-on-surface-variant font-semibold select-none">
+                    <div class="w-[220px] border-r border-outline-variant/60 p-3 shrink-0 uppercase tracking-wider text-[10px] font-bold">Rooms</div>
+                    <div class="flex-1 flex divide-x divide-outline-variant/40">
+                        <div class="flex-1 p-3 text-center">9:00 AM</div>
+                        <div class="flex-1 p-3 text-center">10:00 AM</div>
+                        <div class="flex-1 p-3 text-center">11:00 AM</div>
+                        <div class="flex-1 p-3 text-center">12:00 PM</div>
+                        <div class="flex-1 p-3 text-center">1:00 PM</div>
+                        <div class="flex-1 p-3 text-center">2:00 PM</div>
+                        <div class="flex-1 p-3 text-center">3:00 PM</div>
+                        <div class="flex-1 p-3 text-center">4:00 PM</div>
+                        <div class="flex-1 p-3 text-center">5:00 PM</div>
+                    </div>
+                </div>
+                
+                <!-- Grid Rows Container -->
+                <div id="timeline_grid_rows" class="flex flex-col divide-y divide-outline-variant/40 relative min-h-[300px] bg-surface-bright">
+                    <!-- Rows will be dynamically generated -->
+                </div>
+
+                <!-- Current time blue line indicator -->
+                <div id="currentTimeIndicator" class="absolute top-0 bottom-0 w-[2px] bg-primary z-10 pointer-events-none hidden">
+                    <div class="w-3 h-3 bg-primary rounded-full absolute -top-1.5 -left-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Booking Modal -->
+<div id="newBookingModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeNewBookingModal()"></div>
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center shrink-0">
+            <h3 class="font-headline-sm font-bold text-on-surface">New Booking</h3>
+            <button onclick="closeNewBookingModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <form id="newBookingForm" onsubmit="submitNewBooking(event)" class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 bg-surface-container-lowest pb-10">
+            <!-- Searchable Member -->
+            <div class="flex flex-col gap-1 relative">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Member Name <span class="text-error">*</span></label>
+                <div class="relative">
+                    <input id="book_member_name" type="text" autocomplete="off" required onfocus="showMemberDropdown()" oninput="filterMemberDropdown()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="Search and select member...">
+                    <span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-[20px]">expand_more</span>
+                </div>
+                <div id="member_options_list" class="hidden absolute top-full left-0 right-0 mt-1 max-h-48 overflow-y-auto border border-outline-variant bg-surface-container-lowest rounded-lg shadow-lg z-50 divide-y divide-outline-variant/30">
+                    <!-- Dynamic searchable members list will be injected here -->
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Meeting Title / Purpose <span class="text-error">*</span></label>
+                <input id="book_title" type="text" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" placeholder="e.g. Weekly Strategy Sync">
+            </div>
+
+            <!-- Client Category (Internal vs External) -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
+                <select id="book_client_category" required onchange="handleClientCategoryChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="Internal">Internal (Building 812)</option>
+                    <option value="External">External (Building 813)</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Select Room <span class="text-error">*</span></label>
+                <select id="book_room" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="">Select a Room...</option>
+                </select>
+            </div>
+
+            <!-- Term Select -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Booking Term / Cycle <span class="text-error">*</span></label>
+                <select id="book_term" required onchange="handleTermChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="Hourly">Hourly</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Yearly">Yearly</option>
+                </select>
+            </div>
+
+            <!-- Hourly Inputs -->
+            <div id="hourlyInputs" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Date <span class="text-error">*</span></label>
+                    <input id="book_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+                <div class="flex gap-2">
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Start Time <span class="text-error">*</span></label>
+                        <input id="book_start" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    </div>
+                    <div class="flex-1 flex flex-col gap-1">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">End Time <span class="text-error">*</span></label>
+                        <input id="book_end" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Range Inputs (Hidden by default) -->
+            <div id="rangeInputs" class="hidden flex gap-2">
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span class="text-error">*</span></label>
+                    <input id="book_start_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+                <div class="flex-1 flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span class="text-error">*</span></label>
+                    <input id="book_end_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                </div>
+            </div>
+
+            <!-- Recurring Pattern -->
+            <div class="flex flex-col gap-1">
+                <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
+                <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                    <option value="None">None</option>
+                    <option value="Daily">Daily Recurring</option>
+                    <option value="Weekly">Weekly Recurring</option>
+                    <option value="Monthly">Monthly Recurring</option>
+                </select>
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-bold hover:bg-primary/90 mt-2 shrink-0 transition-colors">Book Room</button>
+        </form>
+    </div>
+</div>
+
+<!-- Booking Details Drawer Modal -->
+<div id="bookingDetailsModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <!-- Backdrop overlay -->
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeBookingDetailsModal()"></div>
+    <!-- Drawer Panel -->
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md md:max-w-lg relative z-10 flex flex-col h-full overflow-hidden">
+        <div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+            <h3 class="font-headline-sm font-bold text-on-surface">Reservation Details</h3>
+            <button onclick="closeBookingDetailsModal()" class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded-full transition-colors"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div id="bookingDetailsContent" class="flex-1 p-6 flex flex-col gap-lg overflow-y-auto bg-surface-container-lowest">
+            <!-- Dynamic reservation details injected here -->
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    let bookings = [];
+    let filteredBookings = [];
+    let searchQuery = "";
+    let statusFilter = "all";
+    let currentPage = 1;
+    const itemsPerPage = 8;
+
+    async function ensureRoomsLoaded() {
+        let stored = sessionStorage.getItem("rooms_list");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed.some(r => r.name.includes("Boardroom") || r.name.includes("Creative Hub") || r.name.includes("Podcast") || r.name.includes("Focus Pod"))) {
+                stored = null;
+            }
+        }
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/rooms.json");
+                const data = await res.json();
+                sessionStorage.setItem("rooms_list", JSON.stringify(data));
+            } catch (e) {
+                console.error("Failed to seed rooms in bookings", e);
+            }
+        }
+    }
+
+    async function populateRoomOptions() {
+        await ensureRoomsLoaded();
+        const stored = sessionStorage.getItem("rooms_list");
+        if (!stored) return;
+        
+        let workspaces = [];
+        try {
+            workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        } catch(e){}
+
+        const categorySelect = document.getElementById("book_client_category");
+        const category = categorySelect ? categorySelect.value : "Internal";
+
+        const rList = JSON.parse(stored);
+        const select = document.getElementById("book_room");
+        if (!select) return;
+        
+        const val = select.value;
+        // Filter rooms whose parent workspace matches selected clientType category
+        const filteredRooms = rList.filter(r => {
+            if (r.status !== "Active") return false;
+            const parent = workspaces.find(w => w.name === r.parentWorkspace);
+            return parent && parent.clientType === category;
+        });
+
+        select.innerHTML = `<option value="">Select a Room...</option>` + 
+            filteredRooms.map(r => `<option value="${r.name}" data-capacity="${r.capacity}">${r.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
+                         .join("");
+                         
+        if (val) select.value = val;
+    }
+
+    function handleClientCategoryChange() {
+        populateRoomOptions();
+        const roomSelect = document.getElementById("book_room");
+        if (roomSelect) roomSelect.value = "";
+    }
+
+    async function loadBookings() {
+        await ensureRoomsLoaded();
+        populateRoomOptions();
+
+        const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+
+        let stored = sessionStorage.getItem("bookings");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            const hasOldRooms = parsed.some(b => b.room.includes("Boardroom") || b.room.includes("Creative Hub") || b.room.includes("Podcast") || b.room.includes("Focus Pod"));
+            const hasOverlap = parsed.some(b => b.booker === "Matthew Johnson" && b.time === "09:00 AM - 11:00 AM");
+            if (hasOldRooms || hasOverlap || !parsed.some(b => b.date === todayFormatted)) {
+                sessionStorage.removeItem("bookings");
+                stored = null;
+            }
+        }
+
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/bookings.json");
+                const data = await res.json();
+                
+                const seedBookings = data.map((b, idx) => {
+                    let booker = "Alex Rivera";
+                    if (idx === 0) booker = "Sarah Jenkins";
+                    if (idx === 1) booker = "Marcus Reed";
+                    if (idx === 2) booker = "David Chen";
+                    return { 
+                        ...b, 
+                        booker: b.booker || booker,
+                        term: b.term || "Hourly",
+                        date: todayFormatted,
+                        recurring: b.recurring || "None"
+                    };
+                });
+
+                if (seedBookings.length < 5) {
+                    seedBookings.push(
+                        { id: 101, booker: "Anna Lopez", title: "External Workshop", room: "Meeting Corner 1 (Int)", date: todayFormatted, time: "01:00 PM - 02:30 PM", duration: "1.5 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" },
+                        { id: 102, booker: "Matthew Johnson", title: "Board Meeting (Recurring)", room: "Conference Room 1 (Int)", date: todayFormatted, time: "02:00 PM - 04:00 PM", duration: "2 Hours", term: "Hourly", recurring: "Weekly", status: "Confirmed", image: "" },
+                        { id: 103, booker: "Ronald Rodriguez", title: "Team Offsite Prep", room: "Meeting Room 1 (Int)", date: todayFormatted, time: "10:00 AM - 12:00 PM", duration: "2 Hours", term: "Hourly", recurring: "None", status: "Confirmed", image: "" }
+                    );
+                }
+
+                sessionStorage.setItem("bookings", JSON.stringify(seedBookings));
+                stored = JSON.stringify(seedBookings);
+            } catch (e) {
+                console.error("Failed to fetch initial bookings", e);
+                return;
+            }
+        }
+        bookings = JSON.parse(stored);
+        applyFilters();
+    }
+
+    function applyFilters() {
+        const filterDropdown = document.getElementById("statusFilter");
+        if (filterDropdown) {
+            statusFilter = filterDropdown.value;
+        }
+
+        filteredBookings = bookings.filter(b => {
+            const matchSearch = searchQuery === "" || 
+                (b.booker && b.booker.toLowerCase().includes(searchQuery)) ||
+                (b.title && b.title.toLowerCase().includes(searchQuery)) ||
+                b.room.toLowerCase().includes(searchQuery);
+
+            const matchStatus = statusFilter === "all" || b.status === statusFilter;
+            
+            return matchSearch && matchStatus;
+        });
+
+        currentPage = 1;
+        renderBookingsTable();
+        calculateUtilization();
+    }
+
+    function handleSearch() {
+        const input = document.getElementById("searchBookings");
+        if (input) {
+            searchQuery = input.value.toLowerCase().trim();
+            applyFilters();
+        }
+    }
+
+    function renderBookingsTable() {
+        const tbody = document.getElementById("bookings_table_body");
+        if (!tbody) return;
+
+        const totalItems = filteredBookings.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+        const pageBookings = filteredBookings.slice(startIndex, endIndex);
+
+        const countBadge = document.getElementById("bookingCountBadge");
+        if (countBadge) {
+            countBadge.textContent = `${totalItems} Total`;
+        }
+
+        if (pageBookings.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" class="px-md py-8 text-center text-sm text-on-surface-variant">No bookings found</td></tr>`;
+            renderPagination(0, 0, 0);
+            return;
+        }
+
+        tbody.innerHTML = pageBookings.map(b => {
+            let statusBadgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+            let statusLabel = "Approved";
+
+            if (b.status === "Waitlist") {
+                statusBadgeClass = "bg-amber-50 text-amber-800 border-amber-200";
+                statusLabel = "Pending";
+            } else if (b.status === "Denied") {
+                statusBadgeClass = "bg-error/10 text-error border-error-container";
+                statusLabel = "Denied";
+            }
+
+            let actionHTML = `<div class="flex gap-1 justify-end items-center">`;
+            if (b.status === "Waitlist") {
+                actionHTML += `
+                    <button onclick="approveBooking(${b.id})" class="bg-emerald-600 text-white hover:bg-emerald-700 px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Approve</button>
+                    <button onclick="denyBooking(${b.id})" class="border border-outline-variant text-on-surface-variant hover:bg-surface-container-low px-2.5 py-1 rounded font-label-sm text-[12px] transition-colors">Deny</button>
+                `;
+            } else {
+                actionHTML += `
+                    <button onclick="deleteBooking(${b.id})" class="text-error hover:bg-error/10 p-1.5 rounded transition-colors" title="Delete Booking">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                `;
+            }
+            actionHTML += `
+                <button onclick="viewBookingDetails(${b.id})" class="text-on-surface-variant hover:text-primary hover:bg-primary/10 p-1.5 rounded transition-colors inline-flex items-center justify-center" title="View Details">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                </button>
+            `;
+            actionHTML += `</div>`;
+
+            return `
+                <tr class="hover:bg-surface-container-low/30 transition-colors whitespace-nowrap">
+                    <td class="px-md py-sm font-semibold">${b.booker || "Alex Rivera"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.room.replace(/\s*\((Int|Ext)\)/i, "")}</td>
+                    <td class="px-md py-sm font-medium">${b.title || "Room Reservation"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-semibold">${b.term || "Hourly"}</td>
+                    <td class="px-md py-sm text-on-surface-variant">${b.date}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-medium">${b.term === "Hourly" ? b.time : "Full Day"}</td>
+                    <td class="px-md py-sm text-on-surface-variant font-medium text-xs">
+                        <span class="px-2 py-0.5 rounded ${b.recurring && b.recurring !== "None" ? 'bg-secondary-container text-on-secondary-container font-semibold' : 'text-on-surface-variant'}">${b.recurring || "None"}</span>
+                    </td>
+                    <td class="px-md py-sm">
+                        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${statusBadgeClass}">
+                            ${statusLabel}
+                        </span>
+                    </td>
+                    <td class="px-md py-sm text-right">${actionHTML}</td>
+                </tr>
+            `;
+        }).join("");
+
+        renderPagination(startIndex + 1, endIndex, totalItems);
+    }
+
+    function renderPagination(start, end, total) {
+        const container = document.getElementById("pagination_container");
+        const info = document.getElementById("paginationInfo");
+        if (!container || !info) return;
+
+        info.textContent = total > 0 ? `Showing ${start} to ${end} of ${total} entries` : "Showing 0 to 0 of 0 entries";
+
+        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+        
+        let html = `
+            <button onclick="goToPage(${currentPage - 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === 1 ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_left</span>
+            </button>
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === currentPage) {
+                html += `<button class="pagination-btn w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">${i}</button>`;
+            } else {
+                html += `<button onclick="goToPage(${i})" class="pagination-btn w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">${i}</button>`;
+            }
+        }
+
+        html += `
+            <button onclick="goToPage(${currentPage + 1})" class="p-1 rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50" ${currentPage === totalPages ? "disabled" : ""}>
+                <span class="material-symbols-outlined">chevron_right</span>
+            </button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    function goToPage(p) {
+        currentPage = p;
+        renderBookingsTable();
+    }
+
+    function calculateUtilization() {
+        const container = document.getElementById("utilization_cards_container");
+        const dateSelect = document.getElementById("utilizationDateSelect");
+        if (!container || !dateSelect) return;
+
+        const uniqueDates = Array.from(new Set(bookings.map(b => b.date))).sort((a, b) => new Date(a) - new Date(b));
+        if (uniqueDates.length === 0) {
+            uniqueDates.push(new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }));
+        }
+
+        const previousValue = dateSelect.value;
+        dateSelect.innerHTML = uniqueDates.map(d => `<option value="${d}">${d}</option>`).join("");
+        if (previousValue && uniqueDates.includes(previousValue)) {
+            dateSelect.value = previousValue;
+        } else {
+            const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+            if (uniqueDates.includes(todayFormatted)) {
+                dateSelect.value = todayFormatted;
+            } else {
+                dateSelect.value = uniqueDates[0];
+            }
+        }
+
+        const selectedDate = dateSelect.value;
+
+        // Initialize rooms dynamically
+        const roomHours = {};
+        const storedRooms = sessionStorage.getItem("rooms_list");
+        if (storedRooms) {
+            const rList = JSON.parse(storedRooms);
+            rList.forEach(r => roomHours[r.name] = 0);
+        } else {
+            roomHours["Conference Room 1"] = 0;
+            roomHours["Meeting Room 1"] = 0;
+            roomHours["Meeting Corner 1"] = 0;
+        }
+
+        bookings.forEach(b => {
+            if (b.status !== "Confirmed") return;
+            if (b.date !== selectedDate) return;
+
+            let durationHours = 1.0;
+            if (b.term !== "Hourly") {
+                durationHours = 8.0; // Daily or longer terms occupy the whole day capacity
+            } else if (b.duration) {
+                const match = b.duration.match(/([0-9.]+)\s*Hour/i);
+                if (match) durationHours = parseFloat(match[1]);
+            } else if (b.time) {
+                const times = b.time.split("-").map(t => t.trim());
+                if (times.length === 2) {
+                    try {
+                        const d1 = new Date("2000/01/01 " + times[0]);
+                        const d2 = new Date("2000/01/01 " + times[1]);
+                        const diff = (d2 - d1) / (1000 * 60 * 60);
+                        if (diff > 0) durationHours = diff;
+                    } catch (e) {}
+                }
+            }
+
+            const roomName = b.room.trim();
+            if (roomHours[roomName] === undefined) {
+                roomHours[roomName] = 0;
+            }
+            roomHours[roomName] += durationHours;
+        });
+
+        const maxCapacity = 8.0;
+
+        container.innerHTML = Object.keys(roomHours).map(room => {
+            const hours = roomHours[room];
+            const pct = Math.min(Math.round((hours / maxCapacity) * 100), 100);
+
+            let colorClass = "text-primary bg-primary/5 border-primary/20";
+            let progressBgClass = "bg-primary";
+            if (pct > 75) {
+                colorClass = "text-emerald-700 bg-emerald-50 border-emerald-200";
+                progressBgClass = "bg-emerald-600";
+            } else if (pct === 0) {
+                colorClass = "text-on-surface-variant bg-surface-container-low border-outline-variant/30";
+                progressBgClass = "bg-outline-variant";
+            }
+
+            return `
+                <div class="border rounded-xl p-3 flex flex-col gap-1 transition-all hover:shadow-sm ${colorClass}">
+                    <span class="text-xs font-bold truncate">${room}</span>
+                    <div class="flex items-baseline gap-1 mt-1">
+                        <span class="text-xl font-bold leading-none">${pct}%</span>
+                        <span class="text-[9px] uppercase font-bold tracking-wider opacity-70">Occupied</span>
+                    </div>
+                    <span class="text-[10px] opacity-75 mt-0.5">${hours.toFixed(1)} / ${maxCapacity} hrs booked</span>
+                    <div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden mt-2">
+                        <div class="${progressBgClass} h-full transition-all duration-300" style="width: ${pct}%"></div>
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function approveBooking(id) {
+        const idx = bookings.findIndex(x => x.id === id);
+        if (idx !== -1) {
+            bookings[idx].status = "Confirmed";
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking approved successfully.");
+        }
+    }
+
+    function denyBooking(id) {
+        const idx = bookings.findIndex(x => x.id === id);
+        if (idx !== -1) {
+            bookings[idx].status = "Denied";
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking request denied.");
+        }
+    }
+
+    function deleteBooking(id) {
+        if (confirm("Are you sure you want to remove this booking?")) {
+            bookings = bookings.filter(b => b.id !== id);
+            sessionStorage.setItem("bookings", JSON.stringify(bookings));
+            applyFilters();
+            alert("Booking removed successfully.");
+        }
+    }
+
+    let usersList = [];
+    async function ensureUsersLoaded() {
+        if (usersList.length > 0) return;
+        let stored = sessionStorage.getItem("users");
+        if (!stored) {
+            try {
+                const res = await fetch("../member/data/users.json");
+                const data = await res.json();
+                sessionStorage.setItem("users", JSON.stringify(data));
+                stored = JSON.stringify(data);
+            } catch (e) {
+                console.error("Failed to load users for bookings list", e);
+                return;
+            }
+        }
+        usersList = JSON.parse(stored);
+    }
+
+    async function showMemberDropdown() {
+        await ensureUsersLoaded();
+        const list = document.getElementById("member_options_list");
+        if (list) {
+            list.classList.remove("hidden");
+            filterMemberDropdown();
+        }
+    }
+
+    function filterMemberDropdown() {
+        const input = document.getElementById("book_member_name");
+        const list = document.getElementById("member_options_list");
+        if (!input || !list) return;
+
+        const val = input.value.toLowerCase().trim();
+        const filtered = usersList.filter(u => u.name.toLowerCase().includes(val) || u.email.toLowerCase().includes(val));
+
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="px-3 py-2 text-xs text-on-surface-variant italic">No members found</div>`;
+            return;
+        }
+
+        list.innerHTML = filtered.map(u => `
+            <div onclick="selectMember('${u.name.replace(/'/g, "\\'")}')" class="px-3 py-2 cursor-pointer hover:bg-primary/5 transition-colors text-body-sm text-on-surface flex flex-col">
+                <span class="font-semibold text-sm">${u.name}</span>
+                <span class="text-xs text-on-surface-variant">${u.email} • ${u.company}</span>
+            </div>
+        `).join("");
+    }
+
+    function selectMember(name) {
+        const input = document.getElementById("book_member_name");
+        const list = document.getElementById("member_options_list");
+        if (input) {
+            input.value = name;
+        }
+        if (list) {
+            list.classList.add("hidden");
+        }
+    }
+
+    window.addEventListener("click", function(e) {
+        const list = document.getElementById("member_options_list");
+        const input = document.getElementById("book_member_name");
+        if (list && input && e.target !== input && !list.contains(e.target)) {
+            list.classList.add("hidden");
+        }
+    });
+
+    function handleTermChange() {
+        const term = document.getElementById("book_term").value;
+        const hourlyDiv = document.getElementById("hourlyInputs");
+        const rangeDiv = document.getElementById("rangeInputs");
+
+        if (term === "Hourly") {
+            hourlyDiv.classList.remove("hidden");
+            rangeDiv.classList.add("hidden");
+            document.getElementById("book_date").required = true;
+            document.getElementById("book_start").required = true;
+            document.getElementById("book_end").required = true;
+            document.getElementById("book_start_date").required = false;
+            document.getElementById("book_end_date").required = false;
+        } else {
+            hourlyDiv.classList.add("hidden");
+            rangeDiv.classList.remove("hidden");
+            document.getElementById("book_date").required = false;
+            document.getElementById("book_start").required = false;
+            document.getElementById("book_end").required = false;
+            document.getElementById("book_start_date").required = true;
+            document.getElementById("book_end_date").required = true;
+        }
+    }
+
+    function openNewBookingModal() {
+        populateRoomOptions();
+        document.getElementById('newBookingModal').classList.remove('hidden');
+        document.getElementById("book_term").value = "Hourly";
+        document.getElementById("book_recurring").value = "None";
+        handleTermChange();
+    }
+
+    function closeNewBookingModal() {
+        document.getElementById('newBookingModal').classList.add('hidden');
+        document.getElementById('newBookingForm').reset();
+        const list = document.getElementById("member_options_list");
+        if (list) list.classList.add("hidden");
+    }
+
+    const spaceDetailsLookup = {
+        "Conference Room 1": { capacity: 12, location: "Level 2 • North Wing", amenities: ["TV Screen", "Conference Phone", "Whiteboard", "High-speed WiFi"] },
+        "Meeting Room 1": { capacity: 6, location: "Level 1 • East Wing", amenities: ["Whiteboard", "Apple TV Screen", "High-speed WiFi"] },
+        "Meeting Corner 1": { capacity: 4, location: "Level 2 • South Wing", amenities: ["Power Outlets", "High-speed WiFi"] },
+        "Meeting Corner 2": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["High-speed WiFi"] },
+        "Meeting Corner 3": { capacity: 2, location: "Level 2 • Central Hub", amenities: ["High-speed WiFi"] }
+    };
+
+    function getMockBookerDetails(name) {
+        const fallback = {
+            role: "Member",
+            email: name.toLowerCase().replace(/[^a-z]/g, "") + "@coworkspace.com",
+            phone: "+1 (555) 345-6789",
+            company: "CoWork Resident",
+            plan: "Hot Desk Plan"
+        };
+
+        if (usersList && usersList.length > 0) {
+            const matched = usersList.find(u => u.name.toLowerCase() === name.toLowerCase());
+            if (matched) {
+                return {
+                    role: matched.role || "Member",
+                    email: matched.email || fallback.email,
+                    phone: matched.phone || fallback.phone,
+                    company: matched.company || fallback.company,
+                    plan: matched.plan || "Hot Desk Plan"
+                };
+            }
+        }
+        return fallback;
+    }
+
+    async function viewBookingDetails(id) {
+        await ensureUsersLoaded();
+        const b = bookings.find(x => x.id === id);
+        if (!b) return;
+
+        const space = spaceDetailsLookup[b.room.trim()] || { capacity: 4, location: "Level 2 • Workspace", amenities: ["Power Outlets", "WiFi"] };
+        const bookerInfo = getMockBookerDetails(b.booker || "Alex Rivera");
+
+        let statusColor = "bg-emerald-50 text-emerald-700 border-emerald-100";
+        if (b.status === "Waitlist") statusColor = "bg-amber-50 text-amber-800 border-amber-200";
+        else if (b.status === "Denied") statusColor = "bg-error/10 text-error border-error-container";
+
+        const contentDiv = document.getElementById("bookingDetailsContent");
+        const initials = b.booker ? b.booker.split(" ").map(n=>n[0]).join("").toUpperCase().substring(0,2) : "AR";
+
+        contentDiv.innerHTML = `
+            <div class="flex flex-col gap-6 w-full pb-10">
+                <!-- Booker details top section -->
+                <div class="flex items-start gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant/35">
+                    <div class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-lg shrink-0">
+                        ${initials}
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-base font-bold text-on-surface leading-tight">${b.booker || "Alex Rivera"}</h4>
+                        <span class="text-xs text-primary font-semibold mt-1 inline-block">${bookerInfo.role}</span>
+                        <div class="grid grid-cols-1 gap-y-1.5 mt-3 text-xs text-on-surface-variant">
+                            <p><strong>Company:</strong> ${bookerInfo.company}</p>
+                            <p><strong>Email:</strong> ${bookerInfo.email}</p>
+                            <p><strong>Phone:</strong> ${bookerInfo.phone}</p>
+                            <div class="flex items-center gap-1.5 mt-1">
+                                <strong>Plan:</strong>
+                                <span class="bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded font-bold uppercase tracking-wider text-[9px]">${bookerInfo.plan}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Space Info -->
+                <div class="flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs uppercase font-bold tracking-wider text-primary">Meeting Room</span>
+                            <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
+                                <h4 class="text-lg font-bold text-on-surface">${b.room.replace(/\s*\((Int|Ext)\)/i, "")}</h4>
+                                <span class="bg-primary/10 text-primary font-bold text-[10px] px-2 py-0.5 rounded border border-primary/20">${(function(){
+                                    let ct = "Internal";
+                                    try {
+                                        const wList = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                                        const rList = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+                                        const roomObj = rList.find(r => r.name === b.room);
+                                        if (roomObj) {
+                                            const parent = wList.find(w => w.name === roomObj.parentWorkspace);
+                                            if (parent) ct = parent.clientType;
+                                        }
+                                    } catch(e){}
+                                    return ct;
+                                })()}</span>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 text-xs font-bold rounded-full border ${statusColor}">
+                            ${b.status === "Waitlist" ? "Pending" : b.status}
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-on-surface-variant">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">location_on</span> ${space.location}</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">group</span> Capacity: ${space.capacity}</span>
+                    </div>
+                </div>
+
+                <!-- Purpose -->
+                <div class="flex flex-col gap-1">
+                    <span class="text-xs uppercase font-bold tracking-wider text-on-surface-variant">Purpose of booking</span>
+                    <p class="text-sm font-medium text-on-surface bg-surface-container-low p-3 rounded-lg border border-outline-variant/35">${b.title || "Standard workspace booking"}</p>
+                </div>
+
+                <!-- Period / Date Time -->
+                <div class="grid grid-cols-2 gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant/35 text-xs">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Reservation Period</span>
+                        <span class="font-bold text-on-surface">${b.date}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Time Slot</span>
+                        <span class="font-bold text-on-surface">${b.term === "Hourly" ? b.time : "Full Day"}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Billing Cycle</span>
+                        <span class="font-bold text-on-surface">${b.term || "Hourly"}</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant block mb-1">Recurrence</span>
+                        <span class="font-bold text-on-surface">${b.recurring || "None"}</span>
+                    </div>
+                </div>
+
+                <!-- Amenities -->
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs uppercase font-bold tracking-wider text-on-surface-variant">Amenities Available</span>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${space.amenities.map(a => `<span class="bg-surface-variant/40 text-on-surface-variant border border-outline-variant/50 text-[11px] px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById("bookingDetailsModal").classList.remove("hidden");
+    }
+
+    function closeBookingDetailsModal() {
+        document.getElementById("bookingDetailsModal").classList.add("hidden");
+    }
+
+    function parseTimeToMinutes(timeStr) {
+        const [hh, mm] = timeStr.split(":").map(Number);
+        return hh * 60 + mm;
+    }
+
+    function parsePeriod(b) {
+        if (b.term === "Hourly") {
+            const d = new Date(b.date + "T00:00:00");
+            return { start: d, end: new Date(b.date + "T23:59:59") };
+        }
+        const parts = b.date.split(" - ");
+        if (parts.length === 2) {
+            return {
+                start: new Date(parts[0] + "T00:00:00"),
+                end: new Date(parts[1] + "T23:59:59")
+            };
+        }
+        const single = new Date(b.date + "T00:00:00");
+        return { start: single, end: new Date(b.date + "T23:59:59") };
+    }
+
+    function parseTimeSlotToMinutes(str) {
+        let [time, modifier] = str.split(" ");
+        let [hours, minutes] = time.split(":").map(Number);
+        if (modifier === "PM" && hours < 12) hours += 12;
+        if (modifier === "AM" && hours === 12) hours = 0;
+        return hours * 60 + minutes;
+    }
+
+    function isTimeOverlapping(start1, end1, start2, end2) {
+        return Math.max(start1, start2) < Math.min(end1, end2);
+    }
+
+    function matchesRecurrence(dateObj, baseDate, recurType) {
+        if (recurType === "None" || recurType === "" || !recurType) return true;
+        if (recurType === "Daily") return true;
+        if (recurType === "Weekly") {
+            return dateObj.getDay() === baseDate.getDay();
+        }
+        if (recurType === "Monthly") {
+            return dateObj.getDate() === baseDate.getDate();
+        }
+        return false;
+    }
+
+    function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
+        if (Math.max(start1, start2) > Math.min(end1, end2)) {
+            return false;
+        }
+        if (recur1 === "None" && recur2 === "None") {
+            return true;
+        }
+
+        let curr = new Date(Math.max(start1, start2));
+        let boundary = new Date(Math.min(end1, end2));
+        while (curr <= boundary) {
+            if (matchesRecurrence(curr, new Date(start1), recur1) && 
+                matchesRecurrence(curr, new Date(start2), recur2)) {
+                return true;
+            }
+            curr.setDate(curr.getDate() + 1);
+        }
+        return false;
+    }
+
+    function getHierarchy(name) {
+        const workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        let rooms = [];
+        try {
+            rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+        } catch(e){}
+        
+        const wMatch = workspaces.find(w => w.name === name);
+        const isParent = wMatch && !wMatch.parentWorkspace;
+        
+        let parent = null;
+        let childrenWorkspaces = [];
+        let childrenRooms = [];
+        
+        if (isParent) {
+            parent = name;
+            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
+            childrenRooms = rooms.filter(r => r.parentWorkspace === name).map(r => r.name);
+        } else {
+            if (wMatch && wMatch.parentWorkspace) {
+                parent = wMatch.parentWorkspace;
+            } else {
+                const rMatch = rooms.find(r => r.name === name);
+                if (rMatch && rMatch.parentWorkspace) {
+                    parent = rMatch.parentWorkspace;
+                }
+            }
+            if (parent) {
+                childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
+                childrenRooms = rooms.filter(r => r.parentWorkspace === parent).map(r => r.name);
+            }
+        }
+        return { parent, childrenWorkspaces, childrenRooms };
+    }
+
+    function getOverlappingBookings(roomName, reqTerm, reqStartD, reqEndD, reqStartTime, reqEndTime, reqRecur) {
+        let overlaps = [];
+        if (bookings && bookings.length > 0) {
+            const reqStartTMin = reqStartTime ? parseTimeToMinutes(reqStartTime) : 0;
+            const reqEndTMin = reqEndTime ? parseTimeToMinutes(reqEndTime) : 1440;
+
+            overlaps = bookings.filter(b => {
+                if (b.status !== "Confirmed" || b.room.trim() !== roomName.trim()) {
+                    return false;
+                }
+
+                const bPeriod = parsePeriod(b);
+                if (!hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, bPeriod.start.getTime(), bPeriod.end.getTime(), b.recurring || "None")) {
+                    return false;
+                }
+
+                if (reqTerm === "Hourly" && b.term === "Hourly") {
+                    const parts = b.time.split(" - ");
+                    if (parts.length === 2) {
+                        const bStartMin = parseTimeSlotToMinutes(parts[0]);
+                        const bEndMin = parseTimeSlotToMinutes(parts[1]);
+                        return isTimeOverlapping(reqStartTMin, reqEndTMin, bStartMin, bEndMin);
+                    }
+                    return true;
+                }
+                return true;
+            });
+        }
+
+        if (overlaps.length > 0) {
+            return overlaps;
+        }
+
+        // Check parent workspace Entire Space blocks
+        const hierarchy = getHierarchy(roomName);
+        if (hierarchy.parent) {
+            let workspaceBookings = [];
+            try {
+                workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
+            } catch(e){}
+
+            const parentBlock = workspaceBookings.filter(o => {
+                if (o.status !== "Confirmed" || o.workspace !== hierarchy.parent || o.bookingScope !== "Entire") return false;
+
+                const parts = o.period.split(" - ");
+                let start, end;
+                if (parts.length === 2) {
+                    start = new Date(parts[0] + "T00:00:00");
+                    end = new Date(parts[1] + "T23:59:59");
+                } else {
+                    start = new Date(o.period + "T00:00:00");
+                    end = new Date(o.period + "T23:59:59");
+                }
+
+                return hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, start.getTime(), end.getTime(), o.recurring || "None");
+            });
+
+            if (parentBlock.length > 0) {
+                return [{
+                    id: 9999,
+                    booker: parentBlock[0].booker,
+                    room: roomName,
+                    term: parentBlock[0].term,
+                    date: parentBlock[0].period,
+                    time: "Full Day",
+                    status: "Confirmed",
+                    recurring: parentBlock[0].recurring
+                }];
+            }
+        }
+
+        return [];
+    }
+
+    function submitNewBooking(e) {
+        e.preventDefault();
+        
+        const booker = document.getElementById("book_member_name").value.trim();
+        const title = document.getElementById("book_title").value.trim();
+        const room = document.getElementById("book_room").value;
+        const term = document.getElementById("book_term").value;
+        const recurring = document.getElementById("book_recurring").value;
+
+        if (!booker || !title || !room || !term) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        let dateRangeStr = "";
+        let timeRangeStr = "";
+        let durationStr = "1 Hour";
+        let reqStartD, reqEndD;
+        let reqStartT = null;
+        let reqEndT = null;
+
+        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+
+        if (term === "Hourly") {
+            const rawDate = document.getElementById("book_date").value;
+            reqStartT = document.getElementById("book_start").value;
+            reqEndT = document.getElementById("book_end").value;
+
+            if (!rawDate || !reqStartT || !reqEndT) {
+                alert("Please fill in hourly date and time slots.");
+                return;
+            }
+
+            reqStartD = new Date(rawDate + "T00:00:00");
+            reqEndD = new Date(rawDate + "T23:59:59");
+            dateRangeStr = reqStartD.toLocaleDateString('en-US', dateOptions);
+
+            const formatTimeAMPM = (timeStr) => {
+                const [hours, minutes] = timeStr.split(":");
+                let hh = parseInt(hours);
+                const suffix = hh >= 12 ? "PM" : "AM";
+                hh = hh % 12 || 12;
+                return `${hh}:${minutes} ${suffix}`;
+            };
+            timeRangeStr = `${formatTimeAMPM(reqStartT)} - ${formatTimeAMPM(reqEndT)}`;
+
+            try {
+                const d1 = new Date("2000/01/01 " + reqStartT);
+                const d2 = new Date("2000/01/01 " + reqEndT);
+                const diff = (d2 - d1) / (1000 * 60 * 60);
+                if (diff > 0) {
+                    durationStr = diff === 1 ? "1 Hour" : `${diff} Hours`;
+                }
+            } catch (err) {}
+        } else {
+            const rawStart = document.getElementById("book_start_date").value;
+            const rawEnd = document.getElementById("book_end_date").value;
+
+            if (!rawStart || !rawEnd) {
+                alert("Please select start and end dates.");
+                return;
+            }
+
+            reqStartD = new Date(rawStart + "T00:00:00");
+            reqEndD = new Date(rawEnd + "T23:59:59");
+
+            if (reqEndD < reqStartD) {
+                alert("End Date cannot be before Start Date.");
+                return;
+            }
+
+            dateRangeStr = `${reqStartD.toLocaleDateString('en-US', dateOptions)} - ${reqEndD.toLocaleDateString('en-US', dateOptions)}`;
+            timeRangeStr = "Full Day";
+            durationStr = "All Day";
+        }
+
+        // Perform Recurrence & Date Overlap Check
+        const overlaps = getOverlappingBookings(room, term, reqStartD, reqEndD, reqStartT, reqEndT, recurring);
+        if (overlaps.length > 0) {
+            const over = overlaps[0];
+            alert(`Overlap conflict detected! ${room} is already booked by ${over.booker} (${over.term} cycle) during this time.`);
+            return;
+        }
+
+        const newId = bookings.length > 0 ? Math.max(...bookings.map(x => x.id)) + 1 : 1;
+        const newBooking = {
+            id: newId,
+            booker: booker,
+            title: title,
+            room: room,
+            term: term,
+            date: dateRangeStr,
+            time: timeRangeStr,
+            duration: durationStr,
+            recurring: recurring,
+            status: "Confirmed",
+            image: ""
+        };
+
+        bookings.unshift(newBooking);
+        sessionStorage.setItem("bookings", JSON.stringify(bookings));
+        applyFilters();
+
+        alert("Room booked successfully.");
+        closeNewBookingModal();
+    }
+
+    let currentTab = "list"; // "list" or "timeline"
+    let timelineDate = new Date(); // default to today
+
+    function switchBookingTab(tab) {
+        currentTab = tab;
+        const listBtn = document.getElementById("tabListBtn");
+        const timelineBtn = document.getElementById("tabTimelineBtn");
+        const listContainer = document.getElementById("bookingsListContainer");
+        const timelineContainer = document.getElementById("bookingsTimelineContainer");
+
+        if (tab === "list") {
+            listBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30";
+            timelineBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5";
+            listContainer.classList.remove("hidden");
+            timelineContainer.classList.add("hidden");
+        } else {
+            timelineBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg bg-surface text-primary shadow-xs transition-all flex items-center gap-1.5 border border-outline-variant/30";
+            listBtn.className = "px-4 py-2 text-xs font-semibold rounded-lg text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-1.5";
+            listContainer.classList.add("hidden");
+            timelineContainer.classList.remove("hidden");
+
+            // Set input date
+            const dateInput = document.getElementById("timelineDateInput");
+            if (dateInput && !dateInput.value) {
+                const yyyy = timelineDate.getFullYear();
+                const mm = String(timelineDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(timelineDate.getDate()).padStart(2, '0');
+                dateInput.value = `${yyyy}-${mm}-${dd}`;
+            }
+            renderTimelineGrid();
+        }
+    }
+
+    function adjustTimelineDate(days) {
+        const dateInput = document.getElementById("timelineDateInput");
+        if (!dateInput) return;
+        const currentVal = dateInput.value ? new Date(dateInput.value + "T00:00:00") : new Date();
+        currentVal.setDate(currentVal.getDate() + days);
+        const yyyy = currentVal.getFullYear();
+        const mm = String(currentVal.getMonth() + 1).padStart(2, '0');
+        const dd = String(currentVal.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+        renderTimelineGrid();
+    }
+
+    function handleTimelineDateChange() {
+        renderTimelineGrid();
+    }
+
+    function renderTimelineGrid() {
+        const gridContainer = document.getElementById("timeline_grid_rows");
+        const dateInput = document.getElementById("timelineDateInput");
+        const searchInput = document.getElementById("searchTimelineRooms");
+        const indicator = document.getElementById("currentTimeIndicator");
+
+        if (!gridContainer || !dateInput) return;
+
+        const selectedDateObj = new Date(dateInput.value + "T00:00:00");
+        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+        const dateString = selectedDateObj.toLocaleDateString('en-US', dateOptions);
+
+        const roomsText = (searchInput ? searchInput.value : "").toLowerCase().trim();
+
+        // Get rooms
+        let rooms = [];
+        try {
+            rooms = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+        } catch (e){}
+
+        if (rooms.length === 0) {
+            rooms = [
+                { name: "Conference Room 1", capacity: 12, parentWorkspace: "Nichi-In Workspace 1", amenities: ["TV Screen", "Conference Phone"] },
+                { name: "Meeting Room 1", capacity: 6, parentWorkspace: "Nichi-In Workspace 1", amenities: ["Whiteboard"] },
+                { name: "Meeting Corner 1", capacity: 4, parentWorkspace: "Nichi-In Workspace 2", amenities: ["Power Outlets"] },
+                { name: "Meeting Corner 2", capacity: 2, parentWorkspace: "Nichi-In Workspace 2", amenities: ["High-speed WiFi"] }
+            ];
+        }
+
+        let workspaces = [];
+        try {
+            workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+        } catch(e){}
+
+        const filteredRooms = rooms.filter(r => r.status === "Active" && r.name.toLowerCase().includes(roomsText));
+
+        if (filteredRooms.length === 0) {
+            gridContainer.innerHTML = `<div class="p-8 text-center text-sm text-on-surface-variant italic">No rooms match the search criteria.</div>`;
+            if (indicator) indicator.classList.add("hidden");
+            return;
+        }
+
+        // Generate Rows
+        let rowsHtml = "";
+        filteredRooms.forEach((room, roomIdx) => {
+            // Find parent workspace client category
+            const parent = workspaces.find(w => w.name === room.parentWorkspace);
+            const clientType = parent ? parent.clientType : "Internal";
+            const badgeBg = clientType === "External" 
+                ? "bg-purple-50 text-purple-700 border-purple-200" 
+                : "bg-blue-50 text-blue-700 border-blue-200";
+
+            // Find all confirmed bookings on this room for selectedDate
+            const roomBookings = bookings.filter(b => 
+                b.status === "Confirmed" && 
+                b.room.trim() === room.name.trim() && 
+                b.date === dateString
+            );
+
+            // Generate booking block elements
+            let blocksHtml = "";
+            roomBookings.forEach((b, bIdx) => {
+                let startMin = 540; // 9:00 AM default
+                let endMin = 1020;  // 5:00 PM default
+                let isHourly = b.term === "Hourly";
+
+                if (isHourly && b.time) {
+                    const times = b.time.split(" - ");
+                    if (times.length === 2) {
+                        startMin = parseTimeSlotToMinutes(times[0]);
+                        endMin = parseTimeSlotToMinutes(times[1]);
+                    }
+                }
+
+                // Calculate relative bounds in our 9:00 AM - 6:00 PM view (540 mins total)
+                let leftPercent = ((startMin - 540) / 540) * 100;
+                let widthPercent = ((endMin - startMin) / 540) * 100;
+
+                // Clamp values
+                if (leftPercent < 0) {
+                    widthPercent += leftPercent;
+                    leftPercent = 0;
+                }
+                if (leftPercent + widthPercent > 100) {
+                    widthPercent = 100 - leftPercent;
+                }
+
+                if (widthPercent > 0) {
+                    const colorSchemes = [
+                        { bg: "bg-sky-50/95 text-sky-800 border-sky-300 hover:bg-sky-100", bar: "bg-sky-500" },
+                        { bg: "bg-emerald-50/95 text-emerald-800 border-emerald-300 hover:bg-emerald-100", bar: "bg-emerald-500" },
+                        { bg: "bg-indigo-50/95 text-indigo-800 border-indigo-300 hover:bg-indigo-100", bar: "bg-indigo-500" },
+                        { bg: "bg-amber-50/95 text-amber-800 border-amber-300 hover:bg-amber-100", bar: "bg-amber-500" }
+                    ];
+                    const scheme = colorSchemes[bIdx % colorSchemes.length];
+
+                    blocksHtml += `
+                        <div onclick="viewBookingDetails(${b.id})" 
+                             style="left: ${leftPercent}%; width: ${widthPercent}%;" 
+                             class="absolute top-2 bottom-2 border rounded-lg shadow-xs flex items-stretch overflow-hidden cursor-pointer transition-all duration-150 ${scheme.bg}"
+                             title="${b.title || 'Room Reservation'} (${b.time})">
+                            <div class="w-1 shrink-0 ${scheme.bar}"></div>
+                            <div class="p-1 px-2.5 flex flex-col justify-center min-w-0 select-none">
+                                <span class="font-bold text-[11px] truncate leading-tight text-on-surface">${b.title || 'Reservation'}</span>
+                                <span class="text-[9px] font-medium opacity-85 truncate mt-0.5">${b.booker} • ${b.time}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            rowsHtml += `
+                <div class="flex h-16 items-stretch relative">
+                    <!-- Left: Room Information Card -->
+                    <div class="w-[220px] border-r border-outline-variant/60 p-3 shrink-0 flex flex-col justify-center bg-surface-container-lowest gap-0.5 select-none">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="font-bold text-xs text-on-surface truncate max-w-[120px]">${room.name.replace(/\s*\((Int|Ext)\)/i, "")}</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded font-bold border ${badgeBg}">${clientType}</span>
+                        </div>
+                        <span class="text-[10px] text-on-surface-variant font-medium">Cap: ${room.capacity} • ${room.amenities ? room.amenities.slice(0, 2).join(", ") : "WiFi"}</span>
+                    </div>
+                    
+                    <!-- Right: Timeline Track Grid Columns -->
+                    <div class="flex-1 relative flex divide-x divide-outline-variant/30 bg-surface-container-lowest">
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1"></div>
+                        <div class="flex-1 bg-surface-container-low/10"></div>
+                        
+                        <!-- Booking Block Overlays -->
+                        <div class="absolute inset-0 z-5 pointer-events-auto">
+                            ${blocksHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        gridContainer.innerHTML = rowsHtml;
+
+        const today = new Date();
+        const isToday = selectedDateObj.toDateString() === today.toDateString();
+
+        if (isToday && indicator) {
+            const currMin = today.getHours() * 60 + today.getMinutes();
+            if (currMin >= 540 && currMin <= 1080) {
+                const lineOffsetPercent = ((currMin - 540) / 540) * 100;
+                indicator.style.left = `calc(220px + ${lineOffsetPercent}%)`;
+                indicator.classList.remove("hidden");
+            } else {
+                indicator.classList.add("hidden");
+            }
+        } else if (indicator) {
+            indicator.classList.add("hidden");
+        }
+    }
+
+    // Initialize page
+    loadBookings();
+
+    // Expose functions globally for SPA inline event handlers
+    window.closeBookingDetailsModal = closeBookingDetailsModal;
+    window.closeNewBookingModal = closeNewBookingModal;
+    window.openNewBookingModal = openNewBookingModal;
+    window.viewBookingDetails = viewBookingDetails;
+    window.approveBooking = approveBooking;
+    window.denyBooking = denyBooking;
+    window.deleteBooking = deleteBooking;
+    window.selectMember = selectMember;
+    window.submitNewBooking = submitNewBooking;
+    window.filterMemberDropdown = filterMemberDropdown;
+    window.showMemberDropdown = showMemberDropdown;
+    window.goToPage = goToPage;
+    window.applyFilters = applyFilters;
+    window.handleSearch = handleSearch;
+    window.handleTermChange = handleTermChange;
+    window.handleClientCategoryChange = handleClientCategoryChange;
+    window.switchBookingTab = switchBookingTab;
+    window.adjustTimelineDate = adjustTimelineDate;
+    window.handleTimelineDateChange = handleTimelineDateChange;
+    window.renderTimelineGrid = renderTimelineGrid;
+})();
+</script>

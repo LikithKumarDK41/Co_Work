@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const adminFile = path.join(__dirname, 'admin_dashboard_co_work_manager', 'code.html');
+const adminFile = path.join(__dirname, 'admin_dashboard', 'code.html');
 const memberDir = path.join(__dirname, '..', 'Member');
 
 const adminHtml = fs.readFileSync(adminFile, 'utf8');

@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>User Management - CoWork Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8FAFC;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Modal Animation Styles */
+        .modal-enter {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .modal-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 300ms ease-in-out;
+        }
+
+        .modal-exit {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .modal-exit-active {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 300ms ease-in-out;
+        }
+
+        .scrim-enter {
+            opacity: 0;
+        }
+
+        .scrim-enter-active {
+            opacity: 1;
+            transition: opacity 300ms ease-in-out;
+        }
+
+        .scrim-exit {
+            opacity: 1;
+        }
+
+        .scrim-exit-active {
+            opacity: 0;
+            transition: opacity 300ms ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+    <!-- TopNavBar -->
+    <header
+        class="h-16 fixed top-0 right-0 left-0 md:left-[260px] z-40 bg-surface dark:bg-on-background text-primary dark:text-primary-fixed-dim font-label-md text-label-md border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center px-lg transition-all duration-200">
+        <div class="flex items-center gap-sm">
+            <span
+                class="md:hidden font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary mr-sm">CoWork
+                Admin</span>
+            <!-- Search Bar (on_left) -->
+            <div class="relative hidden sm:block">
+                <span
+                    class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input
+                    class="pl-xl pr-sm py-sm rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all w-64 text-on-surface font-body-sm"
+                    placeholder="Search..." type="text">
+            </div>
+        </div>
+        <div class="flex items-center gap-md">
+            <button aria-label="Notifications"
+                class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors relative">
+                <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                <span class="absolute top-sm right-sm w-2 h-2 bg-error rounded-full"></span>
+            </button>
+            <button aria-label="Help"
+                class="text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors hidden sm:block">
+                <span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+            </button>
+            <button
+                class="font-label-md text-label-md text-primary hover:bg-surface-container-low px-sm py-xs rounded transition-colors hidden sm:block">Support</button>
+            <button
+                class="font-label-md text-label-md bg-primary text-on-primary px-md py-sm rounded-lg hover:bg-primary/90 transition-colors shadow-sm hidden md:block">Add
+                New</button>
+            <button class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant shadow-sm ml-sm">
+                <img alt="User Avatar" class="w-full h-full object-cover"
+                    data-alt="A small circular avatar of a professional professional person with short dark hair, wearing a dark blazer, smiling slightly. Clean white background. High resolution corporate portrait."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCyO8vUnT0iguTrUZHWWzzN5p-Xc4ZM_B8H5ANRp94nK-MTtbZ3SyRm_aQbetLyMDqyd7fTZVs9-xtkmV0jPyWcDdNfhBfA5I24XlRfUCsP4Q7HwgMPfzTdyxn0rY8_rRzB-7fJ-d-E0jgsEIpLZu1lkm4tOAetIV1IuPrZ6v4vm4cOnD3b8PbVPqU6Z2vxpUbS4FkMXPsKDLVTWl4rIXQAMZzxIF2iGBQ7h7WiyQs4GMn-Wf6rSeTIzF6ueSwJ_qn4rso8mZP7I0">
+            </button>
+        </div>
+    </header>
+    <!-- SideNavBar -->
+    <nav
+        class="hidden md:flex bg-surface-container-lowest dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim font-label-md text-label-md w-[260px] h-screen fixed left-0 top-0 border-r border-outline-variant dark:border-outline shadow-sm flex-col py-6 h-full z-50">
+        <!-- Brand / Header -->
+        <div class="px-md mb-xl flex items-center gap-sm">
+            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+                <span class="material-symbols-outlined text-[20px]" data-icon="domain">domain</span>
+            </div>
+            <div>
+                <h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary">CoWork
+                    Manager</h1>
+                <p class="font-label-sm text-label-sm text-on-surface-variant">Operational Excellence</p>
+            </div>
+        </div>
+        <!-- Main Tabs -->
+        <div class="flex-1 overflow-y-auto flex flex-col gap-unit px-sm">
+            <!-- Inactive -->
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <!-- Active (Users) -->
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-primary dark:text-secondary-fixed-dim font-bold border-l-4 border-primary dark:border-secondary-fixed-dim bg-surface-container-high dark:bg-on-surface-variant/20 scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined icon-fill" data-icon="group">group</span>
+                <span>Users</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="meeting_room">meeting_room</span>
+                <span>Rooms</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                <span>Visitors</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+                <span>Bookings</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                <span>Tickets</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+                <span>Announcements</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-variant/10 transition-colors scale-95 active:scale-90 duration-150"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span>Reports</span>
+            </a>
+        </div>
+        <!-- CTA & Footer -->
+        <div class="px-md mt-auto pt-md flex flex-col gap-sm">
+            <button
+                class="w-full bg-primary text-on-primary font-label-md py-sm rounded-lg hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center gap-sm">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                Quick Add
+            </button>
+            <div class="h-[1px] w-full bg-outline-variant/50 my-sm"></div>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span>Settings</span>
+            </a>
+            <a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="help">help</span>
+                <span>Support</span>
+            </a>
+        </div>
+    </nav>
+    <!-- Main Content Canvas -->
+    <main class="md:ml-[260px] pt-[80px] p-md md:p-lg lg:p-xl min-h-screen">
+        <!-- Page Header & Toolbar -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-lg gap-md">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface">Member List</h2>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-unit">Manage co-working space members,
+                    their access roles, and account status.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
+                <!-- Search -->
+                <div class="relative flex-grow md:flex-grow-0">
+                    <span
+                        class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+                    <input
+                        class="w-full md:w-64 pl-xl pr-sm py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-sm text-on-surface"
+                        placeholder="Search members..." type="text">
+                </div>
+                <!-- Filters -->
+                <button
+                    class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container-low transition-colors font-label-md">
+                    <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    Filter
+                </button>
+                <!-- Primary Action -->
+                <button
+                    class="flex items-center gap-xs bg-primary text-on-primary px-md py-sm rounded-lg hover:bg-primary/90 transition-colors shadow-sm font-label-md font-bold">
+                    <span class="material-symbols-outlined text-[18px]">person_add</span>
+                    Add Member
+                </button>
+            </div>
+        </div>
+        <!-- Data Table Container (Level 1 Elevation) -->
+        <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-container-low border-b border-outline-variant">
+                            <th
+                                class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Member Name</th>
+                            <th
+                                class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Email Contact</th>
+                            <th
+                                class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Plan / Role</th>
+                            <th
+                                class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Status</th>
+                            <th
+                                class="px-md py-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+                                Join Date</th>
+                            <th class="px-md py-sm w-12"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-body-sm text-on-surface divide-y divide-outline-variant/50">
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                            onclick="openProfileModal()">
+                            <td class="px-md py-sm">
+                                <div class="flex items-center gap-sm">
+                                    <img alt="Avatar" class="w-8 h-8 rounded-full object-cover"
+                                        data-alt="A clear, professional headshot of a smiling young woman with curly hair, wearing a light blue sweater, against a neutral gray background. High quality lighting suitable for a corporate directory."
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt2v-bSHuU-bG53k1UGvMo_jdeHg81x8s1Q3UuyqNmg9g3WiRKjLq2504N2lSWC16nok163bXnc1Dn2UujsJLAfJ7VK9gYMDqR6-T-K_QRZC9o5S4Z7Sva2NdPR_RFD4GIIsxdU28GZjYUTMkCTgxZyI2RzrPE4cgxdzbHlmsGuxDP_L2WlQ8mEytcZUV8DpfL9wbenFcUdUyrC6LCAyuUZ4vZnAFqGauvCvOX_PFHt2RpUSTLmqap77c673oyQ4OTRlf6Ts_dWmc">
+                                    <span class="font-label-md text-label-md">Sarah Jenkins</span>
+                                </div>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">sarah.j@example.com</td>
+                            <td class="px-md py-sm">Hot Desk</td>
+                            <td class="px-md py-sm">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">Oct 12, 2023</td>
+                            <td class="px-md py-sm text-right">
+                                <button
+                                    class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded">
+                                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                            onclick="openProfileModal()">
+                            <td class="px-md py-sm">
+                                <div class="flex items-center gap-sm">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-label-md">
+                                        MR</div>
+                                    <span class="font-label-md text-label-md">Marcus Reed</span>
+                                </div>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">m.reed@techcorp.io</td>
+                            <td class="px-md py-sm">Private Office</td>
+                            <td class="px-md py-sm">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-bold bg-secondary/10 text-secondary">Active</span>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">Aug 05, 2023</td>
+                            <td class="px-md py-sm text-right">
+                                <button
+                                    class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded">
+                                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                            onclick="openProfileModal()">
+                            <td class="px-md py-sm">
+                                <div class="flex items-center gap-sm">
+                                    <img alt="Avatar" class="w-8 h-8 rounded-full object-cover"
+                                        data-alt="A modern corporate headshot of an older gentleman with glasses and grey hair, wearing a white shirt and navy tie, looking directly at the camera with a friendly expression. White background."
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzUHqL2k0j2xNOIkkiq_7sOjlLc5_RXUP-SgGvH479IK6ykn_s4jtfS7PSzCVKyfbOSreBIjjfO-Je_xviI62onBszhSLpyYjtjtEJ3wkNsF6UwxzI_V8PKNVMBloaU-sTGFmD5-RThemF0XtuyxoIjPBwbJv_9ODlerG04x8E--dyp_SIfaUjilPHuDJ43zbucEdCbuy89uOtbDiRoy2dSpsYMWYzxkHFnksFMP9bsKfW2Sn5nArJT2nANEdK2_WQI2BbMWK1Z3Y">
+                                    <span class="font-label-md text-label-md">David Chen</span>
+                                </div>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">d.chen@freelance.net</td>
+                            <td class="px-md py-sm">Dedicated Desk</td>
+                            <td class="px-md py-sm">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-bold bg-error/10 text-error">Past
+                                    Due</span>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">Jan 22, 2026</td>
+                            <td class="px-md py-sm text-right">
+                                <button
+                                    class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded">
+                                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Row 4 -->
+                        <tr class="hover:bg-surface-container-low/50 transition-colors cursor-pointer group"
+                            onclick="openProfileModal()">
+                            <td class="px-md py-sm">
+                                <div class="flex items-center gap-sm">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-label-md">
+                                        AL</div>
+                                    <span class="font-label-md text-label-md">Anna Lopez</span>
+                                </div>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">anna.l@designstudio.co</td>
+                            <td class="px-md py-sm">Hot Desk</td>
+                            <td class="px-md py-sm">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 rounded-full text-[11px] font-bold bg-surface-variant text-on-surface-variant">Inactive</span>
+                            </td>
+                            <td class="px-md py-sm text-on-surface-variant">Nov 15, 2022</td>
+                            <td class="px-md py-sm text-right">
+                                <button
+                                    class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity p-xs hover:bg-surface-variant rounded">
+                                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination Footer -->
+            <div
+                class="border-t border-outline-variant bg-surface-container-lowest px-md py-sm flex items-center justify-between">
+                <span class="font-body-sm text-on-surface-variant">Showing 1 to 4 of 48 entries</span>
+                <div class="flex gap-xs">
+                    <button
+                        class="p-xs rounded hover:bg-surface-container-low text-on-surface-variant disabled:opacity-50"
+                        disabled="">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button
+                        class="w-8 h-8 rounded bg-primary text-on-primary font-label-sm flex items-center justify-center">1</button>
+                    <button
+                        class="w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">2</button>
+                    <button
+                        class="w-8 h-8 rounded hover:bg-surface-container-low text-on-surface font-label-sm flex items-center justify-center">3</button>
+                    <button class="p-xs rounded hover:bg-surface-container-low text-on-surface-variant">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Member Profile Slide-over (Level 3 Elevation) -->
+    <div class="fixed inset-0 bg-on-background/40 z-[60] hidden opacity-0 transition-opacity duration-300"
+        id="profileScrim" onclick="closeProfileModal()"></div>
+    <aside
+        class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-surface-container-lowest shadow-[0_8px_32px_rgba(0,0,0,0.1)] z-[70] transform translate-x-full transition-transform duration-300 flex flex-col border-l border-outline-variant"
+        id="profileModal">
+        <!-- Header -->
+        <div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Member Profile</h3>
+            <button class="p-sm hover:bg-surface-container-low rounded-full text-on-surface-variant transition-colors"
+                onclick="closeProfileModal()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto p-lg">
+            <!-- Hero Info -->
+            <div class="flex flex-col items-center text-center mb-xl">
+                <img alt="Sarah Jenkins Profile"
+                    class="w-24 h-24 rounded-full object-cover mb-md border-2 border-surface-container shadow-sm"
+                    data-alt="A clear, professional headshot of a smiling young woman with curly hair, wearing a light blue sweater, against a neutral gray background. High quality lighting suitable for a corporate directory."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB60-3oK9U3PahU-2LbhIqE0cMOHgR-Pk1UPJpnR59m52GvwxUUcW9npcgOHq9CUpQJ14GVwF8YiP3SMy-BHGkV2_sHKQyBmGm_xVzVzjd0Tly2RG892JKktZBy1oMOxizWorHzxWMswFgSbq4PWYQFZn_XOxDAg5jiiaIqstcCMThBaCzlgl0EAEFE0WWYaIk5IVk5hzkkJRa9CNX81dbkJvuNpb9TxXZzDL-Z6wAcqqIDgUlVCAgiCOkikF9DvlOgLzPu8R7lcdk">
+                <h4 class="font-headline-md text-headline-md text-on-surface">Sarah Jenkins</h4>
+                <p class="font-body-sm text-on-surface-variant mb-sm">sarah.j@example.com</p>
+                <span
+                    class="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-secondary/10 text-secondary">Active
+                    Member</span>
+            </div>
+            <!-- Bento Details Grid -->
+            <div class="grid grid-cols-2 gap-sm mb-xl">
+                <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                    <p class="font-label-sm text-on-surface-variant uppercase mb-xs">Plan</p>
+                    <p class="font-label-md text-on-surface">Hot Desk</p>
+                </div>
+                <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                    <p class="font-label-sm text-on-surface-variant uppercase mb-xs">Join Date</p>
+                    <p class="font-label-md text-on-surface">Oct 12, 2023</p>
+                </div>
+                <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                    <p class="font-label-sm text-on-surface-variant uppercase mb-xs">Company</p>
+                    <p class="font-label-md text-on-surface">Independent</p>
+                </div>
+                <div class="bg-surface-container-low p-md rounded-lg border border-outline-variant/30">
+                    <p class="font-label-sm text-on-surface-variant uppercase mb-xs">Access Level</p>
+                    <p class="font-label-md text-on-surface">24/7 Standard</p>
+                </div>
+            </div>
+            <!-- Recent Activity List -->
+            <div>
+                <h5 class="font-label-md text-on-surface border-b border-outline-variant pb-xs mb-sm">Recent Activity
+                </h5>
+                <ul class="space-y-md">
+                    <li class="flex items-start gap-sm">
+                        <div
+                            class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px] text-primary">login</span>
+                        </div>
+                        <div>
+                            <p class="font-body-sm text-on-surface">Checked in at Main Entrance</p>
+                            <p class="font-label-sm text-on-surface-variant">Today, 08:45 AM</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-sm">
+                        <div
+                            class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px] text-tertiary">meeting_room</span>
+                        </div>
+                        <div>
+                            <p class="font-body-sm text-on-surface">Booked 'Conference Room A'</p>
+                            <p class="font-label-sm text-on-surface-variant">Yesterday, 02:00 PM</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-sm">
+                        <div
+                            class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[16px] text-secondary">credit_card</span>
+                        </div>
+                        <div>
+                            <p class="font-body-sm text-on-surface">Monthly invoice paid successfully</p>
+                            <p class="font-label-sm text-on-surface-variant">Oct 12, 2026</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Footer Actions -->
+        <div class="p-md border-t border-outline-variant bg-surface flex gap-sm">
+            <button
+                class="flex-1 py-sm px-md border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors">Edit
+                Profile</button>
+            <button
+                class="flex-1 py-sm px-md bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Message</button>
+        </div>
+    </aside>
+    <script>
+        function openProfileModal() {
+            const modal = document.getElementById('profileModal');
+            const scrim = document.getElementById('profileScrim');
+
+            scrim.classList.remove('hidden');
+            // Small delay to allow display block to register before animating opacity
+            setTimeout(() => {
+                scrim.classList.remove('opacity-0');
+                modal.classList.remove('translate-x-full');
+            }, 10);
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profileModal');
+            const scrim = document.getElementById('profileScrim');
+
+            modal.classList.add('translate-x-full');
+            scrim.classList.add('opacity-0');
+
+            setTimeout(() => {
+                scrim.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300); // match transition duration
+        }
+    </script>
+</body>
+
+</html>
