@@ -18,6 +18,9 @@
         <button id="nav-notifications" onclick="switchSettingsTab('notifications')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined text-[20px]">notifications_active</span> Notifications
         </button>
+        <button id="nav-security" onclick="switchSettingsTab('security')" class="settings-nav-btn w-full text-left flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md whitespace-nowrap text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined text-[20px]">security</span> Security & Password
+        </button>
     </div>
 
     <!-- Main Content Area -->
@@ -347,10 +350,124 @@
                 <button class="px-6 py-2 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm">Save Preferences</button>
             </div>
         </div>
+
+        <!-- Panel: Security & Password -->
+        <div id="panel-security" class="settings-panel hidden animate-fade-in space-y-6">
+            <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+                <h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface mb-4 border-b border-outline-variant pb-2">Security Settings</h3>
+                <div class="space-y-4 max-w-md">
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Update your login password to ensure security of your manager account access.</p>
+                    <button onclick="openChangePasswordModal()" class="px-6 py-2.5 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">lock_reset</span> Change Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div id="changePasswordModal" class="hidden fixed inset-0 z-50 flex justify-end">
+    <!-- Backdrop overlay -->
+    <div class="absolute inset-0 bg-on-surface/35 backdrop-blur-xs transition-opacity duration-300" onclick="closeChangePasswordModal()"></div>
+    <!-- Panel -->
+    <div class="bg-surface-container-lowest border-l border-outline-variant shadow-2xl w-full max-w-md relative z-10 flex flex-col h-full overflow-hidden">
+        <div class="flex items-center justify-between bg-surface-bright p-lg border-b border-outline-variant shrink-0">
+            <div>
+                <h3 class="font-headline-md font-bold text-on-surface">Change Password</h3>
+                <p class="font-body-sm text-on-surface-variant mt-1">Update your account password settings</p>
+            </div>
+            <button onclick="closeChangePasswordModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <form id="changePasswordForm" onsubmit="event.preventDefault(); submitChangePassword();" class="flex-1 overflow-y-auto flex flex-col h-full bg-surface-container-lowest">
+            <div class="p-lg flex-1 flex flex-col gap-4">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-old-password">Old Password *</label>
+                    <div class="relative">
+                        <input id="modal-old-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-old-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-new-password">New Password *</label>
+                    <div class="relative">
+                        <input id="modal-new-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-new-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-on-surface-variant font-semibold text-xs" for="modal-confirm-password">Confirm Password *</label>
+                    <div class="relative">
+                        <input id="modal-confirm-password" type="password" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none text-body-sm pr-10" />
+                        <button type="button" onclick="togglePasswordVisibility('modal-confirm-password', this)" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition">
+                            <span class="material-symbols-outlined text-[18px]">visibility</span>
+                        </button>
+                    </div>
+                    <p id="modal-pass-error" class="hidden text-error text-[11px] mt-1 font-medium">New passwords do not match.</p>
+                </div>
+            </div>
+
+            <div class="p-md border-t border-outline-variant bg-surface flex gap-2 mt-auto justify-end shrink-0">
+                <button type="button" class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors shadow-sm" onclick="closeChangePasswordModal()">Cancel</button>
+                <button type="submit" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm">Save Password</button>
+            </div>
+        </form>
     </div>
 </div>
 
 <script>
+    function openChangePasswordModal() {
+        document.getElementById('changePasswordForm').reset();
+        document.getElementById('modal-pass-error').classList.add('hidden');
+        document.getElementById('changePasswordModal').classList.remove('hidden');
+    }
+
+    function closeChangePasswordModal() {
+        document.getElementById('changePasswordModal').classList.add('hidden');
+    }
+
+    function togglePasswordVisibility(fieldId, button) {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        button.querySelector('span').textContent = isPassword ? 'visibility_off' : 'visibility';
+    }
+
+    function submitChangePassword() {
+        const oldPass = document.getElementById('modal-old-password').value;
+        const newPass = document.getElementById('modal-new-password').value;
+        const confirmPass = document.getElementById('modal-confirm-password').value;
+        const error = document.getElementById('modal-pass-error');
+
+        if (newPass !== confirmPass) {
+            error.textContent = "New passwords do not match.";
+            error.classList.remove('hidden');
+            return;
+        }
+
+        if (oldPass === newPass) {
+            error.textContent = "New password must be different from old password.";
+            error.classList.remove('hidden');
+            return;
+        }
+
+        error.classList.add('hidden');
+        alert("Password updated successfully!");
+        closeChangePasswordModal();
+    }
+
     function switchSettingsTab(tabId) {
         // Reset all navigation buttons
         document.querySelectorAll('.settings-nav-btn').forEach(btn => {

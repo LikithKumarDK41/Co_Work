@@ -16,6 +16,95 @@
             theme: {
                 extend: {
                     "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
                     }
                 }
             }
@@ -167,49 +256,49 @@
         </section>
         <!-- Register Visitor Modal -->
         <div id="preRegisterModalOverlay"
-            class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[9998] hidden opacity-0 transition-opacity duration-300">
+            class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[9998] hidden opacity-0 transition-opacity duration-300" onclick="closePreRegisterModal()">
         </div>
         <div id="preRegisterModal"
-            class="fixed inset-y-0 right-0 w-full sm:w-[450px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full sm:rounded-l-3xl">
-            <div class="flex items-center justify-between p-6 border-b border-slate-100 shrink-0">
+            class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 hidden flex flex-col border-l border-slate-100">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
                 <div>
-                    <h3 id="pr_modal_title" class="text-xl font-bold text-slate-900">Register Visitor</h3>
-                    <p class="text-sm text-slate-500 mt-1">Register an expected visitor.</p>
+                    <h3 id="pr_modal_title" class="text-lg font-bold text-slate-900">Register Visitor</h3>
+                    <p class="text-xs text-slate-500 mt-1">Register an expected visitor.</p>
                 </div>
                 <button onclick="closePreRegisterModal()"
-                    class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-50 text-slate-500 hover:text-slate-700 transition-colors">
+                    class="p-2 hover:bg-slate-200/60 rounded-full text-slate-500 hover:text-slate-700 transition-colors">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
-            <div class="p-6 overflow-y-auto flex-1">
-                <form id="preRegisterForm" class="flex flex-col gap-5">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-sm font-semibold text-slate-700">Visitor Name *</label>
+            <div class="p-6 overflow-y-auto flex-1 bg-white">
+                <form id="preRegisterForm" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-slate-700">Visitor Name <span class="text-red-500">*</span></label>
                         <input id="pr_name" type="text" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-sm text-slate-900"
                             placeholder="e.g. John Doe">
                     </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-sm font-semibold text-slate-700">Company / Agency *</label>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-slate-700">Company / Agency <span class="text-red-500">*</span></label>
                         <input id="pr_company" type="text" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-sm text-slate-900"
                             placeholder="e.g. Acme Corp">
                     </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-sm font-semibold text-slate-700">Expected Arrival Time *</label>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-slate-700">Expected Arrival Time <span class="text-red-500">*</span></label>
                         <input id="pr_time" type="time" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all">
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-sm text-slate-900">
                     </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-sm font-semibold text-slate-700">Purpose of Visit</label>
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-semibold text-slate-700">Purpose of Visit</label>
                         <textarea id="pr_purpose" rows="3"
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
+                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all text-sm text-slate-900"
                             placeholder="e.g. Meeting"></textarea>
                     </div>
                 </form>
             </div>
             <div
-                class="p-6 border-t border-slate-100 bg-white flex gap-3 mt-auto justify-end sm:rounded-bl-3xl shrink-0">
+                class="p-6 border-t border-slate-100 bg-slate-50 flex gap-3 mt-auto justify-end shrink-0">
                 <button type="button"
                     class="px-6 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm"
                     onclick="closePreRegisterModal()">Cancel</button>
@@ -220,6 +309,67 @@
                     <span id="pr_submit_btn_text">Generate QR & Send</span>
                 </button>
             </div>
+        </div>
+
+        <!-- Visitor Details Modal Overlay -->
+        <div id="visitorDetailModalOverlay"
+            class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-[9998] hidden opacity-0 transition-opacity duration-300" onclick="closeVisitorDetailModal()">
+        </div>
+        <!-- Visitor Details Modal -->
+        <aside id="visitorDetailModal"
+            class="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 hidden flex flex-col border-l border-slate-100">
+            <!-- Header -->
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50 shrink-0">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">Visitor Details</h3>
+                    <p class="text-xs text-slate-500 mt-1">Detailed view of the visitor record.</p>
+                </div>
+                <button onclick="closeVisitorDetailModal()"
+                    class="p-2 hover:bg-slate-200/60 rounded-full text-slate-500 hover:text-slate-700 transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6 overflow-y-auto flex-1 bg-white">
+                <!-- Hero Section with Avatar Initials and Name -->
+                <div class="flex flex-col items-center text-center mb-8">
+                    <div id="vd_avatar_container" class="mb-4">
+                        <!-- Initials loaded here dynamically -->
+                    </div>
+                    <h4 id="vd_name" class="text-xl font-bold text-slate-900"></h4>
+                    <p id="vd_company" class="text-sm text-slate-500 mb-2"></p>
+                    <span id="vd_status" class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider"></span>
+                </div>
+                
+                <!-- Details Grid -->
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-100/80">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Date</p>
+                        <p id="vd_date" class="text-sm font-semibold text-slate-800"></p>
+                    </div>
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-100/80">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Time</p>
+                        <p id="vd_time" class="text-sm font-semibold text-slate-800"></p>
+                    </div>
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-100/80 col-span-2">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Purpose of Visit</p>
+                        <p id="vd_purpose" class="text-sm font-semibold text-slate-800"></p>
+                    </div>
+                    <div class="bg-slate-50/70 p-4 rounded-xl border border-slate-100/80 col-span-2">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Host / Inviter</p>
+                        <p id="vd_host" class="text-sm font-semibold text-slate-800"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Actions -->
+            <div class="p-6 border-t border-slate-100 bg-slate-50 flex gap-3 mt-auto justify-end shrink-0">
+                <button type="button"
+                    class="px-6 py-2.5 border border-slate-200 text-slate-700 rounded-xl text-sm font-semibold hover:bg-slate-50 transition-colors shadow-sm"
+                    onclick="closeVisitorDetailModal()">Close</button>
+            </div>
+        </aside>
 
             <script>
                 (function() {
@@ -341,20 +491,32 @@
 
                             const isPastOrActive = v.status === "Checked-In" || v.status === "Completed" || v.status === "No-show";
 
+                            const detailButton = `
+                            <button onclick="openDetailModal(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Details">
+                                <span class="material-symbols-outlined text-[18px]">visibility</span>
+                            </button>
+                            `;
+
                             const actionButtons = isPastOrActive ? `
-                            <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
-                                <span class="material-symbols-outlined text-[18px]">edit</span>
-                            </button>
-                            <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
-                                <span class="material-symbols-outlined text-[18px]">delete</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                ${detailButton}
+                                <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot edit active/past visits">
+                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                                </button>
+                                <button class="w-8 h-8 rounded-full flex items-center justify-center text-slate-300 opacity-50 cursor-not-allowed" title="Cannot delete active/past visits">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                </button>
+                            </div>
                         ` : `
-                            <button onclick="openPreRegisterModal(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
-                                <span class="material-symbols-outlined text-[18px]">edit</span>
-                            </button>
-                            <button onclick="deleteVisitor(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
-                                <span class="material-symbols-outlined text-[18px]">delete</span>
-                            </button>
+                            <div class="flex items-center gap-2">
+                                ${detailButton}
+                                <button onclick="openPreRegisterModal(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
+                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                                </button>
+                                <button onclick="deleteVisitor(${v.id})" class="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors" title="Delete">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                </button>
+                            </div>
                         `;
 
                             return `
@@ -559,11 +721,79 @@
                         }
                     }
 
+                    function openDetailModal(visitorId) {
+                        const modal = document.getElementById('visitorDetailModal');
+                        const overlay = document.getElementById('visitorDetailModalOverlay');
+                        
+                        const v = visitors.find(item => item.id === visitorId);
+                        if (v) {
+                            document.getElementById('vd_name').textContent = v.name;
+                            document.getElementById('vd_company').textContent = v.company;
+                            document.getElementById('vd_date').textContent = v.date;
+                            document.getElementById('vd_time').textContent = v.time;
+                            document.getElementById('vd_purpose').textContent = v.purpose || "—";
+                            document.getElementById('vd_host').textContent = v.hostName || "Nichi-In Portal";
+
+                            const statusEl = document.getElementById('vd_status');
+                            statusEl.textContent = v.status;
+                            statusEl.className = "inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider";
+                            if (v.status === "Registered") {
+                                statusEl.classList.add("bg-blue-50", "text-blue-700");
+                            } else if (v.status === "Confirmed") {
+                                statusEl.classList.add("bg-indigo-50", "text-indigo-700");
+                            } else if (v.status === "Checked-In") {
+                                statusEl.classList.add("bg-amber-50", "text-amber-700");
+                            } else if (v.status === "Completed") {
+                                statusEl.classList.add("bg-emerald-50", "text-emerald-700");
+                            } else {
+                                statusEl.classList.add("bg-slate-100", "text-slate-700");
+                            }
+
+                            const avatarContainer = document.getElementById('vd_avatar_container');
+                            const initials = v.name ? v.name.split(' ').map(n => n[0]).join('').toUpperCase() : "V";
+                            
+                            let bgClass = "bg-slate-100 text-slate-600";
+                            if (v.status === "Registered") {
+                                bgClass = "bg-blue-50 text-blue-600";
+                            } else if (v.status === "Confirmed") {
+                                bgClass = "bg-indigo-50 text-indigo-600";
+                            } else if (v.status === "Checked-In") {
+                                bgClass = "bg-amber-50 text-amber-600";
+                            } else if (v.status === "Completed") {
+                                bgClass = "bg-emerald-50 text-emerald-600";
+                            }
+                            
+                            avatarContainer.innerHTML = `<div class="w-24 h-24 rounded-full ${bgClass} flex items-center justify-center font-bold text-3xl shadow-sm mx-auto">${initials}</div>`;
+                        }
+
+                        modal.classList.remove('hidden');
+                        overlay.classList.remove('hidden');
+                        setTimeout(() => {
+                            modal.classList.remove('translate-x-full');
+                            overlay.classList.remove('opacity-0');
+                        }, 10);
+                        document.body.style.overflow = 'hidden';
+                    }
+
+                    function closeVisitorDetailModal() {
+                        const modal = document.getElementById('visitorDetailModal');
+                        const overlay = document.getElementById('visitorDetailModalOverlay');
+                        modal.classList.add('translate-x-full');
+                        overlay.classList.add('opacity-0');
+                        setTimeout(() => {
+                            modal.classList.add('hidden');
+                            overlay.classList.add('hidden');
+                            document.body.style.overflow = '';
+                        }, 300);
+                    }
+
                     window.changePage = changePage;
                     window.openPreRegisterModal = openPreRegisterModal;
                     window.closePreRegisterModal = closePreRegisterModal;
                     window.submitPreRegister = submitPreRegister;
                     window.deleteVisitor = deleteVisitor;
+                    window.openDetailModal = openDetailModal;
+                    window.closeVisitorDetailModal = closeVisitorDetailModal;
 
                     const searchInput = document.getElementById("visitor_search");
                     const statusFilter = document.getElementById("visitor_status_filter");

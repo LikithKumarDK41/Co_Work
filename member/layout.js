@@ -182,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     Array.from(document.body.children).forEach(el => {
         if (injectedIds.has(el.id)) return;
+        if (el.tagName === "SCRIPT" || el.tagName === "NOSCRIPT") return;
 
         if (!el.classList.contains("page-layout")) {
             el.classList.add("layout-content");
@@ -192,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const footer = document.createElement("footer");
     footer.className = "layout-footer";
     footer.innerHTML = `
-        <p>© 2026 Nichi-In. All Rights Reserved. | <a href="help_center.html">Help Center</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+        <p>© 2026 Nichi-In. All Rights Reserved. </p>
     `;
 
     // Append footer to content containers
