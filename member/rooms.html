@@ -159,20 +159,24 @@
 
 <body class="min-h-screen flex bg-background page-bg">
     <!-- Main Content Canvas -->
-    <main class="page-layout page-bg p-4 md:p-8 pb-24 md:pb-24 max-w-[1440px] mx-auto w-full flex-1 flex flex-col gap-6">
-        
+    <main
+        class="page-layout page-bg p-4 md:p-8 pb-24 md:pb-24 max-w-[1440px] mx-auto w-full flex-1 flex flex-col gap-6">
+
         <!-- Top Title and Search Row -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-container-high pb-6">
+        <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-surface-container-high pb-6">
             <div>
                 <h2 class="text-3xl font-bold text-primary tracking-tight mb-2">Rooms</h2>
-                <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Book meeting rooms, creative hubs, and podcast studios equipped with premium specs.</p>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Book meeting rooms, creative
+                    hubs, and podcast studios equipped with premium specs.</p>
             </div>
             <!-- Search bar -->
             <div class="relative w-full md:w-80 shrink-0">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
+                <span
+                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">
                     search
                 </span>
-                <input type="text" id="roomSearchInput" oninput="handleSearch()" placeholder="Search rooms..." 
+                <input type="text" id="roomSearchInput" oninput="handleSearch()" placeholder="Search rooms..."
                     class="w-full bg-surface-container-low border border-surface-variant rounded-lg pl-10 pr-4 py-2.5 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-on-surface-variant/70">
             </div>
         </div>
@@ -183,16 +187,22 @@
         </div>
 
         <!-- New Room Booking Drawer Modal (Aligned with manager bookings list layout) -->
-        <div id="roomBookingModalOverlay" class="fixed inset-0 bg-surface-variant/85 backdrop-blur-xs z-[100] hidden opacity-0 transition-opacity duration-300" onclick="closeRoomBookingModal()"></div>
-        <div id="roomBookingModal" class="fixed inset-y-0 right-0 w-full sm:w-[500px] bg-surface-container-lowest shadow-level-5 z-[101] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full rounded-l-2xl border-l border-outline-variant">
-            
+        <div id="roomBookingModalOverlay"
+            class="fixed inset-0 bg-surface-variant/85 backdrop-blur-xs z-[100] hidden opacity-0 transition-opacity duration-300"
+            onclick="closeRoomBookingModal()"></div>
+        <div id="roomBookingModal"
+            class="fixed inset-y-0 right-0 w-full sm:w-[500px] bg-surface-container-lowest shadow-level-5 z-[101] transform translate-x-full transition-transform duration-300 hidden flex flex-col h-full rounded-l-2xl border-l border-outline-variant">
+
             <!-- Modal Header -->
-            <div class="flex items-center justify-between p-6 border-b border-outline-variant shrink-0 bg-surface-bright rounded-tl-2xl">
+            <div
+                class="flex items-center justify-between p-6 border-b border-outline-variant shrink-0 bg-surface-bright rounded-tl-2xl">
                 <div>
                     <h3 class="font-headline-md font-bold text-on-surface text-xl">Book Room</h3>
                     <p class="font-body-sm text-on-surface-variant mt-1">Reserve a room slot or long-term cycle</p>
                 </div>
-                <button onclick="closeRoomBookingModal()" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors cursor-pointer border-0 bg-transparent flex items-center justify-center" aria-label="Close modal">
+                <button onclick="closeRoomBookingModal()"
+                    class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low text-on-surface transition-colors cursor-pointer border-0 bg-transparent flex items-center justify-center"
+                    aria-label="Close modal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
@@ -201,32 +211,42 @@
             <div class="p-6 overflow-y-auto flex-1 bg-surface-container-lowest">
                 <form id="roomBookingForm" onsubmit="submitRoomBooking(event)" class="flex flex-col gap-4">
                     <!-- Room Info Panel -->
-                    <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 flex items-center gap-3">
+                    <div
+                        class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center shrink-0">
                         <span class="material-symbols-outlined text-primary text-[32px]">meeting_room</span>
                         <div>
-                            <div class="font-label-md text-label-md font-bold text-on-surface" id="book_room_display_name">The Boardroom</div>
-                            <div class="text-xs text-on-surface-variant mt-0.5" id="book_room_display_location">Building 813 • Level 2</div>
+                            <div class="font-label-md text-label-md font-bold text-on-surface"
+                                id="book_room_display_name">The Boardroom</div>
+                            <div class="text-xs text-on-surface-variant mt-0.5" id="book_room_display_location">Building
+                                813 • Level 2</div>
                         </div>
                     </div>
 
                     <!-- Client Category (Disabled to External) -->
                     <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
-                        <select id="book_client_category" disabled class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm opacity-75 cursor-not-allowed">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span
+                                class="text-error">*</span></label>
+                        <select id="book_client_category" disabled
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm opacity-75 cursor-not-allowed">
                             <option value="External" selected>External (Building 813)</option>
                         </select>
                     </div>
 
                     <!-- Booking Purpose/Title -->
                     <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Meeting Title / Purpose <span class="text-error">*</span></label>
-                        <input type="text" id="book_title" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface" placeholder="e.g. Weekly Strategy Sync">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Meeting Title / Purpose <span
+                                class="text-error">*</span></label>
+                        <input type="text" id="book_title" required
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface"
+                            placeholder="e.g. Weekly Strategy Sync">
                     </div>
 
                     <!-- Booking Term / Cycle -->
                     <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Booking Term / Cycle <span class="text-error">*</span></label>
-                        <select id="book_term" required onchange="handleTermChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Booking Term / Cycle <span
+                                class="text-error">*</span></label>
+                        <select id="book_term" required onchange="handleTermChange()"
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                             <option value="Hourly" selected>Hourly</option>
                             <option value="Daily">Daily</option>
                             <option value="Weekly">Weekly</option>
@@ -238,17 +258,23 @@
                     <!-- Hourly Inputs -->
                     <div id="hourlyInputs" class="flex flex-col gap-4">
                         <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant font-semibold">Date <span class="text-error">*</span></label>
-                            <input id="book_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">Date <span
+                                    class="text-error">*</span></label>
+                            <input id="book_date" type="date"
+                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                         </div>
                         <div class="flex gap-2">
                             <div class="flex-1 flex flex-col gap-1">
-                                <label class="font-label-sm text-on-surface-variant font-semibold">Start Time <span class="text-error">*</span></label>
-                                <input id="book_start" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                                <label class="font-label-sm text-on-surface-variant font-semibold">Start Time <span
+                                        class="text-error">*</span></label>
+                                <input id="book_start" type="time"
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                             </div>
                             <div class="flex-1 flex flex-col gap-1">
-                                <label class="font-label-sm text-on-surface-variant font-semibold">End Time <span class="text-error">*</span></label>
-                                <input id="book_end" type="time" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                                <label class="font-label-sm text-on-surface-variant font-semibold">End Time <span
+                                        class="text-error">*</span></label>
+                                <input id="book_end" type="time"
+                                    class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                             </div>
                         </div>
                     </div>
@@ -256,19 +282,24 @@
                     <!-- Range Inputs (Hidden by default) -->
                     <div id="rangeInputs" class="hidden flex gap-2">
                         <div class="flex-1 flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span class="text-error">*</span></label>
-                            <input id="book_start_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">Start Date <span
+                                    class="text-error">*</span></label>
+                            <input id="book_start_date" type="date"
+                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                         </div>
                         <div class="flex-1 flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span class="text-error">*</span></label>
-                            <input id="book_end_date" type="date" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                            <label class="font-label-sm text-on-surface-variant font-semibold">End Date <span
+                                    class="text-error">*</span></label>
+                            <input id="book_end_date" type="date"
+                                class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                         </div>
                     </div>
 
                     <!-- Recurring Pattern -->
                     <div class="flex flex-col gap-1">
                         <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
-                        <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
+                        <select id="book_recurring"
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
                             <option value="None" selected>None</option>
                             <option value="Daily">Daily Recurring</option>
                             <option value="Weekly">Weekly Recurring</option>
@@ -281,56 +312,61 @@
             </div>
 
             <!-- Footer Actions -->
-            <div class="p-4 border-t border-outline-variant bg-surface flex gap-3 mt-auto justify-end rounded-bl-2xl shrink-0">
-                <button type="button" class="px-6 py-2.5 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors cursor-pointer border-0 bg-transparent" onclick="closeRoomBookingModal()">Cancel</button>
-                <button type="button" class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm cursor-pointer border-0" onclick="triggerRoomBookingSubmit()">Book Room</button>
+            <div
+                class="p-4 border-t border-outline-variant bg-surface flex gap-3 mt-auto justify-end rounded-bl-2xl shrink-0">
+                <button type="button"
+                    class="px-6 py-2.5 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors cursor-pointer border-0 bg-transparent"
+                    onclick="closeRoomBookingModal()">Cancel</button>
+                <button type="button"
+                    class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md hover:bg-primary/90 transition-colors shadow-sm cursor-pointer border-0"
+                    onclick="triggerRoomBookingSubmit()">Book Room</button>
             </div>
         </div>
 
         <script>
-            (function() {
-                let rooms = [];
-                let selectedRoomId = null;
+                (function () {
+                    let rooms = [];
+                    let selectedRoomId = null;
 
-                async function loadRooms() {
-                    let stored = sessionStorage.getItem("rooms_list");
-                    if (!stored) {
-                        try {
-                            const res = await fetch("data/rooms.json");
-                            const data = await res.json();
-                            sessionStorage.setItem("rooms_list", JSON.stringify(data));
-                            stored = JSON.stringify(data);
-                        } catch (e) {
-                            console.error("Failed to load rooms list", e);
+                    async function loadRooms() {
+                        let stored = sessionStorage.getItem("rooms_list");
+                        if (!stored) {
+                            try {
+                                const res = await fetch("data/rooms.json");
+                                const data = await res.json();
+                                sessionStorage.setItem("rooms_list", JSON.stringify(data));
+                                stored = JSON.stringify(data);
+                            } catch (e) {
+                                console.error("Failed to load rooms list", e);
+                                return;
+                            }
+                        }
+                        const allList = JSON.parse(stored);
+                        // Filter to only show External client rooms
+                        rooms = allList.filter(r => r.name.toLowerCase().includes("(ext)"));
+                        renderRooms(rooms);
+                    }
+
+                    function renderRooms(list) {
+                        const grid = document.getElementById("rooms_grid");
+                        if (!grid) return;
+
+                        if (list.length === 0) {
+                            grid.innerHTML = `<div class="col-span-full py-12 text-center text-on-surface-variant font-body-md">No rooms found.</div>`;
                             return;
                         }
-                    }
-                    const allList = JSON.parse(stored);
-                    // Filter to only show External client rooms
-                    rooms = allList.filter(r => r.name.toLowerCase().includes("(ext)"));
-                    renderRooms(rooms);
-                }
 
-                function renderRooms(list) {
-                    const grid = document.getElementById("rooms_grid");
-                    if (!grid) return;
+                        grid.innerHTML = list.map(r => {
+                            let statusBadge = `<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-secondary"></span> Active</div>`;
+                            if (r.status === "Maintenance") {
+                                statusBadge = `<div class="absolute top-4 right-4 bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-error"></span> Maintenance</div>`;
+                            } else if (r.status === "Inactive") {
+                                statusBadge = `<div class="absolute top-4 right-4 bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> Inactive</div>`;
+                            }
 
-                    if (list.length === 0) {
-                        grid.innerHTML = `<div class="col-span-full py-12 text-center text-on-surface-variant font-body-md">No rooms found.</div>`;
-                        return;
-                    }
+                            const imgUrl = r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
 
-                    grid.innerHTML = list.map(r => {
-                        let statusBadge = `<div class="absolute top-4 right-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-secondary"></span> Active</div>`;
-                        if (r.status === "Maintenance") {
-                            statusBadge = `<div class="absolute top-4 right-4 bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-error"></span> Maintenance</div>`;
-                        } else if (r.status === "Inactive") {
-                            statusBadge = `<div class="absolute top-4 right-4 bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm flex items-center gap-1 shadow-sm"><span class="w-2 h-2 rounded-full bg-outline-variant"></span> Inactive</div>`;
-                        }
-
-                        const imgUrl = r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
-
-                        let bookButton = r.status === "Active" ? `
+                            let bookButton = r.status === "Active" ? `
                             <button onclick="openRoomBookingModal(${r.id})" class="w-full bg-primary text-on-primary font-label-md text-label-md py-2.5 rounded-lg hover:bg-primary/90 transition-all flex items-center justify-center gap-2 shadow-sm font-semibold cursor-pointer border-0">
                                 <span class="material-symbols-outlined text-[18px]">event_available</span> Book Now
                             </button>
@@ -340,7 +376,7 @@
                             </button>
                         `;
 
-                        return `
+                            return `
                             <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col group relative">
                                 <div class="h-48 w-full relative bg-surface-container-low shrink-0">
                                     <img src="${imgUrl}" alt="${r.name}" class="w-full h-full object-cover">
@@ -367,10 +403,10 @@
                                     <div class="mb-6">
                                         <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2 font-semibold">Amenities</p>
                                         <div class="flex flex-wrap gap-1.5">
-                                            ${r.amenities && r.amenities.length > 0 
-                                                ? r.amenities.map(a => `<span class="bg-surface-variant/40 text-on-surface-variant border border-outline-variant/50 text-[11px] px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")
-                                                : `<span class="text-xs italic text-on-surface-variant">No amenities listed</span>`
-                                            }
+                                            ${r.amenities && r.amenities.length > 0
+                                    ? r.amenities.map(a => `<span class="bg-surface-variant/40 text-on-surface-variant border border-outline-variant/50 text-[11px] px-2.5 py-1 rounded-lg font-medium">${a}</span>`).join("")
+                                    : `<span class="text-xs italic text-on-surface-variant">No amenities listed</span>`
+                                }
                                         </div>
                                     </div>
                                     <div class="mt-auto pt-4 border-t border-outline-variant/30">
@@ -379,413 +415,413 @@
                                 </div>
                             </div>
                         `;
-                    }).join("");
-                }
-
-                function handleSearch() {
-                    const query = document.getElementById("roomSearchInput").value.toLowerCase().trim();
-                    const filtered = rooms.filter(r => 
-                        r.name.toLowerCase().replace(/\s*\((int|ext)\)/g, "").includes(query) || 
-                        r.location.toLowerCase().includes(query)
-                    );
-                    renderRooms(filtered);
-                }
-
-                function handleTermChange() {
-                    const term = document.getElementById("book_term").value;
-                    const hourlyDiv = document.getElementById("hourlyInputs");
-                    const rangeDiv = document.getElementById("rangeInputs");
-
-                    if (term === "Hourly") {
-                        hourlyDiv.classList.remove("hidden");
-                        rangeDiv.classList.add("hidden");
-                        document.getElementById("book_date").required = true;
-                        document.getElementById("book_start").required = true;
-                        document.getElementById("book_end").required = true;
-                        document.getElementById("book_start_date").required = false;
-                        document.getElementById("book_end_date").required = false;
-                    } else {
-                        hourlyDiv.classList.add("hidden");
-                        rangeDiv.classList.remove("hidden");
-                        document.getElementById("book_date").required = false;
-                        document.getElementById("book_start").required = false;
-                        document.getElementById("book_end").required = false;
-                        document.getElementById("book_start_date").required = true;
-                        document.getElementById("book_end_date").required = true;
+                        }).join("");
                     }
-                }
 
-                function openRoomBookingModal(id) {
-                    selectedRoomId = id;
-                    const r = rooms.find(x => x.id === id);
-                    if (!r) return;
-
-                    document.getElementById("book_room_display_name").innerText = r.name.replace(/\s*\((Int|Ext)\)/i, "");
-                    document.getElementById("book_room_display_location").innerText = r.location;
-
-                    // Reset values
-                    document.getElementById("book_title").value = "";
-                    document.getElementById("book_term").value = "Hourly";
-                    document.getElementById("book_recurring").value = "None";
-
-                    const todayStr = new Date().toISOString().split('T')[0];
-                    document.getElementById("book_date").value = todayStr;
-                    document.getElementById("book_date").min = todayStr;
-                    document.getElementById("book_start_date").value = todayStr;
-                    document.getElementById("book_start_date").min = todayStr;
-                    document.getElementById("book_end_date").value = todayStr;
-                    document.getElementById("book_end_date").min = todayStr;
-
-                    document.getElementById("book_start").value = "10:00";
-                    document.getElementById("book_end").value = "11:00";
-
-                    handleTermChange();
-
-                    const modal = document.getElementById('roomBookingModal');
-                    const overlay = document.getElementById('roomBookingModalOverlay');
-
-                    modal.classList.remove('hidden');
-                    overlay.classList.remove('hidden');
-                    
-                    setTimeout(() => {
-                        modal.classList.remove('translate-x-full');
-                        overlay.classList.remove('opacity-0');
-                    }, 10);
-                    
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeRoomBookingModal() {
-                    const modal = document.getElementById('roomBookingModal');
-                    const overlay = document.getElementById('roomBookingModalOverlay');
-                    
-                    modal.classList.add('translate-x-full');
-                    overlay.classList.add('opacity-0');
-                    
-                    setTimeout(() => {
-                        modal.classList.add('hidden');
-                        overlay.classList.add('hidden');
-                        document.body.style.overflow = '';
-                    }, 300);
-                }
-
-                function triggerRoomBookingSubmit() {
-                    document.getElementById("roomBookingSubmitBtn").click();
-                }
-
-                function parseTimeToMinutes(timeStr) {
-                    const [hh, mm] = timeStr.split(":").map(Number);
-                    return hh * 60 + mm;
-                }
-
-                function parsePeriod(b) {
-                    if (b.term === "Hourly") {
-                        const d = new Date(b.date + "T00:00:00");
-                        return { start: d, end: new Date(b.date + "T23:59:59") };
+                    function handleSearch() {
+                        const query = document.getElementById("roomSearchInput").value.toLowerCase().trim();
+                        const filtered = rooms.filter(r =>
+                            r.name.toLowerCase().replace(/\s*\((int|ext)\)/g, "").includes(query) ||
+                            r.location.toLowerCase().includes(query)
+                        );
+                        renderRooms(filtered);
                     }
-                    const parts = b.date.split(" - ");
-                    if (parts.length === 2) {
-                        return {
-                            start: new Date(parts[0] + "T00:00:00"),
-                            end: new Date(parts[1] + "T23:59:59")
-                        };
+
+                    function handleTermChange() {
+                        const term = document.getElementById("book_term").value;
+                        const hourlyDiv = document.getElementById("hourlyInputs");
+                        const rangeDiv = document.getElementById("rangeInputs");
+
+                        if (term === "Hourly") {
+                            hourlyDiv.classList.remove("hidden");
+                            rangeDiv.classList.add("hidden");
+                            document.getElementById("book_date").required = true;
+                            document.getElementById("book_start").required = true;
+                            document.getElementById("book_end").required = true;
+                            document.getElementById("book_start_date").required = false;
+                            document.getElementById("book_end_date").required = false;
+                        } else {
+                            hourlyDiv.classList.add("hidden");
+                            rangeDiv.classList.remove("hidden");
+                            document.getElementById("book_date").required = false;
+                            document.getElementById("book_start").required = false;
+                            document.getElementById("book_end").required = false;
+                            document.getElementById("book_start_date").required = true;
+                            document.getElementById("book_end_date").required = true;
+                        }
                     }
-                    const single = new Date(b.date + "T00:00:00");
-                    return { start: single, end: new Date(b.date + "T23:59:59") };
-                }
 
-                function parseTimeSlotToMinutes(str) {
-                    let [time, modifier] = str.split(" ");
-                    let [hours, minutes] = time.split(":").map(Number);
-                    if (modifier === "PM" && hours < 12) hours += 12;
-                    if (modifier === "AM" && hours === 12) hours = 0;
-                    return hours * 60 + minutes;
-                }
+                    function openRoomBookingModal(id) {
+                        selectedRoomId = id;
+                        const r = rooms.find(x => x.id === id);
+                        if (!r) return;
 
-                function isTimeOverlapping(start1, end1, start2, end2) {
-                    return Math.max(start1, start2) < Math.min(end1, end2);
-                }
+                        document.getElementById("book_room_display_name").innerText = r.name.replace(/\s*\((Int|Ext)\)/i, "");
+                        document.getElementById("book_room_display_location").innerText = r.location;
 
-                function matchesRecurrence(dateObj, baseDate, recurType) {
-                    if (recurType === "None" || recurType === "" || !recurType) return true;
-                    if (recurType === "Daily") return true;
-                    if (recurType === "Weekly") {
-                        return dateObj.getDay() === baseDate.getDay();
+                        // Reset values
+                        document.getElementById("book_title").value = "";
+                        document.getElementById("book_term").value = "Hourly";
+                        document.getElementById("book_recurring").value = "None";
+
+                        const todayStr = new Date().toISOString().split('T')[0];
+                        document.getElementById("book_date").value = todayStr;
+                        document.getElementById("book_date").min = todayStr;
+                        document.getElementById("book_start_date").value = todayStr;
+                        document.getElementById("book_start_date").min = todayStr;
+                        document.getElementById("book_end_date").value = todayStr;
+                        document.getElementById("book_end_date").min = todayStr;
+
+                        document.getElementById("book_start").value = "10:00";
+                        document.getElementById("book_end").value = "11:00";
+
+                        handleTermChange();
+
+                        const modal = document.getElementById('roomBookingModal');
+                        const overlay = document.getElementById('roomBookingModalOverlay');
+
+                        modal.classList.remove('hidden');
+                        overlay.classList.remove('hidden');
+
+                        setTimeout(() => {
+                            modal.classList.remove('translate-x-full');
+                            overlay.classList.remove('opacity-0');
+                        }, 10);
+
+                        document.body.style.overflow = 'hidden';
                     }
-                    if (recurType === "Monthly") {
-                        return dateObj.getDate() === baseDate.getDate();
-                    }
-                    return false;
-                }
 
-                function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
-                    if (Math.max(start1, start2) > Math.min(end1, end2)) {
+                    function closeRoomBookingModal() {
+                        const modal = document.getElementById('roomBookingModal');
+                        const overlay = document.getElementById('roomBookingModalOverlay');
+
+                        modal.classList.add('translate-x-full');
+                        overlay.classList.add('opacity-0');
+
+                        setTimeout(() => {
+                            modal.classList.add('hidden');
+                            overlay.classList.add('hidden');
+                            document.body.style.overflow = '';
+                        }, 300);
+                    }
+
+                    function triggerRoomBookingSubmit() {
+                        document.getElementById("roomBookingSubmitBtn").click();
+                    }
+
+                    function parseTimeToMinutes(timeStr) {
+                        const [hh, mm] = timeStr.split(":").map(Number);
+                        return hh * 60 + mm;
+                    }
+
+                    function parsePeriod(b) {
+                        if (b.term === "Hourly") {
+                            const d = new Date(b.date + "T00:00:00");
+                            return { start: d, end: new Date(b.date + "T23:59:59") };
+                        }
+                        const parts = b.date.split(" - ");
+                        if (parts.length === 2) {
+                            return {
+                                start: new Date(parts[0] + "T00:00:00"),
+                                end: new Date(parts[1] + "T23:59:59")
+                            };
+                        }
+                        const single = new Date(b.date + "T00:00:00");
+                        return { start: single, end: new Date(b.date + "T23:59:59") };
+                    }
+
+                    function parseTimeSlotToMinutes(str) {
+                        let [time, modifier] = str.split(" ");
+                        let [hours, minutes] = time.split(":").map(Number);
+                        if (modifier === "PM" && hours < 12) hours += 12;
+                        if (modifier === "AM" && hours === 12) hours = 0;
+                        return hours * 60 + minutes;
+                    }
+
+                    function isTimeOverlapping(start1, end1, start2, end2) {
+                        return Math.max(start1, start2) < Math.min(end1, end2);
+                    }
+
+                    function matchesRecurrence(dateObj, baseDate, recurType) {
+                        if (recurType === "None" || recurType === "" || !recurType) return true;
+                        if (recurType === "Daily") return true;
+                        if (recurType === "Weekly") {
+                            return dateObj.getDay() === baseDate.getDay();
+                        }
+                        if (recurType === "Monthly") {
+                            return dateObj.getDate() === baseDate.getDate();
+                        }
                         return false;
                     }
-                    if (recur1 === "None" && recur2 === "None") {
-                        return true;
-                    }
 
-                    let curr = new Date(Math.max(start1, start2));
-                    let boundary = new Date(Math.min(end1, end2));
-                    while (curr <= boundary) {
-                        if (matchesRecurrence(curr, new Date(start1), recur1) && 
-                            matchesRecurrence(curr, new Date(start2), recur2)) {
+                    function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
+                        if (Math.max(start1, start2) > Math.min(end1, end2)) {
+                            return false;
+                        }
+                        if (recur1 === "None" && recur2 === "None") {
                             return true;
                         }
-                        curr.setDate(curr.getDate() + 1);
-                    }
-                    return false;
-                }
 
-                function getHierarchy(name) {
-                    let workspaces = [];
-                    try {
-                        workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
-                    } catch(e){}
-                    
-                    let roomsList = [];
-                    try {
-                        roomsList = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
-                    } catch(e){}
-                    
-                    const wMatch = workspaces.find(w => w.name === name);
-                    const isParent = wMatch && !wMatch.parentWorkspace;
-                    
-                    let parent = null;
-                    let childrenWorkspaces = [];
-                    let childrenRooms = [];
-                    
-                    if (isParent) {
-                        parent = name;
-                        childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
-                        childrenRooms = roomsList.filter(r => r.parentWorkspace === name).map(r => r.name);
-                    } else {
-                        if (wMatch && wMatch.parentWorkspace) {
-                            parent = wMatch.parentWorkspace;
-                        } else {
-                            const rMatch = roomsList.find(r => r.name === name);
-                            if (rMatch && rMatch.parentWorkspace) {
-                                parent = rMatch.parentWorkspace;
-                            }
-                        }
-                        if (parent) {
-                            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
-                            childrenRooms = roomsList.filter(r => r.parentWorkspace === parent).map(r => r.name);
-                        }
-                    }
-                    return { parent, childrenWorkspaces, childrenRooms };
-                }
-
-                function getOverlappingBookings(roomName, reqTerm, reqStartD, reqEndD, reqStartTime, reqEndTime, reqRecur, list) {
-                    let overlaps = [];
-                    if (list && list.length > 0) {
-                        const reqStartTMin = reqStartTime ? parseTimeToMinutes(reqStartTime) : 0;
-                        const reqEndTMin = reqEndTime ? parseTimeToMinutes(reqEndTime) : 1440;
-
-                        overlaps = list.filter(b => {
-                            if (b.status !== "Confirmed" || b.room.trim() !== roomName.trim()) {
-                                return false;
-                            }
-
-                            const bPeriod = parsePeriod(b);
-                            if (!hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, bPeriod.start.getTime(), bPeriod.end.getTime(), b.recurring || "None")) {
-                                return false;
-                            }
-
-                            if (reqTerm === "Hourly" && b.term === "Hourly") {
-                                const parts = b.time.split(" - ");
-                                if (parts.length === 2) {
-                                    const bStartMin = parseTimeSlotToMinutes(parts[0]);
-                                    const bEndMin = parseTimeSlotToMinutes(parts[1]);
-                                    return isTimeOverlapping(reqStartTMin, reqEndTMin, bStartMin, bEndMin);
-                                }
+                        let curr = new Date(Math.max(start1, start2));
+                        let boundary = new Date(Math.min(end1, end2));
+                        while (curr <= boundary) {
+                            if (matchesRecurrence(curr, new Date(start1), recur1) &&
+                                matchesRecurrence(curr, new Date(start2), recur2)) {
                                 return true;
                             }
-                            return true;
-                        });
+                            curr.setDate(curr.getDate() + 1);
+                        }
+                        return false;
                     }
 
-                    if (overlaps.length > 0) {
-                        return overlaps;
-                    }
-
-                    // Check parent workspace Entire Space blocks
-                    const hierarchy = getHierarchy(roomName);
-                    if (hierarchy.parent) {
-                        let workspaceBookings = [];
+                    function getHierarchy(name) {
+                        let workspaces = [];
                         try {
-                            workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
-                        } catch(e){}
+                            workspaces = JSON.parse(sessionStorage.getItem("workspaces") || "[]");
+                        } catch (e) { }
 
-                        const parentBlock = workspaceBookings.filter(o => {
-                            if (o.status !== "Confirmed" || o.workspace !== hierarchy.parent || o.bookingScope !== "Entire") return false;
+                        let roomsList = [];
+                        try {
+                            roomsList = JSON.parse(sessionStorage.getItem("rooms_list") || "[]");
+                        } catch (e) { }
 
-                            const parts = o.period.split(" - ");
-                            let start, end;
-                            if (parts.length === 2) {
-                                start = new Date(parts[0] + "T00:00:00");
-                                end = new Date(parts[1] + "T23:59:59");
+                        const wMatch = workspaces.find(w => w.name === name);
+                        const isParent = wMatch && !wMatch.parentWorkspace;
+
+                        let parent = null;
+                        let childrenWorkspaces = [];
+                        let childrenRooms = [];
+
+                        if (isParent) {
+                            parent = name;
+                            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
+                            childrenRooms = roomsList.filter(r => r.parentWorkspace === name).map(r => r.name);
+                        } else {
+                            if (wMatch && wMatch.parentWorkspace) {
+                                parent = wMatch.parentWorkspace;
                             } else {
-                                start = new Date(o.period + "T00:00:00");
-                                end = new Date(o.period + "T23:59:59");
+                                const rMatch = roomsList.find(r => r.name === name);
+                                if (rMatch && rMatch.parentWorkspace) {
+                                    parent = rMatch.parentWorkspace;
+                                }
                             }
-
-                            return hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, start.getTime(), end.getTime(), o.recurring || "None");
-                        });
-
-                        if (parentBlock.length > 0) {
-                            return [{
-                                id: 9999,
-                                booker: parentBlock[0].booker,
-                                room: roomName,
-                                term: parentBlock[0].term,
-                                date: parentBlock[0].period,
-                                time: "Full Day",
-                                status: "Confirmed",
-                                recurring: parentBlock[0].recurring
-                            }];
+                            if (parent) {
+                                childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
+                                childrenRooms = roomsList.filter(r => r.parentWorkspace === parent).map(r => r.name);
+                            }
                         }
+                        return { parent, childrenWorkspaces, childrenRooms };
                     }
 
-                    return [];
-                }
+                    function getOverlappingBookings(roomName, reqTerm, reqStartD, reqEndD, reqStartTime, reqEndTime, reqRecur, list) {
+                        let overlaps = [];
+                        if (list && list.length > 0) {
+                            const reqStartTMin = reqStartTime ? parseTimeToMinutes(reqStartTime) : 0;
+                            const reqEndTMin = reqEndTime ? parseTimeToMinutes(reqEndTime) : 1440;
 
-                async function submitRoomBooking(e) {
-                    e.preventDefault();
+                            overlaps = list.filter(b => {
+                                if (b.status !== "Confirmed" || b.room.trim() !== roomName.trim()) {
+                                    return false;
+                                }
 
-                    const title = document.getElementById("book_title").value.trim();
-                    const term = document.getElementById("book_term").value;
-                    const recurring = document.getElementById("book_recurring").value;
+                                const bPeriod = parsePeriod(b);
+                                if (!hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, bPeriod.start.getTime(), bPeriod.end.getTime(), b.recurring || "None")) {
+                                    return false;
+                                }
 
-                    const r = rooms.find(x => x.id === selectedRoomId);
-                    if (!r) return;
+                                if (reqTerm === "Hourly" && b.term === "Hourly") {
+                                    const parts = b.time.split(" - ");
+                                    if (parts.length === 2) {
+                                        const bStartMin = parseTimeSlotToMinutes(parts[0]);
+                                        const bEndMin = parseTimeSlotToMinutes(parts[1]);
+                                        return isTimeOverlapping(reqStartTMin, reqEndTMin, bStartMin, bEndMin);
+                                    }
+                                    return true;
+                                }
+                                return true;
+                            });
+                        }
 
-                    const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Alex Rivera"}');
-                    const booker = profile.name || "Alex Rivera";
+                        if (overlaps.length > 0) {
+                            return overlaps;
+                        }
 
-                    let dateRangeStr = "";
-                    let timeRangeStr = "";
-                    let durationStr = "1 Hour";
-                    let reqStartD, reqEndD;
-                    let reqStartT = null;
-                    let reqEndT = null;
+                        // Check parent workspace Entire Space blocks
+                        const hierarchy = getHierarchy(roomName);
+                        if (hierarchy.parent) {
+                            let workspaceBookings = [];
+                            try {
+                                workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
+                            } catch (e) { }
 
-                    const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+                            const parentBlock = workspaceBookings.filter(o => {
+                                if (o.status !== "Confirmed" || o.workspace !== hierarchy.parent || o.bookingScope !== "Entire") return false;
 
-                    if (term === "Hourly") {
-                        const rawDate = document.getElementById("book_date").value;
-                        reqStartT = document.getElementById("book_start").value;
-                        reqEndT = document.getElementById("book_end").value;
+                                const parts = o.period.split(" - ");
+                                let start, end;
+                                if (parts.length === 2) {
+                                    start = new Date(parts[0] + "T00:00:00");
+                                    end = new Date(parts[1] + "T23:59:59");
+                                } else {
+                                    start = new Date(o.period + "T00:00:00");
+                                    end = new Date(o.period + "T23:59:59");
+                                }
 
-                        if (!rawDate || !reqStartT || !reqEndT) {
-                            alert("Please fill in hourly date and time slots.");
+                                return hasRecurrenceOverlap(reqStartD.getTime(), reqEndD.getTime(), reqRecur, start.getTime(), end.getTime(), o.recurring || "None");
+                            });
+
+                            if (parentBlock.length > 0) {
+                                return [{
+                                    id: 9999,
+                                    booker: parentBlock[0].booker,
+                                    room: roomName,
+                                    term: parentBlock[0].term,
+                                    date: parentBlock[0].period,
+                                    time: "Full Day",
+                                    status: "Confirmed",
+                                    recurring: parentBlock[0].recurring
+                                }];
+                            }
+                        }
+
+                        return [];
+                    }
+
+                    async function submitRoomBooking(e) {
+                        e.preventDefault();
+
+                        const title = document.getElementById("book_title").value.trim();
+                        const term = document.getElementById("book_term").value;
+                        const recurring = document.getElementById("book_recurring").value;
+
+                        const r = rooms.find(x => x.id === selectedRoomId);
+                        if (!r) return;
+
+                        const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Alex Rivera"}');
+                        const booker = profile.name || "Alex Rivera";
+
+                        let dateRangeStr = "";
+                        let timeRangeStr = "";
+                        let durationStr = "1 Hour";
+                        let reqStartD, reqEndD;
+                        let reqStartT = null;
+                        let reqEndT = null;
+
+                        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+
+                        if (term === "Hourly") {
+                            const rawDate = document.getElementById("book_date").value;
+                            reqStartT = document.getElementById("book_start").value;
+                            reqEndT = document.getElementById("book_end").value;
+
+                            if (!rawDate || !reqStartT || !reqEndT) {
+                                alert("Please fill in hourly date and time slots.");
+                                return;
+                            }
+
+                            // Validate start time < end time
+                            const startMin = parseTimeToMinutes(reqStartT);
+                            const endMin = parseTimeToMinutes(reqEndT);
+                            if (startMin >= endMin) {
+                                alert("Start time must be before end time!");
+                                return;
+                            }
+
+                            reqStartD = new Date(rawDate + "T00:00:00");
+                            reqEndD = new Date(rawDate + "T23:59:59");
+                            dateRangeStr = reqStartD.toLocaleDateString('en-US', dateOptions);
+
+                            const formatTimeAMPM = (timeStr) => {
+                                const [hours, minutes] = timeStr.split(":");
+                                let hh = parseInt(hours);
+                                const suffix = hh >= 12 ? "PM" : "AM";
+                                hh = hh % 12 || 12;
+                                return `${hh}:${minutes} ${suffix}`;
+                            };
+                            timeRangeStr = `${formatTimeAMPM(reqStartT)} - ${formatTimeAMPM(reqEndT)}`;
+
+                            try {
+                                const diff = (endMin - startMin) / 60;
+                                if (diff > 0) {
+                                    durationStr = diff === 1 ? "1 Hour" : `${diff} Hours`;
+                                }
+                            } catch (err) { }
+                        } else {
+                            const rawStart = document.getElementById("book_start_date").value;
+                            const rawEnd = document.getElementById("book_end_date").value;
+
+                            if (!rawStart || !rawEnd) {
+                                alert("Please select start and end dates.");
+                                return;
+                            }
+
+                            reqStartD = new Date(rawStart + "T00:00:00");
+                            reqEndD = new Date(rawEnd + "T23:59:59");
+
+                            if (reqEndD < reqStartD) {
+                                alert("End Date cannot be before Start Date.");
+                                return;
+                            }
+
+                            dateRangeStr = `${reqStartD.toLocaleDateString('en-US', dateOptions)} - ${reqEndD.toLocaleDateString('en-US', dateOptions)}`;
+                            timeRangeStr = "Full Day";
+                            durationStr = "All Day";
+                        }
+
+                        // Load bookings
+                        let bookingsStored = sessionStorage.getItem("bookings");
+                        let bookingsList = [];
+                        if (bookingsStored) {
+                            bookingsList = JSON.parse(bookingsStored);
+                        } else {
+                            try {
+                                const res = await fetch("data/bookings.json");
+                                bookingsList = await res.json();
+                                sessionStorage.setItem("bookings", JSON.stringify(bookingsList));
+                            } catch (err) {
+                                bookingsList = [];
+                            }
+                        }
+
+                        const overlaps = getOverlappingBookings(r.name, term, reqStartD, reqEndD, reqStartT, reqEndT, recurring, bookingsList);
+                        if (overlaps.length > 0) {
+                            const over = overlaps[0];
+                            alert(`Overlap conflict detected! ${r.name.replace(/\s*\((Int|Ext)\)/i, "")} is already booked by ${over.booker} (${over.term} cycle) during this time.`);
                             return;
                         }
 
-                        // Validate start time < end time
-                        const startMin = parseTimeToMinutes(reqStartT);
-                        const endMin = parseTimeToMinutes(reqEndT);
-                        if (startMin >= endMin) {
-                            alert("Start time must be before end time!");
-                            return;
-                        }
-
-                        reqStartD = new Date(rawDate + "T00:00:00");
-                        reqEndD = new Date(rawDate + "T23:59:59");
-                        dateRangeStr = reqStartD.toLocaleDateString('en-US', dateOptions);
-
-                        const formatTimeAMPM = (timeStr) => {
-                            const [hours, minutes] = timeStr.split(":");
-                            let hh = parseInt(hours);
-                            const suffix = hh >= 12 ? "PM" : "AM";
-                            hh = hh % 12 || 12;
-                            return `${hh}:${minutes} ${suffix}`;
+                        // Save booking
+                        const newId = bookingsList.length > 0 ? Math.max(...bookingsList.map(x => x.id)) + 1 : 1;
+                        const newBooking = {
+                            id: newId,
+                            booker: booker,
+                            title: title,
+                            room: r.name,
+                            term: term,
+                            date: dateRangeStr,
+                            time: timeRangeStr,
+                            duration: durationStr,
+                            recurring: recurring,
+                            status: "Confirmed",
+                            image: r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
                         };
-                        timeRangeStr = `${formatTimeAMPM(reqStartT)} - ${formatTimeAMPM(reqEndT)}`;
 
-                        try {
-                            const diff = (endMin - startMin) / 60;
-                            if (diff > 0) {
-                                durationStr = diff === 1 ? "1 Hour" : `${diff} Hours`;
-                            }
-                        } catch (err) {}
-                    } else {
-                        const rawStart = document.getElementById("book_start_date").value;
-                        const rawEnd = document.getElementById("book_end_date").value;
+                        bookingsList.unshift(newBooking);
+                        sessionStorage.setItem("bookings", JSON.stringify(bookingsList));
 
-                        if (!rawStart || !rawEnd) {
-                            alert("Please select start and end dates.");
-                            return;
-                        }
-
-                        reqStartD = new Date(rawStart + "T00:00:00");
-                        reqEndD = new Date(rawEnd + "T23:59:59");
-
-                        if (reqEndD < reqStartD) {
-                            alert("End Date cannot be before Start Date.");
-                            return;
-                        }
-
-                        dateRangeStr = `${reqStartD.toLocaleDateString('en-US', dateOptions)} - ${reqEndD.toLocaleDateString('en-US', dateOptions)}`;
-                        timeRangeStr = "Full Day";
-                        durationStr = "All Day";
+                        alert("Room booked successfully.");
+                        closeRoomBookingModal();
                     }
 
-                    // Load bookings
-                    let bookingsStored = sessionStorage.getItem("bookings");
-                    let bookingsList = [];
-                    if (bookingsStored) {
-                        bookingsList = JSON.parse(bookingsStored);
-                    } else {
-                        try {
-                            const res = await fetch("data/bookings.json");
-                            bookingsList = await res.json();
-                            sessionStorage.setItem("bookings", JSON.stringify(bookingsList));
-                        } catch (err) {
-                            bookingsList = [];
-                        }
-                    }
+                    loadRooms();
 
-                    const overlaps = getOverlappingBookings(r.name, term, reqStartD, reqEndD, reqStartT, reqEndT, recurring, bookingsList);
-                    if (overlaps.length > 0) {
-                        const over = overlaps[0];
-                        alert(`Overlap conflict detected! ${r.name.replace(/\s*\((Int|Ext)\)/i, "")} is already booked by ${over.booker} (${over.term} cycle) during this time.`);
-                        return;
-                    }
-
-                    // Save booking
-                    const newId = bookingsList.length > 0 ? Math.max(...bookingsList.map(x => x.id)) + 1 : 1;
-                    const newBooking = {
-                        id: newId,
-                        booker: booker,
-                        title: title,
-                        room: r.name,
-                        term: term,
-                        date: dateRangeStr,
-                        time: timeRangeStr,
-                        duration: durationStr,
-                        recurring: recurring,
-                        status: "Confirmed",
-                        image: r.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
-                    };
-
-                    bookingsList.unshift(newBooking);
-                    sessionStorage.setItem("bookings", JSON.stringify(bookingsList));
-
-                    alert("Room booked successfully.");
-                    closeRoomBookingModal();
-                }
-
-                loadRooms();
-
-                window.handleSearch = handleSearch;
-                window.handleTermChange = handleTermChange;
-                window.openRoomBookingModal = openRoomBookingModal;
-                window.closeRoomBookingModal = closeRoomBookingModal;
-                window.triggerRoomBookingSubmit = triggerRoomBookingSubmit;
-                window.submitRoomBooking = submitRoomBooking;
-            })();
+                    window.handleSearch = handleSearch;
+                    window.handleTermChange = handleTermChange;
+                    window.openRoomBookingModal = openRoomBookingModal;
+                    window.closeRoomBookingModal = closeRoomBookingModal;
+                    window.triggerRoomBookingSubmit = triggerRoomBookingSubmit;
+                    window.submitRoomBooking = submitRoomBooking;
+                })();
         </script>
     </main>
 </body>

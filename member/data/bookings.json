@@ -1,35 +1,90 @@
 [
   {
     "id": 1,
-    "booker": "Sarah Jenkins",
+    "booker": "Alex Rivera",
     "title": "Executive Strategy Session",
+<<<<<<< HEAD
     "room": "Conference Room 1 (Int)",
+=======
+    "room": "Conference Room 1 (Ext)",
+>>>>>>> 9bd0c3482f7f00678c37122695a98406d9021db7
     "date": "Oct 24, 2026",
     "time": "10:00 AM - 12:00 PM",
     "duration": "2 Hours",
     "status": "Confirmed",
-    "image": ""
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 2,
+<<<<<<< HEAD
     "booker": "Marcus Reed",
     "title": "Deep Work Block",
     "room": "Meeting Corner 2 (Int)",
     "date": "Oct 26, 2026",
     "time": "1:00 PM - 5:00 PM",
     "duration": "4 Hours",
+=======
+    "booker": "Alex Rivera",
+    "title": "Weekly Sync Meeting",
+    "room": "Meeting Room 1 (Ext)",
+    "date": "Jun 24, 2026",
+    "time": "10:00 AM - 11:00 AM",
+    "duration": "1 Hour",
+>>>>>>> 9bd0c3482f7f00678c37122695a98406d9021db7
     "status": "Confirmed",
-    "image": ""
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 3,
+<<<<<<< HEAD
     "booker": "David Chen",
     "title": "Open Seating Request",
     "room": "Meeting Room 1 (Int)",
     "date": "Oct 28, 2026",
     "time": "09:00 AM - 06:00 PM",
     "duration": "9 Hours",
+=======
+    "booker": "Alex Rivera",
+    "title": "Client Presentation & Pitch",
+    "room": "Meeting Corner 2 (Ext)",
+    "date": "Jun 18, 2026",
+    "time": "02:00 PM - 03:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 4,
+    "booker": "Alex Rivera",
+    "title": "Project Kickoff",
+    "room": "Meeting Room 1 (Ext)",
+    "date": "Jul 15, 2026",
+    "time": "11:00 AM - 12:30 PM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 5,
+    "booker": "Alex Rivera",
+    "title": "Sprint Planning",
+    "room": "Meeting Corner 1 (Ext)",
+    "date": "Aug 03, 2026",
+    "time": "09:00 AM - 10:30 AM",
+    "duration": "1.5 Hours",
+    "status": "Confirmed",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": 6,
+    "booker": "Alex Rivera",
+    "title": "Product Design Review",
+    "room": "Conference Room 1 (Ext)",
+    "date": "Sep 12, 2026",
+    "time": "03:00 PM - 04:30 PM",
+    "duration": "1.5 Hours",
+>>>>>>> 9bd0c3482f7f00678c37122695a98406d9021db7
     "status": "Waitlist",
-    "image": ""
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=600&q=80"
   }
 ]

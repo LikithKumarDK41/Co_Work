@@ -20,6 +20,95 @@
             theme: {
                 extend: {
                     "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-container": "#006f64",
+                        "on-tertiary-fixed-variant": "#2f2ebe",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "on-tertiary-fixed": "#07006c",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-low": "#eff4ff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#e1e0ff",
+                        "tertiary-container": "#585be6",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "inverse-surface": "#213145",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-container": "#f1eeff",
+                        "on-primary-fixed": "#00174b",
+                        "primary": "#004ac6",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed": "#00201c",
+                        "on-surface-variant": "#434655",
+                        "secondary": "#006b5f",
+                        "tertiary": "#3e3fcc",
+                        "on-secondary-fixed-variant": "#005048"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "sidebar-width": "260px",
+                        "container-max": "1440px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
                     }
                 }
             }
@@ -94,14 +183,14 @@
                 </p>
             </div>
 
-            <div
+            <div id="tabs_container"
                 class="bg-slate-100 flex rounded-xl p-1.5 w-full md:w-auto self-start md:self-end border border-slate-200">
-                <button
-                    class="bg-white shadow-sm flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-semibold text-slate-900 transition-all">
+                <button id="tab_upcoming" onclick="switchTab('Upcoming')"
+                    class="bg-white shadow-sm flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-semibold text-slate-900 transition-all cursor-pointer">
                     Upcoming
                 </button>
-                <button
-                    class="flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 transition-all">
+                <button id="tab_past" onclick="switchTab('Past')"
+                    class="flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 transition-all cursor-pointer">
                     Past
                 </button>
             </div>
@@ -113,22 +202,166 @@
 
         <script>
             (function() {
-                let bookings = [];
+                let allBookings = [];
+                let currentTab = "Upcoming";
+
+                // Setup resource caching for images
+                async function loadResources() {
+                    let roomsList = [];
+                    let storedRooms = sessionStorage.getItem("rooms_list");
+                    if (storedRooms) {
+                        roomsList = JSON.parse(storedRooms);
+                    } else {
+                        try {
+                            const res = await fetch("data/rooms.json");
+                            roomsList = await res.json();
+                            sessionStorage.setItem("rooms_list", JSON.stringify(roomsList));
+                        } catch(e){}
+                    }
+
+                    let workspacesList = [];
+                    let storedWorkspaces = sessionStorage.getItem("workspaces");
+                    if (storedWorkspaces) {
+                        workspacesList = JSON.parse(storedWorkspaces);
+                    } else {
+                        try {
+                            const res = await fetch("data/workspaces.json");
+                            workspacesList = await res.json();
+                            sessionStorage.setItem("workspaces", JSON.stringify(workspacesList));
+                        } catch(e){}
+                    }
+                    
+                    window.roomsList = roomsList;
+                    window.workspacesList = workspacesList;
+                }
+
+                function getBookingImage(name) {
+                    if (!name) return "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
+                    
+                    const roomsList = window.roomsList || [];
+                    const foundRoom = roomsList.find(r => r.name === name);
+                    if (foundRoom && foundRoom.image && foundRoom.image.trim() !== "") {
+                        return foundRoom.image;
+                    }
+
+                    const workspacesList = window.workspacesList || [];
+                    const foundWorkspace = workspacesList.find(w => w.name === name);
+                    if (foundWorkspace && foundWorkspace.image && foundWorkspace.image.trim() !== "") {
+                        return foundWorkspace.image;
+                    }
+
+                    return "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80";
+                }
+
+                function isUpcoming(dateStr) {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    const parts = dateStr.split(" - ");
+                    const checkStr = parts[parts.length - 1];
+                    
+                    try {
+                        const checkDate = new Date(checkStr);
+                        if (isNaN(checkDate.getTime())) return true;
+                        return checkDate >= today;
+                    } catch(e) {
+                        return true;
+                    }
+                }
 
                 async function loadBookings() {
-                    let stored = sessionStorage.getItem("bookings");
-                    if (!stored) {
+                    await loadResources();
+
+                    // Check and clear outdated cached bookings with (Int) or 2023 entries
+                    let storedRoom = sessionStorage.getItem("bookings");
+                    if (storedRoom && (storedRoom.includes("(Int)") || storedRoom.includes("2023"))) {
+                        sessionStorage.removeItem("bookings");
+                        storedRoom = null;
+                    }
+                    let storedWorkspace = sessionStorage.getItem("workspace_bookings");
+                    if (storedWorkspace && (storedWorkspace.includes("(Int)") || storedWorkspace.includes("2023"))) {
+                        sessionStorage.removeItem("workspace_bookings");
+                        storedWorkspace = null;
+                    }
+
+                    // 1. Load Room Bookings
+                    let roomBookings = [];
+                    if (!storedRoom || JSON.parse(storedRoom).length < 6) {
                         try {
                             const res = await fetch("data/bookings.json");
                             const data = await res.json();
                             sessionStorage.setItem("bookings", JSON.stringify(data));
-                            stored = JSON.stringify(data);
+                            roomBookings = data;
                         } catch (e) {
-                            console.error("Failed to load bookings list", e);
-                            return;
+                            console.error("Failed to load room bookings", e);
                         }
+                    } else {
+                        roomBookings = JSON.parse(storedRoom);
                     }
-                    bookings = JSON.parse(stored);
+
+                    // 2. Load Workspace Bookings
+                    let workspaceBookings = [];
+                    if (!storedWorkspace) {
+                        // Seed data matching meeting_rooms.html (Ext) using 2026 dates (Upcoming / Past)
+                        workspaceBookings = [
+                            { id: 100, booker: "Alex Rivera", workspace: "Nichi-In Workspace 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
+                            { id: 1, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                            { id: 2, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Monthly", period: "Jun 01, 2026 - Jun 30, 2026", bookingScope: "Entire", seatsBooked: 15, recurring: "None", status: "Confirmed" },
+                            { id: 3, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "May 15, 2026 - May 18, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
+                            { id: 4, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - May 31, 2026", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
+                            { id: 5, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Nov 02, 2026 - Nov 08, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
+                            { id: 6, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
+                            { id: 7, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "Nov 15, 2026 - Nov 15, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
+                            { id: 8, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - Dec 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
+                        ];
+                        sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                    } else {
+                        workspaceBookings = JSON.parse(storedWorkspace);
+                    }
+
+                    // 3. Map Room Bookings to Uniform Structure
+                    const mappedRooms = roomBookings.map(b => ({
+                        id: b.id,
+                        room: b.room,
+                        title: b.title,
+                        date: b.date,
+                        time: b.time,
+                        duration: b.duration,
+                        status: b.status,
+                        image: getBookingImage(b.room),
+                        bookingType: "Room"
+                    }));
+
+                    // 4. Map Workspace Bookings to Uniform Structure
+                    const mappedWorkspaces = workspaceBookings.map(b => ({
+                        id: b.id,
+                        room: b.workspace,
+                        title: b.title || `${b.bookingScope} Booking - ${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}`,
+                        date: b.period,
+                        time: "Full Day",
+                        duration: b.term,
+                        status: b.status,
+                        image: getBookingImage(b.workspace),
+                        bookingType: "Workspace"
+                    }));
+
+                    // Filter mapped rooms and workspaces to only those shown in the client demo (External)
+                    const activeRooms = (window.roomsList || []).filter(r => r.name.toLowerCase().includes("(ext)")).map(r => r.name);
+                    const activeWorkspaces = (window.workspacesList || []).filter(w => {
+                        if (w.clientType === "External") return true;
+                        if (w.parentWorkspace) {
+                            const p = (window.workspacesList || []).find(x => x.name === w.parentWorkspace);
+                            return p && p.clientType === "External";
+                        }
+                        return false;
+                    }).map(w => w.name);
+
+                    const filteredRooms = mappedRooms.filter(b => activeRooms.includes(b.room));
+                    const filteredWorkspaces = mappedWorkspaces.filter(b => activeWorkspaces.includes(b.room));
+
+                    // 5. Combine lists (excluding Denied bookings)
+                    allBookings = [...filteredRooms, ...filteredWorkspaces].filter(b => b.status !== "Denied" && b.status !== "Cancelled");
+                    
                     renderBookings();
                 }
 
@@ -136,53 +369,92 @@
                     const container = document.getElementById("bookings_list");
                     if (!container) return;
 
-                    if (bookings.length === 0) {
-                        container.innerHTML = `<p class="py-8 text-center text-sm text-slate-500 bg-white rounded-3xl border border-slate-100">No active bookings found</p>`;
+                    const filtered = allBookings.filter(b => {
+                        const upcoming = isUpcoming(b.date);
+                        return currentTab === "Upcoming" ? upcoming : !upcoming;
+                    });
+
+                    if (filtered.length === 0) {
+                        container.innerHTML = `
+                            <div class="py-12 text-center text-sm text-slate-500 bg-white rounded-3xl border border-slate-100 flex flex-col items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-[36px] text-slate-300">event_busy</span>
+                                <span>No ${currentTab.toLowerCase()} bookings found</span>
+                            </div>
+                        `;
                         return;
                     }
 
-                    container.innerHTML = bookings.map(b => {
+                    container.innerHTML = filtered.map(b => {
+                        const upcoming = isUpcoming(b.date);
                         let indicatorBg = "bg-emerald-500";
                         let badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
-                        let actionButtons = `
-                            <button onclick="rescheduleBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200">
-                                Reschedule
-                            </button>
-                            <button onclick="cancelBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
-                                Cancel
-                            </button>
-                        `;
+                        let statusText = b.status;
+                        let actionButtons = "";
 
-                        if (b.status === "Waitlist") {
-                            indicatorBg = "bg-slate-300";
-                            badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                        if (upcoming) {
+                            if (b.status === "Waitlist") {
+                                indicatorBg = "bg-slate-300";
+                                badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                                actionButtons = `
+                                    <button onclick="cancelBooking(${b.id}, '${b.bookingType}')" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200 cursor-pointer">
+                                        Remove Request
+                                    </button>
+                                `;
+                            } else {
+                                actionButtons = `
+                                    <button onclick="rescheduleBooking(${b.id}, '${b.bookingType}')" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-slate-700 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors duration-200 cursor-pointer">
+                                        Reschedule
+                                    </button>
+                                    <button onclick="cancelBooking(${b.id}, '${b.bookingType}')" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200 cursor-pointer">
+                                        Cancel
+                                    </button>
+                                `;
+                            }
+                        } else {
+                            // Past bookings
+                            if (b.status === "Confirmed") {
+                                statusText = "Completed";
+                                indicatorBg = "bg-emerald-500";
+                                badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
+                            } else {
+                                statusText = "Expired";
+                                indicatorBg = "bg-slate-300";
+                                badgeClass = "bg-slate-100 text-slate-600 border-slate-200";
+                            }
+                            
+                            const targetPage = b.bookingType === "Workspace" ? "meeting_rooms.html" : "rooms.html";
                             actionButtons = `
-                                <button onclick="cancelBooking(${b.id})" class="flex-1 md:flex-none px-5 py-2.5 bg-white text-red-600 border border-red-200 hover:bg-red-50 hover:border-red-300 rounded-xl text-sm font-semibold transition-colors duration-200">
-                                    Remove Request
-                                </button>
+                                <a href="${targetPage}" class="flex-1 md:flex-none px-5 py-2.5 bg-blue-50 text-blue-700 border border-blue-100 hover:bg-blue-100 hover:border-blue-200 rounded-xl text-sm font-semibold transition-colors duration-200 cursor-pointer text-center flex items-center justify-center gap-1.5 no-underline">
+                                    <span class="material-symbols-outlined text-[16px]">sync</span> Book Again
+                                </a>
                             `;
                         }
+
+                        const typeTag = b.bookingType === "Workspace" 
+                            ? `<span class="bg-blue-50 text-blue-700 border-blue-100 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border">Workspace</span>`
+                            : `<span class="bg-indigo-50 text-indigo-700 border-indigo-100 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border">Room</span>`;
 
                         return `
                             <div class="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 transition-shadow duration-300 relative overflow-hidden group">
                                 <div class="absolute top-0 left-0 w-1.5 h-full ${indicatorBg}"></div>
                                 <div class="flex flex-col md:flex-row justify-between gap-6 w-full pl-2">
                                     <div class="flex gap-6 items-start flex-1 min-w-0">
-                                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100">
-                                            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500" alt="${b.title}" src="${b.image}">
+                                        <div class="w-24 h-24 rounded-2xl overflow-hidden shrink-0 hidden sm:block bg-slate-100 border border-slate-100">
+                                            <img class="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500" alt="${b.room.replace(/\s*\((Int|Ext)\)/i, "")}" src="${b.image}">
                                         </div>
                                         <div class="min-w-0">
                                             <div class="flex items-center gap-3 mb-2 flex-wrap">
+                                                ${typeTag}
                                                 <span class="${badgeClass} px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border">
-                                                    ${b.status}
-                                                </span>
-                                                <span class="text-[12px] font-bold text-slate-500 uppercase tracking-wider">
-                                                    ${b.room}
+                                                    ${statusText}
                                                 </span>
                                             </div>
-                                            <h3 class="text-xl font-bold text-slate-900 mb-1">
-                                                ${b.title}
+                                            <h3 class="text-xl font-bold text-slate-900 mb-1 leading-snug">
+                                                ${b.room.replace(/\s*\((Int|Ext)\)/i, "")}
                                             </h3>
+                                            <p class="text-sm text-slate-500 font-medium mt-1">
+                                                ${b.title}
+                                            </p>
                                             <div class="text-sm font-medium text-slate-500 flex flex-wrap gap-x-6 gap-y-2 mt-4">
                                                 <div class="flex items-center gap-2">
                                                     <span class="material-symbols-outlined text-[18px]">calendar_today</span>
@@ -208,15 +480,39 @@
                     }).join("");
                 }
 
-                window.rescheduleBooking = function(id) {
+                window.switchTab = function(tabName) {
+                    currentTab = tabName;
+                    
+                    const btnUpcoming = document.getElementById("tab_upcoming");
+                    const btnPast = document.getElementById("tab_past");
+                    
+                    if (tabName === "Upcoming") {
+                        btnUpcoming.className = "bg-white shadow-sm flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-semibold text-slate-900 transition-all cursor-pointer";
+                        btnPast.className = "flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 transition-all cursor-pointer";
+                    } else {
+                        btnUpcoming.className = "flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-medium text-slate-500 hover:text-slate-900 transition-all cursor-pointer";
+                        btnPast.className = "bg-white shadow-sm flex-1 md:flex-none px-6 py-2 rounded-lg text-sm font-semibold text-slate-900 transition-all cursor-pointer";
+                    }
+                    
+                    renderBookings();
+                };
+
+                window.rescheduleBooking = function(id, bookingType) {
                     alert("Reschedule dialog coming soon for booking #" + id);
                 };
 
-                window.cancelBooking = function(id) {
+                window.cancelBooking = function(id, bookingType) {
                     if (confirm("Are you sure you want to cancel this booking/request?")) {
-                        bookings = bookings.filter(b => b.id !== id);
-                        sessionStorage.setItem("bookings", JSON.stringify(bookings));
-                        renderBookings();
+                        if (bookingType === "Room") {
+                            let roomBookings = JSON.parse(sessionStorage.getItem("bookings") || "[]");
+                            roomBookings = roomBookings.filter(b => b.id !== id);
+                            sessionStorage.setItem("bookings", JSON.stringify(roomBookings));
+                        } else {
+                            let workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
+                            workspaceBookings = workspaceBookings.filter(b => b.id !== id);
+                            sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
+                        }
+                        loadBookings();
                         alert("Booking cancelled successfully.");
                     }
                 };

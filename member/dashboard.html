@@ -129,7 +129,7 @@
 
 <body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex antialiased">
     <main class="page-layout flex-1 min-h-screen pb-24 pt-6 md:pt-8 px-4 md:px-8">
-        <div class="max-w-[1440px] mx-auto w-full">
+        <div class="max-w-[1440px] mx-auto w-full mb-12">
             <!-- Hero Section -->
             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-6 sm:mb-8">
                 <div class="min-w-0">
@@ -153,92 +153,9 @@
                             <span class="material-symbols-outlined text-[14px]">arrow_outward</span>
                         </a>
                     </div>
-                    <div class="space-y-2">
-                        <!-- Booking Item 1 -->
-                        <div
-                            class="p-4 hover:bg-slate-50/80 rounded-2xl transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 group cursor-pointer border border-transparent hover:border-slate-100">
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                                    <span class="material-symbols-outlined text-blue-600">meeting_room</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-semibold text-slate-800">Boardroom A (The Conservatory)</h4>
-                                    <p class="text-xs text-slate-500 mt-1">10:00 AM - 11:30 AM &bull; Design Review</p>
-                                </div>
-                            </div>
-                            <div
-                                class="bg-emerald-50 text-emerald-700 font-semibold text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shrink-0 text-center">
-                                Confirmed
-                            </div>
-                        </div>
-                        <!-- Booking Item 2 -->
-                        <div
-                            class="p-4 hover:bg-slate-50/80 rounded-2xl transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 group cursor-pointer border border-transparent hover:border-slate-100">
-                            <div class="flex items-center gap-4">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                                    <span class="material-symbols-outlined text-purple-600">mic</span>
-                                </div>
-                                <div>
-                                    <h4 class="text-sm font-semibold text-slate-800">Podcast Studio 2</h4>
-                                    <p class="text-xs text-slate-500 mt-1">2:00 PM - 4:00 PM &bull; Client Recording</p>
-                                </div>
-                            </div>
-                            <div
-                                class="bg-emerald-50 text-emerald-700 font-semibold text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shrink-0 text-center">
-                                Confirmed
-                            </div>
-                        </div>
+                    <div class="space-y-2" id="upcoming_bookings_list">
+                        <!-- Will be populated dynamically -->
                     </div>
-                </div>
-
-                <!-- Expected Visitors (Span 4) -->
-                <div
-                    class="col-span-12 lg:col-span-4 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col p-6">
-                    <div class="flex justify-between items-center mb-6 border-b border-slate-50 pb-4">
-                        <h3 class="text-xl font-bold text-slate-900 tracking-tight">Expected Visitors</h3>
-                        <a class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors text-slate-500"
-                            href="invite_visitor.html">
-                            <span class="material-symbols-outlined">add</span>
-                        </a>
-                    </div>
-                    <div class="flex-1 space-y-6">
-                        <!-- Visitor 1 -->
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center font-bold text-blue-600 text-sm">
-                                SJ</div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-slate-900">Sarah Jenkins</p>
-                                <p class="text-xs text-slate-500 mt-0.5">Design Agency Inc.</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm font-semibold text-slate-900">9:45 AM</p>
-                                <p class="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider mt-0.5">
-                                    Arrived</p>
-                            </div>
-                        </div>
-                        <!-- Visitor 2 -->
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600 text-sm">
-                                MR</div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-slate-900">Michael Ross</p>
-                                <p class="text-xs text-slate-500 mt-0.5">Freelance Developer</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm font-semibold text-slate-900">2:00 PM</p>
-                                <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5">
-                                    Expected</p>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="mt-6 w-full border border-slate-200 text-slate-700 text-sm font-semibold py-2.5 rounded-2xl hover:bg-slate-50 hover:border-slate-300 transition-colors block text-center"
-                        href="invite_visitor.html">
-                        Register New Visitor
-                    </a>
                 </div>
 
                 <!-- Expected Visitors (Span 4) -->
@@ -260,132 +177,316 @@
                     </a>
                 </div>
 
-                <!-- Recent Notifications (Span 6) -->
+                <!-- Recent Activity (Span 5) -->
                 <div
-                    class="col-span-12 lg:col-span-6 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col">
-                    <div class="flex justify-between items-center mb-6 border-b border-slate-50 pb-4">
+                    class="col-span-12 lg:col-span-5 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-50 pb-4">
                         <h3 class="text-xl font-bold text-slate-900 tracking-tight">Recent Activity</h3>
                     </div>
-                    <div class="space-y-0 overflow-y-auto pr-2 flex-1">
-                        <!-- Notification 1 -->
-                        <div
-                            class="flex gap-4 py-4 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors px-2 rounded-xl cursor-pointer">
-                            <div
-                                class="mt-1 w-8 h-8 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    <div class="space-y-0 overflow-y-auto pr-2 flex-1" id="recent_activity_list">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Premium Workspaces Perks (Span 7) -->
+                <div
+                    class="col-span-12 lg:col-span-7 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 p-6 h-[350px] flex flex-col sm:flex-row gap-6 justify-between items-center overflow-hidden">
+                    <div class="flex-1 flex flex-col justify-between h-full min-w-0">
+                        <div>
+                            <div class="flex items-center">
+                                <span class="bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider">COWORK PERKS</span>
                             </div>
-                            <div>
-                                <p class="text-sm font-semibold text-slate-900">Your invoice for October has been paid.
-                                </p>
-                                <p class="text-xs text-slate-500 mt-1">2 hours ago</p>
-                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 tracking-tight mt-4 mb-2">Premium Workspaces</h3>
+                            <p class="text-sm text-slate-500 leading-relaxed font-normal">
+                                Unlock access to modern shared desks, high-end meeting rooms, soundproof phone booths, and premium amenities designed to help you do your best work.
+                            </p>
                         </div>
-                        <!-- Notification 2 -->
-                        <div
-                            class="flex gap-4 py-4 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors px-2 rounded-xl cursor-pointer">
-                            <div
-                                class="mt-1 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-[16px]">local_shipping</span>
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-slate-900">Package delivered to the front desk.</p>
-                                <p class="text-xs text-slate-500 mt-1">Yesterday, 3:15 PM</p>
-                            </div>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <a class="flex-1 sm:flex-none text-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm flex items-center justify-center gap-1.5 no-underline" href="meeting_rooms.html">
+                                <span>Book Space</span>
+                                <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                            </a>
+                            <a class="flex-1 sm:flex-none text-center bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl transition-all flex items-center justify-center no-underline" href="rooms.html">
+                                <span>Explore Rooms</span>
+                            </a>
                         </div>
-                        <!-- Notification 3 -->
-                        <div
-                            class="flex gap-4 py-4 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors px-2 rounded-xl cursor-pointer">
-                            <div
-                                class="mt-1 w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                                <span class="material-symbols-outlined text-[16px]">campaign</span>
-                            </div>
-                            <div>
-                                <p class="text-sm font-semibold text-slate-900">Reminder: Community Happy Hour starts at
-                                    5 PM.</p>
-                                <p class="text-xs text-slate-500 mt-1">Yesterday, 9:00 AM</p>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="w-full sm:w-2/5 h-40 sm:h-full rounded-2xl overflow-hidden shrink-0 relative bg-slate-100 border border-slate-100">
+                        <img class="w-full h-full object-cover" alt="Premium Coworking Workspace" src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent"></div>
                     </div>
                 </div>
 
             </div>
         </div>
+
+        <script>
+            (function() {
+                function parseDate(dateStr) {
+                    if (!dateStr) return new Date();
+                    const clean = dateStr.split(" - ")[0];
+                    return new Date(clean);
+                }
+
+                async function initDashboard() {
+                    // Load default lists to session storage if missing
+                    await ensureDataLoaded();
+
+                    // 1. Greet user using profile name
+                    const profile = JSON.parse(sessionStorage.getItem("profile") || '{"name":"Alex"}');
+                    const firstName = (profile.name || "Alex").split(" ")[0];
+                    const greetingEl = document.querySelector("h2.text-3xl");
+                    if (greetingEl) {
+                        greetingEl.innerText = `Good morning, ${firstName}.`;
+                    }
+
+                    // 2. Load Expected Visitors
+                    loadExpectedVisitors();
+
+                    // 3. Load Upcoming Bookings
+                    loadUpcomingBookings();
+
+                    // 4. Load Recent Activity
+                    loadRecentActivity();
+                }
+
+                async function ensureDataLoaded() {
+                    let visitors = sessionStorage.getItem("visitors");
+                    if (!visitors) {
+                        try {
+                            const res = await fetch("data/visitors.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("visitors", JSON.stringify(data));
+                        } catch(e){}
+                    }
+
+                    let bookings = sessionStorage.getItem("bookings");
+                    if (!bookings || JSON.parse(bookings).length < 6) {
+                        try {
+                            const res = await fetch("data/bookings.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("bookings", JSON.stringify(data));
+                        } catch(e){}
+                    }
+
+                    let workspaceBookings = sessionStorage.getItem("workspace_bookings");
+                    if (!workspaceBookings) {
+                        const seedWorkspaceBookings = [
+                            { id: 100, booker: "Alex Rivera", workspace: "Nichi-In Workspace 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 26, 2026 - Nov 01, 2026", bookingScope: "Entire", seatsBooked: 18, recurring: "None", status: "Confirmed" },
+                            { id: 1, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Oct 23, 2026 - Oct 29, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Confirmed" },
+                            { id: 2, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Monthly", period: "Jun 01, 2026 - Jun 30, 2026", bookingScope: "Entire", seatsBooked: 15, recurring: "None", status: "Confirmed" },
+                            { id: 3, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "May 15, 2026 - May 18, 2026", bookingScope: "Seats", seatsBooked: 1, recurring: "None", status: "Confirmed" },
+                            { id: 4, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - May 31, 2026", bookingScope: "Entire", seatsBooked: 12, recurring: "None", status: "Confirmed" },
+                            { id: 5, booker: "Alex Rivera", workspace: "eBay 1 (Ext)", type: "Shared Space", term: "Weekly", period: "Nov 02, 2026 - Nov 08, 2026", bookingScope: "Seats", seatsBooked: 4, recurring: "None", status: "Waitlist" },
+                            { id: 6, booker: "Alex Rivera", workspace: "Library (Ext)", type: "Shared Space", term: "Monthly", period: "Nov 01, 2026 - Nov 30, 2026", bookingScope: "Seats", seatsBooked: 3, recurring: "None", status: "Waitlist" },
+                            { id: 7, booker: "Alex Rivera", workspace: "eBay 2 (Ext)", type: "Shared Space", term: "Daily", period: "Nov 15, 2026 - Nov 15, 2026", bookingScope: "Seats", seatsBooked: 2, recurring: "None", status: "Waitlist" },
+                            { id: 8, booker: "Alex Rivera", workspace: "Classroom", type: "Shared Space", term: "Yearly", period: "Jan 01, 2026 - Dec 31, 2026", bookingScope: "Entire", seatsBooked: 2, recurring: "None", status: "Denied" }
+                        ];
+                        sessionStorage.setItem("workspace_bookings", JSON.stringify(seedWorkspaceBookings));
+                    }
+                }
+
+                function loadExpectedVisitors() {
+                    const visitorsStored = sessionStorage.getItem("visitors") || "[]";
+                    const visitorList = JSON.parse(visitorsStored);
+
+                    const expected = visitorList.filter(v =>
+                        v.status === "Registered" ||
+                        v.status === "Confirmed" ||
+                        v.status === "Checked-In"
+                    ).slice(0, 3);
+
+                    const container = document.getElementById("expected_visitors_list");
+                    if (!container) return;
+
+                    if (expected.length === 0) {
+                        container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No expected visitors today</p>`;
+                        return;
+                    }
+
+                    container.innerHTML = expected.map(v => {
+                        const initials = v.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                        let bgClass = "bg-slate-100 text-slate-600";
+                        let statusColorClass = "text-slate-500";
+                        let displayStatus = v.status;
+
+                        if (v.status === "Checked-In") {
+                            bgClass = "bg-amber-50 text-amber-600";
+                            statusColorClass = "text-amber-700";
+                            displayStatus = "Arrived";
+                        } else if (v.status === "Confirmed") {
+                            bgClass = "bg-indigo-50 text-indigo-600";
+                            statusColorClass = "text-indigo-600";
+                            displayStatus = "Confirmed";
+                        } else if (v.status === "Registered") {
+                            bgClass = "bg-blue-50 text-blue-600";
+                            statusColorClass = "text-blue-600";
+                            displayStatus = "Expected";
+                        }
+
+                        return `
+                            <div class="flex items-center gap-4 animate-fade-in">
+                                <div class="w-10 h-10 ${bgClass} rounded-full flex items-center justify-center font-bold text-sm shrink-0">${initials}</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-slate-900 truncate">${v.name}</p>
+                                    <p class="text-xs text-slate-500 mt-0.5 truncate">${v.company}</p>
+                                </div>
+                                <div class="text-right shrink-0">
+                                    <p class="text-sm font-semibold text-slate-900">${v.time}</p>
+                                    <p class="text-[11px] font-semibold ${statusColorClass} uppercase tracking-wider mt-0.5">${displayStatus}</p>
+                                </div>
+                            </div>
+                        `;
+                    }).join("");
+                    container.scrollTop = 0;
+                }
+
+                function loadUpcomingBookings() {
+                    const container = document.getElementById("upcoming_bookings_list");
+                    if (!container) return;
+
+                    const bookingsStored = sessionStorage.getItem("bookings") || "[]";
+                    const workspaceBookingsStored = sessionStorage.getItem("workspace_bookings") || "[]";
+
+                    const bookings = JSON.parse(bookingsStored);
+                    const workspaceBookings = JSON.parse(workspaceBookingsStored);
+
+                    const mappedRooms = bookings.filter(b => b.room.includes("(Ext)") && b.status !== "Denied" && b.status !== "Cancelled").map(b => ({
+                        id: b.id,
+                        name: b.room.replace(/\s*\((Int|Ext)\)/i, ""),
+                        details: `${b.time} &bull; ${b.title}`,
+                        dateStr: b.date,
+                        status: b.status,
+                        type: "Room"
+                    }));
+
+                    const mappedWorkspaces = workspaceBookings.filter(w => w.workspace.includes("(Ext)") && w.status !== "Denied" && w.status !== "Cancelled").map(w => ({
+                        id: w.id,
+                        name: w.workspace.replace(/\s*\((Int|Ext)\)/i, ""),
+                        details: `${w.period} &bull; ${w.term} cycle`,
+                        dateStr: w.period,
+                        status: w.status,
+                        type: "Workspace"
+                    }));
+
+                    const all = [...mappedRooms, ...mappedWorkspaces];
+                    const today = new Date();
+                    today.setHours(0,0,0,0);
+
+                    const upcoming = all.filter(item => {
+                        const d = parseDate(item.dateStr);
+                        return d >= today;
+                    }).sort((a, b) => parseDate(a.dateStr) - parseDate(b.dateStr)).slice(0, 5);
+
+                    if (upcoming.length === 0) {
+                        container.innerHTML = `
+                            <div class="py-12 text-center text-slate-500 font-body-md flex flex-col items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-[36px] text-slate-300">event_busy</span>
+                                <span>No upcoming bookings</span>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    container.innerHTML = upcoming.map(u => {
+                        const icon = u.type === "Room" ? "meeting_room" : "domain";
+                        const iconBg = u.type === "Room" ? "bg-blue-50 text-blue-600" : "bg-indigo-50 text-indigo-600";
+                        
+                        let badgeClass = "bg-emerald-50 text-emerald-700";
+                        if (u.status === "Waitlist") {
+                            badgeClass = "bg-amber-50 text-amber-700";
+                        }
+
+                        return `
+                            <div class="p-4 hover:bg-slate-50/80 rounded-2xl transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 group cursor-pointer border border-transparent hover:border-slate-100">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <div class="w-12 h-12 rounded-xl ${iconBg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-100">
+                                        <span class="material-symbols-outlined">${icon}</span>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <h4 class="text-sm font-semibold text-slate-800 truncate">${u.name}</h4>
+                                        <p class="text-xs text-slate-500 mt-1 truncate">${u.details}</p>
+                                    </div>
+                                </div>
+                                <div class="${badgeClass} font-semibold text-[11px] uppercase tracking-wider px-3 py-1 rounded-full shrink-0 text-center">
+                                    ${u.status}
+                                </div>
+                            </div>
+                        `;
+                    }).join("");
+                    container.scrollTop = 0;
+                }
+
+                function loadRecentActivity() {
+                    const container = document.getElementById("recent_activity_list");
+                    if (!container) return;
+
+                    const bookings = JSON.parse(sessionStorage.getItem("bookings") || "[]");
+                    const workspaceBookings = JSON.parse(sessionStorage.getItem("workspace_bookings") || "[]");
+                    const visitors = JSON.parse(sessionStorage.getItem("visitors") || "[]");
+
+                    let activities = [];
+
+                    // Room bookings
+                    bookings.filter(b => b.room.includes("(Ext)")).slice(0, 1).forEach(b => {
+                        activities.push({
+                            body: `Booking for room "${b.room.replace(/\s*\((Int|Ext)\)/i, "")}" is confirmed.`,
+                            time: "Just now",
+                            icon: "check_circle",
+                            iconBg: "bg-emerald-50 text-emerald-600"
+                        });
+                    });
+
+                    // Workspace bookings
+                    workspaceBookings.filter(w => w.workspace.includes("(Ext)")).slice(0, 1).forEach(w => {
+                        activities.push({
+                            body: `Workspace reservation for "${w.workspace.replace(/\s*\((Int|Ext)\)/i, "")}" is active.`,
+                            time: "2 hours ago",
+                            icon: "domain",
+                            iconBg: "bg-blue-50 text-blue-600"
+                        });
+                    });
+
+                    // Visitor arrivals
+                    visitors.filter(v => v.status === "Checked-In").slice(0, 1).forEach(v => {
+                        activities.push({
+                            body: `Your visitor ${v.name} (${v.company}) arrived at reception.`,
+                            time: "Yesterday, 3:15 PM",
+                            icon: "group",
+                            iconBg: "bg-amber-50 text-amber-600"
+                        });
+                    });
+
+                    // Mixer static fallback if empty
+                    activities.push({
+                        body: "Reminder: Community Mixer starts this Friday at 5 PM.",
+                        time: "Yesterday, 9:00 AM",
+                        icon: "campaign",
+                        iconBg: "bg-purple-50 text-purple-600"
+                    });
+
+                    container.innerHTML = activities.map(act => `
+                        <div class="flex gap-4 py-4 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors px-2 rounded-xl cursor-pointer">
+                            <div class="mt-1 w-8 h-8 rounded-full ${act.iconBg} flex items-center justify-center shrink-0 border border-slate-100">
+                                <span class="material-symbols-outlined text-[16px]">${act.icon}</span>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-sm font-semibold text-slate-900 break-words">${act.body}</p>
+                                <p class="text-xs text-slate-500 mt-1">${act.time}</p>
+                            </div>
+                        </div>
+                    `).join("");
+                    container.scrollTop = 0;
+                }
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initDashboard);
+                } else {
+                    initDashboard();
+                }
+            })();
+        </script>
     </main>
-</body>
-
-</html>
-</div>
-</div>
-
-<script>
-    async function loadExpectedVisitors() {
-        let visitors = sessionStorage.getItem("visitors");
-        if (!visitors) {
-            try {
-                const res = await fetch("data/visitors.json");
-                const data = await res.json();
-                sessionStorage.setItem("visitors", JSON.stringify(data));
-                visitors = JSON.stringify(data);
-            } catch (e) {
-                console.error("Failed to load visitors list", e);
-                return;
-            }
-        }
-        const visitorList = JSON.parse(visitors);
-
-        // Filter to show active/expected/registered/confirmed/checked-in visitors
-        const expected = visitorList.filter(v =>
-            v.status === "Registered" ||
-            v.status === "Confirmed" ||
-            v.status === "Checked-In"
-        ).slice(0, 3); // show up to 3
-
-        const container = document.getElementById("expected_visitors_list");
-        if (!container) return;
-
-        if (expected.length === 0) {
-            container.innerHTML = `<p class="text-sm text-slate-500 text-center py-8">No expected visitors today</p>`;
-            return;
-        }
-
-        container.innerHTML = expected.map(v => {
-            const initials = v.name.split(' ').map(n => n[0]).join('').toUpperCase();
-            let bgClass = "bg-slate-100 text-slate-600";
-            let statusColorClass = "text-slate-500";
-            let displayStatus = v.status;
-
-            if (v.status === "Checked-In") {
-                bgClass = "bg-amber-50 text-amber-600";
-                statusColorClass = "text-amber-700";
-                displayStatus = "Arrived";
-            } else if (v.status === "Confirmed") {
-                bgClass = "bg-indigo-50 text-indigo-600";
-                statusColorClass = "text-indigo-600";
-                displayStatus = "Confirmed";
-            } else if (v.status === "Registered") {
-                bgClass = "bg-blue-50 text-blue-600";
-                statusColorClass = "text-blue-600";
-                displayStatus = "Expected";
-            }
-
-            return `
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 ${bgClass} rounded-full flex items-center justify-center font-bold text-sm shrink-0">${initials}</div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-slate-900 truncate">${v.name}</p>
-                        <p class="text-xs text-slate-500 mt-0.5 truncate">${v.company}</p>
-                    </div>
-                    <div class="text-right shrink-0">
-                        <p class="text-sm font-semibold text-slate-900">${v.time}</p>
-                        <p class="text-[11px] font-semibold ${statusColorClass} uppercase tracking-wider mt-0.5">${displayStatus}</p>
-                    </div>
-                </div>
-            `;
-        }).join("");
-    }
-    loadExpectedVisitors();
-</script>
-</main>
 </body>
 
 </html>
