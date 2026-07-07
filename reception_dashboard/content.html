@@ -330,12 +330,12 @@
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant/50">
                                 Checked Out
                             </span>`;
-                        actionBtnHTML = `<span class="material-symbols-outlined text-outline text-[18px]">history</span>`;
+                        actionBtnHTML = `<div class="w-8 h-8 flex items-center justify-center text-outline" title="Checked Out"><span class="material-symbols-outlined text-[18px]">history</span></div>`;
                         opacityClass = 'opacity-70';
                     }
 
                     tr.innerHTML = `
-                        <td class="py-4 px-2 ${opacityClass}">
+                        <td class="py-4 px-4 align-middle ${opacityClass}">
                             <div class="flex items-center gap-3">
                                 ${avatarHTML}
                                 <div>
@@ -344,10 +344,10 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="py-4 px-2 text-on-surface-variant ${opacityClass}">${v.hostName}</td>
-                        <td class="py-4 px-2 text-on-surface-variant ${opacityClass}">${v.expectedArrival}</td>
-                        <td class="py-4 px-2 status-container">${statusBadge}</td>
-                        <td class="py-4 px-2 text-right">
+                        <td class="py-4 px-4 text-on-surface-variant align-middle ${opacityClass}">${v.hostName}</td>
+                        <td class="py-4 px-4 text-on-surface-variant align-middle ${opacityClass}">${v.expectedArrival}</td>
+                        <td class="py-4 px-4 status-container align-middle">${statusBadge}</td>
+                        <td class="py-4 px-4 text-right align-middle">
                             <div class="flex items-center justify-end gap-2">
                                 ${actionBtnHTML}
                             </div>

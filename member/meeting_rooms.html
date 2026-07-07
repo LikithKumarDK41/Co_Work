@@ -329,7 +329,7 @@
                     if (stored) {
                         try {
                             const parsed = JSON.parse(stored);
-                            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Nichi-In Dept 1 - Bay 1")) {
+                            if (parsed.some(w => w.name.includes("Boardroom") || w.name.includes("Podcast") || w.name.includes("Hub")) || !parsed.some(w => w.name === "Dept 1 - Bay 1")) {
                                 sessionStorage.removeItem("workspaces");
                                 stored = null;
                             }
@@ -480,27 +480,26 @@
                     }
                 }
 
-                // Booking Modal popup handler
                 function mapBookingToWorkspaceName(bookingName) {
                     if (!bookingName) return "";
                     const clean = bookingName.toLowerCase();
                     if (clean.includes("workspace 1") || clean.includes("dept 1 - bay 1")) {
-                        return "Nichi-In Dept 1 - Bay 1";
+                        return "Dept 1 - Bay 1";
                     }
                     if (clean.includes("ebay 1") || clean.includes("dept 4 - bay 1")) {
-                        return "Nichi-In Dept 4 - Bay 1";
+                        return "Dept 4 - Bay 1";
                     }
                     if (clean.includes("library") || clean.includes("dept 1 - bay 2")) {
-                        return "Nichi-In Dept 1 - Bay 2";
+                        return "Dept 1 - Bay 2";
                     }
                     if (clean.includes("classroom") || clean.includes("dept 2 - bay 1")) {
-                        return "Nichi-In Dept 2 - Bay 1";
+                        return "Dept 2 - Bay 1";
                     }
                     if (clean.includes("server room") || clean.includes("dept 2 - bay 2")) {
-                        return "Nichi-In Dept 2 - Bay 2";
+                        return "Dept 2 - Bay 2";
                     }
                     if (clean.includes("ebay 2") || clean.includes("dept 4 - bay 3")) {
-                        return "Nichi-In Dept 4 - Bay 3";
+                        return "Dept 4 - Bay 3";
                     }
                     return bookingName;
                 }

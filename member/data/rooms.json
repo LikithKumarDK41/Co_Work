@@ -2,66 +2,89 @@
   {
     "id": 1,
     "name": "Conference Room 1",
-    "parentWorkspace": "Nichi-In Dept 1 - Bay 1",
+    "parentWorkspace": "Dept 1 - Bay 1",
     "capacity": 12,
     "location": "Building 813, First Floor",
     "size": 400,
-    "amenities": ["TV", "Whiteboard", "Phone", "High-Speed WiFi"],
+    "amenities": [
+      "TV",
+      "Whiteboard",
+      "Phone",
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuA4XLONVI4yXpZu_zL78_DnYecij3NfsVE1EdBRLiqqrgfxcstMl4pumV_b-6NZ15XX85v3VCCYa5UHd1YYe2VIXhgfSJ-HbZtp7hiyt4J5vBFoynoW-lRGEsirmJj8PltzUtikNeRBxpzUbs3mws_yzU5e4dJ3ryFDV48PtYasswobUSn2AL_N6hSB-4ChM4AlQWVVvgEKpX9uRn3bBtmZ3KIlJOBxvv3-r9wjmTTo19Pp8sBIdjMbPo70aJGJXeuqrDJZjV_NbAPS"
   },
   {
     "id": 2,
     "name": "Meeting Room 1",
-    "parentWorkspace": "Nichi-In Dept 1 - Bay 1",
+    "parentWorkspace": "Dept 1 - Bay 1",
     "capacity": 6,
     "location": "Building 813, Second Floor",
     "size": 150,
-    "amenities": ["Whiteboard", "TV", "High-Speed WiFi"],
+    "amenities": [
+      "Whiteboard",
+      "TV",
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAI5dRmzIMDogwIt9r-fE62hI_0Pr0kDJ4ekQsmOTK-lCT9WcK_7ASMSGaldSU0Md66inBMrnYOS6slU9FuWSmcQdM3CqdQZahyuZMZTeIeoysM8SS2q3zIAfLC5_DiZQbVPSqdUHwn74fcLV-Bo9XViSfIu8kStWHn5WWxDGinK4k-ZU8GZlK2mC_ncFMzeCRtBGfa7zLnn6Bl_QYUtkpREIq6Lv3dGbJ-TYAN9lcdpR7nGuubP7AEXP_k96XVLBskSZmvJGWgy_po"
   },
   {
     "id": 3,
     "name": "Meeting Room 2",
-    "parentWorkspace": "Nichi-In Dept 1 - Bay 1",
+    "parentWorkspace": "Dept 1 - Bay 1",
     "capacity": 4,
     "location": "Building 813, Ground Floor",
     "size": 100,
-    "amenities": ["Whiteboard", "High-Speed WiFi"],
+    "amenities": [
+      "Whiteboard",
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80"
   },
   {
     "id": 4,
     "name": "Meeting Room 3",
-    "parentWorkspace": "Nichi-In Dept 4 - Bay 1",
+    "parentWorkspace": "Dept 4 - Bay 1",
     "capacity": 2,
     "location": "Building 812, Second Floor",
     "size": 60,
-    "amenities": ["High-Speed WiFi"],
+    "amenities": [
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 5,
     "name": "Conference Room 2",
-    "parentWorkspace": "Nichi-In Dept 4 - Bay 1",
+    "parentWorkspace": "Dept 4 - Bay 1",
     "capacity": 12,
     "location": "Building 812, Second Floor",
     "size": 400,
-    "amenities": ["TV", "Whiteboard", "Phone", "High-Speed WiFi"],
+    "amenities": [
+      "TV",
+      "Whiteboard",
+      "Phone",
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 6,
     "name": "Meeting Room 4",
-    "parentWorkspace": "Nichi-In Dept 3 - Bay 1",
+    "parentWorkspace": "Dept 3 - Bay 1",
     "capacity": 3,
     "location": "Building 813, Third Floor",
     "size": 80,
-    "amenities": ["Whiteboard", "Phone", "High-Speed WiFi"],
+    "amenities": [
+      "Whiteboard",
+      "Phone",
+      "High-Speed WiFi"
+    ],
     "status": "Active",
     "image": ""
   }

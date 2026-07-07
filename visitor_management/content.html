@@ -118,7 +118,7 @@
                                 <span class="material-symbols-outlined text-[18px]">login</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('Elena Smith', 'TechFlow Inc.', 'Marcus Johnson', '09:00', 'Meeting')"
+                                onclick="openPreRegisterModal('Elena Smith', 'TechFlow Inc.', 'Marcus Johnson', '09:00', 'Meeting', 1)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -167,7 +167,7 @@
                                 <span class="material-symbols-outlined text-[18px]">login</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('James Rodriguez', 'Freelance', 'Sarah Lee', '10:30', 'Project Sync')"
+                                onclick="openPreRegisterModal('James Rodriguez', 'Freelance', 'Sarah Lee', '10:30', 'Project Sync', 2)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -213,7 +213,7 @@
                                 <span class="material-symbols-outlined text-[18px]">login</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('Amanda Chen', 'Venture Capital', 'David Kim', '11:15', 'Pitch')"
+                                onclick="openPreRegisterModal('Amanda Chen', 'Venture Capital', 'David Kim', '11:15', 'Pitch', 3)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -261,7 +261,7 @@
                                 <span class="material-symbols-outlined text-[18px]">logout</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('Michael Patel', 'Global Logistics', 'Linda Wong', '08:45', 'Consulting')"
+                                onclick="openPreRegisterModal('Michael Patel', 'Global Logistics', 'Linda Wong', '08:45', 'Consulting', 4)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -307,7 +307,7 @@
                                 <span class="material-symbols-outlined text-[18px]">logout</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('Sophia Garcia', 'Creative Agency', 'Robert Allen', '09:15', 'Interview')"
+                                onclick="openPreRegisterModal('Sophia Garcia', 'Creative Agency', 'Robert Allen', '09:15', 'Interview', 5)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -354,7 +354,7 @@
                                 <span class="material-symbols-outlined text-[18px]">logout</span>
                             </button>
                             <button
-                                onclick="openPreRegisterModal('Thomas Wright', 'Independent', 'Sarah Lee', '07:30', 'Contracting')"
+                                onclick="openPreRegisterModal('Thomas Wright', 'Independent', 'Sarah Lee', '07:30', 'Contracting', 6)"
                                 class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant/30 transition-colors"
                                 title="Edit">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -544,22 +544,41 @@
         }
 
         // Pre-Register Modal Actions
-        function openPreRegisterModal(data = null) {
+        function openPreRegisterModal(data = null, company = '', host = '', time = '', purpose = '', id = null) {
             const modal = document.getElementById('preRegisterModal');
             const title = document.getElementById('pr_modal_title');
             const submitBtn = document.getElementById('pr_submit_btn');
 
-            if (data && typeof data === 'object') {
+            if (data) {
                 title.innerText = "Edit Registration";
                 if (submitBtn) submitBtn.innerText = "Save Changes";
-                document.getElementById('pr_name').value = data.name || '';
-                document.getElementById('pr_company').value = data.company || '';
-                document.getElementById('pr_host').value = data.host || '';
-                document.getElementById('pr_time').value = data.time || '';
+                
+                if (typeof data === 'object') {
+                    document.getElementById('pr_name').value = data.name || '';
+                    document.getElementById('pr_company').value = data.company || '';
+                    document.getElementById('pr_host').value = data.host || '';
+                    document.getElementById('pr_time').value = data.time || '';
+                    document.getElementById('pr_purpose').value = data.purpose || '';
+                    if (id !== null) {
+                        modal.dataset.editId = id;
+                    } else if (data.id) {
+                        modal.dataset.editId = data.id;
+                    }
+                } else {
+                    document.getElementById('pr_name').value = data || '';
+                    document.getElementById('pr_company').value = company || '';
+                    document.getElementById('pr_host').value = host || '';
+                    document.getElementById('pr_time').value = time || '';
+                    document.getElementById('pr_purpose').value = purpose || '';
+                    if (id !== null) {
+                        modal.dataset.editId = id;
+                    }
+                }
             } else {
                 title.innerText = "Pre-Register Visitor";
                 if (submitBtn) submitBtn.innerText = "Generate QR & Send";
                 document.getElementById('preRegisterForm').reset();
+                delete modal.dataset.editId;
             }
 
             modal.classList.remove('hidden');
@@ -574,7 +593,65 @@
 
         function submitPreRegister() {
             const submitBtn = document.getElementById('pr_submit_btn');
-            if (submitBtn.innerText === 'Save Changes') {
+            const modal = document.getElementById('preRegisterModal');
+            const editId = modal.dataset.editId;
+
+            const name = document.getElementById('pr_name').value;
+            const company = document.getElementById('pr_company').value;
+            const host = document.getElementById('pr_host').value;
+            const timeVal = document.getElementById('pr_time').value;
+            const purpose = document.getElementById('pr_purpose').value;
+
+            // Format time value from "HH:MM" (input type="time") to display "HH:MM AM/PM"
+            let displayTime = timeVal;
+            if (timeVal) {
+                const parts = timeVal.split(':');
+                if (parts.length >= 2) {
+                    let hours = parseInt(parts[0], 10);
+                    const minutes = parts[1];
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12;
+                    const strHours = hours < 10 ? '0' + hours : hours;
+                    displayTime = `${strHours}:${minutes} ${ampm}`;
+                }
+            }
+
+            if (editId) {
+                const row = document.querySelector(`.visitor-row[data-id="${editId}"]`);
+                if (row) {
+                    // Update name and company
+                    const nameEl = row.querySelector('td:nth-child(1) p.font-semibold');
+                    if (nameEl) nameEl.innerText = name;
+                    
+                    const companyEl = row.querySelector('td:nth-child(1) p.text-on-surface-variant');
+                    if (companyEl) companyEl.innerText = company;
+
+                    // Update initials avatar if present
+                    const avatarDiv = row.querySelector('td:nth-child(1) .rounded-full');
+                    if (avatarDiv && !avatarDiv.querySelector('img')) {
+                        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                        avatarDiv.innerText = initials;
+                    }
+
+                    // Update host name
+                    const hostEl = row.querySelector('td:nth-child(2) p.font-medium');
+                    if (hostEl) hostEl.innerText = host;
+
+                    // Update expected arrival time
+                    const timeEl = row.querySelector('td:nth-child(3)');
+                    if (timeEl) timeEl.innerText = displayTime;
+
+                    // Update onclick handlers for Check In, Edit, Delete buttons on the row
+                    const checkInBtn = row.querySelector('button[title="Check In"]');
+                    if (checkInBtn) {
+                        checkInBtn.setAttribute('onclick', `openCheckInModal(${editId}, '${name.replace(/'/g, "\\'")}', '${company.replace(/'/g, "\\'")}', '${host.replace(/'/g, "\\'")}', '${row.dataset.status || 'expected'}')`);
+                    }
+                    const editBtn = row.querySelector('button[title="Edit"]');
+                    if (editBtn) {
+                        editBtn.setAttribute('onclick', `openPreRegisterModal('${name.replace(/'/g, "\\'")}', '${company.replace(/'/g, "\\'")}', '${host.replace(/'/g, "\\'")}', '${timeVal}', '${purpose.replace(/'/g, "\\'")}', ${editId})`);
+                    }
+                }
                 alert("Visitor updated successfully!");
             } else {
                 alert("Visitor Pre-registered! A QR code invite has been sent.");

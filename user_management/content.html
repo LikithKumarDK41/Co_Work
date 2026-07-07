@@ -421,6 +421,18 @@
 
                 async function loadUsers() {
                     let stored = sessionStorage.getItem("users");
+                    if (stored) {
+                        try {
+                            const parsed = JSON.parse(stored);
+                            if (!parsed.some(u => u.name === "Amit Sharma")) {
+                                sessionStorage.removeItem("users");
+                                stored = null;
+                            }
+                        } catch (e) {
+                            sessionStorage.removeItem("users");
+                            stored = null;
+                        }
+                    }
                     if (!stored) {
                         try {
                             const res = await fetch("../member/data/users.json");

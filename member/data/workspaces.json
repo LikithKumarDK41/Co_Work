@@ -1,145 +1,205 @@
 [
   {
     "id": 101,
-    "name": "Nichi-In Dept 1 - Bay 1",
+    "name": "Dept 1 - Bay 1",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 18,
     "location": "Building 813, Second Floor",
     "size": 650,
-    "amenities": ["High-Speed WiFi", "Server Space","Whiteboard","Meeting Rooms","Library","Printer"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Server Space",
+      "Whiteboard",
+      "Meeting Rooms",
+      "Library",
+      "Printer"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 102,
-    "name": "Nichi-In Dept 1 - Bay 2",
+    "name": "Dept 1 - Bay 2",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 15,
     "location": "Building 813, Second Floor",
     "size": 550,
-    "amenities": ["High-Speed WiFi", "Server Space","Whiteboard","Meeting Rooms","Library","Printer"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Server Space",
+      "Whiteboard",
+      "Meeting Rooms",
+      "Library",
+      "Printer"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 103,
-    "name": "Nichi-In Dept 1 - Bay 3",
+    "name": "Dept 1 - Bay 3",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 813, Second Floor",
     "size": 510,
-    "amenities": ["High-Speed WiFi", "Server Space","Whiteboard","Meeting Rooms","Library","Printer"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Server Space",
+      "Whiteboard",
+      "Meeting Rooms",
+      "Library",
+      "Printer"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 104,
-    "name": "Nichi-In Dept 2 - Bay 1",
+    "name": "Dept 2 - Bay 1",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 18,
     "location": "Building 813, First Floor",
     "size": 650,
-    "amenities": ["High-Speed WiFi", "Server Room","Whiteboard","Conference Rooms","Printer"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Server Room",
+      "Whiteboard",
+      "Conference Rooms",
+      "Printer"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 105,
-    "name": "Nichi-In Dept 2 - Bay 2",
+    "name": "Dept 2 - Bay 2",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 813, First Floor",
     "size": 550,
-    "amenities": ["High-Speed WiFi", "Server Room","Whiteboard","Conference Rooms","Printer"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Server Room",
+      "Whiteboard",
+      "Conference Rooms",
+      "Printer"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 106,
-    "name": "Nichi-In Dept 3 - Bay 1",
+    "name": "Dept 3 - Bay 1",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 18,
     "location": "Building 813, Third Floor",
     "size": 510,
-    "amenities": ["High-Speed WiFi", "Printer", "Conference Room"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Conference Room"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 107,
-    "name": "Nichi-In Dept 3 - Bay 2",
+    "name": "Dept 3 - Bay 2",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 813, Third Floor",
     "size": 350,
-    "amenities": ["High-Speed WiFi", "Printer", "Conference Room"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Conference Room"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 108,
-    "name": "Nichi-In Dept 3 - Bay 3",
+    "name": "Dept 3 - Bay 3",
     "buildingId": "813",
     "clientType": "Internal",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 813, Third Floor",
     "size": 300,
-    "amenities": ["High-Speed WiFi", "Printer", "Conference Room"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Conference Room"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 109,
-    "name": "Nichi-In Dept 4 - Bay 1",
+    "name": "Dept 4 - Bay 1",
     "buildingId": "812",
     "clientType": "External",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 812 , Second Floor",
     "size": 120,
-    "amenities": ["High-Speed WiFi", "Printer", "Class Room", "Meeting corners"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Class Room",
+      "Meeting corners"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 110,
-    "name": "Nichi-In Dept 4 - Bay 2", 
+    "name": "Dept 4 - Bay 2",
     "buildingId": "812",
-    "clientType": "External",   
+    "clientType": "External",
     "type": "Shared Space",
     "capacity": 12,
     "location": "Building 812 , Second Floor",
     "size": 450,
-    "amenities": ["High-Speed WiFi", "Printer", "Class Room", "Meeting corners"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Class Room",
+      "Meeting corners"
+    ],
     "status": "Active",
     "image": ""
   },
   {
     "id": 111,
-    "name": "Nichi-In Dept 4 - Bay 3", 
+    "name": "Dept 4 - Bay 3",
     "buildingId": "812",
-    "clientType": "External",   
+    "clientType": "External",
     "type": "Shared Space",
     "capacity": 10,
     "location": "Building 812 , Second Floor",
     "size": 450,
-    "amenities":["High-Speed WiFi", "Printer", "Class Room", "Meeting corners"],
+    "amenities": [
+      "High-Speed WiFi",
+      "Printer",
+      "Class Room",
+      "Meeting corners"
+    ],
     "status": "Active",
     "image": ""
-  }  
+  }
 ]
