@@ -16,7 +16,7 @@
     "date": "Jul 06, 2026",
     "time": "03:30 PM",
     "purpose": "Technical Interview",
-    "status": "Registered",
+    "status": "Checked-In",
     "hostName": "Narendra Kumar"
   },
   {
@@ -66,7 +66,7 @@
     "date": "Jul 06, 2026",
     "time": "01:30 PM",
     "purpose": "Partner Sync",
-    "status": "Completed",
+    "status": "Checked-In",
     "hostName": "Yeshwanth I. N."
   },
   {
@@ -116,7 +116,27 @@
     "date": "Jul 06, 2026",
     "time": "05:00 PM",
     "purpose": "Technical Support",
-    "status": "Registered",
+    "status": "Checked-In",
     "hostName": "Abhishek K"
+  },
+  {
+    "id": 13,
+    "name": "Karthik Raja",
+    "company": "Cognizant",
+    "date": "Jul 06, 2026",
+    "time": "11:30 AM",
+    "purpose": "Technical Collaboration",
+    "status": "Registered",
+    "hostName": "Narendra Kumar"
+  },
+  {
+    "id": 14,
+    "name": "Shwetha Rao",
+    "company": "Dell Technologies",
+    "date": "Jul 06, 2026",
+    "time": "02:00 PM",
+    "purpose": "Vendor Onboarding",
+    "status": "Pending",
+    "hostName": "Narendra Kumar"
   }
 ]

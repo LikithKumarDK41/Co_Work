@@ -277,17 +277,6 @@
                         </div>
                     </div>
 
-                    <!-- Term/Billing Cycle -->
-                    <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Term / Cycle <span class="text-error">*</span></label>
-                        <select id="book_term" required class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                            <option value="Daily">Daily</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Yearly">Yearly</option>
-                        </select>
-                    </div>
-
                     <!-- Client Category (Internal vs External) -->
                     <div class="flex flex-col gap-1">
                         <label class="font-label-sm text-on-surface-variant font-semibold">Client Category <span class="text-error">*</span></label>
@@ -297,61 +286,31 @@
                         </select>
                     </div>
 
-                    <!-- Select Parent Workspace / Zone -->
+                    <!-- Select Workspace Heading -->
                     <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Select Building Zone / Parent Workspace <span class="text-error">*</span></label>
-                        <select id="book_parent_workspace" required onchange="handleFormDateOrWorkspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                            <option value="">Select a Parent Zone...</option>
-                        </select>
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Select Workspace <span class="text-error">*</span></label>
                     </div>
 
-                    <!-- Parent Entire Booking Checkbox -->
-                    <div id="parentEntireSpaceContainer" class="hidden flex flex-col gap-2 p-3 border border-outline-variant/40 rounded-lg bg-surface-container-low">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="book_entire_parent" onchange="handleParentCheckboxChange()" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4">
-                            <span class="font-body-sm font-semibold text-on-surface">Book entire Workspace Zone (Full Space)</span>
-                        </label>
-                        <span id="parentAvailabilityStatus" class="text-xs font-semibold text-on-surface-variant">Please select dates to verify availability.</span>
+                    <!-- Workspaces Container -->
+                    <div id="selectedWorkspacesContainer" class="flex flex-col gap-4">
+                        <!-- Row instances populated dynamically -->
                     </div>
 
-                    <!-- Specific Child Workspace Selector -->
-                    <div id="childWorkspaceContainer" class="hidden flex flex-col gap-4 border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low">
-                        <div class="flex flex-col gap-1">
-                            <label class="font-label-sm text-on-surface-variant font-semibold">Select Sub-space / eBay Zone <span class="text-error">*</span></label>
-                            <select id="book_subspace" onchange="handleSubspaceChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                                <!-- Dynamic sub-workspaces will be injected here -->
-                            </select>
-                        </div>
+                    <button type="button" onclick="addNewSpaceRow()" id="addWorkspaceRowBtn" style="display: none;"
+                        class="mt-2 text-primary font-bold flex items-center gap-1.5 hover:text-primary/95 transition-colors self-start text-xs border border-primary/30 px-3.5 py-2 rounded-lg bg-primary/5 shadow-xs cursor-pointer">
+                        <span class="material-symbols-outlined text-[16px]">add_circle</span> Select one more workspace
+                    </button>
 
-                        <!-- Booking Scope for child workspace -->
-                        <div id="subspaceScopeContainer" class="hidden flex flex-col gap-4">
-                            <div class="flex flex-col gap-1">
-                                <label class="font-label-sm text-on-surface-variant font-semibold">Booking Scope <span class="text-error">*</span></label>
-                                <select id="book_scope" onchange="handleScopeChange()" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
-                                    <option value="Seats">Specific Seats</option>
-                                    <option value="Entire">Entire Sub-space</option>
-                                </select>
-                            </div>
-
-                            <!-- Seats count -->
-                            <div id="seatsCountContainer" class="flex flex-col gap-1">
-                                <label class="font-label-sm text-on-surface-variant font-semibold">Number of Seats to Book <span class="text-error">*</span></label>
-                                <div class="flex items-center gap-2">
-                                    <input id="book_seats" type="number" min="1" value="1" oninput="updateAvailableSeats()" class="w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:outline-none outline-none text-body-sm">
-                                    <span id="availableSeatsBadge" class="text-xs text-on-surface-variant font-medium bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available Seats: --</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Recurring option -->
+                    <!-- Subscription Plan -->
                     <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Recurring Option</label>
-                        <select id="book_recurring" class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
+                        <label class="font-label-sm text-on-surface-variant font-semibold">Subscription Plan</label>
+                        <select id="book_recurring" onchange="handleFormDateOrWorkspaceChange()"
+                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm">
                             <option value="None">None</option>
-                            <option value="Daily">Daily Recurring</option>
-                            <option value="Weekly">Weekly Recurring</option>
-                            <option value="Monthly">Monthly Recurring</option>
+                            <option value="Daily">Daily Subscription</option>
+                            <option value="Weekly">Weekly Subscription</option>
+                            <option value="Monthly">Monthly Subscription</option>
+                            <option value="Yearly">Yearly Subscription</option>
                         </select>
                     </div>
 
@@ -522,106 +481,28 @@
                 }
 
                 // Booking Modal popup handler
-                async function populateParentWorkspaceOptions(selectedCategory = "Internal") {
-                    const select = document.getElementById("book_parent_workspace");
-                    if (!select) return;
-
-                    const parents = workspaces.filter(w => w.status === "Active" && !w.parentWorkspace && w.clientType === selectedCategory);
-                    select.innerHTML = `<option value="">Select a Parent Zone...</option>` +
-                        parents.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`)
-                               .join("");
-                }
-
-                async function openNewBookingModal(workspaceId = null, dateStr = null) {
-                    loadWorkspaceBookings();
-
-                    const modal = document.getElementById('newBookingModal');
-                    const form = document.getElementById('newBookingForm');
-                    if (form) form.reset();
-
-                    // Pre-populate fields based on clicked workspace
-                    if (workspaceId) {
-                        const clicked = workspaces.find(w => w.id === workspaceId);
-                        if (clicked) {
-                            const category = clicked.clientType || "Internal";
-                            document.getElementById("book_client_category").value = category;
-
-                            await populateParentWorkspaceOptions(category);
-                            
-                            if (clicked.parentWorkspace) {
-                                document.getElementById("book_parent_workspace").value = clicked.parentWorkspace;
-                                handleFormDateOrWorkspaceChange();
-                                document.getElementById("book_subspace").value = clicked.name;
-                                handleSubspaceChange();
-                            } else {
-                                document.getElementById("book_parent_workspace").value = clicked.name;
-                                handleFormDateOrWorkspaceChange();
-                                document.getElementById("book_entire_parent").checked = true;
-                                handleParentCheckboxChange();
-                            }
-                        }
-                    } else {
-                        await populateParentWorkspaceOptions("External");
-                        document.getElementById("book_client_category").value = "External";
-                        document.getElementById("book_parent_workspace").value = "";
-                        handleFormDateOrWorkspaceChange();
+                function mapBookingToWorkspaceName(bookingName) {
+                    if (!bookingName) return "";
+                    const clean = bookingName.toLowerCase();
+                    if (clean.includes("workspace 1") || clean.includes("dept 1 - bay 1")) {
+                        return "Nichi-In Dept 1 - Bay 1";
                     }
-
-                    // Pre-populate date picker values
-                    const today = new Date();
-                    let dateToUse = "";
-                    if (dateStr) {
-                        dateToUse = dateStr;
-                    } else {
-                        const yyyy = today.getFullYear();
-                        const mm = String(today.getMonth() + 1).padStart(2, '0');
-                        const dd = String(today.getDate()).padStart(2, '0');
-                        dateToUse = `${yyyy}-${mm}-${dd}`;
+                    if (clean.includes("ebay 1") || clean.includes("dept 4 - bay 1")) {
+                        return "Nichi-In Dept 4 - Bay 1";
                     }
-
-                    document.getElementById("book_start_date").value = dateToUse;
-                    document.getElementById("book_end_date").value = dateToUse;
-                    
-                    // Re-calculate slot and seat occupancies
-                    handleFormDateOrWorkspaceChange();
-
-                    modal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeNewBookingModal() {
-                    document.getElementById('newBookingModal').classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-
-                function handleClientCategoryChange() {
-                    const category = document.getElementById("book_client_category").value;
-                    populateParentWorkspaceOptions(category);
-                    const parentSelect = document.getElementById("book_parent_workspace");
-                    if (parentSelect) parentSelect.value = "";
-                    handleFormDateOrWorkspaceChange();
-                }
-
-                function getHierarchy(name) {
-                    const wMatch = workspaces.find(w => w.name === name);
-                    const isParent = wMatch && !wMatch.parentWorkspace;
-                    
-                    let parent = null;
-                    let childrenWorkspaces = [];
-                    let childrenRooms = [];
-                    
-                    if (isParent) {
-                        parent = name;
-                        childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === name).map(w => w.name);
-                    } else {
-                        if (wMatch && wMatch.parentWorkspace) {
-                            parent = wMatch.parentWorkspace;
-                        }
-                        if (parent) {
-                            childrenWorkspaces = workspaces.filter(w => w.parentWorkspace === parent).map(w => w.name);
-                        }
+                    if (clean.includes("library") || clean.includes("dept 1 - bay 2")) {
+                        return "Nichi-In Dept 1 - Bay 2";
                     }
-                    return { parent, childrenWorkspaces, childrenRooms };
+                    if (clean.includes("classroom") || clean.includes("dept 2 - bay 1")) {
+                        return "Nichi-In Dept 2 - Bay 1";
+                    }
+                    if (clean.includes("server room") || clean.includes("dept 2 - bay 2")) {
+                        return "Nichi-In Dept 2 - Bay 2";
+                    }
+                    if (clean.includes("ebay 2") || clean.includes("dept 4 - bay 3")) {
+                        return "Nichi-In Dept 4 - Bay 3";
+                    }
+                    return bookingName;
                 }
 
                 function parsePeriod(periodStr) {
@@ -645,161 +526,19 @@
                     if (recurType === "Monthly") {
                         return dateObj.getDate() === baseDate.getDate();
                     }
-                    return false;
-                }
-
-                function hasRecurrenceOverlap(start1, end1, recur1, start2, end2, recur2) {
-                    if (Math.max(start1, start2) > Math.min(end1, end2)) {
-                        return false;
-                    }
-                    if (recur1 === "None" && recur2 === "None") {
-                        return true;
-                    }
-
-                    let curr = new Date(Math.max(start1, start2));
-                    let boundary = new Date(Math.min(end1, end2));
-                    while (curr <= boundary) {
-                        if (matchesRecurrence(curr, new Date(start1), recur1) && 
-                            matchesRecurrence(curr, new Date(start2), recur2)) {
-                            return true;
-                        }
-                        curr.setDate(curr.getDate() + 1);
+                    if (recurType === "Yearly") {
+                        return dateObj.getDate() === baseDate.getDate() && dateObj.getMonth() === baseDate.getMonth();
                     }
                     return false;
                 }
 
-                function handleFormDateOrWorkspaceChange() {
-                    const parentSelect = document.getElementById("book_parent_workspace");
-                    const startVal = document.getElementById("book_start_date").value;
-                    const endVal = document.getElementById("book_end_date").value;
-
-                    const parentContainer = document.getElementById("parentEntireSpaceContainer");
-                    const childContainer = document.getElementById("childWorkspaceContainer");
-
-                    if (!parentSelect || parentSelect.value === "") {
-                        parentContainer.classList.add("hidden");
-                        childContainer.classList.add("hidden");
-                        return;
-                    }
-
-                    const parentName = parentSelect.value;
-                    parentContainer.classList.remove("hidden");
-
-                    const parentStatusEl = document.getElementById("parentAvailabilityStatus");
-                    const checkbox = document.getElementById("book_entire_parent");
-
-                    if (!startVal || !endVal) {
-                        parentStatusEl.textContent = "Please select dates to verify availability.";
-                        parentStatusEl.className = "text-xs font-semibold text-on-surface-variant";
-                        checkbox.disabled = false;
-                        
-                        populateSubspaces(parentName);
-                        childContainer.classList.remove("hidden");
-                        return;
-                    }
-
-                    const reqStart = new Date(startVal + "T00:00:00");
-                    const reqEnd = new Date(endVal + "T23:59:59");
-                    const recurring = document.getElementById("book_recurring").value;
-
-                    const hierarchy = getHierarchy(parentName);
-
-                    let bookedReason = "";
-                    let isOccupied = false;
-
-                    workspaceBookings.forEach(o => {
-                        if (o.status !== "Confirmed" || isOccupied) return;
-                        if (o.workspace !== parentName && o.workspace !== hierarchy.parent && !hierarchy.childrenWorkspaces.includes(o.workspace)) return;
-
-                        const period = parsePeriod(o.period);
-                        if (hasRecurrenceOverlap(reqStart.getTime(), reqEnd.getTime(), recurring, period.start.getTime(), period.end.getTime(), o.recurring || "None")) {
-                            isOccupied = true;
-                            bookedReason = `occupied by ${o.booker} (${o.workspace})`;
-                        }
-                    });
-
-                    if (isOccupied) {
-                        checkbox.checked = false;
-                        checkbox.disabled = true;
-                        parentStatusEl.textContent = `Unavailable: Child spaces are occupied (${bookedReason})`;
-                        parentStatusEl.className = "text-xs font-semibold text-error";
-                    } else {
-                        checkbox.disabled = false;
-                        parentStatusEl.textContent = "Entire workspace is available for booking.";
-                        parentStatusEl.className = "text-xs font-semibold text-emerald-600";
-                    }
-
-                    populateSubspaces(parentName);
-                    handleParentCheckboxChange();
-                }
-
-                function populateSubspaces(parentName) {
-                    const select = document.getElementById("book_subspace");
-                    if (!select) return;
-
-                    const children = workspaces.filter(w => w.parentWorkspace === parentName && w.status === "Active");
-                    select.innerHTML = children.map(w => `<option value="${w.name}" data-capacity="${w.capacity}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")}</option>`).join("");
-                    
-                    handleSubspaceChange();
-                }
-
-                function handleParentCheckboxChange() {
-                    const checkbox = document.getElementById("book_entire_parent");
-                    const childContainer = document.getElementById("childWorkspaceContainer");
-
-                    if (checkbox.checked) {
-                        childContainer.classList.add("hidden");
-                    } else {
-                        childContainer.classList.remove("hidden");
-                        handleSubspaceChange();
-                    }
-                }
-
-                function handleSubspaceChange() {
-                    const subSelect = document.getElementById("book_subspace");
-                    const scopeContainer = document.getElementById("subspaceScopeContainer");
-
-                    if (!subSelect || subSelect.value === "") {
-                        scopeContainer.classList.add("hidden");
-                        return;
-                    }
-
-                    scopeContainer.classList.remove("hidden");
-                    handleScopeChange();
-                }
-
-                function handleScopeChange() {
-                    const scope = document.getElementById("book_scope").value;
-                    const container = document.getElementById("seatsCountContainer");
-                    if (scope === "Entire") {
-                        container.classList.add("hidden");
-                    } else {
-                        container.classList.remove("hidden");
-                    }
-                    updateAvailableSeats();
-                }
-
-                function updateAvailableSeats() {
-                    const subSelect = document.getElementById("book_subspace");
+                function getWorkspaceAvailability(workspaceName, totalCapacity) {
                     const startVal = document.getElementById("book_start_date").value;
                     const endVal = document.getElementById("book_end_date").value;
                     const recurring = document.getElementById("book_recurring").value;
-                    const badge = document.getElementById("availableSeatsBadge");
-
-                    if (!subSelect || !badge) return;
-                    const opt = subSelect.options[subSelect.selectedIndex];
-                    if (!opt || opt.value === "") {
-                        badge.textContent = "Available: --";
-                        return;
-                    }
-
-                    const workspaceName = opt.value;
-                    const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
 
                     if (!startVal || !endVal) {
-                        badge.textContent = `Available: ${totalCapacity}`;
-                        badge.dataset.available = totalCapacity;
-                        return;
+                        return totalCapacity;
                     }
 
                     const reqStart = new Date(startVal + "T00:00:00");
@@ -812,7 +551,7 @@
                         if (matchesRecurrence(curr, reqStart, recurring)) {
                             let countToday = 0;
                             workspaceBookings.forEach(o => {
-                                if (o.status !== "Confirmed" || o.workspace !== workspaceName) return;
+                                if (o.status !== "Confirmed" || mapBookingToWorkspaceName(o.workspace) !== workspaceName) return;
                                 const period = parsePeriod(o.period);
                                 if (curr >= period.start && curr <= period.end && matchesRecurrence(curr, period.start, o.recurring || "None")) {
                                     if (o.bookingScope === "Entire") {
@@ -828,82 +567,376 @@
                         }
                         curr.setDate(curr.getDate() + 1);
                     }
+                    return Math.max(0, totalCapacity - peakOccupied);
+                }
 
-                    const available = Math.max(0, totalCapacity - peakOccupied);
-                    badge.textContent = `Available: ${available} / ${totalCapacity}`;
-                    badge.dataset.available = available;
+                function handleClientCategoryChange() {
+                    const container = document.getElementById("selectedWorkspacesContainer");
+                    if (container) container.innerHTML = "";
+                    addNewSpaceRow(true);
+                    updateAddSpaceButtonVisibility();
+                }
+
+                function handleFormDateOrWorkspaceChange() {
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    rows.forEach(row => {
+                        const select = row.querySelector(".subspace-select");
+                        const val = select.value;
+                        populateRowSubspaces(row);
+                        select.value = val;
+                        updateRowAvailableSeats(select);
+                    });
+                    updateAddSpaceButtonVisibility();
+                }
+
+                function updateAllRowsSubspaceOptions() {
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    rows.forEach(row => {
+                        const select = row.querySelector(".subspace-select");
+                        const val = select.value;
+                        populateRowSubspaces(row);
+                        select.value = val;
+                    });
+                }
+
+                function updateAddSpaceButtonVisibility() {
+                    const addBtn = document.getElementById("addWorkspaceRowBtn");
+                    if (!addBtn) return;
+
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    let allValid = true;
+                    const selectedNames = [];
+
+                    rows.forEach(row => {
+                        const val = row.querySelector(".subspace-select").value;
+                        if (!val) allValid = false;
+                        else selectedNames.push(val);
+                    });
+
+                    const category = document.getElementById("book_client_category").value;
+                    const allActiveWorkspaces = workspaces.filter(w => w.status === "Active" && w.clientType === category);
+                    const remainingWorkspaces = allActiveWorkspaces.filter(w => !selectedNames.includes(w.name));
+
+                    if (allValid && remainingWorkspaces.length > 0) {
+                        addBtn.style.display = "flex";
+                    } else {
+                        addBtn.style.display = "none";
+                    }
+                }
+
+                function updateWorkspaceRowNumbers() {
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    rows.forEach((row, index) => {
+                        let numLabel = row.querySelector(".row-number-label");
+                        if (!numLabel) {
+                            numLabel = document.createElement("div");
+                            numLabel.className = "row-number-label font-label-sm text-primary font-bold mb-1 flex items-center gap-1.5";
+                            row.prepend(numLabel);
+                        }
+                        numLabel.innerHTML = `<span class="bg-primary text-on-primary w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black">${index + 1}</span> Workspace ${index + 1}`;
+                    });
+                }
+
+                function addNewSpaceRow(isFirstRow = false) {
+                    const container = document.getElementById("selectedWorkspacesContainer");
+                    if (!container) return;
+                    const rowDiv = document.createElement("div");
+                    rowDiv.className = "space-row border border-outline-variant/40 p-4 rounded-lg bg-surface-container-low flex flex-col gap-3 relative";
+
+                    let closeBtn = "";
+                    if (!isFirstRow) {
+                        closeBtn = `
+                            <button type="button" onclick="removeSpaceRow(this)" class="absolute top-3 right-3 text-on-surface-variant hover:text-error transition-colors flex items-center justify-center p-1 rounded-full hover:bg-error/10 border-0 bg-transparent cursor-pointer">
+                                <span class="material-symbols-outlined text-[18px]">close</span>
+                            </button>
+                        `;
+                    }
+
+                    rowDiv.innerHTML = `
+                        ${closeBtn}
+                        <div class="flex flex-col gap-1">
+                            <select class="subspace-select w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" onchange="handleRowSubspaceChange(this)">
+                                <!-- Loaded dynamically -->
+                            </select>
+                        </div>
+                        
+                        <div class="row-scope-container hidden flex flex-col gap-3">
+                            <div class="seats-count-wrapper flex flex-col gap-1">
+                                <label class="font-label-sm text-on-surface-variant font-semibold">Select seat count <span class="text-error">*</span></label>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" min="1" value="1" class="seats-input w-24 px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm" oninput="updateRowAvailableSeats(this)">
+                                    <span class="available-badge text-xs text-on-surface-variant font-semibold bg-surface-bright border border-outline-variant/40 px-2.5 py-1 rounded">Available: -- / Total: --</span>
+                                </div>
+                            </div>
+
+                            <label class="flex items-center gap-2 cursor-pointer mt-1">
+                                <input type="checkbox" class="reserve-all-checkbox rounded border-outline-variant text-primary focus:ring-primary h-4 w-4" onchange="handleReserveAllChange(this)">
+                                <span class="font-body-sm font-semibold text-on-surface">Select all seats</span>
+                            </label>
+                        </div>
+                    `;
+
+                    container.appendChild(rowDiv);
+                    populateRowSubspaces(rowDiv);
+                    updateWorkspaceRowNumbers();
+                    updateAddSpaceButtonVisibility();
+                }
+
+                function removeSpaceRow(btn) {
+                    const row = btn.closest(".space-row");
+                    const container = document.getElementById("selectedWorkspacesContainer");
+                    if (container.querySelectorAll(".space-row").length <= 1) {
+                        alert("At least one workspace must be selected.");
+                        return;
+                    }
+                    row.remove();
+                    updateWorkspaceRowNumbers();
+                    updateAllRowsSubspaceOptions();
+                    updateAddSpaceButtonVisibility();
+                }
+
+                function populateRowSubspaces(row) {
+                    const select = row.querySelector(".subspace-select");
+                    const categorySelect = document.getElementById("book_client_category");
+                    const category = categorySelect ? categorySelect.value : "Internal";
+                    
+                    const children = workspaces.filter(w => w.status === "Active" && w.clientType === category);
+
+                    const otherSelected = [];
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    rows.forEach(r => {
+                        if (r !== row) {
+                            const s = r.querySelector(".subspace-select");
+                            if (s && s.value) {
+                                otherSelected.push(s.value);
+                            }
+                        }
+                    });
+
+                    const val = select.value;
+                    const availableChildren = children.filter(w => w.name === val || !otherSelected.includes(w.name));
+
+                    select.innerHTML = `<option value="">Select a Workspace...</option>` +
+                        availableChildren.map(w => {
+                            const avail = getWorkspaceAvailability(w.name, w.capacity);
+                            return `<option value="${w.name}" data-capacity="${w.capacity}" data-id="${w.id}" data-available="${avail}">${w.name.replace(/\s*\((Int|Ext)\)/i, "")} (Available: ${avail} / Total: ${w.capacity})</option>`;
+                        }).join("");
+                    if (val) select.value = val;
+                }
+
+                function handleRowSubspaceChange(select) {
+                    const row = select.closest(".space-row");
+                    const scopeContainer = row.querySelector(".row-scope-container");
+                    if (!select.value) {
+                        scopeContainer.classList.add("hidden");
+                        updateAddSpaceButtonVisibility();
+                        return;
+                    }
+                    scopeContainer.classList.remove("hidden");
+                    updateRowAvailableSeats(select);
+                    updateAllRowsSubspaceOptions();
+                    updateAddSpaceButtonVisibility();
+                }
+
+                function handleReserveAllChange(checkbox) {
+                    const row = checkbox.closest(".space-row");
+                    const seatsInput = row.querySelector(".seats-input");
+                    const badge = row.querySelector(".available-badge");
+
+                    if (checkbox.checked) {
+                        seatsInput.disabled = true;
+                        const avail = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
+                        seatsInput.value = avail;
+                    } else {
+                        seatsInput.disabled = false;
+                        seatsInput.value = 1;
+                    }
+                }
+
+                function updateRowAvailableSeats(element) {
+                    const row = element.closest(".space-row");
+                    const select = row.querySelector(".subspace-select");
+                    const badge = row.querySelector(".available-badge");
+                    const startVal = document.getElementById("book_start_date").value;
+                    const endVal = document.getElementById("book_end_date").value;
+                    const recurring = document.getElementById("book_recurring").value;
+
+                    if (!select || !badge) return;
+                    const opt = select.options[select.selectedIndex];
+                    if (!opt || opt.value === "") {
+                        badge.textContent = "Available: -- / Total: --";
+                        return;
+                    }
+
+                    const workspaceName = opt.value;
+                    const totalCapacity = parseInt(opt.getAttribute("data-capacity") || 10);
+
+                    if (!startVal || !endVal) {
+                        badge.textContent = `Available: ${totalCapacity} / Total: ${totalCapacity}`;
+                        badge.dataset.available = totalCapacity;
+                        const seatsInput = row.querySelector(".seats-input");
+                        const checkbox = row.querySelector(".reserve-all-checkbox");
+                        if (checkbox && checkbox.checked && seatsInput) {
+                            seatsInput.value = totalCapacity;
+                        }
+                        return;
+                    }
+
+                    const avail = getWorkspaceAvailability(workspaceName, totalCapacity);
+                    badge.textContent = `Available: ${avail} / Total: ${totalCapacity}`;
+                    badge.dataset.available = avail;
+
+                    const checkbox = row.querySelector(".reserve-all-checkbox");
+                    const seatsInput = row.querySelector(".seats-input");
+                    if (checkbox && checkbox.checked && seatsInput) {
+                        seatsInput.value = avail;
+                    }
+                    updateAddSpaceButtonVisibility();
+                }
+
+                async function openNewBookingModal(workspaceId = null, dateStr = null) {
+                    loadWorkspaceBookings();
+
+                    const modal = document.getElementById('newBookingModal');
+                    const form = document.getElementById('newBookingForm');
+                    if (form) form.reset();
+
+                    // Pre-populate date picker values
+                    const today = new Date();
+                    let dateToUse = "";
+                    if (dateStr) {
+                        dateToUse = dateStr;
+                    } else {
+                        const yyyy = today.getFullYear();
+                        const mm = String(today.getMonth() + 1).padStart(2, '0');
+                        const dd = String(today.getDate()).padStart(2, '0');
+                        dateToUse = `${yyyy}-${mm}-${dd}`;
+                    }
+
+                    document.getElementById("book_start_date").value = dateToUse;
+                    document.getElementById("book_end_date").value = dateToUse;
+                    document.getElementById("book_recurring").value = "None";
+
+                    // Pre-populate fields based on clicked workspace
+                    if (workspaceId) {
+                        const clicked = workspaces.find(w => w.id === workspaceId);
+                        if (clicked) {
+                            const category = clicked.clientType || "Internal";
+                            document.getElementById("book_client_category").value = category;
+
+                            const container = document.getElementById("selectedWorkspacesContainer");
+                            if (container) container.innerHTML = "";
+                            addNewSpaceRow(true);
+
+                            const row = container.querySelector(".space-row");
+                            const select = row.querySelector(".subspace-select");
+                            populateRowSubspaces(row);
+                            select.value = clicked.name;
+                            handleRowSubspaceChange(select);
+                        }
+                    } else {
+                        document.getElementById("book_client_category").value = "External";
+                        handleClientCategoryChange();
+                    }
+
+                    modal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeNewBookingModal() {
+                    document.getElementById('newBookingModal').classList.add('hidden');
+                    document.body.style.overflow = '';
                 }
 
                 function submitNewBooking(e) {
                     e.preventDefault();
 
-                    const parentSelect = document.getElementById("book_parent_workspace");
-                    const parentWorkspace = parentSelect.value;
-                    const term = document.getElementById("book_term").value;
                     const rawStart = document.getElementById("book_start_date").value;
                     const rawEnd = document.getElementById("book_end_date").value;
                     const recurring = document.getElementById("book_recurring").value;
 
-                    if (!parentWorkspace || !term || !rawStart || !rawEnd) {
+                    if (!rawStart || !rawEnd) {
                         alert("Please fill in all fields.");
                         return;
                     }
 
-                    const isEntireParent = document.getElementById("book_entire_parent").checked;
-                    
-                    let targetWorkspaceName = parentWorkspace;
-                    let scope = "Entire";
-                    let seatsToBook = parseInt(parentSelect.options[parentSelect.selectedIndex].getAttribute("data-capacity") || 18);
-
-                    if (!isEntireParent) {
-                        const subSelect = document.getElementById("book_subspace");
-                        const subOpt = subSelect.options[subSelect.selectedIndex];
-                        if (!subSelect || subSelect.value === "") {
-                            alert("Please select a sub-space.");
-                            return;
-                        }
-                        targetWorkspaceName = subSelect.value;
-                        scope = document.getElementById("book_scope").value;
-                        const subCapacity = parseInt(subOpt.getAttribute("data-capacity") || 10);
-                        seatsToBook = scope === "Entire" ? subCapacity : parseInt(document.getElementById("book_seats").value) || 1;
-
-                        updateAvailableSeats();
-                        const badge = document.getElementById("availableSeatsBadge");
-                        const available = badge.dataset.available ? parseInt(badge.dataset.available) : subCapacity;
-
-                        if (seatsToBook > available) {
-                            alert(`Booking failed! Over-capacity/Space collision. Only ${available} seats are available in ${targetWorkspaceName}.`);
-                            return;
-                        }
-                    } else {
-                        handleFormDateOrWorkspaceChange();
-                        const checkbox = document.getElementById("book_entire_parent");
-                        if (checkbox.disabled) {
-                            alert(`Booking failed! Sibling elements or zones in ${parentWorkspace} are already occupied during this period.`);
-                            return;
+                    let term = "Weekly";
+                    if (rawStart && rawEnd) {
+                        const diffTime = Math.abs(new Date(rawStart + "T00:00:00") - new Date(rawEnd + "T00:00:00"));
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                        if (diffDays === 1) {
+                            term = "Daily";
+                        } else if (diffDays <= 7) {
+                            term = "Weekly";
+                        } else if (diffDays <= 31) {
+                            term = "Monthly";
+                        } else {
+                            term = "Yearly";
                         }
                     }
 
+                    const rows = document.querySelectorAll("#selectedWorkspacesContainer .space-row");
+                    if (rows.length === 0) {
+                        alert("Please select at least one workspace.");
+                        return;
+                    }
+
+                    let bookingsToCreate = [];
+
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        const subSelect = row.querySelector(".subspace-select");
+                        if (!subSelect.value) {
+                            alert(`Please select a workspace for row ${i + 1}.`);
+                            return;
+                        }
+
+                        const checkbox = row.querySelector(".reserve-all-checkbox");
+                        const seatsInput = row.querySelector(".seats-input");
+                        const badge = row.querySelector(".available-badge");
+
+                        const seatsToBook = parseInt(seatsInput.value) || 1;
+                        const available = badge.dataset.available ? parseInt(badge.dataset.available) : 10;
+
+                        if (seatsToBook > available) {
+                            alert(`Booking failed! Row ${i + 1}: only ${available} seats are available in ${subSelect.value.replace(/\s*\((Int|Ext)\)/i, "")}.`);
+                            return;
+                        }
+
+                        const opt = subSelect.options[subSelect.selectedIndex];
+                        const workspaceId = parseInt(opt.getAttribute("data-id"));
+
+                        bookingsToCreate.push({
+                            workspace: subSelect.value,
+                            workspaceId: workspaceId,
+                            bookingScope: checkbox.checked ? "Entire" : "Seats",
+                            seatsBooked: seatsToBook
+                        });
+                    }
+
+                    // Format dates
                     const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
                     const startFormatted = new Date(rawStart + "T00:00:00").toLocaleDateString('en-US', dateOptions);
                     const endFormatted = new Date(rawEnd + "T00:00:00").toLocaleDateString('en-US', dateOptions);
                     const periodStr = `${startFormatted} - ${endFormatted}`;
 
-                    const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
-                    const newBooking = {
-                        id: newId,
-                        booker: "Narendra Kumar",
-                        workspace: targetWorkspaceName,
-                        type: "Shared Space",
-                        term: term,
-                        period: periodStr,
-                        bookingScope: scope,
-                        seatsBooked: seatsToBook,
-                        recurring: recurring,
-                        status: "Confirmed"
-                    };
+                    bookingsToCreate.forEach(b => {
+                        const newId = workspaceBookings.length > 0 ? Math.max(...workspaceBookings.map(x => x.id)) + 1 : 1;
+                        workspaceBookings.unshift({
+                            id: newId,
+                            booker: "Narendra Kumar",
+                            workspace: b.workspace,
+                            workspaceId: b.workspaceId,
+                            type: "Shared Space",
+                            term: term,
+                            period: periodStr,
+                            bookingScope: b.bookingScope,
+                            seatsBooked: b.seatsBooked,
+                            recurring: recurring,
+                            status: "Confirmed"
+                        });
+                    });
 
-                    workspaceBookings.unshift(newBooking);
                     sessionStorage.setItem("workspace_bookings", JSON.stringify(workspaceBookings));
 
                     alert("Workspace booking confirmed successfully!");
@@ -914,6 +947,12 @@
                         updateTimeSlotsForSelectedDate(selectedCalendarDateString);
                     }
                 }
+
+                window.addNewSpaceRow = addNewSpaceRow;
+                window.removeSpaceRow = removeSpaceRow;
+                window.handleRowSubspaceChange = handleRowSubspaceChange;
+                window.handleReserveAllChange = handleReserveAllChange;
+                window.updateRowAvailableSeats = updateRowAvailableSeats;
 
                 // Schedule Modal functions
                 let scheduleWorkspaceId = null;

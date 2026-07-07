@@ -220,7 +220,7 @@
                 </div>
 
                 <!-- Tab Contents -->
-                <div id="tab-profile" class="tab-pane block">
+                <div id="tab-profile" class="tab-pane block mb-12">
                         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
                                 <div class="lg:col-span-8 space-y-6">
@@ -237,9 +237,7 @@
 
                                                         <div class="flex flex-col items-center space-y-4 shrink-0">
                                                                 <div class="relative group cursor-pointer">
-                                                                        <img alt="Current Avatar"
-                                                                                class="w-32 h-32 rounded-full object-cover elevation-1 ring-4 ring-surface-container-low transition-all duration-200 group-hover:ring-outline-variant"
-                                                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuANgVzmtQgaOgNuKt0zG_cFj3y0ysnDKqnAnT4uF8Bc9dWL4nYbdHI5Lv7aRje2VuP8mtcG0qFlfgv0gi2odYjcYuKkPK10fAB_Exd6CMQISwEFfXffHE191iFkVL8KylmCukTCat8NP0AvpSdgEbvJAdbfvMD0UnS2fclKXqb-Tainn-jpwXQqpf5It0K0n6mbxScdm8UjA1VaTURynu0cU6GduHF1ccluNoPSbi31EagfOAtBlDZsYnkbXSXwHYMWArMyREsszjmH">
+                                                                        <div class="w-32 h-32 rounded-full bg-primary text-on-primary flex items-center justify-center font-black text-4xl shrink-0 elevation-1 ring-4 ring-surface-container-low transition-all duration-200 group-hover:ring-outline-variant">NK</div>
 
                                                                         <div
                                                                                 class="absolute inset-0 bg-primary/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 backdrop-blur-sm">
@@ -263,7 +261,7 @@
                                                                                 First Name
                                                                         </label>
                                                                         <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
-                                                                                id="firstName" type="text" value="Alex">
+                                                                                id="firstName" type="text" value="Narendra">
                                                                 </div>
 
                                                                 <div class="space-y-2">
@@ -273,7 +271,7 @@
                                                                         </label>
                                                                         <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
                                                                                 id="lastName" type="text"
-                                                                                value="Morgan">
+                                                                                value="Kumar">
                                                                 </div>
 
                                                                 <div class="space-y-2 md:col-span-2">
@@ -290,7 +288,7 @@
 
                                                                         <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface-variant cursor-not-allowed opacity-70"
                                                                                 disabled id="email" type="email"
-                                                                                value="alex.morgan@example.com">
+                                                                                value="naren@nichi.com">
                                                                 </div>
 
                                                                 <div class="space-y-2 md:col-span-2">
@@ -300,7 +298,7 @@
                                                                         </label>
                                                                         <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
                                                                                 id="phone" type="tel"
-                                                                                value="+1 (555) 019-2834">
+                                                                                value="+1 (555) 123-4567">
                                                                 </div>
                                                         </div>
                                                 </div>
@@ -322,7 +320,7 @@
                                                                 </label>
                                                                 <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
                                                                         id="company" type="text"
-                                                                        value="Stratos Ventures">
+                                                                        value="Nichi-In Software Solutions Pvt. Ltd.">
                                                         </div>
 
                                                         <div class="space-y-2">
@@ -331,7 +329,7 @@
                                                                         Job Title / Role
                                                                 </label>
                                                                 <input class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
-                                                                        id="role" type="text" value="Design Director">
+                                                                        id="role" type="text" value="General Manager">
                                                         </div>
 
                                                         <div class="space-y-2 md:col-span-2">
@@ -342,7 +340,7 @@
                                                                 <textarea
                                                                         class="w-full bg-surface-container-low border border-surface-variant rounded-lg px-4 py-3 font-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors resize-none"
                                                                         id="bio"
-                                                                        rows="3">Product design leader focused on building elegant, scalable SaaS platforms.</textarea>
+                                                                        rows="3">General Manager at Nichi-In Software Solutions, driving engineering excellence and agile delivery.</textarea>
                                                         </div>
                                                 </div>
                                         </section>
@@ -487,7 +485,7 @@
 
                 </div>
 
-                <div id="tab-notifications" class="tab-pane hidden">
+                <div id="tab-notifications" class="tab-pane hidden mb-12">
                         <div class="space-y-4" id="notifications-list-container">
                                 <!-- Will be populated dynamically -->
                         </div>
@@ -576,6 +574,90 @@
                                                 } catch(e){}
                                         }
 
+                                        // Load rooms list if missing
+                                        let roomsStored = sessionStorage.getItem("rooms_list");
+                                        if (!roomsStored) {
+                                            try {
+                                                const res = await fetch("data/rooms.json");
+                                                const data = await res.json();
+                                                sessionStorage.setItem("rooms_list", JSON.stringify(data));
+                                                roomsStored = JSON.stringify(data);
+                                            } catch(e){}
+                                        }
+                                        const roomsList = JSON.parse(roomsStored || "[]");
+
+                                        // Load workspaces if missing
+                                        let workspacesStored = sessionStorage.getItem("workspaces");
+                                        if (!workspacesStored) {
+                                            try {
+                                                const res = await fetch("data/workspaces.json");
+                                                const data = await res.json();
+                                                sessionStorage.setItem("workspaces", JSON.stringify(data));
+                                                workspacesStored = JSON.stringify(data);
+                                            } catch(e){}
+                                        }
+                                        const workspacesList = JSON.parse(workspacesStored || "[]");
+
+                                        const mapRoomName = (b) => {
+                                            let roomName = b.room;
+                                            if (roomsList.length > 0) {
+                                                let matched = null;
+                                                if (b.roomId) {
+                                                    matched = roomsList.find(r => r.id === b.roomId);
+                                                } else {
+                                                    const defaultNameMap = {
+                                                        "Conference Room 1": 1,
+                                                        "Meeting Room 1": 2,
+                                                        "Meeting Room 2": 3,
+                                                        "Meeting Room 3": 4,
+                                                        "Conference Room 2": 5,
+                                                        "Meeting Room 4": 6
+                                                    };
+                                                    const defaultId = defaultNameMap[b.room.trim()];
+                                                    if (defaultId) {
+                                                        matched = roomsList.find(r => r.id === defaultId);
+                                                    } else {
+                                                        matched = roomsList.find(r => r.name.toLowerCase() === b.room.toLowerCase());
+                                                    }
+                                                }
+                                                if (matched) {
+                                                    roomName = matched.name;
+                                                }
+                                            }
+                                            return roomName;
+                                        };
+
+                                        const mapWorkspaceName = (w) => {
+                                            let workspaceName = w.workspace;
+                                            if (workspacesList.length > 0) {
+                                                let matched = null;
+                                                if (w.workspaceId) {
+                                                    matched = workspacesList.find(ws => ws.id === w.workspaceId);
+                                                } else {
+                                                    const defaultIdMap = {
+                                                        100: 101,
+                                                        101: 102,
+                                                        102: 103,
+                                                        103: 104,
+                                                        1: 105,
+                                                        2: 106,
+                                                        3: 107,
+                                                        4: 108
+                                                    };
+                                                    const mappedId = defaultIdMap[w.id];
+                                                    if (mappedId) {
+                                                        matched = workspacesList.find(ws => ws.id === mappedId);
+                                                    } else {
+                                                        matched = workspacesList.find(ws => ws.name.toLowerCase() === w.workspace.toLowerCase());
+                                                    }
+                                                }
+                                                if (matched) {
+                                                    workspaceName = matched.name;
+                                                }
+                                            }
+                                            return workspaceName;
+                                        };
+
                                         const profile = await window.getLoggedInUser();
                                         const profileName = profile.name;
 
@@ -593,11 +675,12 @@
                                         // Filter room bookings to active rooms only for this member
                                         const cleanBookings = bookings.filter(b => b.booker === profileName && b.status !== "Denied" && b.status !== "Cancelled");
                                         cleanBookings.slice(0, 1).forEach((b, idx) => {
+                                                const roomNameMapped = mapRoomName(b);
                                                 notifications.push({
                                                         title: "Room Booking Confirmed",
                                                         icon: "event_available",
                                                         iconBg: "bg-emerald-50 text-emerald-600 border-emerald-100",
-                                                        body: `Your booking for room "${b.room.replace(/\s*\((Int|Ext)\)/i, "")}" on ${b.date} at ${b.time} is confirmed.`,
+                                                        body: `Your booking for room "${roomNameMapped.replace(/\s*\((Int|Ext)\)/i, "")}" on ${b.date} at ${b.time} is confirmed.`,
                                                         time: "Just now",
                                                         unread: true
                                                 });
@@ -606,11 +689,12 @@
                                         // Filter workspace bookings to active workspaces only for this member
                                         const cleanWorkspace = workspaceBookings.filter(w => w.booker === profileName && w.status !== "Denied" && w.status !== "Cancelled");
                                         cleanWorkspace.slice(0, 1).forEach((w, idx) => {
+                                                const workspaceNameMapped = mapWorkspaceName(w);
                                                 notifications.push({
                                                         title: "Workspace Reserved",
                                                         icon: "domain",
                                                         iconBg: "bg-blue-50 text-blue-600 border-blue-100",
-                                                        body: `Your workspace booking for "${w.workspace.replace(/\s*\((Int|Ext)\)/i, "")}" is confirmed for ${w.period}.`,
+                                                        body: `Your workspace booking for "${workspaceNameMapped.replace(/\s*\((Int|Ext)\)/i, "")}" is confirmed for ${w.period}.`,
                                                         time: "2 hours ago",
                                                         unread: false
                                                 });

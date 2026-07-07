@@ -136,7 +136,7 @@
                     <p class="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">Tuesday, October 24
                     </p>
                     <h2 class="text-3xl font-bold text-[#004ac6] tracking-tight mb-2">Good morning, Alex.</h2>
-                    <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day atNichi-In. Your
+                    <p class="text-base text-slate-500 mt-2 max-w-2xl">Here's a snapshot of your day at Nichi-In. Your
                         next meeting is in 45 minutes.</p>
                 </div>
             </div>
@@ -252,6 +252,13 @@
 
                 async function ensureDataLoaded() {
                     let visitors = sessionStorage.getItem("visitors");
+                    if (visitors) {
+                        const parsed = JSON.parse(visitors);
+                        if (!parsed.some(v => v.name === "Karthik Raja")) {
+                            sessionStorage.removeItem("visitors");
+                            visitors = null;
+                        }
+                    }
                     if (!visitors) {
                         try {
                             const res = await fetch("data/visitors.json");
@@ -263,7 +270,7 @@
                     let bookings = sessionStorage.getItem("bookings");
                     if (bookings) {
                         const parsed = JSON.parse(bookings);
-                        if (!parsed.some(b => b.title === "SB Telecom Alignment")) {
+                        if (!parsed.some(b => b.title === "Marketing Sprint Plan")) {
                             sessionStorage.removeItem("bookings");
                             bookings = null;
                         }
@@ -289,6 +296,24 @@
                             const res = await fetch("data/workspace_bookings.json");
                             const data = await res.json();
                             sessionStorage.setItem("workspace_bookings", JSON.stringify(data));
+                        } catch(e){}
+                    }
+
+                    let roomsList = sessionStorage.getItem("rooms_list");
+                    if (!roomsList) {
+                        try {
+                            const res = await fetch("data/rooms.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("rooms_list", JSON.stringify(data));
+                        } catch(e){}
+                    }
+
+                    let workspacesList = sessionStorage.getItem("workspaces");
+                    if (!workspacesList) {
+                        try {
+                            const res = await fetch("data/workspaces.json");
+                            const data = await res.json();
+                            sessionStorage.setItem("workspaces", JSON.stringify(data));
                         } catch(e){}
                     }
                 }
@@ -356,27 +381,89 @@
 
                     const bookingsStored = sessionStorage.getItem("bookings") || "[]";
                     const workspaceBookingsStored = sessionStorage.getItem("workspace_bookings") || "[]";
+                    const roomsStored = sessionStorage.getItem("rooms_list") || "[]";
+                    const workspacesStored = sessionStorage.getItem("workspaces") || "[]";
 
                     const bookings = JSON.parse(bookingsStored);
                     const workspaceBookings = JSON.parse(workspaceBookingsStored);
+                    const roomsList = JSON.parse(roomsStored);
+                    const workspacesList = JSON.parse(workspacesStored);
 
-                    const mappedRooms = bookings.filter(b => b.booker === bookerName && b.status !== "Denied" && b.status !== "Cancelled").map(b => ({
-                        id: b.id,
-                        name: b.room.replace(/\s*\((Int|Ext)\)/i, ""),
-                        details: `${b.time} &bull; ${b.title}`,
-                        dateStr: b.date,
-                        status: b.status,
-                        type: "Room"
-                    }));
+                    const mappedRooms = bookings.filter(b => b.booker === bookerName && b.status !== "Denied" && b.status !== "Cancelled").map(b => {
+                        let roomName = b.room;
+                        if (roomsList && roomsList.length > 0) {
+                            let matched = null;
+                            if (b.roomId) {
+                                matched = roomsList.find(r => r.id === b.roomId);
+                            } else {
+                                const defaultNameMap = {
+                                    "Conference Room 1": 1,
+                                    "Meeting Room 1": 2,
+                                    "Meeting Room 2": 3,
+                                    "Meeting Room 3": 4,
+                                    "Conference Room 2": 5,
+                                    "Meeting Room 4": 6
+                                };
+                                const defaultId = defaultNameMap[b.room.trim()];
+                                if (defaultId) {
+                                    matched = roomsList.find(r => r.id === defaultId);
+                                } else {
+                                    matched = roomsList.find(r => r.name.toLowerCase() === b.room.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                roomName = matched.name;
+                            }
+                        }
 
-                    const mappedWorkspaces = workspaceBookings.filter(w => w.booker === bookerName && w.status !== "Denied" && w.status !== "Cancelled").map(w => ({
-                        id: w.id,
-                        name: w.workspace.replace(/\s*\((Int|Ext)\)/i, ""),
-                        details: `${w.period} &bull; ${w.term} cycle`,
-                        dateStr: w.period,
-                        status: w.status,
-                        type: "Workspace"
-                    }));
+                        return {
+                            id: b.id,
+                            name: roomName.replace(/\s*\((Int|Ext)\)/i, ""),
+                            details: `${b.time} &bull; ${b.title}`,
+                            dateStr: b.date,
+                            status: b.status,
+                            type: "Room"
+                        };
+                    });
+
+                    const mappedWorkspaces = workspaceBookings.filter(w => w.booker === bookerName && w.status !== "Denied" && w.status !== "Cancelled").map(w => {
+                        let workspaceName = w.workspace;
+                        if (workspacesList && workspacesList.length > 0) {
+                            let matched = null;
+                            if (w.workspaceId) {
+                                matched = workspacesList.find(x => x.id === w.workspaceId);
+                            } else {
+                                const defaultIdMap = {
+                                    100: 101,
+                                    101: 102,
+                                    102: 103,
+                                    103: 104,
+                                    1: 105,
+                                    2: 106,
+                                    3: 107,
+                                    4: 108
+                                };
+                                const mappedId = defaultIdMap[w.id];
+                                if (mappedId) {
+                                    matched = workspacesList.find(x => x.id === mappedId);
+                                } else {
+                                    matched = workspacesList.find(x => x.name.toLowerCase() === w.workspace.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                workspaceName = matched.name;
+                            }
+                        }
+
+                        return {
+                            id: w.id,
+                            name: workspaceName.replace(/\s*\((Int|Ext)\)/i, ""),
+                            details: `${w.period} &bull; ${w.term} cycle`,
+                            dateStr: w.period,
+                            status: w.status,
+                            type: "Workspace"
+                        };
+                    });
 
                     const all = [...mappedRooms, ...mappedWorkspaces];
                     const today = new Date();
@@ -442,8 +529,37 @@
                         const statusText = b.status === "Waitlist" ? "is waitlisted" : "is confirmed";
                         const badgeColor = b.status === "Waitlist" ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600";
                         const badgeIcon = b.status === "Waitlist" ? "hourglass_empty" : "check_circle";
+
+                        let roomName = b.room;
+                        const roomsStored = sessionStorage.getItem("rooms_list") || "[]";
+                        const roomsList = JSON.parse(roomsStored);
+                        if (roomsList && roomsList.length > 0) {
+                            let matched = null;
+                            if (b.roomId) {
+                                matched = roomsList.find(r => r.id === b.roomId);
+                            } else {
+                                const defaultNameMap = {
+                                    "Conference Room 1": 1,
+                                    "Meeting Room 1": 2,
+                                    "Meeting Room 2": 3,
+                                    "Meeting Room 3": 4,
+                                    "Conference Room 2": 5,
+                                    "Meeting Room 4": 6
+                                };
+                                const defaultId = defaultNameMap[b.room.trim()];
+                                if (defaultId) {
+                                    matched = roomsList.find(r => r.id === defaultId);
+                                } else {
+                                    matched = roomsList.find(r => r.name.toLowerCase() === b.room.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                roomName = matched.name;
+                            }
+                        }
+
                         activities.push({
-                            body: `Booking for room "${b.room.replace(/\s*\((Int|Ext)\)/i, "")}" ${statusText}.`,
+                            body: `Booking for room "${roomName.replace(/\s*\((Int|Ext)\)/i, "")}" ${statusText}.`,
                             time: time,
                             icon: badgeIcon,
                             iconBg: badgeColor
@@ -453,8 +569,39 @@
                     // Workspace bookings
                     workspaceBookings.filter(w => w.booker === profileName).slice(0, 2).forEach((w, idx) => {
                         const time = idx === 0 ? "2 hours ago" : "Yesterday";
+
+                        let workspaceName = w.workspace;
+                        const workspacesStored = sessionStorage.getItem("workspaces") || "[]";
+                        const workspacesList = JSON.parse(workspacesStored);
+                        if (workspacesList && workspacesList.length > 0) {
+                            let matched = null;
+                            if (w.workspaceId) {
+                                matched = workspacesList.find(x => x.id === w.workspaceId);
+                            } else {
+                                const defaultIdMap = {
+                                    100: 101,
+                                    101: 102,
+                                    102: 103,
+                                    103: 104,
+                                    1: 105,
+                                    2: 106,
+                                    3: 107,
+                                    4: 108
+                                };
+                                const mappedId = defaultIdMap[w.id];
+                                if (mappedId) {
+                                    matched = workspacesList.find(x => x.id === mappedId);
+                                } else {
+                                    matched = workspacesList.find(x => x.name.toLowerCase() === w.workspace.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                workspaceName = matched.name;
+                            }
+                        }
+
                         activities.push({
-                            body: `Workspace reservation for "${w.workspace.replace(/\s*\((Int|Ext)\)/i, "")}" is active.`,
+                            body: `Workspace reservation for "${workspaceName.replace(/\s*\((Int|Ext)\)/i, "")}" is active.`,
                             time: time,
                             icon: "domain",
                             iconBg: "bg-blue-50 text-blue-600"
@@ -497,10 +644,18 @@
                     container.scrollTop = 0;
                 }
 
+                function checkAndInit() {
+                    if (typeof window.getLoggedInUser === 'function') {
+                        initDashboard();
+                    } else {
+                        setTimeout(checkAndInit, 10);
+                    }
+                }
+
                 if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initDashboard);
+                    document.addEventListener('DOMContentLoaded', checkAndInit);
                 } else {
-                    initDashboard();
+                    checkAndInit();
                 }
             })();
         </script>
