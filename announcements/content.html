@@ -14,17 +14,20 @@
                 <input type="text" placeholder="Search announcements..."
                     class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-9 pr-3 text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all">
             </div>
-            <button
-                class="px-4 py-2 border border-outline rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2 bg-surface-container-lowest justify-center flex-1 sm:flex-initial whitespace-nowrap">
-                <span class="material-symbols-outlined text-[18px]">filter_list</span>
-                Filter
-            </button>
-            <button
-                class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-level-1 flex items-center gap-2 justify-center flex-1 sm:flex-initial whitespace-nowrap"
-                onclick="openModal()">
-                <span class="material-symbols-outlined text-[18px]">add</span>
-                Create
-            </button>
+            <!-- Filter + Create: full-width row on mobile, inline on sm+ -->
+            <div class="flex w-full sm:w-auto gap-sm">
+                <button
+                    class="flex-1 sm:flex-initial px-4 py-2 border border-outline rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2 bg-surface-container-lowest justify-center whitespace-nowrap">
+                    <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    Filter
+                </button>
+                <button
+                    class="flex-1 sm:flex-initial px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-level-1 flex items-center gap-2 justify-center whitespace-nowrap"
+                    onclick="openModal()">
+                    <span class="material-symbols-outlined text-[18px]">add</span>
+                    Create
+                </button>
+            </div>
         </div>
     </div>
 

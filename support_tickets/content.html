@@ -11,11 +11,21 @@
     </div>
 </div>
 
+<!-- Mobile Tab Switcher (visible only on mobile/tablet, hidden on lg+) -->
+<div class="flex lg:hidden mb-3 rounded-xl overflow-hidden border border-outline-variant bg-surface-container-lowest">
+    <button id="tabListBtn" onclick="switchTab('list')" class="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold bg-primary text-on-primary transition-colors">
+        <span class="material-symbols-outlined text-[18px]">list</span> Tickets
+    </button>
+    <button id="tabChatBtn" onclick="switchTab('chat')" class="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined text-[18px]">chat</span> Chat
+    </button>
+</div>
+
 <!-- List & Chat Flex Layout -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg overflow-hidden min-h-[600px] h-[calc(100vh-200px)] max-h-[800px]">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-lg overflow-hidden" style="height: calc(100dvh - 260px); min-height: 480px; max-height: 800px;">
     
     <!-- Ticket Inbox List (Left Column) -->
-    <div class="lg:col-span-4 xl:col-span-4 flex flex-col border-r border-outline-variant bg-surface-container-lowest min-h-0">
+    <div id="panelList" class="lg:col-span-4 xl:col-span-4 flex flex-col border-r border-outline-variant bg-surface-container-lowest min-h-0">
         <!-- List Toolbar -->
         <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright/50">
             <div class="relative flex-1 mr-2">
@@ -71,21 +81,28 @@
     </div>
 
     <!-- Chat Details View (Right Column) -->
-    <div class="lg:col-span-8 xl:col-span-8 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-surface-bright relative z-0 min-h-0">
+    <div id="panelChat" class="lg:col-span-8 xl:col-span-8 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-surface-bright relative z-0 min-h-0 hidden lg:flex">
         
         <!-- Chat Header -->
-        <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-lowest/90 backdrop-blur-md sticky top-0 z-10 flex justify-between items-center shadow-sm">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2 mb-1">
+        <div class="px-4 sm:px-6 py-3 sm:py-4 border-b border-outline-variant bg-surface-container-lowest/90 backdrop-blur-md sticky top-0 z-10 flex justify-between items-center shadow-sm gap-2">
+            <!-- Back button on mobile/tablet -->
+            <button class="lg:hidden p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors mr-1 shrink-0" onclick="switchTab('list')" aria-label="Back to ticket list">
+                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            </button>
+            <div class="flex flex-col min-w-0 flex-1">
+                <div class="flex items-center gap-1.5 mb-1 flex-wrap">
                     <span id="chatTicketId" class="font-label-sm text-primary uppercase tracking-wide">#TCK-0942</span>
                     <span id="chatTicketPriority" class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] uppercase font-bold bg-error/10 text-error">High</span>
                     <span id="chatTicketStatus" class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] uppercase font-bold bg-tertiary/10 text-tertiary">Open</span>
                 </div>
-                <h2 id="chatTicketTitle" class="font-headline-sm font-bold text-on-surface">Projector in Room A not turning on</h2>
+                <h2 id="chatTicketTitle" class="font-headline-sm font-bold text-on-surface truncate text-sm sm:text-base">Projector in Room A not turning on</h2>
             </div>
-            <div class="flex items-center gap-2">
-                <button class="flex items-center gap-2 bg-surface border border-outline-variant px-3 py-1.5 rounded-lg font-label-sm text-on-surface hover:bg-surface-container-high transition-colors shadow-sm">
+            <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+                <button class="hidden sm:flex items-center gap-2 bg-surface border border-outline-variant px-3 py-1.5 rounded-lg font-label-sm text-on-surface hover:bg-surface-container-high transition-colors shadow-sm">
                     <span class="material-symbols-outlined text-[18px]">person_add</span> Assign
+                </button>
+                <button class="sm:hidden p-1.5 bg-surface border border-outline-variant rounded-lg text-on-surface hover:bg-surface-container-high transition-colors" aria-label="Assign">
+                    <span class="material-symbols-outlined text-[18px]">person_add</span>
                 </button>
                 <button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors">
                     <span class="material-symbols-outlined text-[20px]">more_vert</span>
@@ -97,7 +114,7 @@
         <div id="chatLog" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 flex flex-col custom-scrollbar">
             
             <!-- User Message -->
-            <div class="flex gap-3 sm:gap-4 max-w-[90%] sm:max-w-[80%] self-start">
+            <div class="flex gap-3 sm:gap-4 max-w-[92%] sm:max-w-[80%] self-start">
                 <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-sm">
                     <span id="chatUserInitials" class="font-label-sm sm:font-label-md text-on-primary font-bold">NK</span>
                 </div>
@@ -115,7 +132,7 @@
             <!-- System Note -->
             <div class="flex items-center justify-center gap-3 my-4">
                 <div class="h-px bg-outline-variant/30 flex-1"></div>
-                <div class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] px-3 py-1 rounded-full border border-outline-variant/50 shadow-sm flex items-center gap-1">
+                <div class="bg-surface-container-low text-on-surface-variant font-label-sm text-[11px] px-3 py-1 rounded-full border border-outline-variant/50 shadow-sm flex items-center gap-1 whitespace-nowrap">
                     <span class="material-symbols-outlined text-[14px]">update</span>
                     Ticket escalated to High Priority
                 </div>
@@ -123,7 +140,7 @@
             </div>
 
             <!-- Agent Reply Example -->
-            <div class="flex gap-3 sm:gap-4 max-w-[90%] sm:max-w-[80%] self-end">
+            <div class="flex gap-3 sm:gap-4 max-w-[92%] sm:max-w-[80%] self-end">
                 <div class="flex flex-col gap-1 items-end w-full">
                     <div class="flex items-baseline gap-2 mr-1">
                         <span class="font-label-sm text-[11px] text-on-surface-variant">10:35 AM</span>
@@ -141,21 +158,22 @@
         </div>
 
         <!-- Reply Input Area -->
-        <div class="p-4 sm:p-6 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        <div class="p-3 sm:p-4 bg-surface-container-lowest border-t border-outline-variant shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] shrink-0">
             <div class="border border-outline-variant rounded-2xl focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all bg-surface overflow-hidden flex flex-col">
-                <textarea id="replyInput" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-sm sm:font-body-md p-4 text-on-surface outline-none" placeholder="Write a response..." rows="2"></textarea>
-                <div class="flex justify-between items-center px-4 py-3 bg-surface-container-lowest/50 border-t border-outline-variant/30">
-                    <div class="flex gap-2">
+                <textarea id="replyInput" class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-sm sm:font-body-md p-3 sm:p-4 text-on-surface outline-none" placeholder="Write a response..." rows="2"></textarea>
+                <!-- Toolbar: wraps on small screens -->
+                <div class="flex flex-wrap justify-between items-center gap-2 px-3 py-2 sm:px-4 sm:py-3 bg-surface-container-lowest/50 border-t border-outline-variant/30">
+                    <div class="flex gap-1">
                         <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors flex items-center justify-center" aria-label="Attach File"><span class="material-symbols-outlined text-[20px]">attach_file</span></button>
                         <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-full transition-colors flex items-center justify-center" aria-label="Insert Image"><span class="material-symbols-outlined text-[20px]">image</span></button>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer group">
+                    <div class="flex items-center gap-2 sm:gap-3 ml-auto">
+                        <label class="flex items-center gap-1.5 text-on-surface-variant cursor-pointer group">
                             <input type="checkbox" id="internalNote" class="rounded text-primary focus:ring-primary bg-surface-container-low border-outline-variant w-4 h-4 cursor-pointer">
-                            <span class="font-label-sm text-sm select-none group-hover:text-on-surface transition-colors">Internal Note</span>
+                            <span class="font-label-sm text-xs sm:text-sm select-none group-hover:text-on-surface transition-colors whitespace-nowrap">Internal</span>
                         </label>
-                        <button onclick="sendReply()" class="bg-primary text-on-primary font-label-md px-6 py-2 rounded-xl hover:bg-primary/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
-                            Send <span class="material-symbols-outlined text-[18px]">send</span>
+                        <button onclick="sendReply()" class="bg-primary text-on-primary font-label-md px-4 sm:px-5 py-2 rounded-xl hover:bg-primary/90 transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-1.5 whitespace-nowrap">
+                            Send <span class="material-symbols-outlined text-[16px] sm:text-[18px]">send</span>
                         </button>
                     </div>
                 </div>
@@ -166,6 +184,40 @@
 </div>
 
 <script>
+    // Mobile tab switching
+    function switchTab(tab) {
+        const listPanel = document.getElementById('panelList');
+        const chatPanel = document.getElementById('panelChat');
+        const tabListBtn = document.getElementById('tabListBtn');
+        const tabChatBtn = document.getElementById('tabChatBtn');
+        
+        if (tab === 'list') {
+            listPanel.classList.remove('hidden');
+            chatPanel.classList.add('hidden');
+            chatPanel.classList.remove('flex');
+            if (tabListBtn) {
+                tabListBtn.classList.add('bg-primary', 'text-on-primary');
+                tabListBtn.classList.remove('text-on-surface-variant');
+            }
+            if (tabChatBtn) {
+                tabChatBtn.classList.remove('bg-primary', 'text-on-primary');
+                tabChatBtn.classList.add('text-on-surface-variant');
+            }
+        } else {
+            listPanel.classList.add('hidden');
+            chatPanel.classList.remove('hidden');
+            chatPanel.classList.add('flex');
+            if (tabChatBtn) {
+                tabChatBtn.classList.add('bg-primary', 'text-on-primary');
+                tabChatBtn.classList.remove('text-on-surface-variant');
+            }
+            if (tabListBtn) {
+                tabListBtn.classList.remove('bg-primary', 'text-on-primary');
+                tabListBtn.classList.add('text-on-surface-variant');
+            }
+        }
+    }
+
     function selectTicket(element, id, title, priority, status, userName) {
         // Remove active state from all tickets
         document.querySelectorAll('.ticket-item').forEach(el => {
@@ -197,6 +249,11 @@
 
         // Clear reply box
         document.getElementById('replyInput').value = '';
+        
+        // On mobile/tablet: switch to chat view after selecting a ticket
+        if (window.innerWidth < 1024) {
+            switchTab('chat');
+        }
     }
 
     function sendReply() {
@@ -230,6 +287,17 @@
         // Scroll to bottom
         chatLog.scrollTop = chatLog.scrollHeight;
     }
+    
+    // Ensure correct panel visibility on resize
+    window.addEventListener('resize', function() {
+        const listPanel = document.getElementById('panelList');
+        const chatPanel = document.getElementById('panelChat');
+        if (window.innerWidth >= 1024) {
+            listPanel.classList.remove('hidden');
+            chatPanel.classList.remove('hidden');
+            chatPanel.classList.add('flex');
+        }
+    });
 </script>
 
 <style>
@@ -243,4 +311,10 @@
         to { opacity: 1; transform: translateY(0); }
     }
     .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+
+    /* On desktop (lg+): both panels always flex */
+    @media (min-width: 1024px) {
+        #panelList { display: flex !important; }
+        #panelChat { display: flex !important; }
+    }
 </style>
