@@ -196,7 +196,7 @@
             </div>
         </header>
 
-        <div id="bookings_list" class="booking-list grid grid-cols-1 gap-6">
+        <div id="bookings_list" class="booking-list grid grid-cols-1 gap-6 mb-12">
             <!-- Will be populated dynamically -->
         </div>
 
@@ -328,30 +328,91 @@
                     const myWorkspaceBookings = workspaceBookings.filter(b => b.booker === loggedInUserName);
 
                     // 3. Map Room Bookings to Uniform Structure
-                    const mappedRooms = myRoomBookings.map(b => ({
-                        id: b.id,
-                        room: b.room,
-                        title: b.title,
-                        date: b.date,
-                        time: b.time,
-                        duration: b.duration,
-                        status: b.status,
-                        image: getBookingImage(b.room),
-                        bookingType: "Room"
-                    }));
+                    const mappedRooms = myRoomBookings.map(b => {
+                        let roomName = b.room;
+                        const rList = window.roomsList || [];
+                        if (rList.length > 0) {
+                            let matched = null;
+                            if (b.roomId) {
+                                matched = rList.find(r => r.id === b.roomId);
+                            } else {
+                                const defaultNameMap = {
+                                    "Conference Room 1": 1,
+                                    "Meeting Room 1": 2,
+                                    "Meeting Room 2": 3,
+                                    "Meeting Room 3": 4,
+                                    "Conference Room 2": 5,
+                                    "Meeting Room 4": 6
+                                };
+                                const defaultId = defaultNameMap[b.room.trim()];
+                                if (defaultId) {
+                                    matched = rList.find(r => r.id === defaultId);
+                                } else {
+                                    matched = rList.find(r => r.name.toLowerCase() === b.room.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                roomName = matched.name;
+                            }
+                        }
+
+                        return {
+                            id: b.id,
+                            room: roomName,
+                            title: b.title,
+                            date: b.date,
+                            time: b.time,
+                            duration: b.duration,
+                            status: b.status,
+                            image: getBookingImage(roomName),
+                            bookingType: "Room"
+                        };
+                    });
 
                     // 4. Map Workspace Bookings to Uniform Structure
-                    const mappedWorkspaces = myWorkspaceBookings.map(b => ({
-                        id: b.id,
-                        room: b.workspace,
-                        title: b.title || `${b.bookingScope} Booking - ${b.workspace.replace(/\s*\((Int|Ext)\)/i, "")}`,
-                        date: b.period,
-                        time: "Full Day",
-                        duration: b.term,
-                        status: b.status,
-                        image: getBookingImage(b.workspace),
-                        bookingType: "Workspace"
-                    }));
+                    const mappedWorkspaces = myWorkspaceBookings.map(b => {
+                        let workspaceName = b.workspace;
+                        const wsList = window.workspacesList || [];
+                        if (wsList.length > 0) {
+                            let matched = null;
+                            if (b.workspaceId) {
+                                matched = wsList.find(w => w.id === b.workspaceId);
+                            } else {
+                                const defaultIdMap = {
+                                    100: 101,
+                                    101: 102,
+                                    102: 103,
+                                    103: 104,
+                                    1: 105,
+                                    2: 106,
+                                    3: 107,
+                                    4: 108
+                                };
+                                const mappedId = defaultIdMap[b.id];
+                                if (mappedId) {
+                                    matched = wsList.find(w => w.id === mappedId);
+                                } else {
+                                    matched = wsList.find(w => w.name.toLowerCase() === b.workspace.toLowerCase());
+                                }
+                            }
+                            if (matched) {
+                                workspaceName = matched.name;
+                            }
+                        }
+
+                        const cleanName = workspaceName.replace(/\s*\((Int|Ext)\)/i, "");
+                        return {
+                            id: b.id,
+                            room: workspaceName,
+                            title: b.title || `${b.bookingScope} Booking - ${cleanName}`,
+                            date: b.period,
+                            time: "Full Day",
+                            duration: b.term,
+                            status: b.status,
+                            image: getBookingImage(workspaceName),
+                            bookingType: "Workspace"
+                        };
+                    });
 
                     // Combine lists (excluding Denied bookings)
                     allBookings = [...mappedRooms, ...mappedWorkspaces].filter(b => b.status !== "Denied" && b.status !== "Cancelled");
@@ -380,7 +441,7 @@
 
                     container.innerHTML = filtered.map(b => {
                         const upcoming = isUpcoming(b.date);
-                        let indicatorBg = "bg-emerald-500";
+                        let indicatorBg = "bg-primary";
                         let badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
                         let statusText = b.status;
                         let actionButtons = "";
@@ -408,7 +469,7 @@
                             // Past bookings
                             if (b.status === "Confirmed") {
                                 statusText = "Completed";
-                                indicatorBg = "bg-emerald-500";
+                                indicatorBg = "bg-primary";
                                 badgeClass = "bg-emerald-50 text-emerald-700 border-emerald-100";
                             } else {
                                 statusText = "Expired";

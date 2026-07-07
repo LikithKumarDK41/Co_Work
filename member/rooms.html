@@ -181,7 +181,7 @@
         </div>
 
         <!-- Grid Layout -->
-        <div id="rooms_grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div id="rooms_grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
             <!-- Dynamic room cards will be rendered here -->
         </div>
 
@@ -240,19 +240,8 @@
                             placeholder="e.g. Weekly Strategy Sync">
                     </div>
 
-                    <!-- Booking Term / Cycle -->
-                    <div class="flex flex-col gap-1">
-                        <label class="font-label-sm text-on-surface-variant font-semibold">Booking Term / Cycle <span
-                                class="text-error">*</span></label>
-                        <select id="book_term" required onchange="handleTermChange()"
-                            class="w-full px-3 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary outline-none text-body-sm text-on-surface">
-                            <option value="Hourly" selected>Hourly</option>
-                            <option value="Daily">Daily</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Yearly">Yearly</option>
-                        </select>
-                    </div>
+                    <!-- Booking Term / Cycle (Hidden, defaulted to Hourly) -->
+                    <input type="hidden" id="book_term" value="Hourly">
 
                     <!-- Hourly Inputs -->
                     <div id="hourlyInputs" class="flex flex-col gap-4">
@@ -303,6 +292,7 @@
                             <option value="Daily">Daily Recurring</option>
                             <option value="Weekly">Weekly Recurring</option>
                             <option value="Monthly">Monthly Recurring</option>
+                            <option value="Yearly">Yearly Recurring</option>
                         </select>
                     </div>
 
@@ -558,6 +548,9 @@
                         if (recurType === "Monthly") {
                             return dateObj.getDate() === baseDate.getDate();
                         }
+                        if (recurType === "Yearly") {
+                            return dateObj.getDate() === baseDate.getDate() && dateObj.getMonth() === baseDate.getMonth();
+                        }
                         return false;
                     }
 
@@ -804,6 +797,7 @@
                             booker: booker,
                             title: title,
                             room: r.name,
+                            roomId: r.id,
                             term: term,
                             date: dateRangeStr,
                             time: timeRangeStr,

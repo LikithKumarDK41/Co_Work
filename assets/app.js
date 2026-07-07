@@ -108,7 +108,7 @@ async function ensureMockDatabaseInitialized() {
         try {
             const parsed = JSON.parse(db);
             const todayFormatted = new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
-            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 12 && parsed.visitors.some(v => v.name === "Amit Sharma") && parsed.bookings && parsed.bookings.some(b => b.memberName === "Narendra Kumar" && b.roomName === "Meeting Room 1" && b.date === todayFormatted)) {
+            if (parsed && parsed.members && parsed.members.length >= 145 && parsed.visitors && parsed.visitors.length >= 12 && parsed.visitors.some(v => v.status === "Checked-In") && parsed.visitors.some(v => v.name === "Amit Sharma") && parsed.bookings && parsed.bookings.some(b => b.memberName === "Narendra Kumar" && b.roomName === "Meeting Room 1" && b.date === todayFormatted)) {
                 return parsed;
             }
         } catch (e) {
@@ -552,10 +552,109 @@ function initializePageMockData(pageKey) {
             const card = visitorsLabel.closest('div').parentElement;
             const valEl = card.querySelector('.text-4xl, span[class*="text-slate-900"]');
             if (valEl) valEl.textContent = db.visitors.length;
-            const subtext = card.querySelector('.text-emerald-600, .text-xs, div');
+            const subtext = card.querySelector('.mt-2');
             if (subtext) {
                 const expectedCount = db.visitors.filter(v => v.status === 'Expected').length;
                 subtext.innerHTML = `<span class="material-symbols-outlined text-[16px]">trending_up</span><span class="font-medium text-xs">+${expectedCount} expected later</span>`;
+            }
+        }
+
+        const roomsLabel = spans.find(s => s.textContent.trim() === 'Available Rooms');
+        if (roomsLabel) {
+            const card = roomsLabel.closest('div').parentElement;
+            let roomsList = [];
+            try {
+                const stored = sessionStorage.getItem("rooms_list");
+                if (stored) roomsList = JSON.parse(stored);
+            } catch (e) {}
+            if (!roomsList || roomsList.length === 0) {
+                roomsList = Array(6).fill({});
+            }
+            
+            function isTimeSlotActive(slotStr) {
+                if (!slotStr) return false;
+                const parts = slotStr.split(" - ");
+                if (parts.length !== 2) return false;
+                
+                const now = new Date();
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                
+                function parseTimeToMinutes(tStr) {
+                    const clean = tStr.trim();
+                    const match = clean.match(/^(\d+):(\d+)\s*(AM|PM)$/i);
+                    if (!match) return 0;
+                    let hrs = parseInt(match[1]);
+                    const mins = parseInt(match[2]);
+                    const meridian = match[3].toUpperCase();
+                    if (meridian === "PM" && hrs !== 12) hrs += 12;
+                    if (meridian === "AM" && hrs === 12) hrs = 0;
+                    return hrs * 60 + mins;
+                }
+                
+                const startMins = parseTimeToMinutes(parts[0]);
+                const endMins = parseTimeToMinutes(parts[1]);
+                return currentMinutes >= startMins && currentMinutes < endMins;
+            }
+            
+            const activeBookings = db.bookings.filter(b => b.status === "Approved" && b.timeSlot && b.roomName && isTimeSlotActive(b.timeSlot));
+            const occupiedRoomNames = new Set(activeBookings.map(b => b.roomName.toLowerCase()));
+            
+            let availableCount = 0;
+            roomsList.forEach(r => {
+                const name = (r.name || "").toLowerCase();
+                if (name && !occupiedRoomNames.has(name)) {
+                    availableCount++;
+                }
+            });
+            const totalRooms = roomsList.length || 6;
+            
+            const now = new Date();
+            const currentMins = now.getHours() * 60 + now.getMinutes();
+            let nextBookingStartMins = Infinity;
+            
+            db.bookings.forEach(b => {
+                if (b.status !== "Approved") return;
+                const slot = b.timeSlot;
+                if (!slot) return;
+                const parts = slot.split(" - ");
+                if (parts.length === 2) {
+                    const clean = parts[0].trim();
+                    const match = clean.match(/^(\d+):(\d+)\s*(AM|PM)$/i);
+                    if (match) {
+                        let hrs = parseInt(match[1]);
+                        const mins = parseInt(match[2]);
+                        const meridian = match[3].toUpperCase();
+                        if (meridian === "PM" && hrs !== 12) hrs += 12;
+                        if (meridian === "AM" && hrs === 12) hrs = 0;
+                        const startMins = hrs * 60 + mins;
+                        if (startMins > currentMins && startMins < nextBookingStartMins) {
+                            nextBookingStartMins = startMins;
+                        }
+                    }
+                }
+            });
+            
+            const availVal = card.querySelector('.text-4xl');
+            const totalVal = card.querySelector('.text-xl');
+            if (availVal) availVal.textContent = availableCount;
+            if (totalVal) totalVal.textContent = `/ ${totalRooms}`;
+            
+            const subtext = card.querySelector('.mt-3');
+            if (subtext) {
+                if (nextBookingStartMins !== Infinity) {
+                    const diffMins = nextBookingStartMins - currentMins;
+                    let timeStr = "";
+                    if (diffMins >= 60) {
+                        const hrs = Math.floor(diffMins / 60);
+                        const mins = diffMins % 60;
+                        timeStr = `${hrs}h ${mins}m`;
+                    } else {
+                        timeStr = `${diffMins}m`;
+                    }
+                    subtext.innerHTML = `<span class="material-symbols-outlined text-[16px]">schedule</span><span class="font-medium text-xs">Next booking in ${timeStr}</span>`;
+                } else {
+                    subtext.innerHTML = `<span class="material-symbols-outlined text-[16px]">schedule</span><span class="font-medium text-xs">No more bookings today</span>`;
+                }
             }
         }
 
