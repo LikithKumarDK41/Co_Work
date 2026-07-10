@@ -13,7 +13,7 @@ This is a fully integrated, template-based mockup system for the CoWork Manager 
 5. Use the sidebar to navigate between different modules
 
 ### User Flow
-- **Login**: `login_co_work_manager_1/code.html`
+- **Login**: `login_v1/code.html`
 - **Dashboard**: Dashboard overview with KPIs
 - **Users**: User management interface
 - **Rooms**: Meeting room management

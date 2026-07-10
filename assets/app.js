@@ -455,7 +455,7 @@ function logout() {
     if (confirm('Are you sure you want to logout?')) {
         localStorage.removeItem('coworkUserLoggedIn');
         localStorage.removeItem('coworkUserEmail');
-        window.location.href = '../login_co_work_manager_1/code.html';
+        window.location.href = '../login_v1/code.html';
     }
 }
 
